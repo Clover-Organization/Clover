@@ -1,0 +1,32 @@
+main.errorPage404Main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+div.errorDiv {
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+    position: relative;
+    z-index: 1000;
+}
+
+div.errorDiv>img {
+    width: 300px;
+}
+
+div.WelcomeDescWaveError {
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+}
+
+section.sectionError404{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}

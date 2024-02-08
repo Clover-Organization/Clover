@@ -1,0 +1,98 @@
+import { useDropzone } from "react-dropzone";
+import InputField from "../../../../../home/components/inputField/InputField";
+import { handleInputBlur, handleInputFocus } from "../../../../../home/components/utils/handleInput/HandleInput";
+import { uploadFolder } from "../../../utils/uploadFolder/UploadFolder";
+import { useState } from "react";
+import { uploadFilesIntoFolder } from "../../../utils/uploadsFilesIntoFolder/UploadFilesIntoFolder";
+
+const DropZoneFolderView = ({ token, idProject, idFolder }) => {
+    const [loading, setLoading] = useState(false);
+    const [acceptedFoldersAndFiles, setAcceptedFoldersAndFiles] = useState([]);
+
+    const onDrop = (acceptedFiles) => {
+        setAcceptedFoldersAndFiles(acceptedFiles);
+    };
+
+    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+    const hasFolder = acceptedFoldersAndFiles.some((file) => file.path && file.path.includes('/'));
+
+    const upload = async () => {
+        setLoading(true);
+        if (hasFolder) {
+            await uploadFolder(token, idProject, acceptedFoldersAndFiles, idFolder);
+        } else {
+            await uploadFilesIntoFolder(token, idProject, acceptedFoldersAndFiles, idFolder);
+        }
+
+        setLoading(false);
+        clearFiles();
+    };
+
+    const clearFiles = () => {
+        setAcceptedFoldersAndFiles([]);
+    };
+
+    const inferFolders = () => {
+        const folders = new Set();
+
+        acceptedFoldersAndFiles.forEach((item) => {
+            if (item.path) {
+                const pathComponents = item.path.split('/');
+                pathComponents.pop(); // Remove o nome do arquivo para obter o caminho da pasta
+
+                // Adiciona cada componente do caminho como um possível folder, ignorando strings vazias
+                pathComponents.forEach((component) => {
+                    if (component.trim() !== '') {
+                        folders.add(component);
+                    }
+                });
+            }
+        });
+
+        return Array.from(folders);
+    };
+
+    const allFolders = inferFolders();
+    const firstFolder = allFolders.length > 0 ? allFolders[0] : null;
+
+    return (
+        <div className="zone">
+            {loading && (
+                <div className="loading-container">
+                    <div className="spinner"></div>
+                </div>
+            )}
+            <div {...getRootProps()}>
+                <div className="dropzone">
+                    <input {...getInputProps()} />
+                    <p>Arraste e solte arquivos aqui ou clique para selecionar.</p>
+                </div>
+            </div>
+            {acceptedFoldersAndFiles.length > 0 && (
+                <div className="upload-files">
+                    <div className="uploadBtn">
+                        <p>Arquivos e pastas Aceitos</p>
+                        <div className="addBtn">
+                            <button onClick={() => upload()}>Upload</button>
+                        </div>
+                    </div>
+                    {allFolders.length > 0 && (
+                        <ul>
+                            {allFolders.map((folder, index) => (
+                                <li key={index}>{folder}</li>
+                            ))}
+                        </ul>
+                    )}
+                    <ul>
+                        {acceptedFoldersAndFiles.map((item, index) => (
+                            <li key={index}>{item.name}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default DropZoneFolderView;

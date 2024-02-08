@@ -1,0 +1,41 @@
+{
+  "name": "meu-projeto-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
+    "react-draggable": "^4.4.6",
+    "react-dropzone": "^14.2.3",
+    "react-quill": "^2.0.0",
+    "react-resizable": "^3.0.5",
+    "react-router-dom": "^6.21.0",
+    "scrollreveal": "^4.0.9",
+    "socket.io": "^4.7.2",
+    "sockjs-client": "^1.6.1",
+    "sql-formatter": "^15.1.2",
+    "stompjs": "^2.3.3",
+    "sweetalert2": "^11.10.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "prettier": "^3.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite": "^5.0.10"
+  }
+}

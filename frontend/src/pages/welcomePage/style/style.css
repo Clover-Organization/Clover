@@ -1,0 +1,554 @@
+:root {
+  --main-bg-color: #000;
+  --main-text-color: #1fdf64;
+  --accent-color: #1fdf64;
+  --secondary-text-color: white;
+  --secondary-bg-color: #111 --hover-color: green;
+}
+
+main.welcomeMain {
+  background-color: var(--main-bg-color);
+  color: white;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+div.logoWelcomeTxt {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 5px;
+  position: absolute;
+  z-index: 999;
+}
+
+div.logoWelcomeTxt > img {
+  width: 40px;
+}
+
+div.logoWelcomeTxt h1 {
+  color: var(--accent-color);
+  font-size: 20px;
+}
+
+/* === CSS Page welcomeIntro ===*/
+
+section.welcomeIntroSection {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+section.welcomeIntroSection > article.welcomeIntroArticle {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+section.welcomeIntroSection > article > img {
+  background-color: var(--secondary-bg-color);
+  border-radius: 5rem;
+  margin: 3rem;
+  height: 350px;
+}
+
+div.welcomeTxt {
+  color: var(--main-text-color);
+  display: grid;
+  place-items: center;
+  font-size: 50px;
+  width: 40%;
+}
+
+div.btnTxt {
+  padding: 20px;
+}
+
+div.btnTxt > a {
+  display: contents;
+}
+
+/* div.btnTxt > a > button {
+  cursor: pointer;
+  background-color: var(--main-text-color);
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  padding: 12px;
+  inline-size: 150px;
+  transition: all 0.5s ease-in-out;
+} */
+
+/* div.btnTxt > a > button:hover {
+  transform: scale(1.1);
+  border: solid 1px white;
+  filter: drop-shadow(0px 0px 10px var(--hover-color));
+} */
+
+div.setaWelcomeIntro {
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+div.setaWelcomeIntro:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0px 0px 20px var(--hover-color));
+}
+
+div.setaWelcomeIntro img {
+  width: 40px;
+}
+
+/* === CSS page WelcomeDescri ===*/
+
+section.WelcomeDescSection {
+  background-color: var(--secondary-bg-color);
+}
+
+article.WelcomeDescArticle {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  z-index: 1000;
+}
+
+article.WelcomeDescArticle > img {
+  height: 450px;
+}
+
+div.TxtWelcomeDesc {
+  width: 30%;
+}
+
+div.TxtWelcomeDesc > h2 {
+  font-size: 30px;
+  color: var(--main-text-color);
+}
+
+div.TxtWelcomeDesc > span {
+  font-size: 25px;
+}
+
+div.WelcomeDescWave {
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+div.centerBalance {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+div.WelcomeDescBalance {
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  width: 30%;
+  text-align: center;
+}
+
+/* === CSS page WelcomeService === */
+
+.Welcome-service-section {
+  background-color: var(--secondary-bg-color);
+}
+
+article.WelcomeServiceArticle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1000;
+}
+
+.title-service {
+  position: relative;
+  z-index: 1000;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+div.TxtWelcomeServices {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 30rem;
+}
+
+div.TxtWelcomeServices > h2 {
+  font-size: 30px;
+  color: rgb(160, 160, 160);
+  text-shadow: 0px 0px 0px black;
+}
+
+div.TxtWelcomeServices > span {
+  padding: 1rem;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* === CSS Page WelcomeTecno === */
+
+h2 {
+  color: var(--main-text-color);
+}
+
+.welcome-tecno-Article {
+  display: grid;
+  place-items: center;
+}
+
+.tecno-img {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 200px;
+}
+
+.tecno-img > img {
+  width: 100px;
+  height: 100px;
+}
+
+div.perfilGitHub {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  gap: 30px;
+}
+
+div.perfilGitHub > a {
+  display: contents;
+}
+
+div.perfilGitHub img:hover {
+  transform: scale(1.1);
+}
+
+div.perfilGitHub img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+}
+
+/* === CSS Responsividade === */
+
+@media (max-width: 765px) {
+  section.welcomeIntroSection > article > img {
+    width: 70%;
+    height: auto;
+  }
+
+  article.WelcomeDescArticle > img {
+    width: 80%;
+    height: auto;
+  }
+
+  div.welcomeTxt {
+    text-align: center;
+    width: 80%;
+  }
+
+  div.WelcomeDescBalance {
+    width: 90%;
+  }
+
+  article.welcomeIntroArticle {
+    flex-direction: column-reverse;
+  }
+
+  div.centerBalance {
+    padding: 0;
+  }
+
+  article.WelcomeDescArticle {
+    flex-wrap: wrap;
+  }
+
+  section.WelcomeDescSection {
+    height: 100%;
+    width: 100%;
+    display: grid;
+  }
+
+  article.WelcomeServiceArticle {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 10px;
+  }
+
+  .TxtWelcomeServices {
+    flex: 0 0 auto;
+    width: 300px;
+    margin-right: 10px;
+    scroll-snap-align: start;
+  }
+}
+
+/* ---- CSS Style Button Start ---- */
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 16px;
+  background-color: inherit;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #1fdf64;
+  box-shadow: 0 0 0 2px #1fdf64;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: #1fdf64;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #1fdf64;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: #212121;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px #1fdf64;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
+/* ---- CSS Responsive ----*/
+@media (max-width: 620px) {
+  div.TxtWelcomeDesc > span {
+    font-size: 20px;
+  }
+
+  div.welcomeTxt {
+    font-size: 40px;
+  }
+
+  div.WelcomeDescBalance {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  div.TxtWelcomeDesc > h2 {
+    font-size: 25px;
+  }
+
+  div.TxtWelcomeDesc {
+    width: 40%;
+    text-align: center;
+  }
+
+  div.TxtWelcomeDesc > span {
+    font-size: 18px;
+  }
+
+  div.WelcomeDescBalance {
+    font-size: 18px;
+  }
+
+  div.welcomeTxt {
+    padding: 1rem;
+    width: auto;
+  }
+
+  div.WelcomeDescBalance > img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 320px) {
+  section.welcomeIntroSection > article > img {
+    border-radius: 2rem;
+  }
+
+  .tecno-img > img {
+    width: 45px;
+    height: 45px;
+  }
+
+  div.welcomeTxt {
+    padding: 1rem;
+    width: auto;
+    font-size: 25px;
+  }
+
+  div.TxtWelcomeDesc > span {
+    padding: 1rem;
+    font-size: 13px;
+  }
+
+  div.TxtWelcomeDesc {
+    padding: 5px;
+    width: auto;
+  }
+
+  div.WelcomeDescBalance {
+    width: auto;
+    margin: 1rem;
+    font-size: 13px;
+  }
+
+  div.TxtWelcomeServices > span {
+    padding: 2rem;
+    font-size: 18px;
+  }
+
+  div.WelcomeDescBalance > img {
+    width: 50px;
+    height: 50px;
+  }
+
+  div.perfilGitHub img {
+    width: 150px;
+    height: 150px;
+  }
+
+  div.TxtWelcomeDesc > h2 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  div.TxtWelcomeServices > h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 220px) {
+  section.welcomeIntroSection > article > img {
+    margin: 0;
+  }
+
+  div.welcomeTxt {
+    font-size: 20px;
+  }
+
+  div.TxtWelcomeDesc > span {
+    font-size: 15px;
+  }
+
+  div.WelcomeDescBalance > span {
+    font-size: 15px;
+  }
+
+  section.welcomeIntroSection > article > img {
+    width: 190px;
+    height: 190px;
+  }
+
+  article.WelcomeDescArticle > img {
+    width: 190px;
+    height: 190px;
+  }
+
+  div.perfilGitHub img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 180px) {
+  div.logoWelcomeTxt {
+    gap: 5px;
+  }
+
+  div.logoWelcomeTxt > img {
+    width: 30px;
+  }
+
+  div.welcomeTxt {
+    font-size: 15px;
+  }
+
+  div.TxtWelcomeDesc > span {
+    font-size: 12px;
+  }
+
+  div.WelcomeDescBalance > span {
+    font-size: 12px;
+  }
+
+  section.welcomeIntroSection > article > img {
+    width: 170px;
+    height: 170px;
+  }
+
+  article.WelcomeDescArticle > img {
+    width: 170px;
+    height: 170px;
+  }
+}
