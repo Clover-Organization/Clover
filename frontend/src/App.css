@@ -83,21 +83,21 @@ div.headerLogoName {
   gap: var(--padding-medium);
 }
 
-div.headerLogoName > a {
+div.headerLogoName>a {
   text-decoration: none;
 }
 
-div.headerLogoName > div.userPerfil h1 {
+div.headerLogoName>div.userPerfil h1 {
   font-size: 20px;
   color: var(--text-color);
 }
 
-div.headerLogoName > div.userPerfil a {
+div.headerLogoName>div.userPerfil a {
   display: contents;
   text-decoration: none;
 }
 
-div.userPerfil > a > img {
+div.userPerfil>a>img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -109,25 +109,25 @@ div.userPerfil {
   gap: var(--padding-medium);
 }
 
-div.headerLogoName > a > img {
+div.headerLogoName>a>img {
   width: 40px;
 }
 
 nav.show {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: var(--padding-medium);
   box-shadow: inset 0 -1px #222;
-  padding: 0.5rem;
+  padding: 10px;
 }
 
-nav.show > ul {
+nav.show>ul {
   display: flex;
   gap: 2rem;
-  justify-content: space-around;
 }
 
-nav.show > ul > li {
+nav.show>ul>li {
   list-style: none;
 }
 
@@ -135,19 +135,19 @@ div.noActive {
   cursor: pointer;
 }
 
-nav.show > ul > li a,
 nav.show a,
 .aside-ul-settings-content a {
   text-decoration: none;
   color: var(--text-color);
   position: relative;
-  padding: 0.5rem;
+  padding: 10px;
+
 }
 
-nav.show > ul > li a.noActive::after,
+nav.show>ul>li a.noActive::after,
 .aside-ul-settings-content a.noActive::after,
 nav.show a::after,
-nav.show > ul > li a.active::after,
+nav.show>ul>li a.active::after,
 a.active::after {
   content: "";
   position: absolute;
@@ -160,12 +160,12 @@ a.active::after {
   transition: width var(--transition-duration) var(--transition-easing);
 }
 
-nav.show > ul > li a.active::after,
+nav.show>ul>li a.active::after,
 a.active::after {
   width: 100%;
 }
 
-nav > ul > li a.noActive:hover::after,
+nav>ul>li a.noActive:hover::after,
 nav.show a.noActive:hover::after,
 .aside-ul-settings-content a.noActive:hover::after {
   width: 100%;
@@ -229,7 +229,7 @@ div.btnModalClose {
     padding-bottom: 1rem;
   }
 
-  header > div.headerLogoName > a {
+  header>div.headerLogoName>a {
     gap: 0;
   }
 
@@ -237,11 +237,11 @@ div.btnModalClose {
     position: relative;
   }
 
-  div.headerLogoName > a > h1 {
+  div.headerLogoName>a>h1 {
     display: none;
   }
 
-  div.headerLogoName > a > img {
+  div.headerLogoName>a>img {
     display: none;
   }
 
@@ -255,7 +255,7 @@ div.btnModalClose {
     padding: 0;
   }
 
-  nav.show > ul > li a,
+  nav.show>ul>li a,
   nav.show a,
   a.active {
     padding: 0;
@@ -278,7 +278,7 @@ section.homeSection {
   height: 100%;
 }
 
-div.wave > img {
+div.wave>img {
   position: absolute;
   z-index: 0;
 }
@@ -304,8 +304,8 @@ div.lupaSearch-projects {
   gap: var(--padding-small);
 }
 
-div.lupaSearch > input,
-.lupaSearch-projects > input {
+div.lupaSearch>input,
+.lupaSearch-projects>input {
   width: 80%;
   padding: var(--padding-small);
   border-radius: var(--border-radius-small);
@@ -317,8 +317,8 @@ div.lupaSearch > input,
   text-indent: var(--padding-large);
 }
 
-.lupaSearch > input:focus,
-.lupaSearch-projects > input:focus {
+.lupaSearch>input:focus,
+.lupaSearch-projects>input:focus {
   border: solid 1px var(--focus-color);
 }
 
@@ -327,16 +327,16 @@ div.lupa {
   align-items: center;
 }
 
-div.lupaSearch > div.lupa > img,
-.lupaSearch-projects > div.lupa > img {
+div.lupaSearch>div.lupa>img,
+.lupaSearch-projects>div.lupa>img {
   width: 50px;
   padding-inline: var(--padding-medium);
   position: absolute;
   z-index: 999;
 }
 
-div.addBtn > button,
-.addBtn-project > button {
+div.addBtn>button,
+.addBtn-project>button {
   font-weight: bold;
   background-color: var(--primary-color);
   padding: var(--padding-small);
@@ -346,18 +346,18 @@ div.addBtn > button,
   border: none;
 }
 
-div.addBtn > button:hover,
-.addBtn-project > button:hover {
+div.addBtn>button:hover,
+.addBtn-project>button:hover {
   background-color: #22fa71ec;
 }
 
-div.addBtn > button:focus,
-.addBtn-project > button:focus {
+div.addBtn>button:focus,
+.addBtn-project>button:focus {
   outline: none;
   border: solid 1px rgb(255, 255, 255);
 }
 
-div.subNav > div.more > img {
+div.subNav>div.more>img {
   width: 30px;
 }
 
@@ -425,7 +425,7 @@ div.txtAlignTool a {
   text-decoration: none;
 }
 
-div.toolTitle > h2 {
+div.toolTitle>h2 {
   font-size: var(--font-size-medium);
   white-space: nowrap;
   overflow: hidden;
@@ -433,16 +433,16 @@ div.toolTitle > h2 {
   max-width: 18rem;
 }
 
-div.toolTitle > p > span {
+div.toolTitle>p>span {
   color: var(--text-color);
 }
 
-div.toolTitle > p {
+div.toolTitle>p {
   color: rgba(128, 128, 128, 0.658);
   font-size: var(--font-size-small);
 }
 
-div.dateStatusTool > p {
+div.dateStatusTool>p {
   font-size: var(--font-size-small);
 }
 
@@ -460,15 +460,15 @@ div.tool:hover {
   transform: scale(1.1);
 }
 
-div.tool > p {
+div.tool>p {
   font-weight: bold;
 }
 
-div.homeDescript > div.more {
+div.homeDescript>div.more {
   padding: var(--gap-tiny);
 }
 
-div.boxTools > a {
+div.boxTools>a {
   text-decoration: none;
   color: var(--text-color-dark);
   display: contents;
@@ -482,8 +482,8 @@ div.btnSave,
   justify-content: center;
 }
 
-div.btnSave > button,
-.btnFinish > button {
+div.btnSave>button,
+.btnFinish>button {
   background-color: var(--primary-color);
   font-weight: bold;
   font-size: var(--font-size-small);
@@ -499,14 +499,14 @@ div.btnSave > button,
   padding: var(--padding-small);
 }
 
-div.btnSave > button.deleteBtn:hover {
+div.btnSave>button.deleteBtn:hover {
   color: var(--text-color);
   background-color: red;
   transform: scale(1.1);
 }
 
-div.btnSave > button:hover,
-.btnFinish > button:hover {
+div.btnSave>button:hover,
+.btnFinish>button:hover {
   color: var(--text-color);
   background-color: #1fdf65c7;
   transform: scale(1.1);
@@ -527,7 +527,7 @@ select.selectHome {
   place-items: center;
 }
 
-.singleRequest > div {
+.singleRequest>div {
   width: 21rem;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -535,11 +535,11 @@ select.selectHome {
   padding: var(--padding-medium);
 }
 
-.singleRequest > div > span {
+.singleRequest>div>span {
   color: var(--primary-color);
 }
 
-.singleRequest > span {
+.singleRequest>span {
   color: var(--primary-color);
 }
 
@@ -572,12 +572,12 @@ select.selectHome {
   color: red;
 }
 
-p.status > span {
+p.status>span {
   font-size: var(--font-size-small);
 }
 
 select.selectFilterPriority,
-select.selectFilterPriority > option {
+select.selectFilterPriority>option {
   color: var(--text-color);
   background-color: var(--background-color);
   border: solid 2px var(--secondary-color);
@@ -589,11 +589,11 @@ div.filter {
   cursor: pointer;
 }
 
-div.filter > img {
+div.filter>img {
   filter: invert(1);
 }
 
-div.filter > img:hover {
+div.filter>img:hover {
   transition: all 0.5s ease-in-out;
   filter: invert(0);
 }
@@ -602,7 +602,7 @@ div.statusFilter {
   display: grid;
 }
 
-div.filterStatusConfig > label,
+div.filterStatusConfig>label,
 label.selectFilterPriority {
   color: var(--primary-color);
 }
@@ -631,7 +631,7 @@ div.page {
   width: 100%;
 }
 
-div.page > button {
+div.page>button {
   cursor: pointer;
   background-color: var(--primary-color);
   font-weight: bold;
@@ -642,7 +642,7 @@ div.page > button {
   transition: all 0.5s ease-in-out;
 }
 
-div.page > button:hover {
+div.page>button:hover {
   background-color: #0e9a41;
   transform: scale(1.1);
 }
@@ -677,7 +677,7 @@ div.page > button:hover {
     height: 60vh;
   }
 
-  .singleRequest > p {
+  .singleRequest>p {
     padding: 1px;
   }
 
@@ -689,7 +689,7 @@ div.page > button:hover {
     display: none;
   }
 
-  div.toolTitle > h2 {
+  div.toolTitle>h2 {
     font-size: 15px;
     padding: 1rem;
     white-space: nowrap;
@@ -698,7 +698,7 @@ div.page > button:hover {
     max-width: 10rem;
   }
 
-  div.toolTitle > p {
+  div.toolTitle>p {
     font-size: 10px;
   }
 
@@ -721,7 +721,7 @@ div.page > button:hover {
     filter: brightness(0.5);
   }
 
-  div.tool > h2 {
+  div.tool>h2 {
     font-size: 20px;
   }
 
@@ -831,8 +831,8 @@ div.image {
   width: 100%;
 }
 
-.userImage > div.image > img,
-.user-image-update > div.image > img {
+.userImage>div.image>img,
+.user-image-update>div.image>img {
   width: 30vh;
   height: 30vh;
   border-radius: 50%;
@@ -911,16 +911,16 @@ div.image {
 }
 
 @media (max-width: 420px) {
-  .information-user-content > div span {
+  .information-user-content>div span {
     font-size: 16px;
   }
 
-  .information-user-content > div p {
+  .information-user-content>div p {
     font-size: 14px;
   }
 
-  .userImage > div.image > img,
-  .user-image-update > div.image > img {
+  .userImage>div.image>img,
+  .user-image-update>div.image>img {
     width: 15vh;
     height: 15vh;
   }
@@ -935,17 +935,17 @@ div.image {
   padding: var(--padding-large);
 }
 
-.excel-file-generator > h3 {
+.excel-file-generator>h3 {
   color: var(--primary-color);
   font-weight: normal;
 }
 
-.excel-file-generator > span {
+.excel-file-generator>span {
   color: var(--text-color);
 }
 
-.downloadBtn > button,
-.desactiveBtn > button {
+.downloadBtn>button,
+.desactiveBtn>button {
   position: relative;
   padding: var(--padding-small);
   border-radius: var(--border-radius-small);
@@ -956,11 +956,11 @@ div.image {
   inline-size: 10rem;
 }
 
-.desactiveBtn > button {
+.desactiveBtn>button {
   background-color: #1fdf6588;
 }
 
-.downloadBtn > button:hover {
+.downloadBtn>button:hover {
   background-color: #1fdf65dc;
   transform: scale(1.1);
 }
@@ -972,8 +972,7 @@ hr {
 }
 
 /* === PROJECT CSS === */
-.main-project-content {
-}
+.main-project-content {}
 
 .article-project-content {
   width: 100%;
@@ -996,8 +995,8 @@ hr {
   justify-content: space-between;
 }
 
-.nav-project > h2,
-.file-nav > h2 {
+.nav-project>h2,
+.file-nav>h2 {
   width: 30vh;
 }
 
@@ -1005,7 +1004,7 @@ hr {
   width: 100%;
 }
 
-.addBtn-project > button {
+.addBtn-project>button {
   inline-size: auto;
   font-weight: bolder;
 }
@@ -1134,12 +1133,12 @@ pre {
   justify-content: space-between;
 }
 
-.file-folder-content > span {
+.file-folder-content>span {
   color: rgba(128, 128, 128, 0.658);
 }
 
 @media (max-width: 725px) {
-  .nav-project > h2 {
+  .nav-project>h2 {
     width: 50%;
   }
 
@@ -1278,7 +1277,7 @@ pre {
   display: flex;
 }
 
-.section-annotation-content > img {
+.section-annotation-content>img {
   width: 20px;
   height: 20px;
   background-color: var(--box-shadow-color);
@@ -1318,7 +1317,7 @@ pre {
 }
 
 .ul-annotation-content {
-    width: max-content;
+  width: max-content;
 }
 
 .ul-annotation-content div {

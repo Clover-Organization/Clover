@@ -23,8 +23,8 @@ const Navbar = ({ idProject }) => {
     fetchRequestById(token, idProject, setSingleRequest);
   }, [token]);
 
-  useEffect(() => {}, [userData.profileImage]);
-
+  useEffect(() => { }, [userData.profileImage]);
+  
   return (
     <header>
       <nav className="navSup">

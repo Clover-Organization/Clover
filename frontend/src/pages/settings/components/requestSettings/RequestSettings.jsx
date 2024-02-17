@@ -3,7 +3,7 @@ import UpdateRequest from '../../../home/components/updateRequest/UpdateRequest'
 import Modal from '../../../components/Modal';
 import { updateRequest } from '../../../home/components/utils/updateRequest/UpdateRequest';
 import DeleteRequestConfirmation from '../../../home/components/deleteRequestConfirmation/deleteRequestConfirmation';
-import { closeModalConfirm, closeModalDelete, closeModalUpdate, openModalConfirm, openModalUpdate } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
+import { closeModalConfirm, closeModalDelete, closeModalUpdate, openModalConfirm } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
 import { fetchRequestById } from '../../../home/components/utils/fetchRequestById/fetchRequestById';
 import RequestDetails from '../../../home/components/requestDetails/RequestDetails';
 import { deleteRequest } from '../../../home/components/utils/deleteRequest/DeleteRequest';
