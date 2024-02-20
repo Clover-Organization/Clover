@@ -20,8 +20,8 @@ import Annotation from "./pages/annotation/Annotation.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProtectedRoute element={App} />,
-    // element: <App />,
+    // element: <ProtectedRoute element={App} />,
+    element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
