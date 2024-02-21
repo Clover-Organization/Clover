@@ -8,6 +8,7 @@ import { handleInputBlur, handleInputFocus } from '../../../home/components/util
 import { updateAnnotation } from '../utils/updateAnnotation/UpdateAnnotation';
 
 const AsideAnnotation = ({ idProject, singleRequest, setSelectedAnnotation }) => {
+
     // Recupera o valor de 'count' do localStorage ou define como 0 se não existir
     const initialCount = parseInt(localStorage.getItem('count')) || 0;
     const [count, setCount] = useState(initialCount);

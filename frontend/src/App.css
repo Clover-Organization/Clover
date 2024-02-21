@@ -341,7 +341,7 @@ div.addBtn>button,
   background-color: var(--primary-color);
   padding: var(--padding-small);
   border-radius: var(--border-radius-small);
-  inline-size: 7rem;
+  inline-size: 6rem;
   cursor: pointer;
   border: none;
 }
@@ -355,6 +355,12 @@ div.addBtn>button:focus,
 .addBtn-project>button:focus {
   outline: none;
   border: solid 1px rgb(255, 255, 255);
+}
+
+.btnAlign-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 div.subNav>div.more>img {
@@ -406,8 +412,9 @@ div.tool {
 
 .box-status-priority-image-content {
   display: flex;
-  max-width: 100%;
   justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
 }
 
 .box-status-priority-image-content img {
@@ -425,7 +432,7 @@ div.txtAlignTool a {
   text-decoration: none;
 }
 
-div.toolTitle>h2 {
+div.toolTitle h2 {
   font-size: var(--font-size-medium);
   white-space: nowrap;
   overflow: hidden;
@@ -446,8 +453,8 @@ div.dateStatusTool>p {
   font-size: var(--font-size-small);
 }
 
-div.toolTitle,
-div.dateStatusTool {
+div.toolTitle {
+  display: grid;
   padding: var(--padding-small);
 }
 
