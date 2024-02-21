@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserRepository extends MongoRepository<Users ,String> {
     UserDetails findByUsername(String username);
-    
+
     @Query("{ 'username' : ?0 }")
     Users findByUsernameForgot(String username);
 
