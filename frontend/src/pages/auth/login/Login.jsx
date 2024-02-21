@@ -115,7 +115,7 @@ const Login = ({ toggleForm }) => {
         <fieldset className="authFieldsetLogin">
           <img src={img} alt="authentication" />
           <form onSubmit={handleSubmit} className="authForm">
-            <div className="authFieldLogin">
+            <div className="authField auth">
               <label
                 id="usernameLabel"
                 className={username ? "active" : ""}
@@ -132,7 +132,7 @@ const Login = ({ toggleForm }) => {
                 onMouseLeave={() => handleInputBlur("usernameLabel")}
               />
             </div>
-            <div className="authField">
+            <div className="authField auth">
               <label
                 id="passwordLabel"
                 className={password ? "active" : ""}
@@ -140,7 +140,7 @@ const Login = ({ toggleForm }) => {
               >
                 Password
               </label>
-              <div className="togglePassword">
+              <div className="togglePassword auth">
                 <span onClick={handleTogglePassword}>
                   {showPassword ? (
                     <img src={openEye} alt="Open Eye" />
