@@ -12,11 +12,11 @@ import { closeModal } from "../home/components/utils/ModalFunctions/ModalFunctio
 import DropFileZone from "./components/drop-files/DropFilesZone";
 import { getCommitsByProject } from "./components/utils/getCommitsByProject/GetCommitsByProject";
 import FolderContent from "./components/folder-content/FolderContent";
+import GetLanguageInfos from "./components/utils/getLanguageInfo/GetLanguageInfos";
 
 const Project = () => {
   const token = localStorage.getItem("token");
   const { idProject } = useParams();
-
   const [singleRequest, setSingleRequest] = useState({});
   const [commitsRequest, setCommitsRequest] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -78,18 +78,20 @@ const Project = () => {
                           file.fileName &&
                           file.fileName.includes(searchTerm)
                       )
-                      .map((file, index) => (
-                        <React.Fragment key={index}>
-                          <Link
-                            to={`/project/file/${idProject}/${file.idFile}`}
-                          >
-                            <div className="file-content">
-                              <FileContent item={file} token={token} />
-                            </div>
-                          </Link>
-                          <hr className="hr-project-title" />
-                        </React.Fragment>
-                      ))}
+                      .map((file, index) => {
+                        return (
+                          <React.Fragment key={index}>
+                            <Link
+                              to={`/project/file/${idProject}/${file.idFile}`}
+                            >
+                              <div className="file-content">
+                                <FileContent item={file} imgIcon={GetLanguageInfos(file.fileName).imgUrl} token={token} />
+                              </div>
+                            </Link>
+                            <hr className="hr-project-title" />
+                          </React.Fragment>
+                        );
+                      })}
 
                   {Array.isArray(singleRequest.folder) &&
                     singleRequest.folder.length > 0 &&
