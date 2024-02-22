@@ -7,13 +7,13 @@ import {
 } from "../../home/components/utils/handleInput/HandleInput";
 
 import imgError from "../assets/icons8-erro-48 (1).png";
-import img from "../assets/aboutImg.png";
 import wave from "../assets/wave.svg";
 import openEye from "../assets/openEye.png";
 import closeEye from "../assets/closeEye.png";
 import user from "../assets/user.png";
 
 const Register = ({ toggleForm }) => {
+
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -45,7 +45,6 @@ const Register = ({ toggleForm }) => {
     if (validateInputs()) {
       if (password === confirmPassword) {
         await cadastrar();
-        limpar();
       } else {
         // Exibe um erro indicando que as senhas não coincidem
         setErrors([
@@ -85,6 +84,19 @@ const Register = ({ toggleForm }) => {
     return true;
   };
 
+  const getUserFile = async (userImagePath) => {
+    const response = await fetch(userImagePath);
+    const blob = await response.blob();
+
+    // Extrai o nome do arquivo do caminho
+    const fileName = userImagePath.split('/').pop();
+
+    // Cria o objeto File
+    const userFile = new File([blob], fileName, { type: blob.type });
+
+    return userFile;
+  };
+
   const cadastrar = async () => {
     const userData = {
       username: username,
@@ -96,8 +108,13 @@ const Register = ({ toggleForm }) => {
       role: role,
     };
 
+    const userFile = await getUserFile(user);
+    console.log(userFile);
+
+
     const formData = new FormData();
-    formData.append("profileImage", profileImage);
+    formData.append("profileImage", profileImage ? profileImage : userFile);
+
     formData.append(
       "userData",
       new Blob([JSON.stringify(userData)], { type: "application/json" })
@@ -115,6 +132,7 @@ const Register = ({ toggleForm }) => {
           icon: "success",
           title: "Successful registration!",
         });
+        limpar();
       } else if (response.status === 400) {
         const errorData = await response.json();
         const errorArray = [];

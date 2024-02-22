@@ -21,8 +21,8 @@ public class EmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     public void enviarEmailRedefinirSenha(String destinatario, String token) {
-        String assunto = "Password Reset";
-        String corpo = "Use this token to change your password:\n" + token;
+        String assunto = "Reset your password";
+        String corpo = "Use this token to change your password:\n" + token + " \n\n Thanks,\n the Clover team!";
 
         logger.info("Enviando e-mail para: {}", destinatario);
         logger.debug("Assunto: {}", assunto);

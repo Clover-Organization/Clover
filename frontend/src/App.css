@@ -361,6 +361,7 @@ div.addBtn>button:focus,
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
 }
 
 div.subNav>div.more>img {
