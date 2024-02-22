@@ -13,6 +13,7 @@ import { handleInputBlur, handleInputFocus } from "../../../home/components/util
 import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
 import { deleteFileByIdFileAndIdProject } from "../utils/deleteFileByIdFileAndIdProject/deleteFileByIdFileAndIdProject";
 import { getCommitsByFiles } from "../utils/getCommitsByFiles/GetCommitsByFiles";
+import FileEditor from "../file-editor/FileEditor";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
@@ -102,6 +103,15 @@ const FileView = () => {
         });
     }
 
+    const [showFileEditor, setShowFileEditor] = useState(false);
+
+    const handleShowFileEditor = () => {
+        if (showFileEditor) {
+            setShowFileEditor(false);
+        } else {setShowFileEditor(true);}
+        
+    }
+
     return (
         <main className="main-file-view">
             <Navbar idProject={idProject} />
@@ -115,6 +125,7 @@ const FileView = () => {
                         showCommit={showCommitsSelected.commitMessage}
                         setShowCommits={setShowCommits}
                         setCommitNull={() => setShowCommitsSelected({ selectedCommit: false, commitMessage: "", changes: null })}
+                        handleShowFileEditor={handleShowFileEditor}
                     />
                 </nav>
 
@@ -164,14 +175,18 @@ const FileView = () => {
                                 </>
                             ) : (
                                 <>
-
-                                    {
+                                    
+                                    {showFileEditor ? (
+                                        <FileEditor
+                                            fileName={singleRequest.fileName}
+                                            fileContent={fileContent.data}
+                                        />
+                                    ) :
                                         fileContent.contentType === "image" ? (
                                             <div className="image-content">
                                                 <img src={fileContent.data} alt={singleRequest.fileName} />
                                             </div>
                                         ) : (
-
                                             <div className="file-content">
                                                 <pre className="pre-format">
                                                     {renderNumberedLines(fileContent.data)}
