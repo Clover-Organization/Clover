@@ -1101,7 +1101,7 @@ hr {
   text-decoration: none;
 }
 
-.projects-files-content span,
+.projects-files-content > span,
 pre {
   color: var(--text-color);
 }
@@ -1369,4 +1369,8 @@ pre {
   display: flex;
   justify-content: space-between;
   padding: var(--padding-small);
+}
+
+.monaco-editor .margin-view-overlays .line-numbers{
+  text-align: left !important;
 }
