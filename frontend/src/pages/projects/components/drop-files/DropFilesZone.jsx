@@ -20,7 +20,7 @@ const DropFileZone = ({ idProject, token }) => {
         setLoading(true);
 
         if (hasFolder) {
-            await uploadFolder(token, idProject, acceptedFoldersAndFiles);
+            await uploadFolder(token, idProject, acceptedFoldersAndFiles, null);
         } else {
             await uploadFiles(token, idProject, acceptedFoldersAndFiles);
         }
