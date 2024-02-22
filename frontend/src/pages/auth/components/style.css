@@ -469,6 +469,11 @@ strong::after {
 
 /* ---- Responsive ---- */
 @media (max-width: 765px) {
+
+  .btn.login>.ui-btn, .btn>.ui-btn {
+    padding: 8px 70px;
+  }
+
   main.authMain>div.WelcomeDescWave {
     display: none;
   }
