@@ -45,17 +45,39 @@ fieldset.authFieldset {
 
 
 fieldset.authFieldsetLogin {
-  width: 80%;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  place-items: center;
+  width: 35%;
+  height: 50%;
+  border-radius: 20px;
+  background: #3333338f;
   border: none;
 }
 
 form.authForm {
   display: grid;
   place-items: center;
+}
+
+form.authForm.login {
+  height: 100%;
+}
+
+.forgot-pass {
+  display: grid;
+
+}
+
+.forgot {
+  cursor: pointer;
+  font-size: 12px;
+  color: #1fdf64;
+  font-weight: bold;
+  padding: 0rem 1rem 0rem 1rem;
+}
+
+.forgot:hover {
+  color: #1fdf65e0;
 }
 
 fieldset.authFieldset>div.imgFront>img {
@@ -75,6 +97,11 @@ div.authField {
 
 div.authFieldLogin {
   padding: 3rem;
+}
+
+.align-input {
+  display: grid;
+  gap: 1.5rem;
 }
 
 div.authField>legend {
@@ -186,6 +213,11 @@ form.authForm>div.btn>a>span {
   cursor: pointer;
 }
 
+form.authForm>div.btn>a>span:hover {
+  color: #1fdf65e0;
+}
+
+
 div.modal {
   position: absolute;
   display: flex;
@@ -244,7 +276,8 @@ strong::after {
 }
 
 .imagePreview img {
-  width: 50%;
+  width: 500px;
+  max-width: 50%;
   border: dotted 2px grey;
   border-radius: 50%;
   cursor: pointer;
@@ -266,7 +299,7 @@ strong::after {
     inline-size: 12rem;
   }
 
-  .togglePassword.auth{
+  .togglePassword.auth {
     left: 11.9rem;
   }
 }
@@ -274,7 +307,7 @@ strong::after {
 /* ---- Button Register Style ---- */
 .ui-btn {
   --btn-default-bg: #1fdf64;
-  --btn-padding: 8px 70px;
+  --btn-padding: 8px 120px;
   --btn-hover-bg: rgb(51, 51, 51);
   --btn-transition: 0.3s;
   --btn-letter-spacing: 0.1rem;
@@ -436,6 +469,11 @@ strong::after {
 
 /* ---- Responsive ---- */
 @media (max-width: 765px) {
+
+  .btn.login>.ui-btn, .btn>.ui-btn {
+    padding: 8px 70px;
+  }
+
   main.authMain>div.WelcomeDescWave {
     display: none;
   }
