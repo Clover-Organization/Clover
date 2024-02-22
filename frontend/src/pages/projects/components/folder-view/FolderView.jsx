@@ -9,6 +9,7 @@ import Modal from "../../../components/Modal";
 import { closeModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
 import DropZoneFolderView from "./components/DropZoneFolderView/DropZoneFolderView";
 import FolderContent from "../folder-content/FolderContent";
+import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
 
 const FolderView = () => {
     const token = localStorage.getItem('token');
@@ -68,17 +69,17 @@ const FolderView = () => {
                                     {(Array.isArray(filesRequest.files) && filesRequest.files.length > 0) && (
                                         filesRequest.files
                                             .filter(file => file && file.fileName && file.fileName.includes(searchTerm))
-                                            .map((file, index) => (
+                                            .map((file, index) => {
+                                                return(
                                                 <React.Fragment key={index}>
                                                     <Link to={`/project/file/${idProject}/${file.idFile}/${idFolder}`}>
                                                         <div className="file-content">
-                                                            <FileContent item={file} token={token} />
+                                                            <FileContent item={file} imgIcon={GetLanguageInfos(file.fileName).imgUrl} token={token} />
                                                         </div>
                                                     </Link>
                                                     <hr className="hr-project-title" />
-                                                </React.Fragment>
-                                            ))
-                                    )}
+                                                </React.Fragment>)
+                                            }))}
 
                                     {(Array.isArray(filesRequest.subFolders) && filesRequest.subFolders.length > 0) && (
                                         filesRequest.subFolders
