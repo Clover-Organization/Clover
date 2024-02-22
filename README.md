@@ -4,7 +4,7 @@ Este repositório contém o código-fonte e a documentação do meu Trabalho de 
 
 ## Visão Geral 📚
 
-"Clover" é um projeto desenvolvido como parte do meu Trabalho de Conclusão de Curso (TCC), que tem como objetivo explorar e demonstrar a aplicação dos conceitos aprendidos durante o curso. A proposta do projeto é fornecer uma plataforma para [descreva brevemente a proposta do projeto].
+"Clover" é um projeto desenvolvido como parte do meu Trabalho de Conclusão de Curso (TCC), que tem como objetivo explorar e demonstrar a aplicação dos conceitos aprendidos durante o curso.
 
 ## Tecnologias Utilizadas 🛠️
 
