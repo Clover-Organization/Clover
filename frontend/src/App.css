@@ -361,6 +361,7 @@ div.addBtn>button:focus,
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
 }
 
 div.subNav>div.more>img {
@@ -1055,6 +1056,9 @@ hr {
 .description-project {
   width: 30%;
   padding: var(--padding-medium);
+  border: solid 1px var(--box-shadow-color);
+  border-radius: 10px;
+  margin: 0.5rem;
 }
 
 .description-project h3 {

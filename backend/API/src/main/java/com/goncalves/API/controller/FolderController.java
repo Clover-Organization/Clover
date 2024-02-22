@@ -58,7 +58,6 @@ public class FolderController {
                                      @RequestParam(name = "idFolder", required = false) String idFolder,
                                      @RequestParam("files") List<MultipartFile> files,
                                      @RequestParam("name") String folderName) {
-        System.out.println("entrou!");
         try {
             if (idProject.isBlank()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("ID não encontrado", idProject));

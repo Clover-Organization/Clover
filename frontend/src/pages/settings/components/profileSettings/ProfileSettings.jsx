@@ -105,7 +105,7 @@ export const ProfileSettings = () => {
             },
         });
         localStorage.clear();
-        navigate('/');
+        navigate('/welcome');
     }
 
 

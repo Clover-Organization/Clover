@@ -113,60 +113,63 @@ const Login = ({ toggleForm }) => {
     <section className="sectionRegister">
       <article className="authArticle">
         <fieldset className="authFieldsetLogin">
-          <img src={img} alt="authentication" />
-          <form onSubmit={handleSubmit} className="authForm">
-            <div className="authField auth">
-              <label
-                id="usernameLabel"
-                className={username ? "active" : ""}
-                htmlFor="username"
-              >
-                Username
-              </label>
-              <input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                onMouseEnter={() => handleInputFocus("usernameLabel")}
-                onMouseLeave={() => handleInputBlur("usernameLabel")}
-              />
-            </div>
-            <div className="authField auth">
-              <label
-                id="passwordLabel"
-                className={password ? "active" : ""}
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <div className="togglePassword auth">
-                <span onClick={handleTogglePassword}>
-                  {showPassword ? (
-                    <img src={openEye} alt="Open Eye" />
-                  ) : (
-                    <img src={closeEye} alt="Closed Eye" />
-                  )}
-                </span>
+          <form onSubmit={handleSubmit} className="authForm login">
+            <div className="align-input">
+              <div className="authField auth">
+                <label
+                  id="usernameLabel"
+                  className={username ? "active" : ""}
+                  htmlFor="username"
+                >
+                  Username
+                </label>
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  onMouseEnter={() => handleInputFocus("usernameLabel")}
+                  onMouseLeave={() => handleInputBlur("usernameLabel")}
+                />
               </div>
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onMouseEnter={() => handleInputFocus("passwordLabel")}
-                onMouseLeave={() => handleInputBlur("passwordLabel")}
-              />
+              <div className="forgot-pass">
+                <div className="authField auth">
+                  <label
+                    id="passwordLabel"
+                    className={password ? "active" : ""}
+                    htmlFor="password"
+                  >
+                    Password
+                  </label>
+                  <div className="togglePassword auth">
+                    <span onClick={handleTogglePassword}>
+                      {showPassword ? (
+                        <img src={openEye} alt="Open Eye" />
+                      ) : (
+                        <img src={closeEye} alt="Closed Eye" />
+                      )}
+                    </span>
+                  </div>
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onMouseEnter={() => handleInputFocus("passwordLabel")}
+                    onMouseLeave={() => handleInputBlur("passwordLabel")}
+                  />
+                </div>
+                <a className="forgot" onClick={() => setModalIsOpen(true)}>
+                  <span>Forgot password</span>
+                </a>
+              </div>
             </div>
-            <div className="btn">
+            <div className="btn login">
               <button className="ui-btn">
                 <span>Login</span>
               </button>
               <a onClick={toggleForm}>
                 <span>Don't have registration? register now!</span>
-              </a>
-              <a onClick={() => setModalIsOpen(true)}>
-                <span>Forgot password</span>
               </a>
             </div>
           </form>
