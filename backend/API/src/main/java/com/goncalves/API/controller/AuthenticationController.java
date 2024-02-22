@@ -42,6 +42,10 @@ public class AuthenticationController {
         try {
             validateRegistrationData(dados);
 
+            if (dados.password().length() < 9){
+                return ResponseEntity.badRequest().body("Campo password tem que ter no mínimo 9 caracteres");
+            }
+
             // Criar um novo usuário com a senha criptografada
             String encryptedPassword = new BCryptPasswordEncoder().encode(dados.password());
 
@@ -73,7 +77,6 @@ public class AuthenticationController {
         validateField(dados.lastName(), "lastName", "Campo lastName deve ter no mínimo 3 caracteres!");
         validateField(dados.username(), "username", "Campo usuário deve ter no mínimo 3 caracteres!");
         validateField(dados.email(), "email", "Campo email vazio!");
-        validateField(dados.password(), "password", "Campo senha deve ter no mínimo 8 caracteres!");
         validateField(dados.birth(), "birth", "Campo birth não pode ser nulo");
     }
 
@@ -94,7 +97,7 @@ public class AuthenticationController {
             var tokenJWT = tokenService.generateToken((Users) authentication.getPrincipal());
 
             return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
-        }catch (AuthenticationException e){
+        } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Credenciais inválidas"));
         }
     }
