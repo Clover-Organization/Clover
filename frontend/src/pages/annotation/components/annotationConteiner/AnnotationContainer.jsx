@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -6,10 +6,23 @@ import { updateAnnotation } from "../utils/updateAnnotation/UpdateAnnotation";
 import { fetchAnnotation } from "./utils/FetchAnnotation";
 
 const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject }) => {
+    console.log(selectedAnnotation);
     const token = localStorage.getItem('token');
-    const [content, setContent] = useState({
-        annotationContent: ""
-    })
+
+    var [content, setContent] = useState({
+        annotationContent: selectedAnnotation.annotationContent,
+    });
+
+    // Define uma função para buscar a anotação quando selectedAnnotation mudar
+    const fetchAnnotationAndUpdateContent = useCallback(async () => {
+        await fetchAnnotation(token, selectedAnnotation.idAnnotation, setContent);
+    }, [token, selectedAnnotation.idAnnotation]);
+
+    // Chama a função sempre que selectedAnnotation mudar
+    useEffect(() => {
+        fetchAnnotationAndUpdateContent();
+    }, [fetchAnnotationAndUpdateContent]);
+
 
     const handleSaveAnnotation = async () => {
         // Usa diretamente o estado atualizado na função de atualização

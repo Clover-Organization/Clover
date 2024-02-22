@@ -12,8 +12,12 @@ import InputField from "../../../home/components/inputField/InputField";
 import Modal from '../../../components/Modal';
 
 import user from '../../assets/user.png';
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export const ProfileSettings = () => {
+
+    const navigate = useNavigate('/')
 
     const token = localStorage.getItem('token');
     const [showUpdateScreen, setShowUpdateScreen] = useState(false);
@@ -87,8 +91,21 @@ export const ProfileSettings = () => {
     const openModalUpdateImage = () => {
         setModalImageIsOpen(true);
     }
+
     const closeModalUpdateImage = () => {
         setModalImageIsOpen(false);
+    }
+
+    const handleLogouUser = () => {
+        Swal.fire({
+            text: `Logout! `,
+            icon: 'success',
+            customClass: {
+                popup: 'custom-popup-class',
+            },
+        });
+        localStorage.clear();
+        navigate('/');
     }
 
 
@@ -126,8 +143,13 @@ export const ProfileSettings = () => {
                             <span>Creation Account</span>
                             <p>{userData.creationAccount || 'NaN'}</p>
                         </div>
-                        <div className="addBtn">
-                            <button onClick={() => openModalUserUpdate(setModalIsOpen, setEditUser, userData)}>Update!</button>
+                        <div className="btnAlign-profile">
+                            <div className="addBtn">
+                                <button onClick={() => openModalUserUpdate(setModalIsOpen, setEditUser, userData)}>Update!</button>
+                            </div>
+                            <div className="addBtn">
+                                <button onClick={() => handleLogouUser()}>Logout!</button>
+                            </div>
                         </div>
                     </div>
                     <div className="userImage">

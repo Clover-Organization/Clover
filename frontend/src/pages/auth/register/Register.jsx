@@ -178,25 +178,22 @@ const Register = ({ toggleForm }) => {
     <section className="sectionRegister">
       <article className="authArticle">
         <fieldset className="authFieldset">
-          <div className="imgFront">
-            <img src={img} alt="authentication" />
+          <div className="authFieldImage">
+            <span>Select your profile image</span>
+            <div className="imagePreview" onClick={handleImageClick}>
+              <img src={handleImagePreview() || user} alt="userImage" />
+            </div>
+            <input
+              ref={inputRef}
+              id="profileImage"
+              type="file"
+              accept="image/*"
+              onChange={(e) => setProfileImage(e.target.files[0])}
+              style={{ display: "none" }}
+            />
           </div>
           <form onSubmit={handleSubmit} className="authForm">
-            <div className="authFieldImage">
-              <span>Select your profile image</span>
-              <div className="imagePreview" onClick={handleImageClick}>
-                <img src={handleImagePreview() || user} alt="userImage" />
-              </div>
-              <input
-                ref={inputRef}
-                id="profileImage"
-                type="file"
-                accept="image/*"
-                onChange={(e) => setProfileImage(e.target.files[0])}
-                style={{ display: "none" }}
-              />
-            </div>
-            <div className="authField">
+            <div className="authField auth">
               <label
                 id="usernameLabel"
                 className={username ? "active" : ""}
@@ -213,7 +210,7 @@ const Register = ({ toggleForm }) => {
                 onMouseLeave={() => handleInputBlur("usernameLabel")}
               />
             </div>
-            <div className="authField">
+            <div className="authField auth">
               <label
                 id="firstNameLabel"
                 className={firstName ? "active" : ""}
@@ -230,7 +227,7 @@ const Register = ({ toggleForm }) => {
                 onMouseLeave={() => handleInputBlur("firstNameLabel")}
               />
             </div>
-            <div className="authField">
+            <div className="authField auth">
               <label
                 id="lastNameLabel"
                 className={lastName ? "active" : ""}
@@ -247,7 +244,7 @@ const Register = ({ toggleForm }) => {
                 onMouseLeave={() => handleInputBlur("lastNameLabel")}
               />
             </div>
-            <div className="authField">
+            <div className="authField auth">
               <label
                 id="emailLabel"
                 className={email ? "active" : ""}
@@ -264,7 +261,7 @@ const Register = ({ toggleForm }) => {
                 onMouseLeave={() => handleInputBlur("emailLabel")}
               />
             </div>
-            <div className="authField">
+            <div className="authField auth">
               <label
                 id="passwordLabel"
                 className={password ? "active" : ""}
@@ -272,7 +269,7 @@ const Register = ({ toggleForm }) => {
               >
                 Password
               </label>
-              <div className="togglePassword">
+              <div className="togglePassword auth">
                 <span onClick={handleTogglePassword}>
                   {showPassword ? (
                     <img src={openEye} alt="Open Eye" />
@@ -290,7 +287,7 @@ const Register = ({ toggleForm }) => {
                 onMouseLeave={() => handleInputBlur("passwordLabel")}
               />
             </div>
-            <div className="authField">
+            <div className="authField auth">
               <label
                 id="confirmPasswordLabel"
                 className={confirmPassword ? "active" : ""}
@@ -307,7 +304,7 @@ const Register = ({ toggleForm }) => {
                 onMouseLeave={() => handleInputBlur("confirmPasswordLabel")}
               />
             </div>
-            <div className="authField">
+            <div className="authField auth">
               <legend>Birthday</legend>
               <input
                 type="date"

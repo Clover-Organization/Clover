@@ -42,8 +42,12 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
 //                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("auth/login", "auth/register").permitAll()
-//                        .requestMatchers("/users").permitAll()
+                        .requestMatchers(
+                                "auth/login",
+                                "auth/register",
+                                "update-password/generate-token/forgot-password",
+                                "update-password/confirm-reset"
+                        ).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())

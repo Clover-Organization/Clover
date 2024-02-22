@@ -15,7 +15,16 @@ export const ToolBox = ({ box, loading, showId, role }) => {
           <div className="txtAlignTool">
             <Link to={`/project/${box.idProject}`}>
               <div className="toolTitle">
+                <div className="box-status-priority-image-content">
                 <h2>{box.projectName}</h2>
+                  <img
+                    src={
+                      box.user
+                        ? `data:image/png;base64,${box.user.profileImage}`
+                        : user
+                    }
+                  />
+                </div>
                 {/* <p> {box.idProject}</p> */}
                 <p>
                   {calculateTimeDifference(
@@ -26,22 +35,7 @@ export const ToolBox = ({ box, loading, showId, role }) => {
                     false
                   )}
                 </p>
-              </div>
-              <div className="dateStatusTool">
-                <div className="user-info">
-                  {/* <p>
-                                        {showId ? 'ID' : 'Username'}: {box.user ? (showId ? box.user.idUsers : box.user.username) : 'N/A'}
-                                    </p> */}
-                </div>
-                <div className="box-status-priority-image-content">
-                  <img
-                    src={
-                      box.user
-                        ? `data:image/png;base64,${box.user.profileImage}`
-                        : user
-                    }
-                  />
-                </div>
+                
               </div>
             </Link>
           </div>

@@ -9,7 +9,7 @@ div.logo {
   z-index: 1001;
 }
 
-div.logo > a > img {
+div.logo>a>img {
   margin: 1rem;
   width: 40px;
 }
@@ -24,17 +24,25 @@ article.authArticle {
   display: grid;
   place-items: center;
   position: absolute;
-  z-index: 1000;
+  width: 100%;
   height: 100%;
+  z-index: 1000;
 }
 
 fieldset.authFieldset {
-  width: 80%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
+  width: 50%;
+  max-width: 80%;
+  max-height: 100%;
+  background: #3333338f;
   border: none;
+  padding: 1.5rem;
+  border-radius: 20px;
 }
+
 
 fieldset.authFieldsetLogin {
   width: 80%;
@@ -50,12 +58,12 @@ form.authForm {
   place-items: center;
 }
 
-fieldset.authFieldset > div.imgFront > img {
+fieldset.authFieldset>div.imgFront>img {
   width: 50%;
   height: auto;
 }
 
-fieldset.authFieldsetLogin > img {
+fieldset.authFieldsetLogin>img {
   width: 50%;
   height: auto;
 }
@@ -69,7 +77,7 @@ div.authFieldLogin {
   padding: 3rem;
 }
 
-div.authField > legend {
+div.authField>legend {
   color: #1fdf64;
   font-weight: bold;
 }
@@ -96,8 +104,14 @@ input:-webkit-autofill::placeholder {
   color: #ff0000;
 }
 
-div.authField > input,
-.authFieldLogin > input {
+div.authField.auth>input,
+.authFieldLogin.auth>input {
+  inline-size: 18rem;
+  font-size: 20px;
+}
+
+div.authField>input,
+.authFieldLogin>input {
   inline-size: 12rem;
   border: none;
   border-bottom: solid 2px grey;
@@ -106,6 +120,10 @@ div.authField > input,
   outline: none;
   background-color: transparent;
   color: white;
+}
+
+div.authField.auth>label {
+  font-size: 18px;
 }
 
 div.authField>label.active,
@@ -123,8 +141,8 @@ div.authFieldLogin>input:not(:placeholder-shown)+label {
 }
 
 /* Adicione esta regra para estilizar rótulos quando o mouse passa sobre o input */
-div.authField > input:hover + label,
-div.authFieldLogin > input:hover + label {
+div.authField>input:hover+label,
+div.authFieldLogin>input:hover+label {
   /* Adicione a vírgula aqui */
   transform: translateY(-100%) scale(0.9);
   font-size: 12px;
@@ -132,13 +150,14 @@ div.authFieldLogin > input:hover + label {
 }
 
 /* Adicione esta regra para reestilizar rótulos quando o input não estiver vazio e não estiver em foco */
-div.authField > input:not(:focus):not(:placeholder-shown) + label,
-div.authFieldLogin > input:not(:focus):not(:placeholder-shown) + label {
+div.authField>input:not(:focus):not(:placeholder-shown)+label,
+div.authFieldLogin>input:not(:focus):not(:placeholder-shown)+label {
   /* Adicione a vírgula aqui */
   transform: translateY(-100%) scale(0.9);
   font-size: 12px;
   color: #5ec57e;
 }
+
 
 .togglePassword {
   position: absolute;
@@ -146,43 +165,21 @@ div.authFieldLogin > input:not(:focus):not(:placeholder-shown) + label {
   left: 11.9rem;
 }
 
+.togglePassword.auth {
+  left: 17.8rem;
+}
+
 .togglePassword img {
   width: 20px;
   filter: invert(1);
 }
 
-form.authForm > div.btn {
+form.authForm>div.btn {
   display: grid;
   place-items: center;
 }
 
-/* form.authForm > div.btn > button {
-  cursor: pointer;
-  color: black;
-  font-weight: bold;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 50px;
-  border: none;
-  inline-size: 200px;
-  /* background-color: #1fdf64; */
-/* background-image: linear-gradient(
-    to right,
-    #1fdf64,
-    #1fdf64,
-    #6cff00c4,
-    #1fdf64
-  );
-  transition: all 0.5s ease-in-out; */
-/* } */
-
-/* form.authForm > div.btn > button:hover {
-  transform: scale(1.1);
-  border: solid 1px white;
-  filter: drop-shadow(0px 0px 10px green);
-} */
-
-form.authForm > div.btn > a > span {
+form.authForm>div.btn>a>span {
   font-size: 10px;
   color: rgba(0, 255, 136, 0.779);
   font-weight: bold;
@@ -247,23 +244,37 @@ strong::after {
 }
 
 .imagePreview img {
-  width: 9rem;
-  height: 9rem;
+  width: 50%;
   border: dotted 2px grey;
   border-radius: 50%;
   cursor: pointer;
 }
 
-.authFieldImage > span {
+.authFieldImage>span {
   position: absolute;
   font-size: 11px;
   color: rgba(255, 255, 255, 0.515);
 }
 
+@media (max-width: 750px) {
+  fieldset.authFieldset {
+    justify-content: center;
+  }
+
+  div.authField.auth>input,
+  .authFieldLogin.auth>input {
+    inline-size: 12rem;
+  }
+
+  .togglePassword.auth{
+    left: 11.9rem;
+  }
+}
+
 /* ---- Button Register Style ---- */
 .ui-btn {
   --btn-default-bg: #1fdf64;
-  --btn-padding: 8px 50px;
+  --btn-padding: 8px 70px;
   --btn-hover-bg: rgb(51, 51, 51);
   --btn-transition: 0.3s;
   --btn-letter-spacing: 0.1rem;
@@ -425,7 +436,7 @@ strong::after {
 
 /* ---- Responsive ---- */
 @media (max-width: 765px) {
-  main.authMain > div.WelcomeDescWave {
+  main.authMain>div.WelcomeDescWave {
     display: none;
   }
 
@@ -439,17 +450,17 @@ strong::after {
     height: 100%;
   }
 
-  fieldset.authFieldset > div.imgFront > img {
+  fieldset.authFieldset>div.imgFront>img {
     width: 100%;
   }
 }
 
 @media (max-width: 520px) {
-  fieldset.authFieldset > div.imgFront > img {
+  fieldset.authFieldset>div.imgFront>img {
     display: none;
   }
 
-  fieldset.authFieldsetLogin > img {
+  fieldset.authFieldsetLogin>img {
     display: none;
   }
 
