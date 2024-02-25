@@ -49,7 +49,7 @@ a {
   font-size: 14px;
 
   line-height: 17px;
-  margin-bottom: 0.9rem;
+  /* margin-bottom: 0.9rem; */
 }
 
 .footer-links-div p {
@@ -57,6 +57,10 @@ a {
   line-height: 15px;
   margin: 0.5rem 0;
   cursor: pointer;
+}
+
+.footer-links-div p:hover {
+  color: #6dbf63;
 }
 
 .footer-bellow {
@@ -92,10 +96,10 @@ hr {
 }
 
 @media (max-width: 520px) {
-  .footer-content{
+  .footer-content {
     padding: 0;
   }
-  .footer-bellow-links p{
-    padding: .5rem;
+  .footer-bellow-links p {
+    padding: 0.5rem;
   }
 }

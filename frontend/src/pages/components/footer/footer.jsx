@@ -13,46 +13,46 @@ const Footer = () => {
           <div className="footer-links-div">
             <h4>For Studing</h4>
             <a href="#">
-              <p>TESTE</p>
+              <p>React Tutorials</p>
             </a>
             <a href="#">
-              <p>TESTE</p>
+              <p>JavaScript Courses</p>
             </a>
             <a href="#">
-              <p>TESTE</p>
+              <p>UI/UX Design Study Material</p>
             </a>
           </div>
           <div className="footer-links-div">
             <h4>Resources</h4>
             <a href="#">
-              <p>TESTE</p>
+              <p>React Documentation</p>
             </a>
             <a href="#">
-              <p>TESTE</p>
+              <p>Development Tools</p>
             </a>
             <a href="#">
-              <p>TESTE</p>
+              <p>Useful Libraries</p>
             </a>
           </div>
           <div className="footer-links-div">
             <h4>Swing Tech</h4>
             <a href="#">
-              <p>TESTE</p>
+              <p>React Native Installation Guide</p>
             </a>
             <a href="#">
-              <p>TESTE</p>
+              <p>Node.js Documentation</p>
             </a>
             <a href="#">
-              <p>TESTE</p>
+              <p>Front-end Frameworks</p>
             </a>
           </div>
           <div className="footer-links-div">
             <h4>Company</h4>
             <a href="#">
-              <p>About</p>
+              <p>About Our Company</p>
             </a>
             <a href="#">
-              <p>Press</p>
+              <p>News and Updates</p>
             </a>
             <a href="#">
               <p>Career</p>
@@ -65,46 +65,70 @@ const Footer = () => {
             <h4>Heitor</h4>
             <div className="socialmedia">
               <p>
-                <img src={gitHub} alt="" />
+                <a href="https://github.com/lonelykkj" target="_blank">
+                  <img src={gitHub} alt="" />
+                </a>
               </p>
               <p>
-                <img src={Twitter} alt="" />
+                <a
+                  href="https://www.linkedin.com/in/heitor-manoel-465413250/"
+                  target="_blank"
+                >
+                  <img src={Linkedin} alt="" />
+                </a>
               </p>
               <p>
-                <img src={Linkedin} alt="" />
-              </p>
-              <p>
-                <img src={Instagram} alt="" />
+                <a href="https://www.instagram.com/h_eitoor/" target="_blank">
+                  <img src={Instagram} alt="" />
+                </a>
               </p>
             </div>
             <h4>Ryan</h4>
             <div className="socialmedia">
               <p>
-                <img src={gitHub} alt="" />
+                <a
+                  href="https://github.com/RyanGustavoGoncalves"
+                  target="_blank"
+                >
+                  <img src={gitHub} alt="" />
+                </a>
               </p>
               <p>
-                <img src={Twitter} alt="" />
+                <a
+                  href="https://www.linkedin.com/in/ryangon%C3%A7alves/"
+                  target="_blank"
+                >
+                  <img src={Linkedin} alt="" />
+                </a>
               </p>
               <p>
-                <img src={Linkedin} alt="" />
-              </p>
-              <p>
-                <img src={Instagram} alt="" />
+                <a href="https://www.instagram.com/rgg09z/" target="_blank">
+                  <img src={Instagram} alt="" />
+                </a>
               </p>
             </div>
             <h4>Nikolas</h4>
             <div className="socialmedia">
               <p>
-                <img src={gitHub} alt="" />
+                <a href="https://github.com/thepokenik" target="_blank">
+                  <img src={gitHub} alt="" />
+                </a>
               </p>
               <p>
-                <img src={Twitter} alt="" />
+                <a
+                  href="https://www.linkedin.com/in/nikolas-melo-5743b1258/"
+                  target="_blank"
+                >
+                  <img src={Linkedin} alt="" />
+                </a>
               </p>
               <p>
-                <img src={Linkedin} alt="" />
-              </p>
-              <p>
-                <img src={Instagram} alt="" />
+                <a
+                  href="https://www.instagram.com/incognitoniko/"
+                  target="_blank"
+                >
+                  <img src={Instagram} alt="" />
+                </a>
               </p>
             </div>
           </div>
