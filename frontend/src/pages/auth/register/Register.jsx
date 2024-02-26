@@ -5,6 +5,7 @@ import {
   handleInputFocus,
   handleInputBlur,
 } from "../../home/components/utils/handleInput/HandleInput";
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 
 import imgError from "../assets/icons8-erro-48 (1).png";
 import wave from "../assets/wave.svg";
@@ -13,6 +14,11 @@ import closeEye from "../assets/closeEye.png";
 import user from "../assets/user.png";
 
 const Register = ({ toggleForm }) => {
+
+  const [credentials, setCredentials] = useState({
+    credentials: "",
+    clientID: ""
+  });
 
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -192,6 +198,46 @@ const Register = ({ toggleForm }) => {
     return null;
   };
 
+  const handleScriptLoadSuccess = () => {
+    console.log('Script carregado com sucesso');
+  };
+
+  const handleScriptLoadError = () => {
+    console.error('Erro ao carregar o script');
+  };
+
+  const base64UrlDecode = (str) => {
+    const padding = '='.repeat((4 - str.length % 4) % 4);
+    const base64 = (str + padding).replace(/-/g, '+').replace(/_/g, '/');
+    const rawData = atob(base64);
+    return rawData;
+  };
+
+
+  const decodeToken = (token) => {
+    const [header, payload, signature] = token.split('.');
+    const decodedHeader = JSON.parse(base64UrlDecode(header));
+    const decodedPayload = JSON.parse(base64UrlDecode(payload));
+    return { header: decodedHeader, payload: decodedPayload, signature };
+  };
+
+  const loadProfile = async (token) => {
+    try {
+      const decoded = decodeToken(token)
+      
+
+      setUsername(decoded.payload.name);
+      setFirstName(decoded.payload.given_name);
+      setLastName(decoded.payload.family_name);
+      setEmail(decoded.payload.email);
+      console.log(decoded);
+      console.log(decoded.payload.email);
+
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+    }
+  };
+
   return (
     <section className="sectionRegister">
       <article className="authArticle">
@@ -331,12 +377,36 @@ const Register = ({ toggleForm }) => {
               />
             </div>
             <div className="btn">
-              <button class="ui-btn">
+              <button className="ui-btn">
                 <span>Register</span>
               </button>
               <a onClick={toggleForm}>
                 <span>Already registered? log in!</span>
               </a>
+
+              <GoogleOAuthProvider
+                clientId={"194451748874-lhbd66qk23vhbd2dv12gidnef7264do6.apps.googleusercontent.com"}
+                onScriptLoadSuccess={handleScriptLoadSuccess}
+                onScriptLoadError={handleScriptLoadError}
+              >
+                <GoogleLogin
+                  type="icon"
+                  theme="filled_black"
+                  onSuccess={credentialResponse => {
+                    setCredentials({
+                      clientId: credentialResponse.clientId,
+                      credential: credentialResponse.credential
+                    });
+                    console.log(credentialResponse);
+                    loadProfile(credentialResponse.credential, credentialResponse.clientId);
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                  useOneTap
+                />;
+              </GoogleOAuthProvider>
+
             </div>
           </form>
         </fieldset>

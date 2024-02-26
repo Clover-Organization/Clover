@@ -94,6 +94,26 @@ const FileEditor = ({ fileName, fileContent }) => {
         />
         </div>
         </div>
+        <>
+            <div className="file-content-editor">
+                <Editor
+                    className="editor-container"
+                    height="50vh"
+                    width="100%"
+                    language={GetLanguageInfos(fileName).name}
+                    defaultValue={fileContent}
+                    theme={theme}
+                    onMount={handleEditorDidMount}
+                    options={{
+                        selectOnLineNumbers: true,
+                        scrollBeyondLastLine: false,
+                        fontSize: `${fontSize}px`,
+                        fontLigatures: true,
+                        fontFamily: "JetBrains Mono",
+                    }}
+                />
+            </div>
+        </>
     );
 };
 

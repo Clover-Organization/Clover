@@ -4,6 +4,7 @@ import com.goncalves.API.DTO.AutenticarDados;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
 import com.goncalves.API.infra.security.*;
+import com.goncalves.API.service.GitHubAuthService;
 import io.micrometer.common.util.StringUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -34,6 +36,7 @@ public class AuthenticationController {
 
     @Autowired
     private ErrorHandling errorHandling;
+    
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestPart("profileImage") MultipartFile profileImage,
@@ -101,4 +104,6 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Credenciais inválidas"));
         }
     }
+
+
 }

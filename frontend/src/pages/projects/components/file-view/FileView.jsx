@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Editor from "@monaco-editor/react";
 
 
 import { useParams } from "react-router-dom";
@@ -14,9 +15,12 @@ import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdat
 import { deleteFileByIdFileAndIdProject } from "../utils/deleteFileByIdFileAndIdProject/deleteFileByIdFileAndIdProject";
 import { getCommitsByFiles } from "../utils/getCommitsByFiles/GetCommitsByFiles";
 import FileEditor from "../file-editor/FileEditor";
+import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
+    const theme = localStorage.getItem('theme');
+    const fontSize = localStorage.getItem('fontSize');
     const { idProject, idFile, idFolder } = useParams();
 
     const [singleRequest, setSingleRequest] = useState({});
@@ -34,6 +38,7 @@ const FileView = () => {
         newCommit: "",
         newFile: null,
     });
+    const editorRef = useRef(null);
     const [stateModal, setStateModal] = useState(true);
 
     const getFileAndContent = async () => {
@@ -41,27 +46,9 @@ const FileView = () => {
         await getFileContent(token, idProject, idFile, setFileContent);
     };
 
-
     useEffect(() => {
         getFileAndContent();
     }, []);
-
-
-    const renderNumberedLines = (content) => {
-        if (!content || typeof content !== 'string') {
-            return null;
-        }
-
-        const lines = content.split('\n');
-        return lines.map((line, index) => (
-            <div key={index} className="code-line">
-                <div className="line-number">
-                    <span>{index + 1}</span>
-                </div>
-                <span>{line}</span>
-            </div>
-        ));
-    };
 
     const sendCommit = async () => {
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
@@ -102,6 +89,10 @@ const FileView = () => {
             changes: decodedChanges,
         });
     }
+    function handleEditorDidMount(editor, monaco) {
+        editorRef.current = editor;
+    }
+
 
     const [showFileEditor, setShowFileEditor] = useState(false);
 
@@ -160,16 +151,26 @@ const FileView = () => {
                                                 <img src={showCommits.changes} alt="image" />
                                             </div>
                                         ) : (
-                                            <div className="file-content">
-                                                <pre className="pre-format">
-                                                    {showCommitsSelected.message}
-                                                    {showCommitsSelected.changes && (
-                                                        <div className="changes">
-                                                            {renderNumberedLines(showCommitsSelected.changes)}
-                                                        </div>
-                                                    )}
-                                                </pre>
+                                            <div className="file-content-editor">
+                                                <Editor
+                                                    className="editor-container"
+                                                    height="70vh"
+                                                    width="100%"
+                                                    language={GetLanguageInfos(singleRequest.fileName).name}
+                                                    defaultValue={showCommitsSelected.changes}
+                                                    theme={theme}
+                                                    onMount={handleEditorDidMount}
+                                                    options={{
+                                                        selectOnLineNumbers: true,
+                                                        scrollBeyondLastLine: false,
+                                                        fontSize: `${fontSize}px`,
+                                                        fontLigatures: true,
+                                                        fontFamily: "JetBrains Mono",
+                                                        readOnly: true
+                                                    }}
+                                                />
                                             </div>
+
                                         )
                                     }
                                 </>
@@ -187,11 +188,29 @@ const FileView = () => {
                                                 <img src={fileContent.data} alt={singleRequest.fileName} />
                                             </div>
                                         ) : (
-                                            <div className="file-content">
-                                                <pre className="pre-format">
-                                                    {renderNumberedLines(fileContent.data)}
-                                                </pre>
-                                            </div>
+                                            <>
+                                                {fileContent.data && (
+                                                    <div className="file-content-editor">
+                                                        <Editor
+                                                            className="editor-container"
+                                                            height="70vh"
+                                                            width="100%"
+                                                            language={GetLanguageInfos(singleRequest.fileName).name}
+                                                            defaultValue={fileContent.data}
+                                                            theme={theme}
+                                                            onMount={handleEditorDidMount}
+                                                            options={{
+                                                                selectOnLineNumbers: true,
+                                                                scrollBeyondLastLine: false,
+                                                                fontSize: `${fontSize}px`,
+                                                                fontLigatures: true,
+                                                                fontFamily: "JetBrains Mono",
+                                                                readOnly: true
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </>
                                         )
                                     }
                                 </>
