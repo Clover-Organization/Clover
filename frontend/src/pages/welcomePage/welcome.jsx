@@ -9,6 +9,7 @@ import WelcomeDescri from "./components/welcomeDescri/WelcomeDescri";
 import WelcomeService from "./components/welcomeService/WelcomeService";
 import Icon from "../components/Icon";
 import Footer from "../components/footer/footer";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const welcome = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,6 +102,7 @@ const welcome = () => {
         <div className="logoWelcomeTxt">
           <Icon src={logo} alt="logo" />
           <h1>Clover</h1>
+          <ModeToggle />
         </div>
       </Link>
 

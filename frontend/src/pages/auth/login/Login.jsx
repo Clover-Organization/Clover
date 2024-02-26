@@ -139,9 +139,7 @@ const Login = ({ toggleForm }) => {
           style={{ display: modalOpacity.display }}
         ></div>
       </article>
-      <div className="WelcomeDescWave">
-        <img src={wave} alt="" />
-      </div>
+     
 
 
       <Modal isOpen={modalIsOpen} onClose={() => {
