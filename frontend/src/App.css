@@ -980,7 +980,6 @@ hr {
 }
 
 /* === PROJECT CSS === */
-.main-project-content {}
 
 .article-project-content {
   width: 100%;
@@ -1112,7 +1111,7 @@ hr {
   text-decoration: none;
 }
 
-.projects-files-content > span,
+.projects-files-content>span,
 pre {
   color: var(--text-color);
 }
@@ -1387,7 +1386,7 @@ pre {
   padding: var(--padding-small);
 }
 
-.monaco-editor .margin-view-overlays .line-numbers{
+.monaco-editor .margin-view-overlays .line-numbers {
   text-align: left !important;
 }
 

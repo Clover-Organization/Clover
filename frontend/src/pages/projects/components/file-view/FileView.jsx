@@ -99,8 +99,8 @@ const FileView = () => {
     const handleShowFileEditor = () => {
         if (showFileEditor) {
             setShowFileEditor(false);
-        } else {setShowFileEditor(true);}
-        
+        } else { setShowFileEditor(true); }
+
     }
 
     return (
@@ -176,7 +176,7 @@ const FileView = () => {
                                 </>
                             ) : (
                                 <>
-                                    
+
                                     {showFileEditor ? (
                                         <FileEditor
                                             fileName={singleRequest.fileName}
