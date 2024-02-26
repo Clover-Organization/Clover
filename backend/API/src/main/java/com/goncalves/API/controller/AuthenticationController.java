@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 @RestController
@@ -114,21 +113,6 @@ public class AuthenticationController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static final String CARACTERES_PERMITIDOS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
-
-    public static String generatePassword() {
-        StringBuilder senha = new StringBuilder(9);
-        SecureRandom random = new SecureRandom();
-
-        // Gerando a senha com os caracteres permitidos
-        for (int i = 0; i < 9; i++) {
-            int randomIndex = random.nextInt(CARACTERES_PERMITIDOS.length());
-            senha.append(CARACTERES_PERMITIDOS.charAt(randomIndex));
-        }
-
-        return senha.toString();
     }
 
     private void validateRegistrationData(AutenticarDados dados) throws RegistrationException {
