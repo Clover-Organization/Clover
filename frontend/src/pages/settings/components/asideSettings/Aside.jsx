@@ -20,6 +20,11 @@ export const Aside = ({ select, setSelect, idProject }) => {
                         </Link>
                     </li>
                 )}
+                <li>
+                    <Link onClick={() => changeSelectNumber(2)} className={select === 2 ? "active" : "noActive"}>
+                        Editor Settings
+                    </Link>
+                </li>
             </ul>
         </aside>
     );
