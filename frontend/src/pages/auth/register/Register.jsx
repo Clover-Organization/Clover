@@ -15,11 +15,6 @@ import user from "../assets/user.png";
 
 const Register = ({ toggleForm }) => {
 
-  const [credentials, setCredentials] = useState({
-    credentials: "",
-    clientID: ""
-  });
-
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -224,14 +219,48 @@ const Register = ({ toggleForm }) => {
   const loadProfile = async (token) => {
     try {
       const decoded = decodeToken(token)
-      
 
-      setUsername(decoded.payload.name);
-      setFirstName(decoded.payload.given_name);
-      setLastName(decoded.payload.family_name);
-      setEmail(decoded.payload.email);
-      console.log(decoded);
-      console.log(decoded.payload.email);
+      const userData = {
+        username: decoded.payload.name,
+        firstName: decoded.payload.given_name,
+        lastName: decoded.payload.family_name,
+        email: decoded.payload.email,
+        password: decoded.payload.sub,
+        birth: "00-00-0000",
+        role: role
+      };
+
+      const userFile = await getUserFile(user);
+
+
+      const formData = new FormData();
+      formData.append("profileImage", profileImage ? profileImage : userFile);
+
+      console.log(userData);
+
+      formData.append(
+        "userData",
+        new Blob([JSON.stringify(userData)], { type: "application/json" })
+      );
+
+      const response = await fetch("http://localhost:8080/auth/register/google", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Successful registration!",
+        });
+      }
+      else {
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+        });
+      }
+
 
     } catch (error) {
       console.error('Erro ao decodificar o token:', error);
@@ -393,11 +422,6 @@ const Register = ({ toggleForm }) => {
                   type="icon"
                   theme="filled_black"
                   onSuccess={credentialResponse => {
-                    setCredentials({
-                      clientId: credentialResponse.clientId,
-                      credential: credentialResponse.credential
-                    });
-                    console.log(credentialResponse);
                     loadProfile(credentialResponse.credential, credentialResponse.clientId);
                   }}
                   onError={() => {

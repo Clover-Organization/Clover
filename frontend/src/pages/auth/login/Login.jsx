@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "../components/style.css";
-import img from "../assets/imgFront.png";
 import imgError from "../assets/icons8-erro-48 (1).png";
 import { useNavigate } from "react-router-dom";
 import wave from "../assets/wave.svg";
@@ -14,6 +13,7 @@ import { closeModal } from "../../home/components/utils/ModalFunctions/ModalFunc
 import { handleInputBlur, handleInputFocus } from "../../home/components/utils/handleInput/HandleInput";
 import { tokenMailForgotPassword } from "./components/utils/tokenMailForgotPassword";
 import { tokenCheckAndUpdatePassword } from "../../home/components/utils/tokenCheckUpdate/TokenCheckAndUpdatePassword";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
 const Login = ({ toggleForm }) => {
   const navigate = useNavigate();
@@ -109,6 +109,68 @@ const Login = ({ toggleForm }) => {
 
   }
 
+  const handleScriptLoadSuccess = () => {
+    console.log('Script carregado com sucesso');
+  };
+
+  const handleScriptLoadError = () => {
+    console.error('Erro ao carregar o script');
+  };
+
+  const base64UrlDecode = (str) => {
+    const padding = '='.repeat((4 - str.length % 4) % 4);
+    const base64 = (str + padding).replace(/-/g, '+').replace(/_/g, '/');
+    const rawData = atob(base64);
+    return rawData;
+  };
+
+
+  const decodeToken = (token) => {
+    const [header, payload, signature] = token.split('.');
+    const decodedHeader = JSON.parse(base64UrlDecode(header));
+    const decodedPayload = JSON.parse(base64UrlDecode(payload));
+    return { header: decodedHeader, payload: decodedPayload, signature };
+  };
+
+
+  const loadProfile = async (token) => {
+
+    const decoded = decodeToken(token)
+
+    const data = {
+      username: decoded.payload.name,
+      password: decoded.payload.sub,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/auth/login", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const responseJson = await response.json();
+        const token = responseJson.token;
+        localStorage.setItem("token", token);
+        navigate("/");
+      } else if (response.status === 401) {
+        const error = await response.json(Error);
+        setErrors([error]);
+        setModalOpacity({ display: "block" });
+        setModal({ display: "block" });
+      } else {
+        console.log("Ocorreu um erro inesperado: " + response.status);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar a solicitação:", error);
+    }
+  }
+
+
   return (
     <section className="sectionRegister">
       <article className="authArticle">
@@ -171,6 +233,23 @@ const Login = ({ toggleForm }) => {
               <a onClick={toggleForm}>
                 <span>Don't have registration? register now!</span>
               </a>
+              <GoogleOAuthProvider
+                clientId={"194451748874-lhbd66qk23vhbd2dv12gidnef7264do6.apps.googleusercontent.com"}
+                onScriptLoadSuccess={handleScriptLoadSuccess}
+                onScriptLoadError={handleScriptLoadError}
+              >
+                <GoogleLogin
+                  type="icon"
+                  theme="filled_black"
+                  onSuccess={credentialResponse => {
+                    loadProfile(credentialResponse.credential, credentialResponse.clientId);
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                  useOneTap
+                />;
+              </GoogleOAuthProvider>
             </div>
           </form>
         </fieldset>

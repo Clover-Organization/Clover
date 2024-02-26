@@ -46,15 +46,13 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
 //                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
-                        "auth/login",
-                        "auth/register",
-                        "auth/login/oauth2/code/github",
-                        "auth/login/github",
-                        "update-password/generate-token/forgot-password",
-                        "update-password/confirm-reset"
+                                "auth/login",
+                                "auth/register",
+                                "auth/register/google",
+                                "update-password/generate-token/forgot-password",
+                                "update-password/confirm-reset"
                         ).permitAll()
                         .anyRequest().authenticated())
-                .oauth2Login(withDefaults())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
                 .build();
