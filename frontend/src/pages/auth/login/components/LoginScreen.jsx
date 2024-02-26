@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import {
 	Card,
 	CardContent,
@@ -17,6 +18,8 @@ import { Link } from "react-router-dom";
 
 export default function CardWithForm() {
 	const [showPassword, setShowPassword] = useState(false);
+
+    const { toast } = useToast()
 
 	const handleShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -67,7 +70,16 @@ export default function CardWithForm() {
 				>
 					Forgot your password?
 				</Link>
-				<Button className="bg-green-500 hover:bg-green-600 w-28 ">Sign In</Button>
+				<Button
+					className="bg-green-500 hover:bg-green-600 w-28"
+					onClick={() => {
+						toast({
+							description: "Sucessfully signed in!",
+						});
+					}}
+				>
+					Sign In
+				</Button>
 			</CardFooter>
 			<div className="flex items-center justify-center">
 				<Separator className="my-3 mx-4 w-auto flex-grow" />
@@ -78,7 +90,7 @@ export default function CardWithForm() {
 				<Button variant="outline" className="mx-auto my-5">
 					Google
 				</Button>
-                <Button variant="outline" className="mx-auto my-5">
+				<Button variant="outline" className="mx-auto my-5">
 					<Github className="mr-2" /> GitHub
 				</Button>
 			</CardFooter>
