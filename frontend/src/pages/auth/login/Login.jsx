@@ -14,6 +14,8 @@ import { closeModal } from "../../home/components/utils/ModalFunctions/ModalFunc
 import { handleInputBlur, handleInputFocus } from "../../home/components/utils/handleInput/HandleInput";
 import { tokenMailForgotPassword } from "./components/utils/tokenMailForgotPassword";
 import { tokenCheckAndUpdatePassword } from "../../home/components/utils/tokenCheckUpdate/TokenCheckAndUpdatePassword";
+import LoginScreen from "./components/LoginScreen";
+import { Toaster } from "@/components/ui/toaster";
 
 const Login = ({ toggleForm }) => {
   const navigate = useNavigate();
@@ -111,69 +113,9 @@ const Login = ({ toggleForm }) => {
 
   return (
     <section className="sectionRegister">
+      <Toaster />
       <article className="authArticle">
-        <fieldset className="authFieldsetLogin">
-          <form onSubmit={handleSubmit} className="authForm login">
-            <div className="align-input">
-              <div className="authField auth">
-                <label
-                  id="usernameLabel"
-                  className={username ? "active" : ""}
-                  htmlFor="username"
-                >
-                  Username
-                </label>
-                <input
-                  id="username"
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onMouseEnter={() => handleInputFocus("usernameLabel")}
-                  onMouseLeave={() => handleInputBlur("usernameLabel")}
-                />
-              </div>
-              <div className="forgot-pass">
-                <div className="authField auth">
-                  <label
-                    id="passwordLabel"
-                    className={password ? "active" : ""}
-                    htmlFor="password"
-                  >
-                    Password
-                  </label>
-                  <div className="togglePassword auth">
-                    <span onClick={handleTogglePassword}>
-                      {showPassword ? (
-                        <img src={openEye} alt="Open Eye" />
-                      ) : (
-                        <img src={closeEye} alt="Closed Eye" />
-                      )}
-                    </span>
-                  </div>
-                  <input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onMouseEnter={() => handleInputFocus("passwordLabel")}
-                    onMouseLeave={() => handleInputBlur("passwordLabel")}
-                  />
-                </div>
-                <a className="forgot" onClick={() => setModalIsOpen(true)}>
-                  <span>Forgot password</span>
-                </a>
-              </div>
-            </div>
-            <div className="btn login">
-              <button className="ui-btn">
-                <span>Login</span>
-              </button>
-              <a onClick={toggleForm}>
-                <span>Don't have registration? register now!</span>
-              </a>
-            </div>
-          </form>
-        </fieldset>
+        <LoginScreen/>
         <div className="modal" style={{ display: modal.display }}>
           <div className="errorModal">
             <div className="errorIcon">
