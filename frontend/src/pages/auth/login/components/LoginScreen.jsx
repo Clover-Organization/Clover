@@ -25,7 +25,7 @@ export default function CardWithForm() {
 		setShowPassword(!showPassword);
 	};
 	return (
-		<Card className="w-auto md:w-1/4 border border-slate-600 rounded-lg flex flex-col">
+		<Card className="w-auto md:w-1/4 border border-slate-300 rounded-lg flex flex-col">
 			<CardHeader className="gap-5">
 				<CardTitle className="text-5xl text-green-500">Login</CardTitle>
 				<CardDescription>
@@ -35,13 +35,13 @@ export default function CardWithForm() {
 			<CardContent>
 				<form>
 					<div className="grid w-full items-center gap-4">
-						<div className="flex flex-col space-y-1.5">
+						<div className="flex flex-col space-y-1.5 gap-2">
 							<Label htmlFor="name">Username</Label>
 							<Input id="name" placeholder="Enter your username" />
 						</div>
 						<div className="grid w-full items-center gap-4">
 							<Label htmlFor="password">Password</Label>
-							<div className="flex items-center space-y-1.5 gap-5">
+							<div className="flex items-center space-y-1.5 gap-x-4">
 								<Input
 									type={showPassword ? "text" : "password"}
 									id="password"
