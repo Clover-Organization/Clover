@@ -1116,9 +1116,14 @@ pre {
   color: var(--text-color);
 }
 
-.file-content {
+.file-content, .file-content-editor {
   width: 100%;
   padding: 0.5rem;
+}
+
+.file-content-editor{
+  background-color: var(--box-shadow-color);
+  border-radius: 0px 0px 10px 10px;
 }
 
 .commits-content {
