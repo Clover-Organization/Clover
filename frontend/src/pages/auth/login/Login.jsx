@@ -16,7 +16,7 @@ import { tokenMailForgotPassword } from "./components/utils/tokenMailForgotPassw
 import { tokenCheckAndUpdatePassword } from "../../home/components/utils/tokenCheckUpdate/TokenCheckAndUpdatePassword";
 import LoginScreen from "./components/LoginScreen";
 import { Toaster } from "@/components/ui/toaster";
-
+import { ModeToggle } from "@/components/mode-toggle";
 const Login = ({ toggleForm }) => {
   const navigate = useNavigate();
 
@@ -116,6 +116,8 @@ const Login = ({ toggleForm }) => {
       <Toaster />
       <article className="authArticle">
         <LoginScreen/>
+        
+<ModeToggle />
         <div className="modal" style={{ display: modal.display }}>
           <div className="errorModal">
             <div className="errorIcon">

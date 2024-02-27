@@ -4,7 +4,6 @@ import "./App.css";
 import "./pages/auth/components/style.css";
 import Navbar from "./pages/components/Navbar";
 import Home from "./pages/home/Home";
-import { ThemeProvider } from "@/components/theme-provider";
 
 function App() {
 	const [role, setRole] = useState(localStorage.getItem("role"));
@@ -63,12 +62,10 @@ function App() {
 
 	return (
 		<>
-			<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-				<main className="appMain">
-					<Navbar />
-					<Home />
-				</main>
-			</ThemeProvider>
+			<main className="appMain">
+				<Navbar />
+				<Home />
+			</main>
 		</>
 	);
 }
