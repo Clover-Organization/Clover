@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import Editor from "@monaco-editor/react";
 import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
 
@@ -15,9 +15,9 @@ const FileEditor = ({ fileName, fileContent }) => {
         editorRef.current = editor;
     }
 
-    // function showValue() {
-    //     alert(editorRef.current.getValue());
-    // }
+    function showValue() {
+        alert(editorRef.current.getValue());
+    }
 
     return (
         <div>
