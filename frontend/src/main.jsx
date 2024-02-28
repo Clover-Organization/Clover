@@ -17,6 +17,7 @@ import FileView from "./pages/projects/components/file-view/FileView.jsx";
 import FolderView from "./pages/projects/components/folder-view/FolderView.jsx";
 import Annotation from "./pages/annotation/Annotation.jsx";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const router = createBrowserRouter([
 	{
@@ -70,6 +71,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 			<SplashScreen />
 			<RouterProvider router={router} />
+			<Toaster position="top-right" richColors visibleToasts="1" />
 		</ThemeProvider>
 	</React.StrictMode>
 );
