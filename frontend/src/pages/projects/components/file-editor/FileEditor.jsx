@@ -1,23 +1,72 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
 import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
+import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
+import Modal from "../../../components/Modal";
+import InputField from "../../../home/components/inputField/InputField";
+import { handleInputBlur, handleInputFocus } from "../../../home/components/utils/handleInput/HandleInput";
+import { closeModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
 
-const FileEditor = ({ fileName, fileContent }) => {
+const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const editorRef = useRef(null);
+    const token = localStorage.getItem('token')
     const theme = localStorage.getItem('theme');
     const fontSize = localStorage.getItem('fontSize');
 
-    if (fileContent === undefined) {
-        fileContent = "";
+    const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    if (fileContent.data === undefined) {
+        fileContent.data = "";
     }
 
-    function handleEditorDidMount(editor, monaco) {
+    const handleEditorDidMount = (editor, monaco) => {
         editorRef.current = editor;
+
+        if (monaco) {
+            editor.addAction({
+                id: "myPaste",
+                label: "Save",
+                keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S],
+                contextMenuGroupId: "9_cutcopypaste",
+                contextMenuOrder: 0,
+                run: editor => {
+                    setModalIsOpen(true);
+                    return true;
+                }
+            });
+        }
     }
 
-    function showValue() {
-        alert(editorRef.current.getValue());
+    const convertContentByFile = (content) => {
+        // Obter os dados do conteúdo do arquivo
+        const fileContentData = content;
+
+        // Converter os dados para um objeto Blob
+        const blob = new Blob([fileContentData], { type: 'application/octet-stream' });
+
+        // Criar um novo objeto File a partir do Blob
+        const file = new File([blob], singleRequest.fileName, { type: 'application/octet-stream' });
+
+        // Retornar o objeto File
+        return file;
     }
+
+    const sendCommit = async () => {
+        alert(editorRef.current.getValue());
+
+        // Chamar a função convertContentByFile() para obter o objeto File
+        const teste = convertContentByFile(editorRef.current.getValue());
+
+        newCommitAndFile.newFile = teste;
+
+        // Enviar a commit e atualizar o arquivo
+        await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
+        setModalIsOpen(false);
+    }
+
+
+    console.log(singleRequest);
 
     return (
         <div>
@@ -26,8 +75,8 @@ const FileEditor = ({ fileName, fileContent }) => {
                     className="editor-container"
                     height="50vh"
                     width="100%"
-                    language={GetLanguageInfos(fileName).name}
-                    defaultValue={fileContent}
+                    language={GetLanguageInfos(singleRequest.fileName).name}
+                    defaultValue={fileContent.data}
                     theme={theme}
                     onMount={handleEditorDidMount}
                     options={{
@@ -39,6 +88,27 @@ const FileEditor = ({ fileName, fileContent }) => {
                     }}
                 />
             </div>
+            <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
+                <div className="password-update-modal">
+
+                    <h5>Commit File</h5>
+                    <p>Insert your new file</p>
+
+                    <InputField
+                        id="commit"
+                        label="Commit message"
+                        value={newCommitAndFile.newCommit}
+                        onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
+                        onMouseEnter={() => handleInputFocus('commitLabel')}
+                        onMouseLeave={() => handleInputBlur('commitLabel')}
+                    />
+
+                    <div className="btnSave">
+                        <button onClick={() => sendCommit(newCommitAndFile)}>Send!</button>
+                    </div>
+
+                </div>
+            </Modal>
         </div>
     );
 };

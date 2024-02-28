@@ -72,6 +72,9 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AutenticarDados dados) {
         try {
+
+            if(repository.findByUsername(dados.username()) == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Usuário não existe!"));
+
             var authenticationToken = new UsernamePasswordAuthenticationToken(dados.username(), dados.password());
 
             var authentication = manager.authenticate(authenticationToken);
