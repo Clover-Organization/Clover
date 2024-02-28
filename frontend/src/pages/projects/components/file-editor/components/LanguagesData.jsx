@@ -4,7 +4,7 @@ const languagesData = {
         imgUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
     },
     js: {
-        name: "js",
+        name: "javascript",
         imgUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
     },
     java: {
@@ -62,6 +62,10 @@ const languagesData = {
     scala: {
         name: "scala",
         imgUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scala/scala-original.svg"
+    },
+    sql:{
+        name: "sql",
+        imgUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqldeveloper/sqldeveloper-plain.svg"
     },
 };
 

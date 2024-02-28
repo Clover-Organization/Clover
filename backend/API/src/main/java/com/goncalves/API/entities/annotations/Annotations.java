@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +35,19 @@ public class Annotations {
         this.annotationContent = annotationContent;
         this.creationAnnotation = creationAnnotation;
         this.progressAnnotation = progressAnnotation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Annotations that = (Annotations) o;
+        return Objects.equals(idAnnotation, that.idAnnotation) && Objects.equals(title, that.title) && Objects.equals(annotationContent, that.annotationContent) && Objects.equals(creationAnnotation, that.creationAnnotation) && Objects.equals(progressAnnotation, that.progressAnnotation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idAnnotation, title, annotationContent, creationAnnotation, progressAnnotation);
     }
 
     public void atualizarAnnotation(DadosAtualizarAnnotation dados) {

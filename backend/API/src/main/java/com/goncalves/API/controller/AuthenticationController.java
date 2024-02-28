@@ -35,6 +35,7 @@ public class AuthenticationController {
     @Autowired
     private ErrorHandling errorHandling;
 
+
     @PostMapping("/register")
     public ResponseEntity register(@RequestPart("profileImage") MultipartFile profileImage,
                                    @RequestPart("userData") @Valid AutenticarDados dados,
@@ -42,7 +43,7 @@ public class AuthenticationController {
         try {
             validateRegistrationData(dados);
 
-            if (dados.password().length() < 9){
+            if (dados.password().length() < 9) {
                 return ResponseEntity.badRequest().body("Campo password tem que ter no mínimo 9 caracteres");
             }
 
@@ -54,6 +55,52 @@ public class AuthenticationController {
 
             Users newUser = new Users(dados.username(), dados.firstName(), dados.lastName(), dados.email(),
                     encryptedPassword, dados.birth(), LocalDateTime.now(), dados.role(), profileImageBytes);
+            repository.save(newUser);
+
+            // Construir a URI para o novo usuário
+            var uri = uriComponentsBuilder.path("/users/{id_User}").buildAndExpand(newUser.getIdUsers()).toUri();
+
+            // Retornar uma resposta 201 Created com a URI e o corpo do novo usuário
+            return ResponseEntity.created(uri).body(newUser);
+        } catch (RegistrationException e) {
+            return ResponseEntity.badRequest().body(new StandardError(e.getField(), e.getMessage()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody @Valid AutenticarDados dados) {
+        try {
+            var authenticationToken = new UsernamePasswordAuthenticationToken(dados.username(), dados.password());
+
+            var authentication = manager.authenticate(authenticationToken);
+            //Tratamento de erro caso as credenciais estejam erradas
+
+            var tokenJWT = tokenService.generateToken((Users) authentication.getPrincipal());
+
+            return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Credenciais inválidas"));
+        }
+    }
+
+    @PostMapping("/register/google")
+    public ResponseEntity registerByGoogle(@RequestPart("profileImage") MultipartFile profileImage,
+                                           @RequestPart("userData") @Valid AutenticarDados dados,
+                                           UriComponentsBuilder uriComponentsBuilder) {
+        try {
+            validateRegistrationData(dados);
+
+            // Criar um novo usuário com a senha criptografada
+            String encryptedPassword = new BCryptPasswordEncoder().encode(dados.password());
+
+            // Converta o MultipartFile para byte[]
+            byte[] profileImageBytes = profileImage.getBytes();
+
+            Users newUser = new Users(dados.username(), dados.firstName(), dados.lastName(), dados.email(),
+                    encryptedPassword, dados.birth(), LocalDateTime.now(), dados.role(), profileImageBytes);
+
             repository.save(newUser);
 
             // Construir a URI para o novo usuário
@@ -86,19 +133,5 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AutenticarDados dados) {
-        try {
-            var authenticationToken = new UsernamePasswordAuthenticationToken(dados.username(), dados.password());
 
-            var authentication = manager.authenticate(authenticationToken);
-            //Tratamento de erro caso as credenciais estejam erradas
-
-            var tokenJWT = tokenService.generateToken((Users) authentication.getPrincipal());
-
-            return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Credenciais inválidas"));
-        }
-    }
 }
