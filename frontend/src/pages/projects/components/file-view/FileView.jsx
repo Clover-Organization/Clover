@@ -21,6 +21,7 @@ const FileView = () => {
     const token = localStorage.getItem('token');
     const theme = localStorage.getItem('theme');
     const fontSize = localStorage.getItem('fontSize');
+    const fontFamily = localStorage.getItem('fontFamily');
     const { idProject, idFile, idFolder } = useParams();
 
     const [singleRequest, setSingleRequest] = useState({});
@@ -167,7 +168,7 @@ const FileView = () => {
                                                         scrollBeyondLastLine: false,
                                                         fontSize: `${fontSize}px`,
                                                         fontLigatures: true,
-                                                        fontFamily: "JetBrains Mono",
+                                                        fontFamily: fontFamily,
                                                         readOnly: true
                                                     }}
                                                 />
@@ -208,7 +209,7 @@ const FileView = () => {
                                                                 scrollBeyondLastLine: false,
                                                                 fontSize: `${fontSize}px`,
                                                                 fontLigatures: true,
-                                                                fontFamily: "JetBrains Mono",
+                                                                fontFamily: fontFamily,
                                                                 readOnly: true
                                                             }}
                                                         />
