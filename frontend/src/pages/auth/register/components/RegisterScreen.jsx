@@ -89,7 +89,7 @@ export default function LoginScreen() {
 				<CardDescription className="py-2">
 					Enter your information below to create an account.
 				</CardDescription>
-				<div className="grid items-center justify-center">
+				<div className="grid items-center justify-center pt-5">
 					<div className="w-44 h-44 flex items-center justify-center  border border-white rounded-full">
 						<img
 							src={handleImagePreview() || user}
@@ -98,7 +98,7 @@ export default function LoginScreen() {
 						/>
 					</div>
 				</div>
-				<div className="py-10">
+				<div className="pt-5">
 					<Input
 						ref={inputRef}
 						id="picture"
