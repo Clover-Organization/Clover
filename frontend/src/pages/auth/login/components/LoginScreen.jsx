@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import {
 	Card,
 	CardContent,
@@ -14,12 +14,69 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Github, Eye, EyeOff, GithubIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CardWithForm() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
-    const { toast } = useToast()
+	const navigate = useNavigate();
+
+	const handleUsernameChange = (event) => {
+		setUsername(event.target.value);
+	};
+
+	const handlePasswordChange = (event) => {
+		setPassword(event.target.value);
+	};
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		await cadastrar();
+		limpar();
+	};
+
+	const limpar = () => {
+		setUsername("");
+		setPassword("");
+	};
+
+	const cadastrar = async () => {
+		const data = {
+			username: username,
+			password: password,
+		};
+
+		try {
+			const response = await fetch("http://localhost:8080/auth/login", {
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				method: "POST",
+				body: JSON.stringify(data),
+			});
+
+			if (response.ok) {
+				const responseJson = await response.json();
+				const token = responseJson.token;
+				localStorage.setItem("token", token);
+				toast.success("Sucess!", {
+					description: "Sucefully signed in!",
+				});
+				navigate("/");
+			} else if (response.status === 401) {
+				toast.error("Error", {
+					description: "Invalid username or password!",
+				});
+			} else {
+				console.log("Ocorreu um erro inesperado: " + response.status);
+			}
+		} catch (error) {
+			console.error("Erro ao enviar a solicitação:", error);
+		}
+	};
 
 	const handleShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -33,11 +90,16 @@ export default function CardWithForm() {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<form>
+				<form onSubmit={handleSubmit}>
 					<div className="grid w-full items-center gap-4">
 						<div className="flex flex-col space-y-1.5 gap-2">
-							<Label htmlFor="name">Username</Label>
-							<Input id="name" placeholder="Enter your username" />
+							<Label htmlFor="username">Username</Label>
+							<Input
+								id="name"
+								placeholder="Enter your username"
+								value={username}
+								onChange={handleUsernameChange}
+							/>
 						</div>
 						<div className="grid w-full items-center gap-4">
 							<Label htmlFor="password">Password</Label>
@@ -46,6 +108,8 @@ export default function CardWithForm() {
 									type={showPassword ? "text" : "password"}
 									id="password"
 									placeholder="Enter your password"
+									value={password}
+									onChange={handlePasswordChange}
 								/>
 								{showPassword ? (
 									<EyeOff
@@ -60,27 +124,16 @@ export default function CardWithForm() {
 								)}
 							</div>
 						</div>
+						<Link
+							to="/auth/register"
+							className="text-green-500 hover:text-green-600 underline underline-offset-auto"
+						>
+							Forgot your password?
+						</Link>
+						<Button className="w-28 justify-self-end">Sign In</Button>
 					</div>
 				</form>
 			</CardContent>
-			<CardFooter className="flex justify-between">
-				<Link
-					to="/auth/register"
-					className="text-green-500 hover:text-green-600 underline underline-offset-auto"
-				>
-					Forgot your password?
-				</Link>
-				<Button
-					className="w-28"
-					onClick={() => {
-						toast({
-							description: "Sucessfully signed in!",
-						});
-					}}
-				>
-					Sign In
-				</Button>
-			</CardFooter>
 			<div className="flex items-center justify-center">
 				<Separator className="my-3 mx-4 w-auto flex-grow" />
 				<span>or sign in with</span>
