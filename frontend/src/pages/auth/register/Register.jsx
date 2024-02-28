@@ -36,10 +36,6 @@ const Register = ({ toggleForm }) => {
 
 	const inputRef = useRef(null);
 
-	const handleImageClick = () => {
-		inputRef.current.click();
-	};
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		if (validateInputs()) {
@@ -184,12 +180,7 @@ const Register = ({ toggleForm }) => {
 		setProfileImage(null);
 	};
 
-	const handleImagePreview = () => {
-		if (profileImage) {
-			return URL.createObjectURL(profileImage);
-		}
-		return null;
-	};
+	
 
 	return (
 		<section className="flex align-center">
