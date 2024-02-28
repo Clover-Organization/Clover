@@ -20,6 +20,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
         fileContent.data = "";
     }
 
+
     const handleEditorDidMount = (editor, monaco) => {
         editorRef.current = editor;
 
@@ -27,12 +28,14 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
             editor.addAction({
                 id: "myPaste",
                 label: "Save",
-                keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S],
-                contextMenuGroupId: "9_cutcopypaste",
+                keybindings: [
+                    monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,
+                ],
+                contextMenuGroupId: "0_cutcopypaste",
                 contextMenuOrder: 0,
+
                 run: editor => {
                     setModalIsOpen(true);
-                    return true;
                 }
             });
         }
@@ -64,9 +67,6 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
         setModalIsOpen(false);
     }
-
-
-    console.log(singleRequest);
 
     return (
         <div>
