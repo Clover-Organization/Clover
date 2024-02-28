@@ -56,8 +56,6 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     }
 
     const sendCommit = async () => {
-        alert(editorRef.current.getValue());
-
         // Chamar a função convertContentByFile() para obter o objeto File
         const teste = convertContentByFile(editorRef.current.getValue());
 
