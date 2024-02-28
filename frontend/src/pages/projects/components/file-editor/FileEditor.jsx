@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Editor from "@monaco-editor/react";
 import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
 import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
@@ -12,9 +13,12 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const token = localStorage.getItem('token')
     const theme = localStorage.getItem('theme');
     const fontSize = localStorage.getItem('fontSize');
+    const fontFamily = localStorage.getItem('fontFamily')
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     if (fileContent.data === undefined) {
         fileContent.data = "";
@@ -64,8 +68,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
         // Enviar a commit e atualizar o arquivo
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
         setModalIsOpen(false);
+        navigate(`/project/${idProject}`)
     }
-
     return (
         <div>
             <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#1e1e1e', padding: '30px', borderRadius: '20px', margin: '50px auto', width: '90%' }}>
@@ -82,7 +86,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                         scrollBeyondLastLine: false,
                         fontSize: `${fontSize}px`,
                         fontLigatures: true,
-                        fontFamily: "JetBrains Mono",
+                        fontFamily: fontFamily,
                     }}
                 />
             </div>
