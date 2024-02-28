@@ -195,6 +195,9 @@ const Register = ({ toggleForm }) => {
 		<section className="flex align-center">
 			<article className="authArticle">
 				<RegisterScreen />
+				<a onClick={toggleForm}>
+					<span>Already registered? log in!</span>
+				</a>
 			</article>
 		</section>
 	);

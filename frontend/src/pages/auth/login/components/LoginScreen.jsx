@@ -71,7 +71,7 @@ export default function CardWithForm() {
 					Forgot your password?
 				</Link>
 				<Button
-					className="bg-green-500 hover:bg-green-600 w-28"
+					className="w-28"
 					onClick={() => {
 						toast({
 							description: "Sucessfully signed in!",
