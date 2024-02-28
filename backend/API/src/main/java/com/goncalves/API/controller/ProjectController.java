@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/projects")
-public class ProjectController {
+public class  ProjectController {
     @Autowired
     private ProjectRepository repository;
     @Autowired

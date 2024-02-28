@@ -25,7 +25,7 @@ public class AnnotationsController {
     private ProjectRepository projectRepository;
 
     @GetMapping("/get/content/{idAnnotation}")
-    public ResponseEntity getContentByAnnotation(@PathVariable String idAnnotation){
+    public ResponseEntity getContentByAnnotation(@PathVariable String idAnnotation) {
         var optionalAnnotations = repository.findById(idAnnotation);
 
         return ResponseEntity.ok(optionalAnnotations);
@@ -56,10 +56,11 @@ public class AnnotationsController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found");
         }
     }
+
     @PutMapping("/{idProject}/annotation/{idAnnotation}/update")
     public ResponseEntity updateAnnotation(@PathVariable String idProject,
                                            @PathVariable String idAnnotation,
-                                           @RequestBody @Validated DadosAtualizarAnnotation dados){
+                                           @RequestBody @Validated DadosAtualizarAnnotation dados) {
         try {
             // Buscar o projeto pelo ID
             var optionalProject = projectRepository.findById(idProject)
@@ -97,4 +98,47 @@ public class AnnotationsController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a requisição");
         }
     }
+
+    @DeleteMapping("/{idProject}/delete/{idAnnotation}")
+    @Transactional
+    public ResponseEntity deleteAnnotation(@PathVariable String idProject,
+                                           @PathVariable String idAnnotation) {
+        try {
+            if (idAnnotation.isBlank() || idProject.isBlank()) {
+                return ResponseEntity.badRequest().body("ID não pode estar em branco.");
+            }
+
+            // Verifica se o projeto existe
+            var projectOptional = projectRepository.findById(idProject);
+
+            if (!projectOptional.isPresent()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            var project = projectOptional.get();
+            // Verifica se a anotação existe
+            var annotationOptional = repository.findById(idAnnotation);
+
+            if (!annotationOptional.isPresent()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            var annotation = annotationOptional.get();
+
+            var isRemoved = project.getAnnotations().remove(annotation);
+            if(isRemoved){
+                // Exclui a anotação do banco de dados
+                repository.deleteById(idAnnotation);
+                projectRepository.save(project);
+                return ResponseEntity.noContent().build();
+            }else{
+                return ResponseEntity.badRequest().build();
+            }
+
+        } catch (Exception e) {
+            // Trata exceções internas com uma mensagem de erro genérica
+            return ResponseEntity.internalServerError().body("Ocorreu um erro ao excluir a anotação.");
+        }
+    }
+
 }

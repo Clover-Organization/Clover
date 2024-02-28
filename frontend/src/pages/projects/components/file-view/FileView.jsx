@@ -40,6 +40,7 @@ const FileView = () => {
     });
     const editorRef = useRef(null);
     const [stateModal, setStateModal] = useState(true);
+    const [showFileEditor, setShowFileEditor] = useState(false);
 
     const getFileAndContent = async () => {
         await getFilesById(token, idFile, setSingleRequest);
@@ -93,8 +94,6 @@ const FileView = () => {
         editorRef.current = editor;
     }
 
-
-    const [showFileEditor, setShowFileEditor] = useState(false);
 
     const handleShowFileEditor = () => {
         if (showFileEditor) {

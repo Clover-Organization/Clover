@@ -66,7 +66,7 @@ const languagesData = {
     sql:{
         name: "sql",
         imgUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqldeveloper/sqldeveloper-plain.svg"
-    }
+    },
 };
 
 export default languagesData;
