@@ -11,7 +11,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { format } from "date-fns"
+import { format } from "date-fns";
 import {
 	Form,
 	FormControl,
@@ -35,6 +35,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import user from "../../assets/user.png";
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const FormSchema = z.object({
 	username: z.string().min(2, {
@@ -53,10 +55,10 @@ const FormSchema = z.object({
 			}
 		),
 	firstName: z.string().min(1, {
-		message: ""
+		message: "",
 	}),
 	lastName: z.string().min(1, {
-		message: ""
+		message: "",
 	}),
 	email: z.string().email({ message: "Invalid email address" }),
 	birth: z.date({
@@ -64,14 +66,12 @@ const FormSchema = z.object({
 		invalid_type_error: "That's not a date!",
 	}),
 	role: z.string(),
-
 });
-
-
 
 export default function LoginScreen() {
 	const [profileImage, setProfileImage] = useState(null);
 	const inputRef = useRef(null);
+	const navigate = useNavigate();
 
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
@@ -86,11 +86,13 @@ export default function LoginScreen() {
 		},
 	});
 
-	function validateFormData(data) {
-		
+	const handleSubmit = form.handleSubmit((data) => {
 		const userData = FormSchema.parse(data);
-		cadastrar(userData)
-	};
+		toast.success("Sucess!", {
+			description: "Sucefully registered!",
+		});
+		registerUser(userData);
+	});
 
 	const handleImagePreview = () => {
 		if (profileImage) {
@@ -103,17 +105,14 @@ export default function LoginScreen() {
 		const response = await fetch(userImagePath);
 		const blob = await response.blob();
 
-		// Extrai o nome do arquivo do caminho
 		const fileName = userImagePath.split("/").pop();
 
-		// Cria o objeto File
 		const userFile = new File([blob], fileName, { type: blob.type });
 
 		return userFile;
 	};
 
-	const cadastrar = async (userData) => {
-	
+	const registerUser = async (userData) => {
 		const userFile = await getUserFile(user);
 
 		const formData = new FormData();
@@ -134,20 +133,23 @@ export default function LoginScreen() {
 				toast.success("Sucess!", {
 					description: "Sucefully registered!",
 				});
+				navigate("/");
 			} else if (response.status === 400) {
 				const errorData = await response.json();
 				const errorArray = [];
 
-				// Mapeia os erros recebidos do backend para um formato mais legível
 				for (const fieldName in errorData) {
 					const errorMessage = errorData[fieldName];
 					errorArray.push({ fieldName, errorMessage });
 				}
+				toast.error("Error!", {
+					description: "Username already exists!",
+				});
 			} else {
-				console.log("Ocorreu um erro inesperado: " + response.status);
+				console.log("Error: " + response.status);
 			}
 		} catch (error) {
-			console.log("Erro ao enviar a solicitação:", error);
+			console.log("Error: ", error);
 		}
 	};
 
@@ -160,11 +162,12 @@ export default function LoginScreen() {
 				</CardDescription>
 				<div className="grid items-center justify-center pt-5">
 					<div className="w-44 h-44 flex items-center justify-center  border border-white rounded-full">
-						<img
+					<Avatar className="w-40 h-40 object-center">
+						<AvatarImage
 							src={handleImagePreview() || user}
 							alt="userImage"
-							className="w-40 h-40 object-center rounded-full"
 						/>
+						</Avatar>
 					</div>
 				</div>
 				<div className="pt-5">
@@ -174,14 +177,14 @@ export default function LoginScreen() {
 						type="file"
 						accept="image/*"
 						onChange={(e) => setProfileImage(e.target.files[0])}
-						className="h-full file:text-primary-foreground file:cursor-pointer file:bg-primary file:hover:bg-primary/90  file:rounded-md file:p-2 file:mr-6 file:font-xs"
+						className="h-full border-none file:text-primary-foreground file:cursor-pointer file:bg-primary file:hover:bg-primary/90  file:rounded-md file:p-2 file:mr-6 file:font-xs"
 					/>
 				</div>
 			</CardHeader>
 			<CardContent className="space-y-6">
-				<Form {...form} >
+				<Form {...form}>
 					<form
-						onSubmit={form.handleSubmit(validateFormData)}
+						onSubmit={handleSubmit}
 						className="m-4 lg:flex lg:flex-row lg:gap-4"
 					>
 						<div className="flex gap-4 p-4">
@@ -205,7 +208,7 @@ export default function LoginScreen() {
 									name="email"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Email*</FormLabel>
+											<FormLabel>Email</FormLabel>
 											<FormControl>
 												<Input
 													type="text"
@@ -232,7 +235,8 @@ export default function LoginScreen() {
 												/>
 											</FormControl>
 											<FormDescription>
-												Your password must be at least 8 characters and one special character.
+											<p class="text-left break-words text-wrap w-60">Your password must be at least 8 characters 
+											long and contain at least one special character.</p>
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -318,13 +322,13 @@ export default function LoginScreen() {
 												</Popover>
 												<FormDescription>
 													Your date of birth is used to calculate your age.
-												</FormDescription	>
+												</FormDescription>
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
 									<div className="flex align-end justify-end">
-										<Button type="submit" >Submit</Button>
+										<Button type="submit">Submit</Button>
 									</div>
 								</div>
 							</div>
