@@ -3,6 +3,7 @@ package com.goncalves.API.controller;
 import com.goncalves.API.DTO.DadosAtualizarSenha;
 import com.goncalves.API.DTO.DadosTokenEmailValidation;
 import com.goncalves.API.entities.user.UserRepository;
+import com.goncalves.API.infra.security.ErrorNotFoundId;
 import com.goncalves.API.infra.security.NotFoundException;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;
@@ -53,13 +54,13 @@ public class EmailUpdateController {
     public ResponseEntity gerarTokenRedefinicaoSenhaEsquecida(@RequestBody DadosAtualizarSenha dados) {
         try {
             // Encontrar o usuário pelo nome de usuário
-            var user = repository.findByUsernameForgot(dados.usernameEdit());
+            var user = repository.findByEmail(dados.emailEdit());
 
             // Verificar se o usuário existe
             if (user == null) {
                 // Se o usuário não for encontrado, retornar uma resposta de erro
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new NotFoundException("Usuário não encontrado!", dados.usernameEdit()));
+                        .body(new ErrorNotFoundId("Usuário não encontrado com esse email!", dados.emailEdit()));
             }
 
             // Gerar um token exclusivo para o usuário

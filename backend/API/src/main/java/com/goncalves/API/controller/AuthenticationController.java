@@ -123,6 +123,10 @@ public class AuthenticationController {
             throw new RegistrationException("username", "Já existe um usuário com este nome!");
         }
 
+        if(repository.findByEmail(dados.email()) != null){
+            throw new RegistrationException("email", "Já existe um usuário com este email!");
+        }
+
         validateField(dados.firstName(), "firstName", "Campo firstName deve ter no mínimo 3 caracteres!");
         validateField(dados.lastName(), "lastName", "Campo lastName deve ter no mínimo 3 caracteres!");
         validateField(dados.username(), "username", "Campo usuário deve ter no mínimo 3 caracteres!");

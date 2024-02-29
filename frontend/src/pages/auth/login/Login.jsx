@@ -19,7 +19,7 @@ const Login = ({ toggleForm }) => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
-  const [usernameEdit, setUsernameEdit] = useState("");
+  const [emailEdit, setEmailEdit] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showUpdateScreen, setShowUpdateScreen] = useState(true);
@@ -300,15 +300,15 @@ const Login = ({ toggleForm }) => {
 
             <InputField
               id="usernameEdit"
-              label="Username"
-              value={usernameEdit}
-              onChange={(e) => setUsernameEdit(() => (e.target.value))}
+              label="Email"
+              value={emailEdit}
+              onChange={(e) => setEmailEdit(() => (e.target.value))}
               onMouseEnter={() => handleInputFocus('usernameEditLabel')}
               onMouseLeave={() => handleInputBlur('usernameEditLabel')}
             />
 
             <div className="btnSave">
-              <button onClick={() => sendToken({ usernameEdit })}>Send!</button>
+              <button onClick={() => sendToken({ emailEdit })}>Send!</button>
             </div>
           </div>
         )}
