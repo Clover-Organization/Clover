@@ -37,6 +37,7 @@ const EditorSettings = () => {
                             className="select-theme"
                         >
                             <option value="JetBrains Mono">JetBrains Mono</option>
+                            <option value="system-ui">system-ui</option>
                             <option value="Arial">Arial</option>
                             <option value="Sans-Serif">Sans-Serif</option>
                         </select>

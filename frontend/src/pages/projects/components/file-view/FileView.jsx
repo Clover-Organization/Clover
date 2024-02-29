@@ -120,6 +120,7 @@ const FileView = () => {
                         setShowCommits={setShowCommits}
                         setCommitNull={() => setShowCommitsSelected({ selectedCommit: false, commitMessage: "", changes: null })}
                         handleShowFileEditor={handleShowFileEditor}
+                        showFileEditor={showFileEditor}
                     />
                 </nav>
 
