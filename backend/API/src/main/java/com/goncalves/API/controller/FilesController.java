@@ -10,7 +10,9 @@ import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
 import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
+import com.goncalves.API.infra.security.ErrorNotFoundId;
 import com.goncalves.API.infra.security.NotFoundException;
+import com.goncalves.API.infra.security.Successfully;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +40,7 @@ public class FilesController {
     private VersionsRepository versionsRepository;
 
     @GetMapping("/{idProjects}/{idFile}/content")
-    public ResponseEntity<byte[]> getContentById(
+    public ResponseEntity getContentById(
             @PathVariable String idProjects,
             @PathVariable String idFile) {
         try {
@@ -75,8 +77,7 @@ public class FilesController {
             return ResponseEntity.notFound().build();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Internal server error.", e));
         }
     }
 
@@ -118,7 +119,7 @@ public class FilesController {
             var filesOptional = repository.findById(idFile);
 
             if (filesOptional.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("File not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId("File not found", idFile));
             }
 
             var file = filesOptional.get();
@@ -127,7 +128,7 @@ public class FilesController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao obter commits do arquivo. Detalhes: " + e.getMessage());
+                    .body(new InternalError("Erro ao obter commits do arquivo. Detalhes: " + e.getMessage()));
         }
     }
 
@@ -138,13 +139,13 @@ public class FilesController {
             @PathVariable String idProject) {
         try {
             if (idProject.isBlank()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("ID não encontrado", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Not found id.", idProject));
             }
 
             var projectOptional = projectsRepository.findById(idProject);
 
             if (projectOptional.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Projeto não encontrado", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Project not found.", idProject));
             }
 
             var project = projectOptional.get();
@@ -176,12 +177,12 @@ public class FilesController {
             // Atualiza o projeto no repositório
             projectsRepository.save(project);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Arquivos salvos com sucesso!");
+            return ResponseEntity.status(HttpStatus.CREATED).body(new Successfully("Files saved successfully!", idProject));
 
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Falha ao ler o conteúdo dos arquivos. " + e.getMessage());
+                    .body(new InternalError("Falha ao ler o conteúdo dos arquivos. " + e.getMessage()));
         }
     }
 
