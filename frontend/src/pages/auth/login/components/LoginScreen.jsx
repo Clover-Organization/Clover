@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Github, Eye, EyeOff, GithubIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import PasswordUpdate from "./PasswordUpdate";
 
 export default function CardWithForm() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -124,11 +125,7 @@ export default function CardWithForm() {
 								)}
 							</div>
 						</div>
-						<a
-							className="cursor-pointer text-green-500 hover:text-green-600 underline underline-offset-auto"
-						>
-							Forgot your password?
-						</a>
+						<PasswordUpdate />
 						<Button className="w-28 justify-self-end">Sign In</Button>
 					</div>
 				</form>
