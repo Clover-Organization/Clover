@@ -124,12 +124,11 @@ export default function CardWithForm() {
 								)}
 							</div>
 						</div>
-						<Link
-							to="/auth/register"
-							className="text-green-500 hover:text-green-600 underline underline-offset-auto"
+						<a
+							className="cursor-pointer text-green-500 hover:text-green-600 underline underline-offset-auto"
 						>
 							Forgot your password?
-						</Link>
+						</a>
 						<Button className="w-28 justify-self-end">Sign In</Button>
 					</div>
 				</form>

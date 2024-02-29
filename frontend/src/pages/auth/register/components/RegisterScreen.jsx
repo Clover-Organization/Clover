@@ -11,6 +11,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import { format } from "date-fns"
 import {
 	Form,
 	FormControl,
@@ -51,7 +52,22 @@ const FormSchema = z.object({
 				message: "Password must contain at least one special character.",
 			}
 		),
+	firstName: z.string().min(1, {
+		message: ""
+	}),
+	lastName: z.string().min(1, {
+		message: ""
+	}),
+	email: z.string().email({ message: "Invalid email address" }),
+	birth: z.date({
+		required_error: "Please select a date and time",
+		invalid_type_error: "That's not a date!",
+	}),
+	role: z.string(),
+
 });
+
+
 
 export default function LoginScreen() {
 	const [profileImage, setProfileImage] = useState(null);
@@ -62,17 +78,18 @@ export default function LoginScreen() {
 		defaultValues: {
 			username: "",
 			password: "",
+			firstName: "",
+			lastName: "",
+			email: "",
+			birth: "",
+			role: "USER",
 		},
 	});
 
-	function onSubmit(data) {
-		toast.success("Sucess!", {
-			description: "Sucefully registered!",
-		});
-	}
-
-	const handleImageClick = () => {
-		inputRef.current.click();
+	function validateFormData(data) {
+		
+		const userData = FormSchema.parse(data);
+		cadastrar(userData)
 	};
 
 	const handleImagePreview = () => {
@@ -80,6 +97,58 @@ export default function LoginScreen() {
 			return URL.createObjectURL(profileImage);
 		}
 		return null;
+	};
+
+	const getUserFile = async (userImagePath) => {
+		const response = await fetch(userImagePath);
+		const blob = await response.blob();
+
+		// Extrai o nome do arquivo do caminho
+		const fileName = userImagePath.split("/").pop();
+
+		// Cria o objeto File
+		const userFile = new File([blob], fileName, { type: blob.type });
+
+		return userFile;
+	};
+
+	const cadastrar = async (userData) => {
+	
+		const userFile = await getUserFile(user);
+
+		const formData = new FormData();
+		formData.append("profileImage", profileImage ? profileImage : userFile);
+
+		formData.append(
+			"userData",
+			new Blob([JSON.stringify(userData)], { type: "application/json" })
+		);
+
+		try {
+			const response = await fetch("http://localhost:8080/auth/register", {
+				method: "POST",
+				body: formData,
+			});
+
+			if (response.status === 201) {
+				toast.success("Sucess!", {
+					description: "Sucefully registered!",
+				});
+			} else if (response.status === 400) {
+				const errorData = await response.json();
+				const errorArray = [];
+
+				// Mapeia os erros recebidos do backend para um formato mais legível
+				for (const fieldName in errorData) {
+					const errorMessage = errorData[fieldName];
+					errorArray.push({ fieldName, errorMessage });
+				}
+			} else {
+				console.log("Ocorreu um erro inesperado: " + response.status);
+			}
+		} catch (error) {
+			console.log("Erro ao enviar a solicitação:", error);
+		}
 	};
 
 	return (
@@ -110,9 +179,9 @@ export default function LoginScreen() {
 				</div>
 			</CardHeader>
 			<CardContent className="space-y-6">
-				<Form {...form}>
+				<Form {...form} >
 					<form
-						onSubmit={form.handleSubmit(onSubmit)}
+						onSubmit={form.handleSubmit(validateFormData)}
 						className="m-4 lg:flex lg:flex-row lg:gap-4"
 					>
 						<div className="flex gap-4 p-4">
@@ -139,7 +208,7 @@ export default function LoginScreen() {
 											<FormLabel>Email*</FormLabel>
 											<FormControl>
 												<Input
-													type="email"
+													type="text"
 													placeholder="Enter your Email"
 													{...field}
 												/>
@@ -163,7 +232,7 @@ export default function LoginScreen() {
 												/>
 											</FormControl>
 											<FormDescription>
-												Your password must be at least 8 characters.
+												Your password must be at least 8 characters and one special character.
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -211,7 +280,7 @@ export default function LoginScreen() {
 								<div className="w-full flex flex-col space-y-6">
 									<FormField
 										control={form.control}
-										name="dob"
+										name="birth"
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>Date of birth</FormLabel>
@@ -249,13 +318,13 @@ export default function LoginScreen() {
 												</Popover>
 												<FormDescription>
 													Your date of birth is used to calculate your age.
-												</FormDescription>
+												</FormDescription	>
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
 									<div className="flex align-end justify-end">
-										<Button type="submit">Submit</Button>
+										<Button type="submit" >Submit</Button>
 									</div>
 								</div>
 							</div>

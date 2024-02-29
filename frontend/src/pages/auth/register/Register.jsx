@@ -180,17 +180,18 @@ const Register = ({ toggleForm }) => {
 		setProfileImage(null);
 	};
 
-	
+
 
 	return (
-		<section className="flex align-center">
-			<article className="authArticle">
+		<div className="flex justify-center items-center h-screen">
+			<div className="p-4">
 				<RegisterScreen />
-				<a onClick={toggleForm}>
-					<span>Already registered? log in!</span>
+				<a onClick={toggleForm} className="text-green-500 hover:text-green-600 underline underline-offset-auto cursor-pointer block text-center mt-4">
+					Already registered? Log in!
 				</a>
-			</article>
-		</section>
+			</div>
+		</div>
+
 	);
 };
 
@@ -201,160 +202,160 @@ export default Register;
 <div className="authFieldImage">
   <span>Select your profile image</span>
   <div className="imagePreview" onClick={handleImageClick}>
-    <img src={handleImagePreview() || user} alt="userImage" />
+	<img src={handleImagePreview() || user} alt="userImage" />
   </div>
   <input
-    ref={inputRef}
-    id="profileImage"
-    type="file"
-    accept="image/*"
-    onChange={(e) => setProfileImage(e.target.files[0])}
-    style={{ display: "none" }}
+	ref={inputRef}
+	id="profileImage"
+	type="file"
+	accept="image/*"
+	onChange={(e) => setProfileImage(e.target.files[0])}
+	style={{ display: "none" }}
   />
 </div>
 <form onSubmit={handleSubmit} className="authForm">
   <div className="authField auth">
-    <label
-      id="usernameLabel"
-      className={username ? "active" : ""}
-      htmlFor="username"
-    >
-      Username
-    </label>
-    <input
-      id="username"
-      type="text"
-      value={username}
-      onChange={(e) => setUsername(e.target.value)}
-      onMouseEnter={() => handleInputFocus("usernameLabel")}
-      onMouseLeave={() => handleInputBlur("usernameLabel")}
-    />
+	<label
+	  id="usernameLabel"
+	  className={username ? "active" : ""}
+	  htmlFor="username"
+	>
+	  Username
+	</label>
+	<input
+	  id="username"
+	  type="text"
+	  value={username}
+	  onChange={(e) => setUsername(e.target.value)}
+	  onMouseEnter={() => handleInputFocus("usernameLabel")}
+	  onMouseLeave={() => handleInputBlur("usernameLabel")}
+	/>
   </div>
   <div className="authField auth">
-    <label
-      id="firstNameLabel"
-      className={firstName ? "active" : ""}
-      htmlFor="firstName"
-    >
-      First Name
-    </label>
-    <input
-      id="firstName"
-      type="text"
-      value={firstName}
-      onChange={(e) => setFirstName(e.target.value)}
-      onMouseEnter={() => handleInputFocus("firstNameLabel")}
-      onMouseLeave={() => handleInputBlur("firstNameLabel")}
-    />
+	<label
+	  id="firstNameLabel"
+	  className={firstName ? "active" : ""}
+	  htmlFor="firstName"
+	>
+	  First Name
+	</label>
+	<input
+	  id="firstName"
+	  type="text"
+	  value={firstName}
+	  onChange={(e) => setFirstName(e.target.value)}
+	  onMouseEnter={() => handleInputFocus("firstNameLabel")}
+	  onMouseLeave={() => handleInputBlur("firstNameLabel")}
+	/>
   </div>
   <div className="authField auth">
-    <label
-      id="lastNameLabel"
-      className={lastName ? "active" : ""}
-      htmlFor="lastName"
-    >
-      Last Name
-    </label>
-    <input
-      id="lastName"
-      type="text"
-      value={lastName}
-      onChange={(e) => setLastName(e.target.value)}
-      onMouseEnter={() => handleInputFocus("lastNameLabel")}
-      onMouseLeave={() => handleInputBlur("lastNameLabel")}
-    />
+	<label
+	  id="lastNameLabel"
+	  className={lastName ? "active" : ""}
+	  htmlFor="lastName"
+	>
+	  Last Name
+	</label>
+	<input
+	  id="lastName"
+	  type="text"
+	  value={lastName}
+	  onChange={(e) => setLastName(e.target.value)}
+	  onMouseEnter={() => handleInputFocus("lastNameLabel")}
+	  onMouseLeave={() => handleInputBlur("lastNameLabel")}
+	/>
   </div>
   <div className="authField auth">
-    <label
-      id="emailLabel"
-      className={email ? "active" : ""}
-      htmlFor="email"
-    >
-      Email
-    </label>
-    <input
-      id="email"
-      type="email"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      onMouseEnter={() => handleInputFocus("emailLabel")}
-      onMouseLeave={() => handleInputBlur("emailLabel")}
-    />
+	<label
+	  id="emailLabel"
+	  className={email ? "active" : ""}
+	  htmlFor="email"
+	>
+	  Email
+	</label>
+	<input
+	  id="email"
+	  type="email"
+	  value={email}
+	  onChange={(e) => setEmail(e.target.value)}
+	  onMouseEnter={() => handleInputFocus("emailLabel")}
+	  onMouseLeave={() => handleInputBlur("emailLabel")}
+	/>
   </div>
   <div className="authField auth">
-    <label
-      id="passwordLabel"
-      className={password ? "active" : ""}
-      htmlFor="password"
-    >
-      Password
-    </label>
-    <div className="togglePassword auth">
-      <span onClick={handleTogglePassword}>
-        {showPassword ? (
-          <img src={openEye} alt="Open Eye" />
-        ) : (
-          <img src={closeEye} alt="Closed Eye" />
-        )}
-      </span>
-    </div>
-    <input
-      id="password"
-      type={showPassword ? "text" : "password"}
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      onMouseEnter={() => handleInputFocus("passwordLabel")}
-      onMouseLeave={() => handleInputBlur("passwordLabel")}
-    />
+	<label
+	  id="passwordLabel"
+	  className={password ? "active" : ""}
+	  htmlFor="password"
+	>
+	  Password
+	</label>
+	<div className="togglePassword auth">
+	  <span onClick={handleTogglePassword}>
+		{showPassword ? (
+		  <img src={openEye} alt="Open Eye" />
+		) : (
+		  <img src={closeEye} alt="Closed Eye" />
+		)}
+	  </span>
+	</div>
+	<input
+	  id="password"
+	  type={showPassword ? "text" : "password"}
+	  value={password}
+	  onChange={(e) => setPassword(e.target.value)}
+	  onMouseEnter={() => handleInputFocus("passwordLabel")}
+	  onMouseLeave={() => handleInputBlur("passwordLabel")}
+	/>
   </div>
   <div className="authField auth">
-    <label
-      id="confirmPasswordLabel"
-      className={confirmPassword ? "active" : ""}
-      htmlFor="confirmPassword"
-    >
-      Confirm Password
-    </label>
-    <input
-      id="confirmPassword"
-      type={showPassword ? "text" : "password"}
-      value={confirmPassword}
-      onChange={(e) => setConfirmPassword(e.target.value)}
-      onMouseEnter={() => handleInputFocus("confirmPasswordLabel")}
-      onMouseLeave={() => handleInputBlur("confirmPasswordLabel")}
-    />
+	<label
+	  id="confirmPasswordLabel"
+	  className={confirmPassword ? "active" : ""}
+	  htmlFor="confirmPassword"
+	>
+	  Confirm Password
+	</label>
+	<input
+	  id="confirmPassword"
+	  type={showPassword ? "text" : "password"}
+	  value={confirmPassword}
+	  onChange={(e) => setConfirmPassword(e.target.value)}
+	  onMouseEnter={() => handleInputFocus("confirmPasswordLabel")}
+	  onMouseLeave={() => handleInputBlur("confirmPasswordLabel")}
+	/>
   </div>
   <div className="authField auth">
-    <legend>Birthday</legend>
-    <input
-      type="date"
-      value={birth}
-      onChange={(e) => setBirth(e.target.value)}
-    />
+	<legend>Birthday</legend>
+	<input
+	  type="date"
+	  value={birth}
+	  onChange={(e) => setBirth(e.target.value)}
+	/>
   </div>
   <div className="btn">
-    <button class="ui-btn">
-      <span>Register</span>
-    </button>
-    <a onClick={toggleForm}>
-      <span>Already registered? log in!</span>
-    </a>
+	<button class="ui-btn">
+	  <span>Register</span>
+	</button>
+	<a onClick={toggleForm}>
+	  <span>Already registered? log in!</span>
+	</a>
   </div>
 </form>
 </fieldset>
 <div className="modal" style={{ display: modal.display }}>
 <div className="errorModal">
   <div className="errorIcon">
-    <img src={imgError} alt="Error" />
-    <h2>Erro!</h2>
+	<img src={imgError} alt="Error" />
+	<h2>Erro!</h2>
   </div>
   <hr />
   <div className="errorMessages">
-    {errors.map((error, index) => (
-      <div key={index}>
-        <strong>{error.campo}</strong> {error.mensagem}
-      </div>
-    ))}
+	{errors.map((error, index) => (
+	  <div key={index}>
+		<strong>{error.campo}</strong> {error.mensagem}
+	  </div>
+	))}
   </div>
 </div>
 </div>
