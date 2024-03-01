@@ -182,7 +182,7 @@ public class FilesController {
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new InternalError("Falha ao ler o conteúdo dos arquivos. " + e.getMessage()));
+                    .body(new InternalError("Failed to read the contents of the files. " + e.getMessage()));
         }
     }
 
@@ -213,14 +213,14 @@ public class FilesController {
             // Verificar se o ID do arquivo é válido
             if (idFile.isBlank()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new NotFoundException("ID do arquivo não encontrado", idFile));
+                        .body(new NotFoundException("File ID not found.", idFile));
             }
 
             // Verificar se o arquivo existe
             var fileOptional = repository.findById(idFile);
             if (fileOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new NotFoundException("Arquivo não encontrado", idFile));
+                        .body(new NotFoundException("File not found.", idFile));
             }
 
             var file = fileOptional.get();
@@ -229,7 +229,7 @@ public class FilesController {
             var projectOptional = projectsRepository.findById(idProject);
             if (projectOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new NotFoundException("Projeto não encontrado", idProject));
+                        .body(new NotFoundException("Project not found", idProject));
             }
             var project = projectOptional.get();
 
@@ -272,12 +272,12 @@ public class FilesController {
                     } else {
                         // Se o arquivo não foi encontrado na lista da pasta
                         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                .body("Falha ao remover o arquivo da lista da pasta.");
+                                .body("Failed to remove file from folder list.");
                     }
                 } else {
                     // Se a pasta não foi encontrada
                     return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                            .body(new NotFoundException("Pasta não encontrada", idFolder));
+                            .body(new NotFoundException("Folder not found.", idFolder));
                 }
             }
 
@@ -294,12 +294,12 @@ public class FilesController {
             } else {
                 // Se o arquivo não foi encontrado na lista do projeto
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body("Falha ao remover o arquivo da lista do projeto.");
+                        .body("Failed to remove file from project list.");
             }
         } catch (Exception e) {
             // Lidar com exceções inesperadas
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro interno ao processar a solicitação.");
+                    .body("Internal error processing the request.");
         }
     }
 

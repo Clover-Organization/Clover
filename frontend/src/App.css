@@ -1116,12 +1116,13 @@ pre {
   color: var(--text-color);
 }
 
-.file-content, .file-content-editor {
+.file-content,
+.file-content-editor {
   width: 100%;
   padding: 0.5rem;
 }
 
-.file-content-editor{
+.file-content-editor {
   background-color: var(--box-shadow-color);
   border-radius: 0px 0px 10px 10px;
 }
@@ -1392,20 +1393,25 @@ pre {
 
 /* === EditorSetting CSS === */
 
+.editor-settings-menu select {
+  width: 100%;
+}
+
 .select-theme {
   padding: 8px 12px;
   font-size: 16px;
   font-weight: bold;
   border-radius: 4px;
   border: 1px solid #ccc;
-  background-color: #fff;
-  color: #000;
+  background-color: #111;
+  color: #0e9a41;
   cursor: pointer;
   margin: 15px;
 }
 
+
 .editor-span-content {
-  color: #fff;
+  color: var(--primary-color);
   font-size: 16px;
   font-weight: bold;
   margin-left: 15px;

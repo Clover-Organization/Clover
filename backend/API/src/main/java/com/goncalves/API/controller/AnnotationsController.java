@@ -53,7 +53,7 @@ public class AnnotationsController {
             return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(newAnnotations));
         } else {
             // Tratar o caso em que o projeto não é encontrado
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found.");
         }
     }
 
@@ -64,19 +64,19 @@ public class AnnotationsController {
         try {
             // Buscar o projeto pelo ID
             var optionalProject = projectRepository.findById(idProject)
-                    .orElseThrow(() -> new NotFoundException("Projeto não encontrado", idProject));
+                    .orElseThrow(() -> new NotFoundException("Project not found", idProject));
 
 
             // Remover a anotação da lista do projeto
             boolean removed = optionalProject.getAnnotations().removeIf(a -> a.getIdAnnotation().equals(idAnnotation));
             if (!removed) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Anotação não encontrada no projeto");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found in project");
             }
 
 
             // Buscar a anotação pelo ID
             var optionalAnnotations = repository.findById(idAnnotation)
-                    .orElseThrow(() -> new NotFoundException("Anotação não encontrada", idAnnotation));
+                    .orElseThrow(() -> new NotFoundException("Note not found", idAnnotation));
 
             // Atualizar a anotação com os novos dados
             optionalAnnotations.atualizarAnnotation(dados);
@@ -95,7 +95,7 @@ public class AnnotationsController {
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a requisição");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing the request");
         }
     }
 
@@ -105,7 +105,7 @@ public class AnnotationsController {
                                            @PathVariable String idAnnotation) {
         try {
             if (idAnnotation.isBlank() || idProject.isBlank()) {
-                return ResponseEntity.badRequest().body("ID não pode estar em branco.");
+                return ResponseEntity.badRequest().body("ID cannot be blank.");
             }
 
             // Verifica se o projeto existe
@@ -137,7 +137,7 @@ public class AnnotationsController {
 
         } catch (Exception e) {
             // Trata exceções internas com uma mensagem de erro genérica
-            return ResponseEntity.internalServerError().body("Ocorreu um erro ao excluir a anotação.");
+            return ResponseEntity.internalServerError().body("An error occurred while deleting the note.");
         }
     }
 
