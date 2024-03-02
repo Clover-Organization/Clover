@@ -1,4 +1,4 @@
 package com.goncalves.API.DTO;
 
-public record DadosAtualizarSenha(String usernameEdit) {
+public record DadosAtualizarSenha(String emailEdit) {
 }

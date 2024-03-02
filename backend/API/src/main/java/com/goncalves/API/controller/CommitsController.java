@@ -12,6 +12,7 @@ import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.infra.security.NotFoundException;
+import com.goncalves.API.infra.security.Successfully;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +61,7 @@ public class CommitsController {
 
             if (optionalProject.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new NotFoundException("ID do Projeto não encontrado", idProject));
+                        .body(new NotFoundException("Project ID not found,", idProject));
             }
 
             var project = optionalProject.get();
@@ -73,7 +74,7 @@ public class CommitsController {
                 if (existingFile == null) {
                     // Arquivo não encontrado em nenhum lugar
                     return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                            .body(new NotFoundException("ID do Arquivo não encontrado", idFile));
+                            .body(new NotFoundException("File id not found.", idFile));
                 }
             }
 
@@ -127,11 +128,11 @@ public class CommitsController {
             projectsRepository.save(project);
 
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("Arquivo atualizado com sucesso e novo commit criado.");
+                    .body(new Successfully("File updated successfully and new commit created.", file.getOriginalFilename()));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao atualizar arquivo e criar um novo commit. Detalhes: " + e.getMessage());
+                    .body("Error updating file and creating a new commit. Details: " + e.getMessage());
         }
     }
 

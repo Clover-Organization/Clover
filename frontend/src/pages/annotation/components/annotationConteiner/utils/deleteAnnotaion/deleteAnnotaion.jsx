@@ -14,7 +14,7 @@ export const deleteAnnotaion = async (idProject, token, id) => {
 
         if (response.ok) {
             console.log("sucess delete")
-
+            alert('sucess')
         } else if (response.status === 404) {
             console.log("Request not found");
             // Handle the case where the request was not found

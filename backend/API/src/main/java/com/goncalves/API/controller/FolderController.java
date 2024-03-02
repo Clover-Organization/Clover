@@ -6,6 +6,7 @@ import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.infra.security.NotFoundException;
+import com.goncalves.API.infra.security.Successfully;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,13 +61,13 @@ public class FolderController {
                                      @RequestParam("name") String folderName) {
         try {
             if (idProject.isBlank()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("ID não encontrado", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Not found id.", idProject));
             }
 
             var projectOptional = projectsRepository.findById(idProject);
 
             if (projectOptional.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Projeto não encontrado", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Project id not found.", idProject));
             }
 
             var project = projectOptional.get();
@@ -78,7 +79,7 @@ public class FolderController {
                 Optional<Folder> parentFolderOptional = findFolderRecursive(project.getFolders(), idFolder);
 
                 if (parentFolderOptional.isEmpty()) {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Pasta não encontrada", idProject));
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Folder id not found", idProject));
                 }
 
                 var id = parentFolderOptional.get();
@@ -157,7 +158,7 @@ public class FolderController {
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Falha ao ler o conteúdo dos arquivos. " + e.getMessage());
+                    .body("Failed to read the contents of the files. " + e.getMessage());
         }
     }
 
@@ -171,13 +172,13 @@ public class FolderController {
         try {
 
             if (idProject.isBlank()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("ID do projeto não encontrado", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Project ID not found.", idProject));
             }
 
             var projectOptional = projectsRepository.findById(idProject);
 
             if (projectOptional.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Projeto não encontrado", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Project not found.", idProject));
             }
 
             var project = projectOptional.get();
@@ -186,7 +187,7 @@ public class FolderController {
             Optional<Folder> parentFolderOptional = findFolderRecursive(project.getFolders(), parentFolderId);
 
             if (parentFolderOptional.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Pasta não encontrada", parentFolderId));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Folder not found.", parentFolderId));
             }
 
             Folder parentFolder = parentFolderOptional.get();
@@ -213,12 +214,12 @@ public class FolderController {
             // Atualiza a pasta pai no repositório
             repository.save(parentFolder);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Arquivos salvos com sucesso!");
+            return ResponseEntity.status(HttpStatus.CREATED).body(new Successfully("Files saved successfully!", parentFolder.getFolderName()));
 
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Falha ao ler o conteúdo dos arquivos. " + e.getMessage());
+                    .body("Failed to read the contents of the files. " + e.getMessage());
         }
     }
 

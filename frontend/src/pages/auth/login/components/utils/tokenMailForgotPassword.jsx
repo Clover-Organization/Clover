@@ -13,14 +13,14 @@ export const tokenMailForgotPassword = async ( username ) => {
 
         if (response.ok) {
             Swal.fire({
-                text: 'Token sent. Check your email.',
+                text: response.json,
                 icon: 'success',
             });
         } else {
             console.log("Ocorreu um erro ao gerar o token:", response.status);
-            const errorMessage = await response.text();
+            const errorMessage = await response.json();
             Swal.fire({
-                text: `Erro ao gerar o token: ${errorMessage}`,
+                text: `Erro ao gerar o token: ${errorMessage.msg}`,
                 icon: 'error',
             });
         }

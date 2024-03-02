@@ -44,7 +44,7 @@ public class AuthenticationController {
             validateRegistrationData(dados);
 
             if (dados.password().length() < 9) {
-                return ResponseEntity.badRequest().body("Campo password tem que ter no mínimo 9 caracteres");
+                return ResponseEntity.badRequest().body("Password field must have at least 9 characters.");
             }
 
             // Criar um novo usuário com a senha criptografada
@@ -73,7 +73,7 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestBody @Valid AutenticarDados dados) {
         try {
 
-            if(repository.findByUsername(dados.username()) == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Usuário não existe!"));
+            if(repository.findByUsername(dados.username()) == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("User does not exist!"));
 
             var authenticationToken = new UsernamePasswordAuthenticationToken(dados.username(), dados.password());
 
@@ -84,7 +84,7 @@ public class AuthenticationController {
 
             return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Credenciais inválidas"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorValidation("Invalid credentials."));
         }
     }
 
@@ -120,14 +120,18 @@ public class AuthenticationController {
 
     private void validateRegistrationData(AutenticarDados dados) throws RegistrationException {
         if (repository.findByUsername(dados.username()) != null) {
-            throw new RegistrationException("username", "Já existe um usuário com este nome!");
+            throw new RegistrationException("username", "There is already a user with this name!");
         }
 
-        validateField(dados.firstName(), "firstName", "Campo firstName deve ter no mínimo 3 caracteres!");
-        validateField(dados.lastName(), "lastName", "Campo lastName deve ter no mínimo 3 caracteres!");
-        validateField(dados.username(), "username", "Campo usuário deve ter no mínimo 3 caracteres!");
-        validateField(dados.email(), "email", "Campo email vazio!");
-        validateField(dados.birth(), "birth", "Campo birth não pode ser nulo");
+        if(repository.findByEmail(dados.email()) != null){
+            throw new RegistrationException("email", "There is already a user with this email!");
+        }
+
+        validateField(dados.firstName(), "firstName", "firstName field must have at least 3 characters!");
+        validateField(dados.lastName(), "lastName", "lastName field must have at least 3 characters!");
+        validateField(dados.username(), "username", "User field must have at least 3 characters!");
+        validateField(dados.email(), "email", "Empty email field!");
+        validateField(dados.birth(), "birth", "Birth field cannot be null");
     }
 
     private void validateField(String value, String fieldName, String errorMessage) throws RegistrationException {

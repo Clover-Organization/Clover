@@ -6,7 +6,7 @@ import editIcon from '../../../../assets/fileEdit.png';
 import GetLanguageInfos from "../../../utils/getLanguageInfo/GetLanguageInfos";
 import fileIcon from '../../../../assets/fileIcon.png';
 
-const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGetAllCommitsAction, showCommit, setShowCommits, setCommitNull, handleShowFileEditor }) => {
+const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGetAllCommitsAction, showCommit, setShowCommits, setCommitNull, handleShowFileEditor, showFileEditor }) => {
 
     return (
         <>
@@ -18,7 +18,9 @@ const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGe
             </div>
             <div className="align-nav-components-files">
                 <div className="commitsProject-dsp-flex-align">
-                    <img src={commitIcon} alt="Commits" onClick={() => setModalIsOpen(true)} />
+                    {!showFileEditor && (
+                        <img src={commitIcon} alt="Commits" onClick={() => setModalIsOpen(true)} />
+                    )}
                     <h4>
                         {showCommit !== undefined && showCommit !== "" ? (
                             showCommit
