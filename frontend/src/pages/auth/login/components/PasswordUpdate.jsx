@@ -12,13 +12,28 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { tokenMailForgotPassword } from "../components/utils/tokenMailForgotPassword";
-import { PasswordUpdateWithNewPasswordModal } from "../../../settings/components/profileSettings/components/PasswordUpdateWithNewPasswordModal ";
-import { PasswordUpdateModal } from "../../../settings/components/profileSettings/components/PasswordUpdateModal ";
 import { tokenCheckAndUpdatePassword } from "../../../home/components/utils/tokenCheckUpdate/TokenCheckAndUpdatePassword";
 import { Loader2 } from "lucide-react";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
-import { set } from "lodash";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const PasswordSchema = z.object({
+	newPassword: z
+		.string()
+		.min(8, {
+			message: "Password must be at least 8 characters.",
+		})
+		.refine(
+			(password) =>
+				/[\s~`!@#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?()\._]/g.test(password),
+			{
+				message: "Password must contain at least one special character.",
+			}
+		),
+});
 
 export default function PasswordUpdate() {
 	const [emailEdit, setEmailEdit] = useState("");
@@ -31,6 +46,20 @@ export default function PasswordUpdate() {
 	const [updatePasswordDialog, setUpdatePasswordDialog] = useState(true);
 	const [buttonLoading, setButtonLoading] = useState(false);
 	const [tokenMailLabel, setTokenMailLabel] = useState("");
+
+	const newPasswordForm = useForm({
+		resolver: zodResolver(PasswordSchema),
+	});
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = newPasswordForm;
+
+	const onSubmit = (data) => {
+		verifyToken(data);
+	};
 
 	const handleShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -53,19 +82,20 @@ export default function PasswordUpdate() {
 				setTokenDialog(true);
 			}
 		} catch (error) {
-			console.error(error);
+			toast.error("Error", {
+				description: "Invalid email",
+			});
 		} finally {
 			setButtonLoading(false);
 		}
 	};
 
-	const verifyToken = async () => {
+	const verifyToken = async (data) => {
 		const tokenAndMail = {
 			token: tokenMailLabel,
-			newPassword: newPassword,
+			newPassword: data.newPassword,
 		};
 
-		console.log(tokenAndMail);
 		const response = await tokenCheckAndUpdatePassword(tokenAndMail);
 
 		if (response.status === 200) {
@@ -145,19 +175,21 @@ export default function PasswordUpdate() {
 								/>
 							</div>
 						</div>
+
 						<div className="grid grid-cols-4 items-center gap-6 space-x-4">
 							<Label htmlFor="newPassword" className="text-right w-max">
 								New Password:
 							</Label>
+
 							<div className="flex items-center gap-4">
 								<Input
 									id="newPassword"
 									placeholder="Enter your password"
 									type={showPassword ? "text" : "password"}
 									className="w-max flex-grow"
-									value={newPassword}
-									onChange={handlePasswordChange}
+									{...register("newPassword")}
 								/>
+
 								{showPassword ? (
 									<EyeOff
 										className="cursor-pointer flex-shrink-0 select-none"
@@ -171,9 +203,14 @@ export default function PasswordUpdate() {
 								)}
 							</div>
 						</div>
+						{errors.newPassword && (
+							<p className=" text-sm text-red-400">
+								{errors.newPassword.message}
+							</p>
+						)}
 					</div>
 					<DialogFooter>
-						<Button onClick={verifyToken}>Update</Button>
+						<Button onClick={handleSubmit(onSubmit)}>Update</Button>
 					</DialogFooter>
 				</DialogContent>
 			)}
