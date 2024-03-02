@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+ 
 export const tokenCheckAndUpdatePassword = async (tokenMailLabel) => {
 	try {
 		const response = await fetch(
@@ -23,13 +25,14 @@ export const tokenCheckAndUpdatePassword = async (tokenMailLabel) => {
 			toast.warning(data["msg"], { description: `${data["get"]} not Found` });
 			return response;
 		} else if (response.status === 400) {
-			toast.warning("Error", data["msg"]);
+			toast.error("Error", data["msg"]);
 			return response;
 		} else {
 			console.log("Error generating token:", data);
-			return response;
+			toast.error("Error", { description: "Please, try again later!"});
 		}
 	} catch (error) {
 		console.log("Erro ao gerar o token:", error);
+		toast.error("Error", { description: "Please, try again later!"});
 	}
 };
