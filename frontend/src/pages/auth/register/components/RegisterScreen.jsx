@@ -66,7 +66,7 @@ const FormSchema = z.object({
 	role: z.string(),
 });
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
 	const [profileImage, setProfileImage] = useState(null);
 	const inputRef = useRef(null);
 	const navigate = useNavigate();

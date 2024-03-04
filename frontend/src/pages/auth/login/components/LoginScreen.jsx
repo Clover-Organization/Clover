@@ -18,7 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PasswordUpdate from "./PasswordUpdate";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
-export default function CardWithForm() {
+export default function LoginScreen() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
