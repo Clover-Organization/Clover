@@ -86,10 +86,7 @@ export default function LoginScreen() {
 
 	const handleSubmit = form.handleSubmit((data) => {
 		const userData = FormSchema.parse(data);
-		toast.success("Sucess!", {
-			description: "Sucefully registered!",
-		});
-		registerUser(userData);
+		handleRegister(userData);
 	});
 
 	const handleImagePreview = () => {
@@ -110,7 +107,7 @@ export default function LoginScreen() {
 		return userFile;
 	};
 
-	const registerUser = async (userData) => {
+	const handleRegister = async (userData) => {
 		const userFile = await getUserFile(user);
 
 		const formData = new FormData();
@@ -129,7 +126,7 @@ export default function LoginScreen() {
 
 			if (response.status === 201) {
 				toast.success("Sucess!", {
-					description: "Sucefully registered!",
+					description: "Successfully registered!",
 				});
 				navigate("/");
 			} else if (response.status === 400) {
@@ -173,7 +170,7 @@ export default function LoginScreen() {
 		return { header: decodedHeader, payload: decodedPayload, signature };
 	};
 
-	const loadProfile = async (token) => {
+	const handleRegisterGoogle = async (token) => {
 		try {
 			const decoded = decodeToken(token);
 
@@ -209,7 +206,7 @@ export default function LoginScreen() {
 
 			if (response.ok) {
 				toast.success("Sucess!", {
-					description: "Sucefully registered! You can now sign in!",
+					description: "Successfully registered! You can now sign in!",
 				});
 			} else {
 				console.log("Error: " + response.status);
@@ -410,7 +407,7 @@ export default function LoginScreen() {
 												text="signin"
 												width={"10px"}
 												onSuccess={(credentialResponse) => {
-													loadProfile(
+													handleRegisterGoogle(
 														credentialResponse.credential,
 														credentialResponse.clientId
 													);
@@ -424,7 +421,7 @@ export default function LoginScreen() {
 												useOneTap
 											/>
 										</GoogleOAuthProvider>
-										or 
+										or
 										<Button type="submit">Register</Button>
 									</div>
 									<div></div>

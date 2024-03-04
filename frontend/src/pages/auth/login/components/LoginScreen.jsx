@@ -128,7 +128,7 @@ export default function CardWithForm() {
 				const token = responseJson.token;
 				localStorage.setItem("token", token);
 				toast.success("Sucess!", {
-					description: "Sucefully signed in!",
+					description: "Successfully signed in!",
 				});
 				navigate("/");
 			} else {
