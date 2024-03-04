@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "../components/style.css";
-import img from "../assets/imgFront.png";
 import imgError from "../assets/icons8-erro-48 (1).png";
 import { useNavigate } from "react-router-dom";
 import wave from "../assets/wave.svg";
@@ -19,6 +18,7 @@ import { tokenMailForgotPassword } from "./components/utils/tokenMailForgotPassw
 import { tokenCheckAndUpdatePassword } from "../../home/components/utils/tokenCheckUpdate/TokenCheckAndUpdatePassword";
 import LoginScreen from "./components/LoginScreen";
 import { ModeToggle } from "@/components/mode-toggle";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
 const Login = ({ toggleForm }) => {
 	return (

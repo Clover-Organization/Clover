@@ -6,19 +6,21 @@ import editIcon from '../../../../assets/fileEdit.png';
 import GetLanguageInfos from "../../../utils/getLanguageInfo/GetLanguageInfos";
 import fileIcon from '../../../../assets/fileIcon.png';
 
-const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGetAllCommitsAction, showCommit, setShowCommits, setCommitNull, handleShowFileEditor }) => {
-    console.log(singleRequest.fileName);
+const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGetAllCommitsAction, showCommit, setShowCommits, setCommitNull, handleShowFileEditor, showFileEditor }) => {
+
     return (
         <>
             <div className="lupaSearch">
-            <img src={singleRequest && singleRequest.fileName && GetLanguageInfos(singleRequest.fileName) ? GetLanguageInfos(singleRequest.fileName).imgUrl: fileIcon} width={"40px"}/>
-            <h2 style={{cursor: "pointer"}} onClick={() => { setShowCommits(false), setCommitNull(); }}>
-                {singleRequest.fileName}
-            </h2>
+                <img src={singleRequest && singleRequest.fileName && GetLanguageInfos(singleRequest.fileName) ? GetLanguageInfos(singleRequest.fileName).imgUrl : fileIcon} width={"40px"} />
+                <h2 style={{ cursor: "pointer" }} onClick={() => { setShowCommits(false), setCommitNull(); }}>
+                    {singleRequest.fileName}
+                </h2>
             </div>
             <div className="align-nav-components-files">
                 <div className="commitsProject-dsp-flex-align">
-                    <img src={commitIcon} alt="Commits" onClick={() => setModalIsOpen(true)} />
+                    {!showFileEditor && (
+                        <img src={commitIcon} alt="Commits" onClick={() => setModalIsOpen(true)} />
+                    )}
                     <h4>
                         {showCommit !== undefined && showCommit !== "" ? (
                             showCommit
@@ -36,7 +38,7 @@ const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGe
                     </div>
                 </div>
                 <div className="commitsProject-dsp-flex-align">
-                    <img src={editIcon} alt="EditIcon" width={24} onClick={handleShowFileEditor}/>                    
+                    <img src={editIcon} alt="EditIcon" width={24} onClick={handleShowFileEditor} />
                 </div>
                 <div className="commitsProject-dsp-flex-align">
                     <img src={lixoIcon} alt="DeleteIcon" width={24} onClick={setModalDeleteIsOpen} />

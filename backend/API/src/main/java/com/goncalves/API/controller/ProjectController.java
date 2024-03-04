@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/projects")
-public class ProjectController {
+public class  ProjectController {
     @Autowired
     private ProjectRepository repository;
     @Autowired
@@ -61,7 +61,7 @@ public class ProjectController {
     public ResponseEntity selectProject(@PathVariable String idProject) {
         try {
             if (idProject == null) {
-                throw new NotFoundException("ID não encontrado", idProject);
+                throw new NotFoundException("Not found id.", idProject);
             }
 
             var optionalRequest = repository.findById(idProject).map(DadosListagemProject::new);
@@ -73,7 +73,7 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId(e.getMessage(), e.getId()));
         } catch (Exception e) {
             // Lidar com outras exceções não previstas
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error."));
         }
     }
 
@@ -84,7 +84,7 @@ public class ProjectController {
             Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
             if (user == null) {
-                throw new UnauthorizedException("Usuário não autenticado");
+                throw new UnauthorizedException("Unauthenticated user.");
             }
 
             List<Project> userRequests = repository.findByUser(user);
@@ -106,7 +106,7 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(e.getMessage()));
         } catch (Exception e) {
             // Lidar com outras exceções não previstas
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error."));
         }
     }
 
@@ -160,7 +160,7 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
         } catch (Exception e) {
             // Lidar com outras exceções não previstas
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
         }
     }
 
@@ -190,10 +190,10 @@ public class ProjectController {
 
                 return ResponseEntity.noContent().build();
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("ID não encontrado", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("not found id", idProject));
             }
         } catch (Exception ex) {
-            String mensagemErro = "Erro ao excluir o projeto: " + ex.getMessage();
+            String mensagemErro = "Error deleting project: " + ex.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensagemErro);
         }
     }
@@ -247,7 +247,7 @@ public class ProjectController {
                                        @RequestBody @Validated DadosAtualizarProject dados) {
         try {
             var request = repository.findById(idProject)
-                    .orElseThrow(() -> new NotFoundException("ID não encontrado", idProject));
+                    .orElseThrow(() -> new NotFoundException("Not found id.", idProject));
 
             // Atualizar os dados do usuário
             request.atualizarProject(dados);
@@ -259,12 +259,11 @@ public class ProjectController {
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId(e.getMessage(), e.getId()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
         }
     }
 
 //    pega todos os commits do projeto
-
     @GetMapping("/{idProject}/commits/all")
     public ResponseEntity getAllCommitsByProject(@PathVariable String idProject) {
         try {
@@ -281,10 +280,10 @@ public class ProjectController {
             }
         } catch (IllegalArgumentException e) {
             // IllegalArgumentException ocorre se o ID do projeto não for válido
-            return ResponseEntity.badRequest().body("ID de projeto inválido.");
+            return ResponseEntity.badRequest().body("Invalid project ID.");
         } catch (Exception e) {
             // Outras exceções inesperadas
-            return ResponseEntity.internalServerError().body("Erro ao obter os commits do projeto: " + e.getMessage());
+            return ResponseEntity.internalServerError().body("Error getting project commits: " + e.getMessage());
         }
     }
 

@@ -980,7 +980,6 @@ hr {
 }
 
 /* === PROJECT CSS === */
-.main-project-content {}
 
 .article-project-content {
   width: 100%;
@@ -1112,14 +1111,20 @@ hr {
   text-decoration: none;
 }
 
-.projects-files-content > span,
+.projects-files-content>span,
 pre {
   color: var(--text-color);
 }
 
-.file-content {
+.file-content,
+.file-content-editor {
   width: 100%;
   padding: 0.5rem;
+}
+
+.file-content-editor {
+  background-color: var(--box-shadow-color);
+  border-radius: 0px 0px 10px 10px;
 }
 
 .commits-content {
@@ -1382,6 +1387,32 @@ pre {
   padding: var(--padding-small);
 }
 
-.monaco-editor .margin-view-overlays .line-numbers{
+.monaco-editor .margin-view-overlays .line-numbers {
   text-align: left !important;
+}
+
+/* === EditorSetting CSS === */
+
+.editor-settings-menu select {
+  width: 100%;
+}
+
+.select-theme {
+  padding: 8px 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #111;
+  color: #0e9a41;
+  cursor: pointer;
+  margin: 15px;
+}
+
+
+.editor-span-content {
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 15px;
 }

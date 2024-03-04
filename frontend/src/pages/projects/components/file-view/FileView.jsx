@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Editor from "@monaco-editor/react";
 
 
-import { useParams } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
+import Modal from "../../../components/Modal";
+import InputField from "../../../home/components/inputField/InputField";
+import FileNav from "./components/file-nav/FileNav";
+import { useParams } from "react-router-dom";
 import { getFilesById } from "../utils/getFilesById/getFilesById";
 import { getFileContent } from "../utils/getFileContent/getFileContent";
-import FileNav from "./components/file-nav/FileNav";
-import Modal from "../../../components/Modal";
-import { closeModal, closeModalDelete } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
-import InputField from "../../../home/components/inputField/InputField";
-import { handleInputBlur, handleInputFocus } from "../../../home/components/utils/handleInput/HandleInput";
-import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
-import { deleteFileByIdFileAndIdProject } from "../utils/deleteFileByIdFileAndIdProject/deleteFileByIdFileAndIdProject";
 import { getCommitsByFiles } from "../utils/getCommitsByFiles/GetCommitsByFiles";
+import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
+import { closeModal, closeModalDelete } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
+import { handleInputBlur, handleInputFocus } from "../../../home/components/utils/handleInput/HandleInput";
+import { deleteFileByIdFileAndIdProject } from "../utils/deleteFileByIdFileAndIdProject/deleteFileByIdFileAndIdProject";
 import FileEditor from "../file-editor/FileEditor";
+import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
+    const theme = localStorage.getItem('theme');
+    const fontSize = localStorage.getItem('fontSize');
+    const fontFamily = localStorage.getItem('fontFamily');
     const { idProject, idFile, idFolder } = useParams();
 
     const [singleRequest, setSingleRequest] = useState({});
@@ -28,40 +33,26 @@ const FileView = () => {
         commitMessage: "",
         changes: null,
     });
+
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
     const [newCommitAndFile, setNewCommitAndFile] = useState({
         newCommit: "",
         newFile: null,
     });
+
+    const editorRef = useRef(null);
     const [stateModal, setStateModal] = useState(true);
+    const [showFileEditor, setShowFileEditor] = useState(false);
 
     const getFileAndContent = async () => {
         await getFilesById(token, idFile, setSingleRequest);
         await getFileContent(token, idProject, idFile, setFileContent);
     };
 
-
     useEffect(() => {
         getFileAndContent();
     }, []);
-
-
-    const renderNumberedLines = (content) => {
-        if (!content || typeof content !== 'string') {
-            return null;
-        }
-
-        const lines = content.split('\n');
-        return lines.map((line, index) => (
-            <div key={index} className="code-line">
-                <div className="line-number">
-                    <span>{index + 1}</span>
-                </div>
-                <span>{line}</span>
-            </div>
-        ));
-    };
 
     const sendCommit = async () => {
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
@@ -103,13 +94,16 @@ const FileView = () => {
         });
     }
 
-    const [showFileEditor, setShowFileEditor] = useState(false);
+    function handleEditorDidMount(editor, monaco) {
+        editorRef.current = editor;
+    }
+
 
     const handleShowFileEditor = () => {
         if (showFileEditor) {
             setShowFileEditor(false);
-        } else {setShowFileEditor(true);}
-        
+        } else { setShowFileEditor(true); }
+
     }
 
     return (
@@ -126,6 +120,7 @@ const FileView = () => {
                         setShowCommits={setShowCommits}
                         setCommitNull={() => setShowCommitsSelected({ selectedCommit: false, commitMessage: "", changes: null })}
                         handleShowFileEditor={handleShowFileEditor}
+                        showFileEditor={showFileEditor}
                     />
                 </nav>
 
@@ -160,26 +155,38 @@ const FileView = () => {
                                                 <img src={showCommits.changes} alt="image" />
                                             </div>
                                         ) : (
-                                            <div className="file-content">
-                                                <pre className="pre-format">
-                                                    {showCommitsSelected.message}
-                                                    {showCommitsSelected.changes && (
-                                                        <div className="changes">
-                                                            {renderNumberedLines(showCommitsSelected.changes)}
-                                                        </div>
-                                                    )}
-                                                </pre>
+                                            <div className="file-content-editor">
+                                                <Editor
+                                                    className="editor-container"
+                                                    height="70vh"
+                                                    width="100%"
+                                                    language={GetLanguageInfos(singleRequest.fileName).name}
+                                                    defaultValue={showCommitsSelected.changes}
+                                                    theme={theme}
+                                                    onMount={handleEditorDidMount}
+                                                    options={{
+                                                        selectOnLineNumbers: true,
+                                                        scrollBeyondLastLine: false,
+                                                        fontSize: `${fontSize}px`,
+                                                        fontLigatures: true,
+                                                        fontFamily: fontFamily,
+                                                        readOnly: true
+                                                    }}
+                                                />
                                             </div>
+
                                         )
                                     }
                                 </>
                             ) : (
                                 <>
-                                    
+
                                     {showFileEditor ? (
                                         <FileEditor
-                                            fileName={singleRequest.fileName}
-                                            fileContent={fileContent.data}
+                                            singleRequest={singleRequest}
+                                            fileContent={fileContent}
+                                            idProject={idProject}
+                                            idFile={idFile}
                                         />
                                     ) :
                                         fileContent.contentType === "image" ? (
@@ -187,11 +194,29 @@ const FileView = () => {
                                                 <img src={fileContent.data} alt={singleRequest.fileName} />
                                             </div>
                                         ) : (
-                                            <div className="file-content">
-                                                <pre className="pre-format">
-                                                    {renderNumberedLines(fileContent.data)}
-                                                </pre>
-                                            </div>
+                                            <>
+                                                {fileContent.data && (
+                                                    <div className="file-content-editor">
+                                                        <Editor
+                                                            className="editor-container"
+                                                            height="70vh"
+                                                            width="100%"
+                                                            language={GetLanguageInfos(singleRequest.fileName).name}
+                                                            defaultValue={fileContent.data}
+                                                            theme={theme}
+                                                            onMount={handleEditorDidMount}
+                                                            options={{
+                                                                selectOnLineNumbers: true,
+                                                                scrollBeyondLastLine: false,
+                                                                fontSize: `${fontSize}px`,
+                                                                fontLigatures: true,
+                                                                fontFamily: fontFamily,
+                                                                readOnly: true
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </>
                                         )
                                     }
                                 </>

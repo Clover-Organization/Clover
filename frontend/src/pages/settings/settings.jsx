@@ -7,6 +7,7 @@ import { ProfileSettings } from './components/profileSettings/ProfileSettings';
 import seta from './assets/seta.png'
 import { RequestSettings } from './components/requestSettings/RequestSettings';
 import { useParams } from 'react-router-dom';
+import EditorSettings from './components/editorSettings/EditorSettings';
 
 const Settings = () => {
   const [asideOpen, setAsideOpen] = useState(true);
@@ -58,10 +59,12 @@ const Settings = () => {
           {asideOpen && <Aside select={select} setSelect={setSelect} idProject={idProject} />}
           <img src={seta} alt="menu" onClick={toggleAside} />
         </div>
-        {select === 0 ? (
+        {select === 0 && (
           <ProfileSettings />
-        ) : (
+        )}{select === 1 && (
           <RequestSettings idProject={idProject} />
+        )}{select === 2 && (
+          <EditorSettings idProject={idProject} />
         )}
       </section>
     </main>

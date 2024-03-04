@@ -104,7 +104,7 @@ export const ProfileSettings = () => {
                 popup: 'custom-popup-class',
             },
         });
-        localStorage.clear();
+        localStorage.removeItem('token');
         navigate('/welcome');
     }
 

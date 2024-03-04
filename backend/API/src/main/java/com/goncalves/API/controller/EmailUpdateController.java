@@ -2,8 +2,8 @@ package com.goncalves.API.controller;
 
 import com.goncalves.API.DTO.DadosAtualizarSenha;
 import com.goncalves.API.DTO.DadosTokenEmailValidation;
+import com.goncalves.API.infra.security.*;
 import com.goncalves.API.entities.user.UserRepository;
-import com.goncalves.API.infra.security.NotFoundException;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class EmailUpdateController {
     private EmailTokenService tokenService;
 
     @PutMapping("/generate-token")
-    public ResponseEntity<String> gerarTokenRedefinicaoSenha(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity gerarTokenRedefinicaoSenha(@RequestBody Map<String, String> requestBody) {
         try {
             // Lógica para gerar um token exclusivo e associá-lo ao usuário no banco de dados
             String destinatario = requestBody.get("email");
@@ -37,9 +37,9 @@ public class EmailUpdateController {
 
             emailService.enviarEmailRedefinirSenha(destinatario, token);
 
-            return ResponseEntity.ok("Token gerado com sucesso. Verifique seu e-mail.");
+            return ResponseEntity.ok(new SuccessfullyEmail("Token generated successfully. Check your email.", destinatario));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao gerar o token.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Error generating the token.",e ));
         }
     }
 
@@ -53,13 +53,13 @@ public class EmailUpdateController {
     public ResponseEntity gerarTokenRedefinicaoSenhaEsquecida(@RequestBody DadosAtualizarSenha dados) {
         try {
             // Encontrar o usuário pelo nome de usuário
-            var user = repository.findByUsernameForgot(dados.usernameEdit());
+            var user = repository.findByEmail(dados.emailEdit());
 
             // Verificar se o usuário existe
             if (user == null) {
                 // Se o usuário não for encontrado, retornar uma resposta de erro
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new NotFoundException("Usuário não encontrado!", dados.usernameEdit()));
+                        .body(new SuccessfullyEmail("User not found with this email!", dados.emailEdit()));
             }
 
             // Gerar um token exclusivo para o usuário
@@ -70,10 +70,10 @@ public class EmailUpdateController {
             emailService.enviarEmailRedefinirSenha(destinatario, token);
 
             // Retornar uma resposta de sucesso
-            return ResponseEntity.ok("Token gerado com sucesso. Verifique seu e-mail.");
+            return ResponseEntity.ok(new SuccessfullyEmail("Token sent check your email", dados.emailEdit()));
         } catch (Exception e) {
             // Se ocorrer um erro inesperado, retornar uma resposta de erro interno do servidor
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao gerar o token.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Error generating the token.",e ));
         }
     }
 
@@ -85,7 +85,7 @@ public class EmailUpdateController {
      */
 
     @PostMapping("/confirm-reset")
-    public ResponseEntity<String> confirmarRedefinicaoSenha(@RequestBody @Validated DadosTokenEmailValidation dados) {
+    public ResponseEntity confirmarRedefinicaoSenha(@RequestBody @Validated DadosTokenEmailValidation dados) {
         try {
             // Lógica para validar o token e redefinir a senha
             if (tokenService.validarToken(dados.token())) {
@@ -94,19 +94,19 @@ public class EmailUpdateController {
                 var user = repository.findByEmail(email);
 
                 if (user != null) {
-                    user.validateField(dados.newPassword(), "password", "Campo senha deve ter no mínimo 8 caracteres!");
+                    user.validateField(dados.newPassword(), "password", "Password field must have at least 8 characters!");
                     String encryptedPassword = new BCryptPasswordEncoder().encode(dados.newPassword());
                     user.setPassword(encryptedPassword);
                     repository.save(user);
-                    return ResponseEntity.ok("Senha redefinida com sucesso.");
+                    return ResponseEntity.ok(new Successfully("Password reset successfully.", user.getUsername()));
                 } else {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundUser("User not found.", user.getUsername()));
                 }
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token inválido ou expirado.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorInvalidToken("Invalid or expired token.", dados.token()));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao redefinir a senha.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Error resetting password.", e));
         }
     }
 

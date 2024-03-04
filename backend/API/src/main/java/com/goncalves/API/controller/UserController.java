@@ -47,13 +47,13 @@ public class UserController {
     public ResponseEntity getUserById(@PathVariable String idUser) {
         try {
             var user = repository.findById(idUser)
-                    .orElseThrow(() -> new NotFoundException("ID não encontrado", idUser));
+                    .orElseThrow(() -> new NotFoundException("Not found id.", idUser));
             return ResponseEntity.ok(user);
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId(e.getMessage(), e.getId()));
         } catch (Exception e) {
             // Lidar com outras exceções aqui, se necessário
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error."));
         }
     }
 
@@ -62,7 +62,7 @@ public class UserController {
     public ResponseEntity updateUser(@PathVariable String idUser, @RequestBody @Validated DadosAtualizarUser dados) {
         try {
             var user = repository.findById(idUser)
-                    .orElseThrow(() -> new NotFoundException("ID não encontrado", idUser));
+                    .orElseThrow(() -> new NotFoundException("Not found id.", idUser));
 
             // Atualizar os dados do usuário
             user.atualizarUser(dados);
@@ -74,7 +74,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId(e.getMessage(), e.getId()));
         } catch (Exception e) {
             // Lidar com outras exceções aqui, se necessário
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error."));
         }
     }
 
@@ -99,16 +99,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId(e.getMessage(), e.getId()));
         } catch (Exception e) {
             // Lidar com outras exceções aqui, se necessário
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
         }
     }
 
     private void validateRegistrationData(DadosAtualizarUser dados) throws RegistrationException {
         Users users = new Users();
-        users.validateField(dados.firstName(), "firstName", "Campo firstName deve ter no mínimo 3 caracteres!");
-        users.validateField(dados.lastName(), "lastName", "Campo lastName deve ter no mínimo 3 caracteres!");
-        users.validateField(dados.email(), "email", "Campo email vazio!");
-        users.validateField(dados.birth(), "birth", "Campo birth não pode ser nulo");
+        users.validateField(dados.firstName(), "firstName", "firstName field must have at least 3 characters!");
+        users.validateField(dados.lastName(), "lastName", "lastName field must have at least 3 characters!");
+        users.validateField(dados.email(), "email", "Empty email field!");
+        users.validateField(dados.birth(), "birth", "Birth field cannot be null!");
     }
 
     @PutMapping("/updateUserImage")
@@ -127,7 +127,7 @@ public class UserController {
             repository.save(user);
             return ResponseEntity.ok(user);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro ao processar a imagem"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Error processing image."));
         }
     }
     
@@ -138,7 +138,7 @@ public class UserController {
             repository.deleteById(idUser);
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId("ID não encontrado!", idUser));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId("not found id!", idUser));
         }
     }
 
