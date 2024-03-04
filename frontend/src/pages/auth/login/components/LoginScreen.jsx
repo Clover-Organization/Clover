@@ -16,11 +16,20 @@ import { Separator } from "@/components/ui/separator";
 import { Github, Eye, EyeOff, GithubIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordUpdate from "./PasswordUpdate";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function CardWithForm() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+
+	const handleScriptLoadSuccess = () => {
+		console.log("Script carregado com sucesso");
+	};
+
+	const handleScriptLoadError = () => {
+		console.error("Erro ao carregar o script");
+	};
 
 	const navigate = useNavigate();
 
@@ -42,6 +51,21 @@ export default function CardWithForm() {
 		setUsername("");
 		setPassword("");
 	};
+
+	const base64UrlDecode = (str) => {
+		const padding = '='.repeat((4 - str.length % 4) % 4);
+		const base64 = (str + padding).replace(/-/g, '+').replace(/_/g, '/');
+		const rawData = atob(base64);
+		return rawData;
+	  };
+	
+	
+	  const decodeToken = (token) => {
+		const [header, payload, signature] = token.split('.');
+		const decodedHeader = JSON.parse(base64UrlDecode(header));
+		const decodedPayload = JSON.parse(base64UrlDecode(payload));
+		return { header: decodedHeader, payload: decodedPayload, signature };
+	  };
 
 	const cadastrar = async () => {
 		const data = {
@@ -79,11 +103,46 @@ export default function CardWithForm() {
 		}
 	};
 
+	const loadProfile = async (token) => {
+
+		const decoded = decodeToken(token)
+	
+		const data = {
+		  username: decoded.payload.name,
+		  password: decoded.payload.sub,
+		};
+	
+		try {
+		  const response = await fetch("http://localhost:8080/auth/login", {
+			headers: {
+			  Accept: "application/json",
+			  "Content-Type": "application/json",
+			},
+			method: "POST",
+			body: JSON.stringify(data),
+		  });
+	
+		  if (response.ok) {
+			const responseJson = await response.json();
+			const token = responseJson.token;
+			localStorage.setItem("token", token);
+			navigate("/");
+		  } else if (response.status === 401) {
+		  } else {
+			console.log("Ocorreu um erro inesperado: " + response.status);
+		  }
+		} catch (error) {
+		  console.error("Erro ao enviar a solicitação:", error);
+		}
+	  }
+	
+
 	const handleShowPassword = () => {
 		setShowPassword(!showPassword);
 	};
 	return (
-		<Card className="w-auto md:w-1/4 border border-slate-300 rounded-lg flex flex-col">
+		// w-auto md:w-1/4
+		<Card className="w-auto border border-slate-300 rounded-lg flex flex-col space-y-6 lg:space-y-0">
 			<CardHeader className="gap-5">
 				<CardTitle className="text-5xl text-green-500">Login</CardTitle>
 				<CardDescription>
@@ -135,13 +194,35 @@ export default function CardWithForm() {
 				<span>or sign in with</span>
 				<Separator className="my-3 mx-4 w-auto flex-grow" />
 			</div>
-			<CardFooter className="flex item-center">
-				<Button variant="outline" className="mx-auto my-5">
-					Google
-				</Button>
-				<Button variant="outline" className="mx-auto my-5">
-					<Github className="mr-2" /> GitHub
-				</Button>
+			<CardFooter className="flex item-center justify-center">
+				<div className="flex items-center justify-center gap-4 my-6">
+					<GoogleOAuthProvider
+						clientId={
+							"194451748874-lhbd66qk23vhbd2dv12gidnef7264do6.apps.googleusercontent.com"
+						}
+						onScriptLoadSuccess={handleScriptLoadSuccess}
+						onScriptLoadError={handleScriptLoadError}
+					>
+						<GoogleLogin
+							type="standard"
+							theme="outline"
+							shape="round"
+							size="large"
+							onSuccess={(credentialResponse) => {
+								loadProfile(
+									credentialResponse.credential,
+									credentialResponse.clientId
+								);
+							}}
+							onError={() => {
+								toast.error("Error", {
+									description: "Error while signing in with Google! Try again!",
+								});
+							}}
+							useOneTap
+						/>
+					</GoogleOAuthProvider>
+				</div>
 			</CardFooter>
 		</Card>
 	);

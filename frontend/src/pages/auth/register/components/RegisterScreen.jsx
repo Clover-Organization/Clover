@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
-
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { Calendar } from "@/components/ui/calendar";
 import { Calendar as CalendarIcon } from "lucide-react";
 import {
@@ -34,7 +34,7 @@ import { Separator } from "@/components/ui/separator";
 import user from "../../assets/user.png";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const FormSchema = z.object({
 	username: z.string().min(2, {
@@ -151,6 +151,77 @@ export default function LoginScreen() {
 		}
 	};
 
+	const handleScriptLoadSuccess = () => {
+		console.log("Script carregado com sucesso");
+	};
+
+	const handleScriptLoadError = () => {
+		console.error("Erro ao carregar o script");
+	};
+
+	const base64UrlDecode = (str) => {
+		const padding = "=".repeat((4 - (str.length % 4)) % 4);
+		const base64 = (str + padding).replace(/-/g, "+").replace(/_/g, "/");
+		const rawData = atob(base64);
+		return rawData;
+	};
+
+	const decodeToken = (token) => {
+		const [header, payload, signature] = token.split(".");
+		const decodedHeader = JSON.parse(base64UrlDecode(header));
+		const decodedPayload = JSON.parse(base64UrlDecode(payload));
+		return { header: decodedHeader, payload: decodedPayload, signature };
+	};
+
+	const loadProfile = async (token) => {
+		try {
+			const decoded = decodeToken(token);
+
+			const userData = {
+				username: decoded.payload.name,
+				firstName: decoded.payload.given_name,
+				lastName: decoded.payload.family_name,
+				email: decoded.payload.email,
+				password: decoded.payload.sub,
+				birth: "00-00-0000",
+				role: "USER",
+			};
+
+			const userFile = await getUserFile(user);
+
+			const formData = new FormData();
+			formData.append("profileImage", profileImage ? profileImage : userFile);
+
+			console.log(userData);
+
+			formData.append(
+				"userData",
+				new Blob([JSON.stringify(userData)], { type: "application/json" })
+			);
+
+			const response = await fetch(
+				"http://localhost:8080/auth/register/google",
+				{
+					method: "POST",
+					body: formData,
+				}
+			);
+
+			if (response.ok) {
+				toast.success("Sucess!", {
+					description: "Sucefully registered! You can now sign in!",
+				});
+			} else {
+				console.log("Error: " + response.status);
+				toast.error("Error!", {
+					description: "Error while signing in with Google! Try again!",
+				});
+			}
+		} catch (error) {
+			console.error("Erro ao decodificar o token:", error);
+		}
+	};
+
 	return (
 		<Card className="border border-slate-300 rounded-lg flex flex-col lg:flex-row space-y-6 lg:space-y-0">
 			<CardHeader className="lg:w-1/2">
@@ -160,11 +231,8 @@ export default function LoginScreen() {
 				</CardDescription>
 				<div className="grid items-center justify-center pt-5">
 					<div className="w-44 h-44 flex items-center justify-center  border border-white rounded-full">
-					<Avatar className="w-40 h-40 object-center">
-						<AvatarImage
-							src={handleImagePreview() || user}
-							alt="userImage"
-						/>
+						<Avatar className="w-40 h-40 object-center">
+							<AvatarImage src={handleImagePreview() || user} alt="userImage" />
 						</Avatar>
 					</div>
 				</div>
@@ -233,8 +301,10 @@ export default function LoginScreen() {
 												/>
 											</FormControl>
 											<FormDescription>
-											<p class="text-left break-words text-wrap w-60">Your password must be at least 8 characters 
-											long and contain at least one special character.</p>
+												<p class="text-left break-words text-wrap w-60">
+													Your password must be at least 8 characters long and
+													contain at least one special character.
+												</p>
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
@@ -267,9 +337,8 @@ export default function LoginScreen() {
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Last Name</FormLabel>
-											<FormControl>
+											<FormControl className="w-max">
 												<Input
-													className="w-max"
 													type="text"
 													placeholder="Enter your Last Name"
 													{...field}
@@ -325,9 +394,40 @@ export default function LoginScreen() {
 											</FormItem>
 										)}
 									/>
-									<div className="flex align-end justify-end">
-										<Button type="submit">Submit</Button>
+									<div className="flex justify-center items-center gap-2">
+										<GoogleOAuthProvider
+											clientId={
+												"194451748874-lhbd66qk23vhbd2dv12gidnef7264do6.apps.googleusercontent.com"
+											}
+											onScriptLoadSuccess={handleScriptLoadSuccess}
+											onScriptLoadError={handleScriptLoadError}
+										>
+											<GoogleLogin
+												type="standard"
+												theme="outline"
+												shape="round"
+												size="large"
+												text="signin"
+												width={"10px"}
+												onSuccess={(credentialResponse) => {
+													loadProfile(
+														credentialResponse.credential,
+														credentialResponse.clientId
+													);
+												}}
+												onError={() => {
+													toast.error("Error", {
+														description:
+															"Error while signing in with Google! Try again!",
+													});
+												}}
+												useOneTap
+											/>
+										</GoogleOAuthProvider>
+										or 
+										<Button type="submit">Register</Button>
 									</div>
+									<div></div>
 								</div>
 							</div>
 						</div>

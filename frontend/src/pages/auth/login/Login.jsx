@@ -1,32 +1,24 @@
-import { useState } from "react";
 import "../components/style.css";
-import imgError from "../assets/icons8-erro-48 (1).png";
-import { useNavigate } from "react-router-dom";
-import wave from "../assets/wave.svg";
-import openEye from "../assets/openEye.png";
-import closeEye from "../assets/closeEye.png";
-import Modal from "../../components/Modal";
-import InputField from "../../home/components/inputField/InputField";
-import { PasswordUpdateWithNewPasswordModal } from "../../settings/components/profileSettings/components/PasswordUpdateWithNewPasswordModal ";
-import { PasswordUpdateModal } from "../../settings/components/profileSettings/components/PasswordUpdateModal ";
-import { closeModal } from "../../home/components/utils/ModalFunctions/ModalFunctions";
-import {
-	handleInputBlur,
-	handleInputFocus,
-} from "../../home/components/utils/handleInput/HandleInput";
-import { tokenMailForgotPassword } from "./components/utils/tokenMailForgotPassword";
-import { tokenCheckAndUpdatePassword } from "../../home/components/utils/tokenCheckUpdate/TokenCheckAndUpdatePassword";
 import LoginScreen from "./components/LoginScreen";
-import { ModeToggle } from "@/components/mode-toggle";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { Link } from "react-router-dom";
 
 const Login = ({ toggleForm }) => {
 	return (
-		<section className="sectionRegister">
-			<article className="authArticle">
+		<div className="flex justify-center items-center h-screen">
+			<div className="p-4">
 				<LoginScreen />
-			</article>
-		</section>
+				<p className="mt-4 text-center text-gray-400">
+					Don't have an account?
+					<Link
+						onClick={toggleForm}
+						className="text-green-500 hover:text-green-600 text-center"
+					>
+						{" "}
+						Register now!
+					</Link>
+				</p>
+			</div>
+		</div>
 	);
 };
 
