@@ -53,19 +53,18 @@ export default function CardWithForm() {
 	};
 
 	const base64UrlDecode = (str) => {
-		const padding = '='.repeat((4 - str.length % 4) % 4);
-		const base64 = (str + padding).replace(/-/g, '+').replace(/_/g, '/');
+		const padding = "=".repeat((4 - (str.length % 4)) % 4);
+		const base64 = (str + padding).replace(/-/g, "+").replace(/_/g, "/");
 		const rawData = atob(base64);
 		return rawData;
-	  };
-	
-	
-	  const decodeToken = (token) => {
-		const [header, payload, signature] = token.split('.');
+	};
+
+	const decodeToken = (token) => {
+		const [header, payload, signature] = token.split(".");
 		const decodedHeader = JSON.parse(base64UrlDecode(header));
 		const decodedPayload = JSON.parse(base64UrlDecode(payload));
 		return { header: decodedHeader, payload: decodedPayload, signature };
-	  };
+	};
 
 	const cadastrar = async () => {
 		const data = {
@@ -92,11 +91,14 @@ export default function CardWithForm() {
 				});
 				navigate("/");
 			} else if (response.status === 401) {
-				toast.error("Error", {
+				toast.warning("Error", {
 					description: "Invalid username or password!",
 				});
 			} else {
 				console.log("Ocorreu um erro inesperado: " + response.status);
+				toast.error("Error", {
+					description: "Unexpected error! Try again!",
+				});
 			}
 		} catch (error) {
 			console.error("Erro ao enviar a solicitação:", error);
@@ -104,38 +106,40 @@ export default function CardWithForm() {
 	};
 
 	const loadProfile = async (token) => {
+		const decoded = decodeToken(token);
 
-		const decoded = decodeToken(token)
-	
 		const data = {
-		  username: decoded.payload.name,
-		  password: decoded.payload.sub,
+			username: decoded.payload.name,
+			password: decoded.payload.sub,
 		};
-	
+
 		try {
-		  const response = await fetch("http://localhost:8080/auth/login", {
-			headers: {
-			  Accept: "application/json",
-			  "Content-Type": "application/json",
-			},
-			method: "POST",
-			body: JSON.stringify(data),
-		  });
-	
-		  if (response.ok) {
-			const responseJson = await response.json();
-			const token = responseJson.token;
-			localStorage.setItem("token", token);
-			navigate("/");
-		  } else if (response.status === 401) {
-		  } else {
-			console.log("Ocorreu um erro inesperado: " + response.status);
-		  }
+			const response = await fetch("http://localhost:8080/auth/login", {
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				method: "POST",
+				body: JSON.stringify(data),
+			});
+
+			if (response.ok) {
+				const responseJson = await response.json();
+				const token = responseJson.token;
+				localStorage.setItem("token", token);
+				toast.success("Sucess!", {
+					description: "Sucefully signed in!",
+				});
+				navigate("/");
+			} else {
+				toast.error("Error", {
+					description: "Unexpected error! Try again!",
+				});
+			}
 		} catch (error) {
-		  console.error("Erro ao enviar a solicitação:", error);
+			console.error("Erro ao enviar a solicitação:", error);
 		}
-	  }
-	
+	};
 
 	const handleShowPassword = () => {
 		setShowPassword(!showPassword);
