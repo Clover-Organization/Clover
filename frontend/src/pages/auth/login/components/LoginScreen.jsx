@@ -43,11 +43,11 @@ export default function CardWithForm() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		await cadastrar();
-		limpar();
+		await handleLogin();
+		clearFields();
 	};
 
-	const limpar = () => {
+	const clearFields = () => {
 		setUsername("");
 		setPassword("");
 	};
@@ -66,7 +66,7 @@ export default function CardWithForm() {
 		return { header: decodedHeader, payload: decodedPayload, signature };
 	};
 
-	const cadastrar = async () => {
+	const handleLogin = async () => {
 		const data = {
 			username: username,
 			password: password,
@@ -86,8 +86,8 @@ export default function CardWithForm() {
 				const responseJson = await response.json();
 				const token = responseJson.token;
 				localStorage.setItem("token", token);
-				toast.success("Sucess!", {
-					description: "Sucefully signed in!",
+				toast.success("Success!", {
+					description: "Successfully signed in!",
 				});
 				navigate("/");
 			} else if (response.status === 401) {
@@ -95,17 +95,17 @@ export default function CardWithForm() {
 					description: "Invalid username or password!",
 				});
 			} else {
-				console.log("Ocorreu um erro inesperado: " + response.status);
+				console.log("An unexpected error occurred: " + response.status);
 				toast.error("Error", {
 					description: "Unexpected error! Try again!",
 				});
 			}
 		} catch (error) {
-			console.error("Erro ao enviar a solicitação:", error);
+			console.error("Error sending request:", error);
 		}
 	};
 
-	const loadProfile = async (token) => {
+	const handleLoginGoogle = async (token) => {
 		const decoded = decodeToken(token);
 
 		const data = {
@@ -144,8 +144,8 @@ export default function CardWithForm() {
 	const handleShowPassword = () => {
 		setShowPassword(!showPassword);
 	};
+
 	return (
-		// w-auto md:w-1/4
 		<Card className="w-auto border border-slate-300 rounded-lg flex flex-col space-y-6 lg:space-y-0">
 			<CardHeader className="gap-5">
 				<CardTitle className="text-5xl text-green-500">Login</CardTitle>
@@ -213,7 +213,7 @@ export default function CardWithForm() {
 							shape="round"
 							size="large"
 							onSuccess={(credentialResponse) => {
-								loadProfile(
+								handleLoginGoogle(
 									credentialResponse.credential,
 									credentialResponse.clientId
 								);
