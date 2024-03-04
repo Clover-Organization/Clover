@@ -222,7 +222,7 @@ export default function RegisterScreen() {
 	return (
 		<Card className="border border-slate-300 rounded-lg flex flex-col lg:flex-row space-y-6 lg:space-y-0">
 			<CardHeader className="lg:w-1/2">
-				<CardTitle className="text-5xl">Register</CardTitle>
+				<CardTitle className="text-5xl text-green-500">Register</CardTitle>
 				<CardDescription className="py-2">
 					Enter your information below to create an account.
 				</CardDescription>
