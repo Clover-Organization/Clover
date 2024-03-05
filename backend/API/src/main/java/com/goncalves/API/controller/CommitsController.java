@@ -13,10 +13,14 @@ import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.infra.security.NotFoundException;
 import com.goncalves.API.infra.security.Successfully;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +34,7 @@ import java.util.Objects;
 @Slf4j
 @Tag(name = "/project/commits")
 @RestController
-@RequestMapping("/projects/commits")
+@RequestMapping(value = "/projects/commits", consumes = {"application/json"})
 public class CommitsController {
     @Autowired
     private CommitsRepository repository;
@@ -44,16 +48,57 @@ public class CommitsController {
     private VersionsRepository versionsRepository;
 
 
+    /**
+     * Endpoint para obter os commits de um projeto com base no ID do projeto.
+     *
+     * @param idProject O ID do projeto do qual os commits serão recuperados
+     * @return ResponseEntity contendo os commits do projeto se encontrado, ou uma resposta de erro caso contrário
+     */
     @GetMapping("/{idProject}")
+    @Operation(summary = "Get commits from idProject", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Search completed successfully."),
+            @ApiResponse(responseCode = "404", description = "Project not found."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     public ResponseEntity getCommit(@PathVariable String idProject) {
-        var projectOptional = projectsRepository.findById(idProject);
-        var project = projectOptional.get();
+        try {
+            // Procura o projeto pelo ID fornecido
+            var projectOptional = projectsRepository.findById(idProject);
 
-        return ResponseEntity.ok(project.getCommits());
+            // Se o projeto não for encontrado, retorna uma resposta de não encontrado
+            if (projectOptional.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new NotFoundException("Project not found.", "NULL"));
+
+            // Obtém o projeto encontrado
+            var project = projectOptional.get();
+
+            // Retorna uma resposta contendo os commits do projeto
+            return ResponseEntity.ok(project.getCommits());
+        } catch (Exception e) {
+            // Se ocorrer um erro interno do servidor, retorna uma resposta de erro interno
+            return ResponseEntity
+                    .internalServerError().body(new InternalError("Internal Server error", e));
+        }
     }
 
-    @PostMapping("/{idProject}/commitAndUpdate/{idFile}")
+    /**
+     * Endpoint para criar um novo commit juntamente com um arquivo e atualizar o arquivo correspondente em um projeto.
+     *
+     * @param idProject     O ID do projeto no qual o arquivo será atualizado e o commit será feito
+     * @param idFile        O ID do arquivo a ser atualizado e comitado
+     * @param file          O arquivo a ser atualizado e comitado
+     * @param commitMessage A mensagem do commit
+     * @return ResponseEntity indicando sucesso se o arquivo for atualizado e o commit for feito com sucesso, ou uma resposta de erro caso contrário
+     */
+    @PostMapping(value = "/{idProject}/commitAndUpdate/{idFile}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Transactional
+    @Operation(summary = "Post a new commit along with a file", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Commit made successfully."),
+            @ApiResponse(responseCode = "404", description = "Project not found."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     public ResponseEntity updateFileWithCommit(
             @PathVariable String idProject,
             @PathVariable String idFile,
@@ -141,6 +186,13 @@ public class CommitsController {
     }
 
 
+    /**
+     * Método auxiliar para encontrar um arquivo em um projeto.
+     *
+     * @param project      O projeto no qual o arquivo será procurado
+     * @param targetFileId O ID do arquivo a ser encontrado
+     * @return O arquivo encontrado, se existir, ou null caso contrário
+     */
     private Files findFileInProject(Project project, String targetFileId) {
         return project.getFiles().stream()
                 .filter(f -> f.getIdFile().equals(targetFileId))
@@ -148,6 +200,13 @@ public class CommitsController {
                 .orElse(null);
     }
 
+    /**
+     * Método auxiliar para encontrar um arquivo em uma lista de pastas e subpastas de forma recursiva.
+     *
+     * @param folders      Lista de pastas a serem pesquisadas
+     * @param targetFileId O ID do arquivo a ser encontrado
+     * @return O arquivo encontrado, se existir, ou null caso contrário
+     */
     private Files findFileInFolders(List<Folder> folders, String targetFileId) {
         for (Folder folder : folders) {
             // Procura no folder atual
@@ -165,6 +224,13 @@ public class CommitsController {
         return null;
     }
 
+    /**
+     * Método auxiliar para encontrar um arquivo em uma pasta.
+     *
+     * @param folder       A pasta na qual o arquivo será procurado
+     * @param targetFileId O ID do arquivo a ser encontrado
+     * @return O arquivo encontrado, se existir, ou null caso contrário
+     */
     private Files findFileInFolder(Folder folder, String targetFileId) {
         return folder.getFiles().stream()
                 .filter(f -> f.getIdFile().equals(targetFileId))
