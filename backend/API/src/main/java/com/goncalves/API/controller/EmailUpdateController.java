@@ -6,6 +6,11 @@ import com.goncalves.API.infra.security.*;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Slf4j
+@Tag(name = "/update-password")
 @RestController
-@RequestMapping("/update-password")
+@RequestMapping(value = "/update-password", consumes = "application/json")
 public class EmailUpdateController {
 
     @Autowired
@@ -29,6 +36,11 @@ public class EmailUpdateController {
     private EmailTokenService tokenService;
 
     @PutMapping("/generate-token")
+    @Operation(summary = "Generates a token and sends it to the user's email", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Token generated successfully."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     public ResponseEntity gerarTokenRedefinicaoSenha(@RequestBody Map<String, String> requestBody) {
         try {
             // Lógica para gerar um token exclusivo e associá-lo ao usuário no banco de dados
@@ -37,9 +49,11 @@ public class EmailUpdateController {
 
             emailService.enviarEmailRedefinirSenha(destinatario, token);
 
-            return ResponseEntity.ok(new SuccessfullyEmail("Token generated successfully. Check your email.", destinatario));
+            return ResponseEntity
+                    .ok(new SuccessfullyEmail("Token generated successfully. Check your email.", destinatario));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Error generating the token.",e ));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new InternalError("Error generating the token.",e ));
         }
     }
 
@@ -50,6 +64,12 @@ public class EmailUpdateController {
      * @return ResponseEntity Uma resposta HTTP indicando o sucesso ou falha da operação.
      */
     @PutMapping("/generate-token/forgot-password")
+    @Operation(summary = "Generates a token and sends it to the user's email to recover password.", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Token generated successfully."),
+            @ApiResponse(responseCode = "404", description = "User not found with this email."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     public ResponseEntity gerarTokenRedefinicaoSenhaEsquecida(@RequestBody DadosAtualizarSenha dados) {
         try {
             // Encontrar o usuário pelo nome de usuário
@@ -85,6 +105,13 @@ public class EmailUpdateController {
      */
 
     @PostMapping("/confirm-reset")
+    @Operation(summary = "Confirm the token and add the new password.", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Password reset successfully."),
+            @ApiResponse(responseCode = "404", description = "User not found."),
+            @ApiResponse(responseCode = "400", description = "Invalid or expired token."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     public ResponseEntity confirmarRedefinicaoSenha(@RequestBody @Validated DadosTokenEmailValidation dados) {
         try {
             // Lógica para validar o token e redefinir a senha
@@ -98,15 +125,19 @@ public class EmailUpdateController {
                     String encryptedPassword = new BCryptPasswordEncoder().encode(dados.newPassword());
                     user.setPassword(encryptedPassword);
                     repository.save(user);
-                    return ResponseEntity.ok(new Successfully("Password reset successfully.", user.getUsername()));
+                    return ResponseEntity
+                            .ok(new Successfully("Password reset successfully.", user.getUsername()));
                 } else {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundUser("User not found.", user.getUsername()));
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                            .body(new ErrorNotFoundUser("User not found.", user.getUsername()));
                 }
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorInvalidToken("Invalid or expired token.", dados.token()));
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new ErrorInvalidToken("Invalid or expired token.", dados.token()));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Error resetting password.", e));
+            return ResponseEntity.status(HttpStatus
+                    .INTERNAL_SERVER_ERROR).body(new InternalError("Error resetting password.", e));
         }
     }
 
