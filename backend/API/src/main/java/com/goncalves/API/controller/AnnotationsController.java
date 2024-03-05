@@ -17,7 +17,7 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("projects/annotations")
+@RequestMapping("/projects/annotations")
 public class AnnotationsController {
     @Autowired
     private AnnotationsRepository repository;

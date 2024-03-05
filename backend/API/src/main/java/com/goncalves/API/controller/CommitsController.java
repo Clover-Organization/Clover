@@ -13,6 +13,8 @@ import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.infra.security.NotFoundException;
 import com.goncalves.API.infra.security.Successfully;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +27,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
+@Tag(name = "/project/commits")
 @RestController
-@RequestMapping("projects/commits")
+@RequestMapping("/projects/commits")
 public class CommitsController {
     @Autowired
     private CommitsRepository repository;
