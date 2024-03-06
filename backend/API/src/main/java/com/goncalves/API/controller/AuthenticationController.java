@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Tag(name = "/auth")
 @RestController
-@RequestMapping(value = "/auth", consumes = {"application/json"})
+@RequestMapping("/auth")
 public class AuthenticationController {
     @Autowired
     private UserRepository repository;
@@ -42,8 +42,6 @@ public class AuthenticationController {
 
     @Autowired
     private ErrorHandling errorHandling;
-
-
     /**
      * Registra um novo usuário com criptografia de senha.
      *
@@ -107,6 +105,7 @@ public class AuthenticationController {
     })
     public ResponseEntity login(@RequestBody @Valid AutenticarDados dados) {
         try {
+
             // Verifica se o usuário existe no banco de dados
             if (repository.findByUsername(dados.username()) == null) return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
@@ -139,7 +138,7 @@ public class AuthenticationController {
     @PostMapping("/register/google")
     @Operation(summary = "Register a new user with password encryption using google", method = "POST")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Login successfully."),
+            @ApiResponse(responseCode = "201", description = "Created user."),
             @ApiResponse(responseCode = "401", description = "User does not exist or Invalid credentials.")
     })
     public ResponseEntity registerByGoogle(@RequestPart("profileImage") MultipartFile profileImage,
