@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,7 +44,6 @@ public class AuthenticationController {
 
     @Autowired
     private ErrorHandling errorHandling;
-
 
     /**
      * Registra um novo usuário com criptografia de senha.
@@ -107,13 +108,19 @@ public class AuthenticationController {
     })
     public ResponseEntity login(@RequestBody @Valid AutenticarDados dados) {
         try {
-            // Verifica se o usuário existe no banco de dados
-            if (repository.findByUsername(dados.username()) == null) return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body(new ErrorValidation("User does not exist!"));
 
-            // Autentica as credenciais do usuário
-            var authenticationToken = new UsernamePasswordAuthenticationToken(dados.username(), dados.password());
+            var user = repository.findByEmail(dados.username());
+
+            UserDetails username;
+
+            if (user != null) {
+                username = repository.findByUsername(user.getUsername());
+            } else {
+                username = repository.findByUsername(dados.username());
+            }
+
+            var authenticationToken = new UsernamePasswordAuthenticationToken(username, dados.password());
+
             var authentication = manager.authenticate(authenticationToken);
 
             //Tratamento de erro caso as credenciais estejam erradas

@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -53,6 +54,22 @@ public class Users implements UserDetails {
         this.creationAccount = creationAccount;
         this.role = role;
         this.profileImage = profileImage;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "idUsers='" + idUsers + '\'' +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", birth='" + birth + '\'' +
+                ", creationAccount=" + creationAccount +
+                ", role=" + role +
+                ", profileImage=" + Arrays.toString(profileImage) +
+                '}';
     }
 
     public void atualizarUser(DadosAtualizarUser dados) {

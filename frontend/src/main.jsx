@@ -18,6 +18,7 @@ import FolderView from "./pages/projects/components/folder-view/FolderView.jsx";
 import Annotation from "./pages/annotation/Annotation.jsx";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import RoadMap from "./pages/roadmap/RoadMap.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
 	{
 		path: "/Annotation/:idProject",
 		element: <Annotation />,
+	},
+	{
+		path: "/roadmap",
+		element: <RoadMap />,
 	},
 	{
 		path: "/Welcome",
