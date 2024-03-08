@@ -10,9 +10,9 @@ export function WelcomeNavbar() {
 
 	return (
 		<div className="mr-4 hidden md:flex">
-			<Link to="/" className="mr-6 flex items-center space-x-2">
+			<Link to="/Welcome" className="mr-6 flex items-center space-x-2">
 				<Icon src={logo} alt="logo"/>
-				<span className="hidden font-bold sm:inline-block text-white">
+				<span className="hidden font-bold sm:inline-block text-secondary-foreground">
 					Clover
 				</span>
 			</Link>
@@ -27,40 +27,18 @@ export function WelcomeNavbar() {
 					Docs
 				</Link>
 				<Link
-					to="/docs/components"
+					to="/about"
 					className={cn(
 						"transition-colors hover:text-foreground/80",
-						pathname?.startsWith("/docs/components")
+						pathname?.startsWith("/about")
 							? "text-foreground"
 							: "text-foreground/60"
 					)}
 				>
-					Components
+					About
 				</Link>
 				<Link
-					to="/themes"
-					className={cn(
-						"transition-colors hover:text-foreground/80",
-						pathname?.startsWith("/themes")
-							? "text-foreground"
-							: "text-foreground/60"
-					)}
-				>
-					Themes
-				</Link>
-				<Link
-					to="/examples"
-					className={cn(
-						"transition-colors hover:text-foreground/80",
-						pathname?.startsWith("/examples")
-							? "text-foreground"
-							: "text-foreground/60"
-					)}
-				>
-					Examples
-				</Link>
-				<Link
-					to="/"
+					to="https://github.com/thepokenik/clover"
 					className={cn(
 						"hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
 					)}
