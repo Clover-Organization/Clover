@@ -11,7 +11,7 @@ const WelcomeIntro = () => {
         <div className="welcomeTxt">
           <span>Rest easy knowing your calls are in good hands.</span>
           <div className="btnTxt">
-            <Link to={"/auth"}>
+            <Link to={"/auth/register"}>
               <button class="animated-button">
                 <svg
                   viewBox="0 0 24 24"

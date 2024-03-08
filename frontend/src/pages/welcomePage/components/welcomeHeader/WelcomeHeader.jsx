@@ -15,7 +15,8 @@ export default function WelcomeHeader() {
 						<div className="flex items-center justify-end md:justify-end">
 							<div className="flex items-center justify-center gap-2 md:justify-end">
 								<ModeToggle />
-                                <Button asChild><Link to="/Auth">Sign In</Link></Button>
+                                <Button variant="ghost" asChild><Link to="/auth/register">Sign Up</Link></Button>
+                                <Button asChild><Link to="/auth/login">Sign In</Link></Button>
 							</div>
 						</div>
 					</nav>

@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import ErrorPage from "./pages/errors/ErrorPage.jsx";
 import Home from "./pages/home/Home.jsx";
-import Auth from "./pages/auth/Auth.jsx";
 import Welcome from "./pages/welcomePage/welcome.jsx";
 import SplashScreen from "./pages/components/SplashScreen.jsx";
 import Settings from "./pages/settings/settings.jsx";
@@ -19,6 +18,8 @@ import Annotation from "./pages/annotation/Annotation.jsx";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import RoadMap from "./pages/roadmap/RoadMap.jsx";
+import Register from "./pages/auth/register/Register.jsx";
+import Login from "./pages/auth/login/Login.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -62,8 +63,12 @@ const router = createBrowserRouter([
 		element: <Welcome />,
 	},
 	{
-		path: "/auth",
-		element: <Auth />,
+		path: "Auth/Register",
+		element: <Register />,
+	},
+	{
+		path: "Auth/Login",
+		element: <Login />,
 	},
 ]);
 
