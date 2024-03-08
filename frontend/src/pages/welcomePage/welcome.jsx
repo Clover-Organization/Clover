@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import ScrollReveal from "scrollreveal";
-import { Link } from "react-router-dom";
-
 import "./style/style.css";
-import logo from "./../components/assets/PTCC.png";
 import WelcomeIntro from "./components/welcomeIntro/WelcomeIntro";
 import WelcomeDescri from "./components/welcomeDescri/WelcomeDescri";
 import WelcomeService from "./components/welcomeService/WelcomeService";
-import Icon from "../components/Icon";
 import Footer from "../components/footer/footer";
-
-import { WelcomeNavbar } from "./components/welcomeNavbar/WelcomeNavbar";
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
+import WelcomeHeader from "./components/welcomeHeader/WelcomeHeader";
 
 const welcome = () => {
 	const [currentPage, setCurrentPage] = useState(1);
@@ -101,22 +94,7 @@ const welcome = () => {
 
 	return (
 		<main className={`welcomeMain page-${currentPage}`}>
-			<header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-				<div className="container flex h-14 max-w-screen-2xl items-center">
-					<WelcomeNavbar />
-					<div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-					<nav className="flex items-center">
-						<div className="flex items-center justify-between">
-							<div className="flex items-center justify-center gap-2">
-								<Button>Sign In</Button>
-								<ModeToggle />
-							</div>
-						</div>
-					</nav>
-					</div>
-				</div>
-			</header>
-
+			<WelcomeHeader />
 			<WelcomeIntro />
 			{currentPage === 1 && <WelcomeDescri />}
 			{currentPage === 2 && <WelcomeService />}
