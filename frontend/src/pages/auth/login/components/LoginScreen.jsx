@@ -177,12 +177,12 @@ export default function LoginScreen() {
 								/>
 								{showPassword ? (
 									<EyeOff
-										className="cursor-pointer"
+										className="cursor-pointer text-primary"
 										onClick={handleShowPassword}
 									/>
 								) : (
 									<Eye
-										className="cursor-pointer"
+										className="cursor-pointer text-primary"
 										onClick={handleShowPassword}
 									/>
 								)}
@@ -195,7 +195,7 @@ export default function LoginScreen() {
 			</CardContent>
 			<div className="flex items-center justify-center">
 				<Separator className="my-3 mx-4 w-auto flex-grow" />
-				<span>or sign in with</span>
+				<span className="text-secondary-foreground">or sign in with</span>
 				<Separator className="my-3 mx-4 w-auto flex-grow" />
 			</div>
 			<CardFooter className="flex item-center justify-center">
