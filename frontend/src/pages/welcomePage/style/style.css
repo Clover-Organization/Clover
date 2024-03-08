@@ -1,5 +1,4 @@
 :root {
-  --main-bg-color: #000;
   --main-text-color: #1fdf64;
   --accent-color: #1fdf64;
   --secondary-text-color: white;
@@ -12,15 +11,6 @@ main.welcomeMain {
   width: 100%;
   height: 100%;
   position: absolute;
-}
-
-div.logoWelcomeTxt {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin: 5px;
-  position: absolute;
-  z-index: 999;
 }
 
 div.logoWelcomeTxt > img {

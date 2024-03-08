@@ -7,9 +7,6 @@ export const commitAndUpdateFile = async (token, idProject, idFile, newCommitAnd
         formData.append('file', newCommitAndFile.newFile);
         formData.append('commitMessage', newCommitAndFile.newCommit);
 
-        console.log(idFile);
-        console.log(idProject);
-
         const response = await fetch(`http://localhost:8080/projects/commits/${idProject}/commitAndUpdate/${idFile}`, {
             method: 'POST',
             headers: {

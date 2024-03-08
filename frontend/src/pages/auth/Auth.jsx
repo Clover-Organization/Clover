@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import ScrollReveal from 'scrollreveal';
 import Register from "./register/Register";
 import Login from "./login/Login";
 import './components/style.css';
-import logo from '../components/assets/PTCC.png';
-import Icon from "../components/Icon";
+import WelcomeHeader from "../welcomePage/components/welcomeHeader/WelcomeHeader";
 
 const Auth = () => {
   const [isLoginVisible, setLoginVisible] = useState(false);
@@ -47,11 +45,7 @@ const Auth = () => {
 
   return (
     <main className={`authMain ${transitionClass}`}>
-      <div className="logo">
-        <Link to={"/"}>
-          <Icon src={logo} alt="logo" />
-        </Link>
-      </div>
+      <WelcomeHeader />
 
       {isLoginVisible ? <Login toggleForm={toggleForm} /> : <Register toggleForm={toggleForm} />}
     </main>

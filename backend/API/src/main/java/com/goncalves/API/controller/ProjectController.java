@@ -18,7 +18,12 @@ import com.goncalves.API.infra.security.ErrorNotFoundId;
 import com.goncalves.API.infra.security.ErrorResponse;
 import com.goncalves.API.infra.security.NotFoundException;
 import com.goncalves.API.infra.security.UnauthorizedException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.ValidationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,9 +38,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
+@Tag(name = "/projects")
 @RestController
 @RequestMapping("/projects")
-public class  ProjectController {
+public class ProjectController {
     @Autowired
     private ProjectRepository repository;
     @Autowired
@@ -51,97 +58,203 @@ public class  ProjectController {
     @Autowired
     private AnnotationsRepository annotationsRepository;
 
+    /**
+     * Retorna uma lista paginada de projetos baseados na data de criação da solicitação.
+     *
+     * @param paginacao O objeto Pageable para controle da paginação.
+     * @return ResponseEntity contendo a lista paginada de projetos.
+     */
     @GetMapping
+    @Operation(summary = "Project pagination to get all projects based on creationAccount data.", method = "GET")
+    @ApiResponse(responseCode = "200", description = "Search completed successfully.")
     public ResponseEntity<Page<DadosListagemProject>> getRequest(@PageableDefault(size = 10, sort = {"creationRequest"}) Pageable paginacao) {
+        // Busca os projetos no repositório, com paginação, e mapeia para o tipo DadosListagemProject
         var page = repository.findAll(paginacao).map(DadosListagemProject::new);
+
+        // Retorna uma resposta OK com a lista paginada de projetos
         return ResponseEntity.ok(page);
     }
 
+    /**
+     * Retorna um projeto com base no ID fornecido.
+     *
+     * @param idProject O ID do projeto a ser buscado.
+     * @return ResponseEntity contendo o projeto encontrado ou um status de not found se não encontrado.
+     */
     @GetMapping("/{idProject}")
+    @Operation(summary = "Get all information for a specific project based on project id.", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Search completed successfully."),
+            @ApiResponse(responseCode = "404", description = "Not found id or project."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     public ResponseEntity selectProject(@PathVariable String idProject) {
         try {
             if (idProject == null) {
-                throw new NotFoundException("ID não encontrado", idProject);
+                // Se o ID do projeto for nulo, lança uma exceção de not found
+                throw new NotFoundException("ID is null.", idProject);
             }
 
-            var optionalRequest = repository.findById(idProject).map(DadosListagemProject::new);
+            // Busca o projeto no repositório pelo ID
+            var optionalRequest = repository.findById(idProject)
+                    .map(DadosListagemProject::new);
 
+            // Se o projeto for encontrado, mapeia para o tipo DadosListagemProject
             return optionalRequest
                     .map(request -> ResponseEntity.ok(request))
+                    // Se o projeto não for encontrado, retorna um status de not found
                     .orElse(ResponseEntity.notFound().build());
         } catch (NotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId(e.getMessage(), e.getId()));
+            // Retorna uma resposta de not found com a mensagem de erro personalizada
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorNotFoundId(e.getMessage(), e.getId()));
         } catch (Exception e) {
-            // Lidar com outras exceções não previstas
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            // Em caso de erro não previsto, retorna uma resposta de erro interno do servidor
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Internal server error."));
         }
     }
 
+    /**
+     * Retorna todos os projetos relacionados a um usuário com lógica de paginação.
+     *
+     * @param page O número da página a ser retornada.
+     * @param size O tamanho da página.
+     * @return ResponseEntity contendo os projetos relacionados ao usuário.
+     */
     @GetMapping("user")
+    @Operation(summary = "Gets all projects related to a given user with pagination logic.", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Search completed successfully."),
+            @ApiResponse(responseCode = "401", description = "User not authenticated."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     public ResponseEntity getProjectByUser(@RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size) {
         try {
+            // Obtém o usuário autenticado
             Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+            // Verifica se o usuário está autenticado
             if (user == null) {
-                throw new UnauthorizedException("Usuário não autenticado");
+                throw new UnauthorizedException("Unauthenticated user.");
             }
 
+            // Busca os projetos relacionados ao usuário no repositório
             List<Project> userRequests = repository.findByUser(user);
 
+            // Calcula o intervalo dos projetos a serem retornados com base na paginação
             int start = page * size;
             int end = Math.min((page + 1) * size, userRequests.size());
 
+            // Se o índice de início estiver além do tamanho da lista, não há mais dados
             if (start >= userRequests.size()) {
                 // Se o índice de início estiver além do tamanho da lista, não há mais dados
                 return ResponseEntity.ok(Collections.emptyList()); // ou outra resposta apropriada
             }
 
+            // Mapeia os projetos para o tipo DadosListagemProject
             List<DadosListagemProject> mappedRequests = userRequests.subList(start, end).stream()
                     .map(DadosListagemProject::new)
                     .collect(Collectors.toList());
 
+            // Retorna os projetos mapeados como uma resposta OK
             return ResponseEntity.ok(mappedRequests);
         } catch (UnauthorizedException e) {
+            // Retorna uma resposta de não autorizado com a mensagem de erro personalizada
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(e.getMessage()));
         } catch (Exception e) {
-            // Lidar com outras exceções não previstas
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            // Em caso de erro não previsto, retorna uma resposta de erro interno do servidor
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error."));
         }
     }
 
+    /**
+     * Retorna os arquivos relacionados a um projeto com o ID fornecido.
+     *
+     * @param idProject O ID do projeto para buscar arquivos.
+     * @return ResponseEntity contendo os arquivos relacionados ao projeto.
+     */
     @GetMapping("/{idProject}/file")
+    @Operation(summary = "Finds all files within a project.", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Search completed successfully."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+    })
     public ResponseEntity findFilesByProjects(@PathVariable String idProject) {
-        var optionalProject = repository.findById(idProject);
-        var project = optionalProject.get();
-        return ResponseEntity.ok(project.getFiles());
+        try {
+            // Busca o projeto no repositório pelo ID
+            var optionalProject = repository.findById(idProject);
+            // Obtém o projeto da opção
+            var project = optionalProject.get();
+            // Retorna uma resposta OK contendo os arquivos relacionados ao projeto
+            return ResponseEntity.ok(project.getFiles());
+        } catch (Exception e) {
+            // Em caso de erro não previsto, retorna uma resposta de erro interno do servidor
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error."));
+        }
     }
 
+    /**
+     * Retorna as pastas relacionadas a um projeto com base no ID fornecido.
+     *
+     * @param idProject O ID do projeto para buscar pastas.
+     * @return ResponseEntity contendo as pastas relacionadas ao projeto.
+     */
     @GetMapping("/{idProject}/folder")
+    @Operation(summary = "Finds all folders within a project.", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Search completed successfully."),
+            @ApiResponse(responseCode = "404", description = "Project not found."),
+    })
     public ResponseEntity<List<FolderDTO>> findFoldersByProjects(@PathVariable String idProject) {
+        // Busca o projeto no repositório pelo ID
         var optionalProject = repository.findById(idProject);
 
+        // Verifica se o projeto foi encontrado
         if (optionalProject.isPresent()) {
+            // Obtém o projeto da opção
             var project = optionalProject.get();
+
+            // Mapeia as pastas do projeto para o DTO correspondente
             List<FolderDTO> folderDTOs = project.getFolders().stream()
                     .map(FolderDTO::new)
                     .collect(Collectors.toList());
+            // Retorna uma resposta OK contendo as pastas relacionadas ao projeto
             return ResponseEntity.ok(folderDTOs);
         } else {
+            // Retorna uma resposta com status NOT FOUND caso o projeto não seja encontrado
             return ResponseEntity.notFound().build();
         }
     }
 
+    /**
+     * Cria um novo projeto com base nos dados fornecidos.
+     *
+     * @param dados Os dados do novo projeto.
+     * @return ResponseEntity contendo o novo projeto criado.
+     */
     @PostMapping("/upload")
     @Transactional
+    @Operation(summary = "Create a new project.", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Project created successfully"),
+            @ApiResponse(responseCode = "401", description = "User not authenticated."),
+            @ApiResponse(responseCode = "400", description = "Validation Exception."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+    })
     public ResponseEntity newProject(@RequestBody @Validated DadosNewProject dados) {
         try {
+            // Obtém o usuário autenticado
             Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+            // Verifica se o usuário está autenticado
             if (user == null) {
+                // Retorna uma resposta com status UNAUTHORIZED caso o usuário não esteja autenticado
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
 
+            // Cria um novo projeto com base nos dados fornecidos
             Project newRequest = new Project(
                     dados.projectName(),
                     dados.creationDate(),
@@ -152,20 +265,34 @@ public class  ProjectController {
                     new ArrayList<>()
             );
 
+            // Salva o novo projeto no repositório
             Project savedRequest = repository.save(newRequest);
 
+            // Retorna uma resposta com status CREATED contendo o novo projeto criado
             return ResponseEntity.status(HttpStatus.CREATED).body(savedRequest);
         } catch (ValidationException e) {
-            // Lidar com exceções de validação (por exemplo, campos inválidos)
+            // Retorna uma resposta com status BAD REQUEST caso ocorra uma exceção de validação
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
         } catch (Exception e) {
-            // Lidar com outras exceções não previstas
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            // Retorna uma resposta com status INTERNAL SERVER ERROR caso ocorra uma exceção não prevista
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
         }
     }
 
+    /**
+     * Exclui o projeto com o ID fornecido, juntamente com todos os seus arquivos, pastas e commits associados.
+     *
+     * @param idProject O ID do projeto a ser excluído.
+     * @return ResponseEntity representando o resultado da exclusão.
+     */
     @DeleteMapping("/{idProject}")
     @Transactional
+    @Operation(summary = "Deletes the project from the ID", method = "DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Project deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Not found ID"),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+    })
     public ResponseEntity deletarProjects(@PathVariable String idProject) {
         try {
             // Obter a entidade diretamente usando findById
@@ -190,15 +317,16 @@ public class  ProjectController {
 
                 return ResponseEntity.noContent().build();
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("ID não encontrado", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("not found id", idProject));
             }
         } catch (Exception ex) {
-            String mensagemErro = "Erro ao excluir o projeto: " + ex.getMessage();
+            String mensagemErro = "Error deleting project: " + ex.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensagemErro);
         }
     }
 
-    private void deleteAnnotationsInProject(List<Annotations> annotations){
+    //Método para excluir anotações
+    private void deleteAnnotationsInProject(List<Annotations> annotations) {
         for (Annotations annotation : annotations) {
             annotationsRepository.deleteById(annotation.getIdAnnotation());
         }
@@ -241,13 +369,26 @@ public class  ProjectController {
         }
     }
 
+    /**
+     * Atualiza as informações do projeto com o ID fornecido.
+     *
+     * @param idProject O ID do projeto a ser atualizado.
+     * @param dados     Os novos dados do projeto.
+     * @return ResponseEntity representando o resultado da atualização.
+     */
     @PutMapping("/{idProject}")
     @Transactional
-    public ResponseEntity updateStatus(@PathVariable String idProject,
+    @Operation(summary = "Update project information from the ID.", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Project deleted successfully."),
+            @ApiResponse(responseCode = "404", description = "Not found ID."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+    })
+    public ResponseEntity updateProject(@PathVariable String idProject,
                                        @RequestBody @Validated DadosAtualizarProject dados) {
         try {
             var request = repository.findById(idProject)
-                    .orElseThrow(() -> new NotFoundException("ID não encontrado", idProject));
+                    .orElseThrow(() -> new NotFoundException("Not found id.", idProject));
 
             // Atualizar os dados do usuário
             request.atualizarProject(dados);
@@ -259,13 +400,24 @@ public class  ProjectController {
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorNotFoundId(e.getMessage(), e.getId()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Erro interno do servidor"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
         }
     }
 
-//    pega todos os commits do projeto
-
+    /**
+     * Obtém todos os commits de um projeto com o ID fornecido.
+     *
+     * @param idProject O ID do projeto.
+     * @return ResponseEntity contendo a lista de commits ou uma mensagem de erro.
+     */
     @GetMapping("/{idProject}/commits/all")
+    @Operation(summary = "Get all project commits from ID", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Project deleted successfully."),
+            @ApiResponse(responseCode = "404", description = "Not found ID."),
+            @ApiResponse(responseCode = "400", description = "Project ID invalid."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+    })
     public ResponseEntity getAllCommitsByProject(@PathVariable String idProject) {
         try {
             // Procura o projeto pelo ID
@@ -277,14 +429,14 @@ public class  ProjectController {
                 // Retorna a lista de commits do projeto
                 return ResponseEntity.ok(project.getCommits());
             } else {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Project ID not found", idProject));
             }
         } catch (IllegalArgumentException e) {
             // IllegalArgumentException ocorre se o ID do projeto não for válido
-            return ResponseEntity.badRequest().body("ID de projeto inválido.");
+            return ResponseEntity.badRequest().body("Invalid project ID.");
         } catch (Exception e) {
             // Outras exceções inesperadas
-            return ResponseEntity.internalServerError().body("Erro ao obter os commits do projeto: " + e.getMessage());
+            return ResponseEntity.internalServerError().body("Error getting project commits: " + e.getMessage());
         }
     }
 
