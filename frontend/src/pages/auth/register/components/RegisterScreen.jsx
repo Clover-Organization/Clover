@@ -31,7 +31,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import user from "../../assets/user.png";
+import { CircleUserRound } from "lucide-react";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -227,10 +227,16 @@ export default function RegisterScreen() {
 					Enter your information below to create an account.
 				</CardDescription>
 				<div className="grid items-center justify-center pt-5">
-					<div className="w-44 h-44 flex items-center justify-center  border border-white rounded-full">
-						<Avatar className="w-40 h-40 object-center">
-							<AvatarImage src={handleImagePreview() || user} alt="userImage" />
-						</Avatar>
+					<div className="w-44 h-44 flex items-center justify-center">
+						<div className="w-40 h-40 object-center text-primary">
+							{profileImage ? (
+								<Avatar className="w-48 h-48 object-center">
+									<AvatarImage src={handleImagePreview()} alt="userImage" />
+								</Avatar>
+							) : (
+								<CircleUserRound className="w-48 h-48 text-secondary-foreground object-center" />
+							)}
+						</div>
 					</div>
 				</div>
 				<div className="pt-5">
