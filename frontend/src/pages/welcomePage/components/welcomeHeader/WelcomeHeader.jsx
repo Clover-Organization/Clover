@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { WelcomeNavbar } from "../welcomeNavbar/WelcomeNavbar";
 import { MobileNav } from "../mobileNavbar/MobileNavbar";
+import { Link } from "react-router-dom";
 
 export default function WelcomeHeader() {
 	return (
@@ -14,7 +15,7 @@ export default function WelcomeHeader() {
 						<div className="flex items-center justify-end md:justify-end">
 							<div className="flex items-center justify-center gap-2 md:justify-end">
 								<ModeToggle />
-                                <Button>Sign In</Button>
+                                <Button asChild><Link to="/Auth">Sign In</Link></Button>
 							</div>
 						</div>
 					</nav>
