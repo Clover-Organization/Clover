@@ -24,7 +24,7 @@ const Navbar = ({ idProject }) => {
   }, [token]);
 
   useEffect(() => { }, [userData.profileImage]);
-  
+
   return (
     <header>
       <nav className="navSup">
@@ -76,6 +76,15 @@ const Navbar = ({ idProject }) => {
                   </Link>
                 </li>
               )}
+
+              <li key="roadMap">
+                <Link
+                  to={`/roadmap`}
+                  className={isActive("/roadmap") ? "active" : "noActive"}
+                >
+                  Road map
+                </Link>
+              </li>
 
               {/* <li key="welcome">
                 <Link
