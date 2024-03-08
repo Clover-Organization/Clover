@@ -146,8 +146,8 @@ export default function LoginScreen() {
 	};
 
 	return (
-		<Card className="w-auto border border-slate-300 rounded-lg flex flex-col space-y-6 lg:space-y-0">
-			<CardHeader className="gap-5">
+		<Card className="w-full max-w-md rounded-lg p-8 text-white">
+			<CardHeader className="gap-4">
 				<CardTitle className="text-5xl text-green-500">Login</CardTitle>
 				<CardDescription>
 					Enter your email below to login to your account.
@@ -177,12 +177,12 @@ export default function LoginScreen() {
 								/>
 								{showPassword ? (
 									<EyeOff
-										className="cursor-pointer"
+										className="cursor-pointer text-primary"
 										onClick={handleShowPassword}
 									/>
 								) : (
 									<Eye
-										className="cursor-pointer"
+										className="cursor-pointer text-primary"
 										onClick={handleShowPassword}
 									/>
 								)}
@@ -195,7 +195,7 @@ export default function LoginScreen() {
 			</CardContent>
 			<div className="flex items-center justify-center">
 				<Separator className="my-3 mx-4 w-auto flex-grow" />
-				<span>or sign in with</span>
+				<span className="text-secondary-foreground">or sign in with</span>
 				<Separator className="my-3 mx-4 w-auto flex-grow" />
 			</div>
 			<CardFooter className="flex item-center justify-center">

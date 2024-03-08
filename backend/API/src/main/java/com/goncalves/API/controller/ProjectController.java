@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Tag(name = "/projects")
 @RestController
-@RequestMapping(value = "/projects", produces = {"application/json"})
+@RequestMapping("/projects")
 public class ProjectController {
     @Autowired
     private ProjectRepository repository;
