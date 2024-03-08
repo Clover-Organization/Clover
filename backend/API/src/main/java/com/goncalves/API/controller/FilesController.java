@@ -34,7 +34,7 @@ import java.util.List;
 @Slf4j
 @Tag(name = "/projects/files")
 @RestController
-@RequestMapping(value = "/projects/files", consumes = {"application/json"})
+@RequestMapping("/projects/files")
 public class FilesController {
     @Autowired
     private FilesRepository repository;

@@ -29,7 +29,7 @@ import java.util.Optional;
 @Slf4j
 @Tag(name = "/projects/folders")
 @RestController
-@RequestMapping(value = "/projects/folders", consumes = {"application/json"})
+@RequestMapping("/projects/folders")
 public class FolderController {
 
     @Autowired

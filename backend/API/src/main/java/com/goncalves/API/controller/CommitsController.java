@@ -34,7 +34,7 @@ import java.util.Objects;
 @Slf4j
 @Tag(name = "/project/commits")
 @RestController
-@RequestMapping(value = "/projects/commits", consumes = {"application/json"})
+@RequestMapping("/projects/commits")
 public class CommitsController {
     @Autowired
     private CommitsRepository repository;

@@ -23,7 +23,7 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "/update-password")
 @RestController
-@RequestMapping(value = "/update-password", consumes = "application/json")
+@RequestMapping("/update-password")
 public class EmailUpdateController {
 
     @Autowired

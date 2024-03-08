@@ -31,7 +31,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @Slf4j
-@RequestMapping(value = "/", produces = {"application/json"})
+@RequestMapping("/")
 @Tag(name = "/")
 public class UserController {
 

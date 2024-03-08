@@ -1,6 +1,5 @@
 package com.goncalves.API.entities.user;
 
-import com.goncalves.API.DTO.AutenticarDados;
 import com.goncalves.API.DTO.DadosAtualizarUser;
 import com.goncalves.API.infra.security.RegistrationException;
 import io.micrometer.common.util.StringUtils;
@@ -13,13 +12,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-
-import static com.goncalves.API.entities.user.UserRole.USER;
 
 @Getter
 @Setter
@@ -43,7 +39,7 @@ public class Users implements UserDetails {
     private byte[] profileImage;
 
 
-    public Users(String username,String firstName, String lastName, String email,String password, String birth, LocalDateTime creationAccount, UserRole role, byte[] profileImage) {
+    public Users(String username, String firstName, String lastName, String email, String password, String birth, LocalDateTime creationAccount, UserRole role, byte[] profileImage) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -78,7 +74,8 @@ public class Users implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.role == UserRole.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
@@ -86,8 +83,9 @@ public class Users implements UserDetails {
     public String getUsername() {
         return username;
     }
+
     @Override
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
