@@ -41,11 +41,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
 //                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
-                                "auth/login",
-                                "auth/register",
-                                "auth/register/google",
-                                "update-password/generate-token/forgot-password",
-                                "update-password/confirm-reset",
+                                "/auth/login",
+                                "/auth/register",
+                                "/auth/register/google",
+                                "/update-password/generate-token/forgot-password",
+                                "/update-password/confirm-reset",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",

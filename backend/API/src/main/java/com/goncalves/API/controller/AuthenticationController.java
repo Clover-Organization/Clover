@@ -153,6 +153,7 @@ public class AuthenticationController {
                                            @RequestPart("userData") @Valid AutenticarDados dados,
                                            UriComponentsBuilder uriComponentsBuilder) {
         try {
+            System.out.println(dados.username());
             validateRegistrationData(dados);
 
             // Criar um novo usuário com a senha criptografada

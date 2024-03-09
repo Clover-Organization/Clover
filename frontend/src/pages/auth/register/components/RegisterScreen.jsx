@@ -36,6 +36,8 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
+import user from '../../assets/user.png'
+
 const FormSchema = z.object({
 	username: z.string().min(2, {
 		message: "Username must be at least 2 characters.",
@@ -187,6 +189,7 @@ export default function RegisterScreen() {
 			const userFile = await getUserFile(user);
 
 			const formData = new FormData();
+
 			formData.append("profileImage", profileImage ? profileImage : userFile);
 
 			console.log(userData);
