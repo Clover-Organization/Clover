@@ -176,6 +176,8 @@ export default function RegisterScreen() {
 		try {
 			const decoded = decodeToken(token);
 
+			console.log(decoded);
+
 			const userData = {
 				username: decoded.payload.name,
 				firstName: decoded.payload.given_name,
@@ -433,7 +435,6 @@ export default function RegisterScreen() {
 										or
 										<Button type="submit">Register</Button>
 									</div>
-									<div></div>
 								</div>
 							</div>
 						</div>
