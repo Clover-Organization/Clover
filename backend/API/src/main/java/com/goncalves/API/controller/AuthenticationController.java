@@ -151,7 +151,6 @@ public class AuthenticationController {
     public ResponseEntity registerByGoogle(@RequestPart("profileImage") MultipartFile profileImage,
                                            @RequestPart("userData") @Valid AutenticarDados dados,
                                            UriComponentsBuilder uriComponentsBuilder) {
-        System.out.println("a");
         try {
             validateRegistrationData(dados);
 

@@ -176,8 +176,6 @@ export default function RegisterScreen() {
 		try {
 			const decoded = decodeToken(token);
 
-			console.log(decoded);
-
 			const userData = {
 				username: decoded.payload.name,
 				firstName: decoded.payload.given_name,
