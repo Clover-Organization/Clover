@@ -1,6 +1,5 @@
 import React from "react";
 import '../../style/style.css';
-import wave from './assets/wave.svg';
 import AboutImg from './assets/AboutImg.png'
 import iconBalanca from './assets/iconBalanca.png';
 
@@ -8,9 +7,6 @@ const WelcomeDescri = () => {
 
     return (
         <section className="WelcomeDescSection" id="hyper">
-            <div className="WelcomeDescWave">
-                <img src={wave} alt="" />
-            </div>
             <article className="WelcomeDescArticle">
                 <img src={AboutImg} alt="AboutImage" />
                 <div className="TxtWelcomeDesc">
