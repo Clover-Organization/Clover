@@ -3,23 +3,48 @@ import "../../style/style.css";
 import { Button } from "@/components/ui/button";
 import { GitCompareArrows, Users, Blocks } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SparklesCore } from "@/components/ui/sparkles";
+
 
 const WelcomeIntro = () => {
 	return (
+		
 		<section className="text-secondary-foreground py-20 px-6 md:px-12 h-screen">
 			<div className="max-w-6xl mx-auto flex flex-col items-center justify-center text-center">
-				<h1 className="text-7xl font-bold mb-8">
+			<div className="w-full absolute inset-0 h-screen">
+					<SparklesCore
+						id="tsparticlesfullpage"
+						background="transparent"
+						minSize={0.6}
+						maxSize={1.4}
+						particleDensity={40}
+						className="w-full h-full"
+						particleColor="#4d7c0f"
+					/>
+					
+				</div>
+				<div className="w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
+				<h1 className="md:text-7xl text-3xl lg:text-7xl font-bold text-center text-secondary-foreground relative z-20">
 					Be clever.
 					<span className="text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-emerald-500">
 						{" "}
 						Use Clover.
 					</span>
+					<div className="w-[40rem] h-10 relative">
+						<div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-lime-500 to-transparent h-[2px] w-3/4 blur-sm" />
+						<div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-lime-500 to-transparent h-px w-3/4" />
+						<div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-[5px] w-1/4 blur-sm" />
+						<div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px w-1/4" />
+					</div>
 				</h1>
 				<p className="text-xl mb-8">
 					Unlock your coding potential effortlessly with Clover. where
 					versioning becomes intuitive and coding becomes a breeze for
 					programming learners
 				</p>
+				</div>
+
+				
 				<div className="btnTxt">
 					<Link to={"/auth/register"}>
 						<button className="animated-button">

@@ -96,14 +96,6 @@ const welcome = () => {
 		<main className={`welcomeMain page-${currentPage}`}>
 			<WelcomeHeader />
 			<WelcomeIntro />
-			{currentPage === 1 && <WelcomeDescri />}
-			{currentPage === 2 && <WelcomeService />}
-
-			{/* Navegação do carrossel */}
-			{/* <div>
-        <button onClick={prevPage}>Anterior</button>
-        <button onClick={nextPage}>Próxima</button>
-      </div> */}
 			<Footer />
 		</main>
 	);
