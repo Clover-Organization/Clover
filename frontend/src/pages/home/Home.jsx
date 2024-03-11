@@ -239,6 +239,7 @@ const HomeSecurity = () => {
           setFormData={setFormData}
           handleSave={handleSave}
           role={role}
+          onClose={() => closeModal(setModalIsOpen)}
         />
       </Modal>
     </section>

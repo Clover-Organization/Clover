@@ -40,7 +40,7 @@ const ProfileMenu = ({ userData }) => {
                     </MenubarItem>
                     <MenubarSeparator />
                     <Link to={"/Settings"}>
-                        <MenubarItem inset className="cursor-pointer">
+                        <MenubarItem inset className="cursor-pointer text-secondary-foreground">
                             Edit...
                         </MenubarItem>
                     </Link>

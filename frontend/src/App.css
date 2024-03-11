@@ -332,7 +332,6 @@ div.lupaSearch>div.lupa>img,
   width: 50px;
   padding-inline: var(--padding-medium);
   position: absolute;
-  z-index: 999;
 }
 
 div.addBtn>button,
