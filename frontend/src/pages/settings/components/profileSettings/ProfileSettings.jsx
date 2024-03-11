@@ -105,6 +105,7 @@ export const ProfileSettings = () => {
             },
         });
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         navigate('/welcome');
     }
 

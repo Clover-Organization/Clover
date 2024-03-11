@@ -1,7 +1,6 @@
 // Imports of other components and libraries
 
 import { useState, useEffect } from "react";
-import wave from "./assets/wave.svg";
 import mais from "./assets/iconMais.png";
 import Modal from "../components/Modal";
 import { getStatusClass } from "./components/utils/getStatusClass/getStatusClass";
@@ -200,9 +199,6 @@ const HomeSecurity = () => {
 
   return (
     <section className="homeSection">
-      <div className="wave">
-        <img src={wave} alt="" />
-      </div>
       <div className="alignCont">
         <FilterBar
           handleSearch={handleSearch}

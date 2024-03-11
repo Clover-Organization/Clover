@@ -291,9 +291,9 @@ div.alignCont {
 }
 
 div.subNav {
+  padding-top: 1rem;
   width: 100%;
   position: relative;
-  z-index: 999;
 }
 
 div.lupaSearch,

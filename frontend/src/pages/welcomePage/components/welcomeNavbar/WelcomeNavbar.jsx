@@ -10,8 +10,8 @@ export function WelcomeNavbar() {
 
 	return (
 		<div className="mr-4 hidden md:flex">
-			<Link to="/Welcome" className="mr-6 flex items-center space-x-2">
-				<Icon src={logo} alt="logo"/>
+			<Link to="/" className="mr-6 flex items-center space-x-2">
+				<Icon src={logo} alt="logo" />
 				<span className="hidden font-bold sm:inline-block text-secondary-foreground">
 					Clover
 				</span>
