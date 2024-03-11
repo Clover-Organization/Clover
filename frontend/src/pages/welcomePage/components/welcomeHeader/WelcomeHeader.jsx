@@ -14,7 +14,7 @@ export default function WelcomeHeader({ idProject }) {
 	const [userData, setUserData] = useState({});
 	const [singleRequest, setSingleRequest] = useState({});
 	const token = localStorage.getItem("token");
-	
+
 	if (role) {
 		useEffect(() => {
 			FetchUser(token, setUserData);
@@ -32,7 +32,7 @@ export default function WelcomeHeader({ idProject }) {
 				) : (
 					<WelcomeNavbar />
 				)}
-				<MobileNav role={role} idProject={idProject} singleRequest={singleRequest}/>
+				<MobileNav role={role} idProject={idProject} singleRequest={singleRequest} />
 				<div className="flex flex-1 items-center justify-end space-x-2 md:justify-end">
 					<nav className="flex items-center">
 						<div className="flex items-center justify-end md:justify-end">

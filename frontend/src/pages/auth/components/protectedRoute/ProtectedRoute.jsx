@@ -23,6 +23,7 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
             localStorage.setItem('role', role);
             setIsAuthenticated(true);
           } else {
+            localStorage.removeItem('role');
             setIsAuthenticated(false);
 
             // Exibir alerta de erro
@@ -40,9 +41,11 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
             text: 'Error fetching token!',
           });
 
+          localStorage.removeItem('role');
           setIsAuthenticated(false);
         }
       } else {
+        localStorage.removeItem('role');
         setIsAuthenticated(false);
       }
     };
