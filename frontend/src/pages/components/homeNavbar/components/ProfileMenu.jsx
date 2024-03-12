@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 
-const ProfileMenu = ({ userData }) => {
+const ProfileMenu = ({ userData, idProject }) => {
     const navigate = useNavigate('/')
     const handleLogouUser = () => {
         toast.success("Sucess!", {
@@ -45,6 +45,16 @@ const ProfileMenu = ({ userData }) => {
                         </MenubarItem>
                     </Link>
                     <MenubarSeparator />
+                    {idProject && (
+                        <>
+                            <Link to={`/settings/${idProject}`}>
+                                <MenubarItem inset className="cursor-pointer text-secondary-foreground">
+                                    Project
+                                </MenubarItem>
+                            </Link>
+                            <MenubarSeparator />
+                        </>
+                    )}
                     <MenubarItem inset className="cursor-pointer" onClick={() => handleLogouUser()}>Logout</MenubarItem>
                 </MenubarContent>
             </MenubarMenu>

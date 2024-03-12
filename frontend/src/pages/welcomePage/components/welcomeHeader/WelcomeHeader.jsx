@@ -45,7 +45,7 @@ export default function WelcomeHeader({ idProject }) {
 									</>
 								) : (
 									<>
-										<ProfileMenu userData={userData} />
+										<ProfileMenu userData={userData} idProject={idProject}/>
 									</>
 								)
 								}
