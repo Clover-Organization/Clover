@@ -34,20 +34,24 @@ const RequestForm = ({ formData, setFormData, handleSave, onClose }) => {
                                     value={formData.projectName}
                                     onChange={(e) => setFormData({ ...formData, projectName: e.target.value })} />
                             </div>
-                            <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="framework">Description</Label>
-                            </div>
                         </div>
                     </form>
                 </CardContent>
                 <CardContent>
-                    <Textarea
-                        id="projectDescription"
-                        placeholder="Project description"
-                        className="resize-none"
-                        value={formData.projectDescription}
-                        onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })}
-                    />
+                    <div className="grid w-full items-center gap-4">
+                        <div className="flex flex-col space-y-1.5">
+                            <div className="flex flex-col space-y-1.5">
+                                <Label htmlFor="description">Description</Label>
+                                <Textarea
+                                    id="projectDescription"
+                                    placeholder="Project description"
+                                    className="resize-none"
+                                    value={formData.projectDescription}
+                                    onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })}
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
                     <Button variant="outline" onClick={() => onClose()}>Cancel</Button>
