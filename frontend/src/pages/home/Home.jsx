@@ -191,6 +191,7 @@ const HomeSecurity = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setShowId((prevShowId) => !prevShowId);
+      console.log(token);
     }, 4000);
 
     return () => {

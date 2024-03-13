@@ -14,10 +14,8 @@ import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
-import com.goncalves.API.infra.security.ErrorNotFoundId;
-import com.goncalves.API.infra.security.ErrorResponse;
-import com.goncalves.API.infra.security.NotFoundException;
-import com.goncalves.API.infra.security.UnauthorizedException;
+import com.goncalves.API.infra.security.*;
+import com.goncalves.API.service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -57,6 +55,8 @@ public class ProjectController {
     private VersionsRepository versionsRepository;
     @Autowired
     private AnnotationsRepository annotationsRepository;
+    @Autowired
+    private EmailService emailService;
 
     /**
      * Retorna uma lista paginada de projetos baseados na data de criação da solicitação.
@@ -385,7 +385,7 @@ public class ProjectController {
             @ApiResponse(responseCode = "500", description = "Internal server error."),
     })
     public ResponseEntity updateProject(@PathVariable String idProject,
-                                       @RequestBody @Validated DadosAtualizarProject dados) {
+                                        @RequestBody @Validated DadosAtualizarProject dados) {
         try {
             var request = repository.findById(idProject)
                     .orElseThrow(() -> new NotFoundException("Not found id.", idProject));
@@ -437,6 +437,30 @@ public class ProjectController {
         } catch (Exception e) {
             // Outras exceções inesperadas
             return ResponseEntity.internalServerError().body("Error getting project commits: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/{idProject}/share")
+    public ResponseEntity shareProject(@PathVariable String idProject,
+                                       @RequestBody DadosUsernameOrEmail dados) {
+        try {
+            Users user;
+
+            var isEmail = dados.usernameOrEmail().contains("@");
+
+            if (isEmail) {
+                user = repositoryUser.findByEmail(dados.usernameOrEmail());
+            } else {
+                user = repositoryUser.findByUsernameForgot(dados.usernameOrEmail());
+            }
+
+            String destinatario = (user.getEmail());
+            emailService.shareProjectEmail(destinatario, idProject);
+
+            return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(new InternalError("Internal server error", e));
         }
     }
 
