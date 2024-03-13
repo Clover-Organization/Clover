@@ -35,8 +35,7 @@ const RequestForm = ({ formData, setFormData, handleSave, onClose }) => {
                                     onChange={(e) => setFormData({ ...formData, projectName: e.target.value })} />
                             </div>
                             <div className="flex flex-col space-y-1.5">
-                                <Label htmlFor="framework">Framework</Label>
-
+                                <Label htmlFor="framework">Description</Label>
                             </div>
                         </div>
                     </form>
