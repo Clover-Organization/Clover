@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { toast } from 'sonner';
 
 // Function to create a new request
 export const CreateNewRequest = async (formData, token) => {
@@ -20,17 +19,8 @@ export const CreateNewRequest = async (formData, token) => {
         });
 
         if (response.status === 201) {
-            Swal.fire({
-                text: 'Successful registration!',
-                icon: 'success',
-                customClass: {
-                    popup: 'custom-popup-class',
-                },
-                didOpen: () => {
-                    const modal = Swal.getPopup();
-                    modal.style.zIndex = 99999;
-                    // Adicione outras personalizações de estilo conforme necessário
-                },
+            toast.success("Sucess!", {
+                description: "Successfully project created!",
             });
         } else if (response.status === 400) {
             const errorData = await response.json();
@@ -47,12 +37,8 @@ export const CreateNewRequest = async (formData, token) => {
         }
     } catch (error) {
         console.log("Error sending the request:", error);
-        Swal.fire({
-            text: 'Error sending the request. Please try again later.',
-            icon: 'error',
-            customClass: {
-                popup: 'custom-popup-class',
-            },
+        toast.error("Error", {
+            description: "Error sending the request. Please try again later.",
         });
     }
 };

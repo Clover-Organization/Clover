@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Tag(name = "/projects/annotations")
 @RestController
-@RequestMapping(value = "/projects/annotations", consumes = {"application/json"})
+@RequestMapping(value = "/projects/annotations")
 public class AnnotationsController {
     @Autowired
     private AnnotationsRepository repository;

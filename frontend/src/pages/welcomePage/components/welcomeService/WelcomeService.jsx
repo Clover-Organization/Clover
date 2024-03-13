@@ -2,14 +2,10 @@ import '../../style/style.css';
 import iconDatabase from './assets/iconDatabase.png';
 import iconColaboracao from './assets/iconColaboracao.png';
 import iconCheck from './assets/iconCheck.png';
-import wave from '../welcomeDescri/assets/wave.svg';
 
 const WelcomeService = () => {
     return (
         <section className="WelcomeServiceSection">
-             <div className="WelcomeDescWave">
-                <img src={wave} alt="" />
-            </div>
             <div className="title-service">
                 <h2>Services</h2>
             </div>

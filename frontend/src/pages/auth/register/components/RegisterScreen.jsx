@@ -140,8 +140,9 @@ export default function RegisterScreen() {
 					errorArray.push({ fieldName, errorMessage });
 				}
 				toast.error("Error!", {
-					description: "Username already exists!",
+					description: errorData.message,
 				});
+				console.log(errorData);
 			} else {
 				console.log("Error: " + response.status);
 			}
