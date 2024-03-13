@@ -40,10 +40,10 @@ public class EmailService {
         }
     }
 
-    public void shareProjectEmail(String destinatario, String idProject) {
+    public void shareProjectEmail(String destinatario, String token) {
         String assunto = "Project sharing";
         String corpo = "Click on the link below to accept the invitation to this project:\n" +
-                "<a href=\"https://suaaplicacao.com/aceitar-convite?idProject=" + idProject + "\">Accept invite</a>\n\n" +
+                "<a href=\"http://localhost:5173/project/share/" + token + "\">Accept invite</a>\n\n" +
                 "Thanks,\n the Clover team!";
 
         logger.info("Enviando e-mail para: {}", destinatario);

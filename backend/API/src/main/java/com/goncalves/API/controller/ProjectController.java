@@ -16,6 +16,7 @@ import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
 import com.goncalves.API.infra.security.*;
 import com.goncalves.API.service.EmailService;
+import com.goncalves.API.service.EmailTokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -57,6 +58,8 @@ public class ProjectController {
     private AnnotationsRepository annotationsRepository;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private EmailTokenService emailTokenService;
 
     /**
      * Retorna uma lista paginada de projetos baseados na data de criação da solicitação.
@@ -440,9 +443,8 @@ public class ProjectController {
         }
     }
 
-    @PostMapping("/{idProject}/share")
-    public ResponseEntity shareProject(@PathVariable String idProject,
-                                       @RequestBody DadosUsernameOrEmail dados) {
+    @PostMapping("/share")
+    public ResponseEntity shareProject(@RequestBody DadosUsernameOrEmail dados) {
         try {
             Users user;
 
@@ -453,14 +455,36 @@ public class ProjectController {
             } else {
                 user = repositoryUser.findByUsernameForgot(dados.usernameOrEmail());
             }
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new NotFoundException("User não encontrado", dados.usernameOrEmail()));
+            }
+
+            var token = emailTokenService.gerarToken(user.getEmail());
 
             String destinatario = (user.getEmail());
-            emailService.shareProjectEmail(destinatario, idProject);
+            emailService.shareProjectEmail(destinatario, token);
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (Exception e) {
             return ResponseEntity.internalServerError()
                     .body(new InternalError("Internal server error", e));
+        }
+    }
+
+    @PostMapping("/confirm-token/share/{token}")
+    public ResponseEntity confirmTokenShare(@PathVariable String token) {
+        try {
+            if (emailTokenService.validarToken(token)) {
+                return ResponseEntity.ok()
+                        .body(new Successfully("successfully", "Token successfully verified!"));
+            } else {
+                return ResponseEntity.badRequest()
+                        .body(new BadRequestExceptionRecord(token, "Invalid or expired token."));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body(new InternalError("Internal server error.", e));
         }
     }
 
