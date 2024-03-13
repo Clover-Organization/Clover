@@ -440,4 +440,9 @@ public class ProjectController {
         }
     }
 
+    @PostMapping("/{idProject}/share")
+    public ResponseEntity shareProject() {
+        return ResponseEntity.ok().build();
+    }
+
 }
