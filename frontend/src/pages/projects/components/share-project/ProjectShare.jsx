@@ -8,12 +8,13 @@ const ProjectShare = () => {
     const bearToken = localStorage.getItem('token');
     const navigate = useNavigate();
     const { token } = useParams();
+    const { idProject } = useParams();
     console.log(token);
 
     useEffect(() => {
         const validateToken = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/projects/confirm-token/share/${token}`, {
+                const response = await fetch(`http://localhost:8080/projects/confirm-token/share/${token}/${idProject}`, {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
@@ -22,7 +23,7 @@ const ProjectShare = () => {
                     },
                 });
 
-                if (response.status >= 200 && response.status < 300) {
+                if (response.ok) {
                     toast.success("Sucess!", {
                         description: "Successfully shared project!",
                     });
@@ -36,6 +37,9 @@ const ProjectShare = () => {
                 }
             } catch (error) {
                 console.log("Error fetching the request:", error);
+                toast.error("Error", {
+                    description: error,
+                });
                 // Trate erros de requisição aqui
                 navigate("/");
             }

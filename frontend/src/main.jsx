@@ -52,7 +52,7 @@ const router = createBrowserRouter([
 		element: <ProtectedRoute element={FileView} />,
 	},
 	{
-		path: "/Project/Share/:token",
+		path: "/Project/Share/:token/:idProject",
 		element: <ProtectedRoute element={ProjectShare} />,
 	},
 	{

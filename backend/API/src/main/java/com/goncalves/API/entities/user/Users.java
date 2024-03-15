@@ -1,6 +1,7 @@
 package com.goncalves.API.entities.user;
 
 import com.goncalves.API.DTO.DadosAtualizarUser;
+import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.infra.security.RegistrationException;
 import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -38,7 +40,6 @@ public class Users implements UserDetails {
     private LocalDateTime creationAccount;
     private UserRole role;
     private byte[] profileImage;
-
 
     public Users(String username, String firstName, String lastName, String email, String password, String birth, LocalDateTime creationAccount, UserRole role, byte[] profileImage) {
         this.username = username;

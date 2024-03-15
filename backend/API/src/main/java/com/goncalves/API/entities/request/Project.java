@@ -31,6 +31,7 @@ public class Project {
     private LocalDateTime creationDate;
     private LocalDateTime projectProgress;
     private String projectDescription;
+    private List<Users> shareUsers = new ArrayList<>();
 
     @DBRef
     private Users user;

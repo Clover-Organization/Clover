@@ -24,6 +24,7 @@ const HomeSecurity = () => {
 
   // State variables
   const [toolBoxes, setToolBoxes] = useState([]);
+  const [shareToolBox, setShareToolBox] = useState([]);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     idProject: "",
@@ -48,6 +49,7 @@ const HomeSecurity = () => {
   const [requestsLoaded, setRequestsLoaded] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
+  const size = 7;
 
   // Fetch requests when the component mounts and requests are not loaded
   useEffect(() => {
@@ -60,7 +62,7 @@ const HomeSecurity = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchData(currentPage);
-    }, 10000);
+    }, 5000);
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
@@ -113,14 +115,25 @@ const HomeSecurity = () => {
           getStatusClass,
           setRequestsLoaded
         )
-        : fetchRequests(
+        :
+        fetchRequests(
           nextPage,
           setLoading,
           token,
           setToolBoxes,
           getStatusClass,
-          setRequestsLoaded
+          setRequestsLoaded,
+          `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
         );
+      fetchRequests(
+        nextPage,
+        setLoading,
+        token,
+        setShareToolBox,
+        getStatusClass,
+        setRequestsLoaded,
+        `http://localhost:8080/projects/ShareUsers?page=${currentPage}&size=${size}`
+      );
       return nextPage;
     });
   };
@@ -138,14 +151,25 @@ const HomeSecurity = () => {
           getStatusClass,
           setRequestsLoaded
         )
-        : fetchRequests(
+        :
+        fetchRequests(
           previousPage,
           setLoading,
           token,
           setToolBoxes,
           getStatusClass,
-          setRequestsLoaded
+          setRequestsLoaded,
+          `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
         );
+      fetchRequests(
+        previousPage,
+        setLoading,
+        token,
+        setShareToolBox,
+        getStatusClass,
+        setRequestsLoaded,
+        `http://localhost:8080/projects/ShareUsers?page=${currentPage}&size=${size}`
+      );
 
       return previousPage;
     });
@@ -158,7 +182,8 @@ const HomeSecurity = () => {
 
   const fetchData = async () => {
     role === "ADMIN"
-      ? await fetchRequestsPage(
+      ?
+      await fetchRequestsPage(
         currentPage,
         setLoading,
         token,
@@ -166,14 +191,25 @@ const HomeSecurity = () => {
         getStatusClass,
         setRequestsLoaded
       )
-      : await fetchRequests(
+      :
+      await fetchRequests(
         currentPage,
         setLoading,
         token,
         setToolBoxes,
         getStatusClass,
-        setRequestsLoaded
+        setRequestsLoaded,
+        `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
       );
+    await fetchRequests(
+      currentPage,
+      setLoading,
+      token,
+      setShareToolBox,
+      getStatusClass,
+      setRequestsLoaded,
+      `http://localhost:8080/projects/ShareUsers?page=${currentPage}&size=${size}`
+    );
   };
 
   const createNewRequest = async () => {
@@ -181,12 +217,21 @@ const HomeSecurity = () => {
     setModalIsOpen(false);
   };
 
+  const filteredAndSortedToolBoxes = [];
+
   // Move the declaration to the appropriate location
-  const filteredAndSortedToolBoxes = Array.isArray(toolBoxes)
-    ? toolBoxes.filter((box) =>
+  if (Array.isArray(toolBoxes) && Array.isArray(shareToolBox)) {
+    const filteredToolBoxes = toolBoxes.filter((box) =>
       box.projectName.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    : [];
+    );
+
+    const filteredShareToolBox = shareToolBox.filter((box) =>
+      box.projectName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Combine os resultados dos dois filtros
+    filteredAndSortedToolBoxes.push(...filteredToolBoxes, ...filteredShareToolBox);
+  }
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -198,6 +243,7 @@ const HomeSecurity = () => {
       clearInterval(intervalId);
     };
   }, []);
+
 
   return (
     <section className="homeSection">
@@ -228,6 +274,7 @@ const HomeSecurity = () => {
               showId={showId}
               role={role}
             />
+
           ))}
         </div>
         <Pagination

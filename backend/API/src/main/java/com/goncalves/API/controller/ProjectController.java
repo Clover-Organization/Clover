@@ -146,6 +146,8 @@ public class ProjectController {
             // Busca os projetos relacionados ao usuário no repositório
             List<Project> userRequests = repository.findByUser(user);
 
+            List<Project> shareUser = repository.findByShareUsers(user);
+
             // Calcula o intervalo dos projetos a serem retornados com base na paginação
             int start = page * size;
             int end = Math.min((page + 1) * size, userRequests.size());
@@ -249,7 +251,7 @@ public class ProjectController {
     public ResponseEntity newProject(@RequestBody @Validated DadosNewProject dados) {
         try {
             // Obtém o usuário autenticado
-            Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
             // Verifica se o usuário está autenticado
             if (user == null) {
@@ -443,7 +445,61 @@ public class ProjectController {
         }
     }
 
+    @GetMapping("/ShareUsers")
+    @Operation(summary = "Get all shared projects", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Search was a success."),
+            @ApiResponse(responseCode = "401", description = "Unauthorized user."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+    })
+    public ResponseEntity getProjectByShareUsers(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size) {
+        try {
+            // Obtém o usuário autenticado
+            Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            // Verifica se o usuário está autenticado
+            if (user == null) {
+                throw new UnauthorizedException("Unauthenticated user.");
+            }
+
+            List<Project> userRequests = repository.findByShareUsers(user);
+
+            // Calcula o intervalo dos projetos a serem retornados com base na paginação
+            int start = page * size;
+            int end = Math.min((page + 1) * size, userRequests.size());
+
+            // Se o índice de início estiver além do tamanho da lista, não há mais dados
+            if (start >= userRequests.size()) {
+                // Se o índice de início estiver além do tamanho da lista, não há mais dados
+                return ResponseEntity.ok(Collections.emptyList()); // ou outra resposta apropriada
+            }
+
+            // Mapeia os projetos para o tipo DadosListagemProject
+            List<DadosListagemProject> mappedRequests = userRequests.subList(start, end).stream()
+                    .map(DadosListagemProject::new)
+                    .collect(Collectors.toList());
+
+            // Retorna os projetos mapeados como uma resposta OK
+            return ResponseEntity.ok(mappedRequests);
+        } catch (UnauthorizedException e) {
+            // Retorna uma resposta de não autorizado com a mensagem de erro personalizada
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ErrorResponse(e.getMessage()));
+        } catch (InternalError e) {
+            // Em caso de erro não previsto, retorna uma resposta de erro interno do servidor
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Internal server error."));
+        }
+    }
+
     @PostMapping("/share")
+    @Operation(summary = "Share the project", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully shared."),
+            @ApiResponse(responseCode = "404", description = "User not found."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+    })
     public ResponseEntity shareProject(@RequestBody DadosUsernameOrEmail dados) {
         try {
             Users user;
@@ -457,32 +513,58 @@ public class ProjectController {
             }
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new NotFoundException("User não encontrado", dados.usernameOrEmail()));
+                        .body(new NotFoundException("User not found", dados.usernameOrEmail()));
             }
+
+            var project = repository.findById(dados.idProject())
+                    .orElseThrow(() -> new NotFoundException("Not found id.", dados.idProject()));
 
             var token = emailTokenService.gerarToken(user.getEmail());
 
             String destinatario = (user.getEmail());
-            emailService.shareProjectEmail(destinatario, token);
+            emailService.shareProjectEmail(destinatario, token, project.getIdProject());
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
-        } catch (Exception e) {
+        } catch (InternalError e) {
             return ResponseEntity.internalServerError()
                     .body(new InternalError("Internal server error", e));
         }
     }
 
-    @PostMapping("/confirm-token/share/{token}")
-    public ResponseEntity confirmTokenShare(@PathVariable String token) {
+    @PostMapping("/confirm-token/share/{token}/{idProject}")
+    @Operation(summary = "Confirms that the token is valid.", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Authorized Token."),
+            @ApiResponse(responseCode = "404", description = "Not found ID."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+    })
+    public ResponseEntity confirmTokenShare(@PathVariable String token,
+                                            @PathVariable String idProject) {
         try {
+            // Obtém o usuário autenticado
+            Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
             if (emailTokenService.validarToken(token)) {
+                var project = repository.findById(idProject)
+                        .orElseThrow(() -> new NotFoundException("Not found id.", idProject));
+
+                var isSavedProject = project.getShareUsers().add(user);
+                if (isSavedProject) {
+                    repository.save(project);
+                } else {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body(new BadRequestExceptionRecord("Project", "Unable to save the project!"));
+                }
+
                 return ResponseEntity.ok()
                         .body(new Successfully("successfully", "Token successfully verified!"));
             } else {
+
                 return ResponseEntity.badRequest()
                         .body(new BadRequestExceptionRecord(token, "Invalid or expired token."));
             }
-        } catch (Exception e) {
+        } catch (InternalError e) {
+            e.printStackTrace();
             return ResponseEntity.internalServerError()
                     .body(new InternalError("Internal server error.", e));
         }

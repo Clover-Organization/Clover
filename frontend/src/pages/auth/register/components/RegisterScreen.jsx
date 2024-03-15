@@ -192,8 +192,6 @@ export default function RegisterScreen() {
 
 			formData.append("profileImage", profileImage ? profileImage : userFile);
 
-			console.log(userData);
-
 			formData.append(
 				"userData",
 				new Blob([JSON.stringify(userData)], { type: "application/json" })
