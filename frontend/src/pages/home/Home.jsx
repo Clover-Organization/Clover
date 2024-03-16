@@ -117,23 +117,22 @@ const HomeSecurity = () => {
         )
         :
         fetchRequests(
-          nextPage,
           setLoading,
           token,
           setToolBoxes,
           getStatusClass,
           setRequestsLoaded,
-          `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
+          `http://localhost:8080/projects/user?page=${nextPage}&size=${size}`
         );
       fetchRequests(
-        nextPage,
         setLoading,
         token,
         setShareToolBox,
         getStatusClass,
         setRequestsLoaded,
-        `http://localhost:8080/projects/ShareUsers?page=${currentPage}&size=${size}`
+        `http://localhost:8080/projects/ShareUsers?page=${nextPage}&size=${size}`
       );
+      console.log(nextPage);
       return nextPage;
     });
   };
@@ -153,22 +152,20 @@ const HomeSecurity = () => {
         )
         :
         fetchRequests(
-          previousPage,
           setLoading,
           token,
           setToolBoxes,
           getStatusClass,
           setRequestsLoaded,
-          `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
+          `http://localhost:8080/projects/user?page=${previousPage}&size=${size}`
         );
       fetchRequests(
-        previousPage,
         setLoading,
         token,
         setShareToolBox,
         getStatusClass,
         setRequestsLoaded,
-        `http://localhost:8080/projects/ShareUsers?page=${currentPage}&size=${size}`
+        `http://localhost:8080/projects/ShareUsers?page=${previousPage}&size=${size}`
       );
 
       return previousPage;

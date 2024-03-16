@@ -1,5 +1,5 @@
 // Function to fetch requests from the server
-export const fetchRequests = async (currentPage, setLoading, token, setToolBoxes, getStatusClass, setRequestsLoaded, url) => {
+export const fetchRequests = async (setLoading, token, setToolBoxes, getStatusClass, setRequestsLoaded, url) => {
     try {
         setLoading(true);
         const response = await fetch(url, {
