@@ -453,7 +453,7 @@ public class ProjectController {
             @ApiResponse(responseCode = "500", description = "Internal server error."),
     })
     public ResponseEntity getProjectByShareUsers(@RequestParam(defaultValue = "0") int page,
-                                           @RequestParam(defaultValue = "10") int size) {
+                                                 @RequestParam(defaultValue = "10") int size) {
         try {
             // Obtém o usuário autenticado
             Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

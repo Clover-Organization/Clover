@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import UpdateRequest from '../../../home/components/updateRequest/UpdateRequest';
 import Modal from '../../../components/Modal';
-import { updateRequest } from '../../../home/components/utils/updateRequest/UpdateRequest';
+import RequestDetails from '../../../home/components/requestDetails/RequestDetails';
 import DeleteRequestConfirmation from '../../../home/components/deleteRequestConfirmation/deleteRequestConfirmation';
+import { updateRequest } from '../../../home/components/utils/updateRequest/UpdateRequest';
 import { closeModalConfirm, closeModalDelete, closeModalUpdate, openModalConfirm } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
 import { fetchRequestById } from '../../../home/components/utils/fetchRequestById/fetchRequestById';
-import RequestDetails from '../../../home/components/requestDetails/RequestDetails';
 import { deleteRequest } from '../../../home/components/utils/deleteRequest/DeleteRequest';
 import { useNavigate } from 'react-router-dom';
 import { ProjectSharing } from './components/utils/ProjectSharing';
