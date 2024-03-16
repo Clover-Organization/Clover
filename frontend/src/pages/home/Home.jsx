@@ -190,7 +190,6 @@ const HomeSecurity = () => {
       )
       :
       await fetchRequests(
-        currentPage,
         setLoading,
         token,
         setToolBoxes,
@@ -199,7 +198,6 @@ const HomeSecurity = () => {
         `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
       );
     await fetchRequests(
-      currentPage,
       setLoading,
       token,
       setShareToolBox,
