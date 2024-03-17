@@ -55,6 +55,7 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
   }
 
   return isAuthenticated ? <Element {...rest} /> : <Navigate to="/Welcome" />;
+
 };
 
 export default ProtectedRoute;

@@ -103,10 +103,7 @@ public class ProjectController {
                     .anyMatch(u -> u.equals(user));
 
             //Verifica se esse usuario tem relação com o projeto
-            if (!project.getUser().getIdUsers().equals(user.getIdUsers())) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body(new UnauthorizedExceptionError("Error", "This user does not have access to this project."));
-            } else if (!usuarioEncontrado && !project.getUser().getIdUsers().equals(user.getIdUsers())) {
+            if (!project.getUser().getIdUsers().equals(user.getIdUsers()) && !usuarioEncontrado) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body(new UnauthorizedExceptionError("Error", "This user does not have access to this project."));
             }

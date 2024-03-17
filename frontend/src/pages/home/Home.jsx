@@ -132,7 +132,6 @@ const HomeSecurity = () => {
         setRequestsLoaded,
         `http://localhost:8080/projects/ShareUsers?page=${nextPage}&size=${size}`
       );
-      console.log(nextPage);
       return nextPage;
     });
   };

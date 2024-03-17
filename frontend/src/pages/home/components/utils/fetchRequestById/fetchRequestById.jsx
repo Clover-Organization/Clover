@@ -1,5 +1,11 @@
+
+
 // Function to fetch a request by ID
 export const fetchRequestById = async (token, idProject, setSingleRequest) => {
+    if (!idProject) {
+        return;
+    }
+
     try {
         const response = await fetch(`http://localhost:8080/projects/${idProject}`, {
             headers: {
@@ -9,7 +15,7 @@ export const fetchRequestById = async (token, idProject, setSingleRequest) => {
             },
         });
 
-        if (response.status === 200) {
+        if (response.ok) {
             const responseData = await response.json();
 
             if (responseData && typeof responseData === 'object') {
@@ -27,6 +33,11 @@ export const fetchRequestById = async (token, idProject, setSingleRequest) => {
             }
         } else if (response.status === 404) {
             console.log("Request not found");
+            // Handle the case where the request was not found
+        } else if (response.status === 401) {
+            console.log("Unauthorized!");
+            window.location.href = 'http://localhost:5173';
+
             // Handle the case where the request was not found
         } else {
             console.log("An unexpected error occurred: " + response.status);
