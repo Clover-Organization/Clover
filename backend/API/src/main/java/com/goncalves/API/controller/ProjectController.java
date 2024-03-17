@@ -93,6 +93,24 @@ public class ProjectController {
     })
     public ResponseEntity selectProject(@PathVariable String idProject) {
         try {
+            Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            var projectOptional = repository.findById(idProject);
+            var project = projectOptional.get();
+
+            // Verifica se o usuário específico está na lista de usuários compartilhados
+            boolean usuarioEncontrado = project.getShareUsers().stream()
+                    .anyMatch(u -> u.equals(user));
+
+            //Verifica se esse usuario tem relação com o projeto
+            if (!project.getUser().getIdUsers().equals(user.getIdUsers())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(new UnauthorizedExceptionError("Error", "This user does not have access to this project."));
+            } else if (!usuarioEncontrado && !project.getUser().getIdUsers().equals(user.getIdUsers())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(new UnauthorizedExceptionError("Error", "This user does not have access to this project."));
+            }
+
             if (idProject == null) {
                 // Se o ID do projeto for nulo, lança uma exceção de not found
                 throw new NotFoundException("ID is null.", idProject);
