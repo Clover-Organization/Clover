@@ -99,11 +99,11 @@ public class ProjectController {
             var project = projectOptional.get();
 
             // Verifica se o usuário específico está na lista de usuários compartilhados
-            boolean usuarioEncontrado = project.getShareUsers().stream()
+            var foundUser = project.getShareUsers().stream()
                     .anyMatch(u -> u.equals(user));
 
             //Verifica se esse usuario tem relação com o projeto
-            if (!project.getUser().getIdUsers().equals(user.getIdUsers()) && !usuarioEncontrado) {
+            if (!project.getUser().getIdUsers().equals(user.getIdUsers()) && !foundUser) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body(new UnauthorizedExceptionError("Error", "This user does not have access to this project."));
             }
