@@ -11,8 +11,9 @@ public record DadosListagemUser(String idUser,
                                 String email,
                                 String password,
                                 String birth,
-                                LocalDateTime creationAccount) {
+                                LocalDateTime creationAccount,
+                                byte[] profileImage) {
     public DadosListagemUser(Users users) {
-        this(users.getIdUsers(), users.getUsername(), users.getFirstName(), users.getLastName(), users.getEmail(), users.getPassword(), users.getBirth(), users.getCreationAccount());
+        this(users.getIdUsers(), users.getUsername(), users.getFirstName(), users.getLastName(), users.getEmail(), users.getPassword(), users.getBirth(), users.getCreationAccount(), users.getProfileImage());
     }
 }

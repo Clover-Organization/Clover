@@ -1,19 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {
-  Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <Card className="w-[350px]">
+    <div className="w-[350px]">
       <CardContent>
         <div className="modal-overlay">
 
@@ -21,7 +16,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 
         </div>
       </CardContent>
-    </Card>,
+    </div>,
     document.body
   );
 };

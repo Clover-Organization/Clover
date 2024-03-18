@@ -4,11 +4,11 @@ import Modal from '../../../components/Modal';
 import RequestDetails from '../../../home/components/requestDetails/RequestDetails';
 import DeleteRequestConfirmation from '../../../home/components/deleteRequestConfirmation/deleteRequestConfirmation';
 import { updateRequest } from '../../../home/components/utils/updateRequest/UpdateRequest';
-import { closeModalConfirm, closeModalDelete, closeModalUpdate, openModalConfirm } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
+import { closeModal, closeModalConfirm, closeModalDelete, closeModalUpdate, openModalConfirm } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
 import { fetchRequestById } from '../../../home/components/utils/fetchRequestById/fetchRequestById';
 import { deleteRequest } from '../../../home/components/utils/deleteRequest/DeleteRequest';
 import { useNavigate } from 'react-router-dom';
-import { ProjectSharing } from './components/utils/ProjectSharing';
+import ShareProjectComp from './components/shareProject/ShareProjectComp';
 
 export const RequestSettings = ({ idProject }) => {
     const navigate = useNavigate();
@@ -20,6 +20,7 @@ export const RequestSettings = ({ idProject }) => {
     const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState(false);
     const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState(false);
     const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
+    const [modalShareProject, setModalShareProject] = useState(false);
     const [requestsLoaded, setRequestsLoaded] = useState(false);
     const [singleRequest, setSingleRequest] = useState({});
     const [editedRequest, setEditedRequest] = useState({
@@ -29,7 +30,7 @@ export const RequestSettings = ({ idProject }) => {
 
     const [dataShareProject, setDataShareProject] = useState({
         idProject: idProject,
-        usernameOrEmail: "ryan.ggoncalves09@gmail.com",
+        usernameOrEmail: "",
     });
 
     // Fetch requests when the component mounts and requests are not loaded
@@ -64,10 +65,6 @@ export const RequestSettings = ({ idProject }) => {
         navigate('/');
     };
 
-    const handleShareProject = async () => {
-        await ProjectSharing(token, dataShareProject);
-    }
-
     return (
         <article className='article-settings-content'>
             <h1>Project Configurations</h1>
@@ -85,11 +82,22 @@ export const RequestSettings = ({ idProject }) => {
                 <h3>Share project</h3>
                 <span>You can share your project with your friends!</span>
 
-                <div className='addBtn' onClick={() => handleShareProject()}>
+                <div className='addBtn' onClick={() => setModalShareProject(true)}>
                     <button>To share</button>
                 </div>
 
             </div>
+
+            <Modal isOpen={modalShareProject} onClose={() => closeModal(setModalShareProject)}>
+                <ShareProjectComp
+                    dataShareProject={dataShareProject}
+                    setDataShareProject={setDataShareProject}
+                    close={() => closeModal(setModalShareProject)}
+                    token={token}
+                    loading={loading}
+                    setLoading={setLoading}
+                />
+            </Modal>
 
             <Modal isOpen={modalConfirmIsOpen} onClose={() => closeModalConfirm(setModalConfirmIsOpen)}>
                 <RequestDetails
