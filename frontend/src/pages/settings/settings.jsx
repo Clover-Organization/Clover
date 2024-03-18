@@ -53,7 +53,7 @@ const Settings = () => {
 
   return (
     <main className="main-settings-content">
-      <Navbar idProject={idProject} />
+      <Navbar idProject={idProject}/>
       <section className="section-settings-content">
         <div className='menuConfig'>
           {asideOpen && <Aside select={select} setSelect={setSelect} idProject={idProject} />}

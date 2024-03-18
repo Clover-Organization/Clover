@@ -14,6 +14,17 @@ import Modal from '../../../components/Modal';
 import user from '../../assets/user.png';
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button"
 
 export const ProfileSettings = () => {
 
@@ -105,9 +116,9 @@ export const ProfileSettings = () => {
             },
         });
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         navigate('/welcome');
     }
-
 
     return (
         <article className='article-settings-content'>
@@ -260,27 +271,35 @@ export const ProfileSettings = () => {
             </Modal>
 
             <Modal isOpen={modalImageIsOpen} onClose={closeModalUpdateImage}>
-                <div className="password-update-modal">
-                    <h5>Update image profile</h5>
-                    <p>Select a new image profile.</p>
+                <Card>
 
-                    <div className="user-image-update">
-                        <div className="image" onClick={handleImageClick}>
-                            <img src={selectedFile ? URL.createObjectURL(selectedFile) : (userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user)} alt="userImage" />
+                    <CardHeader>
+                        <CardTitle>Update image profile</CardTitle>
+                        <CardDescription>Select a new image profile.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="user-image-update w-full">
+                            <div className="flex flex-col space-y-1.5">
+                                <div className="image " onClick={handleImageClick}>
+                                    <img className="rounded-full h-60" width={250} src={selectedFile ? URL.createObjectURL(selectedFile) : (userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user)} alt="userImage" />
+                                </div>
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileChange}
+                                />
+                            </div>
                         </div>
-                        <input
-                            ref={fileInputRef}
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={handleFileChange}
-                        />
-                    </div>
-                    <div className="btnSave">
-                        <button onClick={() => handleUpdateImage()}>Update!</button>
-                    </div>
-                </div>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                        <Button variant="outline" onClick={() => setModalImageIsOpen(false)}>Cancel</Button>
+                        <Button onClick={() => handleUpdateImage()}>Save</Button>
+                    </CardFooter>
+
+                </Card>
             </Modal>
-        </article>
+        </article >
     )
 }

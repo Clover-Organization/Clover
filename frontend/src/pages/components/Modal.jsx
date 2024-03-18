@@ -1,20 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="modal-overlay">
-      <div className="modalComp">
-        <div className="btnModalClose">
-          <button className="modal-close" onClick={onClose}>
-            Fechar
-          </button>
+    <Card className="w-[350px]">
+      <CardContent>
+        <div className="modal-overlay">
+
+          {children}
+
         </div>
-        {children}
-      </div>
-    </div>,
+      </CardContent>
+    </Card>,
     document.body
   );
 };

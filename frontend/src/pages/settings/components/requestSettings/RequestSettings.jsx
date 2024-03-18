@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import UpdateRequest from '../../../home/components/updateRequest/UpdateRequest';
 import Modal from '../../../components/Modal';
-import { updateRequest } from '../../../home/components/utils/updateRequest/UpdateRequest';
+import RequestDetails from '../../../home/components/requestDetails/RequestDetails';
 import DeleteRequestConfirmation from '../../../home/components/deleteRequestConfirmation/deleteRequestConfirmation';
+import { updateRequest } from '../../../home/components/utils/updateRequest/UpdateRequest';
 import { closeModalConfirm, closeModalDelete, closeModalUpdate, openModalConfirm } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
 import { fetchRequestById } from '../../../home/components/utils/fetchRequestById/fetchRequestById';
-import RequestDetails from '../../../home/components/requestDetails/RequestDetails';
 import { deleteRequest } from '../../../home/components/utils/deleteRequest/DeleteRequest';
 import { useNavigate } from 'react-router-dom';
+import { ProjectSharing } from './components/utils/ProjectSharing';
 
 export const RequestSettings = ({ idProject }) => {
     const navigate = useNavigate();
@@ -24,6 +25,11 @@ export const RequestSettings = ({ idProject }) => {
     const [editedRequest, setEditedRequest] = useState({
         projectName: "",
         projectDescription: "",
+    });
+
+    const [dataShareProject, setDataShareProject] = useState({
+        idProject: idProject,
+        usernameOrEmail: "ryan.ggoncalves09@gmail.com",
     });
 
     // Fetch requests when the component mounts and requests are not loaded
@@ -58,6 +64,10 @@ export const RequestSettings = ({ idProject }) => {
         navigate('/');
     };
 
+    const handleShareProject = async () => {
+        await ProjectSharing(token, dataShareProject);
+    }
+
     return (
         <article className='article-settings-content'>
             <h1>Project Configurations</h1>
@@ -68,6 +78,15 @@ export const RequestSettings = ({ idProject }) => {
 
                 <div className='addBtn' onClick={() => openModalConfirm(idProject, fetchProject, setModalConfirmIsOpen)}>
                     <button>Update</button>
+                </div>
+
+            </div>
+            <div className="excel-file-generator">
+                <h3>Share project</h3>
+                <span>You can share your project with your friends!</span>
+
+                <div className='addBtn' onClick={() => handleShareProject()}>
+                    <button>To share</button>
                 </div>
 
             </div>

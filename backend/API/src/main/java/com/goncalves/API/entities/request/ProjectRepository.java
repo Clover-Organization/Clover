@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface ProjectRepository extends MongoRepository<Project, String> {
     List<Project> findByUser(Users user);
+
+    List<Project> findByShareUsers(Users user);
 }

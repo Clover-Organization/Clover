@@ -3,9 +3,18 @@ import file from '../../../projects/assets/fileIcon.png';
 import add from '../../assets/add.png';
 import { postNewAnnotation } from '../utils/postNewAnnotation/PostNewAnnotation';
 import Modal from '../../../components/Modal';
-import InputField from '../../../home/components/inputField/InputField';
-import { handleInputBlur, handleInputFocus } from '../../../home/components/utils/handleInput/HandleInput';
 import { updateAnnotation } from '../utils/updateAnnotation/UpdateAnnotation';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button"
 
 const AsideAnnotation = ({ idProject, singleRequest, setSelectedAnnotation }) => {
 
@@ -60,21 +69,26 @@ const AsideAnnotation = ({ idProject, singleRequest, setSelectedAnnotation }) =>
             </nav>
 
             <Modal isOpen={modalIsOpen} onClose={(() => setModalIsOpen(false))}>
-                <div className="password-update-modal">
-                    <h5>Update annotation name</h5>
-                    {/* <p>DESCRIPTION</p> */}
-                    <InputField
-                        id="annotationName"
-                        label="Annotation name"
-                        value={newAnnotationName.title} // Ajuste para acessar a propriedade newTitle
-                        onChange={(e) => setNewAnnotationName({ ...newAnnotationName, title: e.target.value })}
-                        onMouseEnter={() => handleInputFocus('annotationNameLabel')}
-                        onMouseLeave={() => handleInputBlur('annotationNameLabel')}
-                    />
-                    <div className="btnSave">
-                        <button onClick={() => handleUpdateName(newAnnotationName.id)}>Update!</button>
-                    </div>
-                </div>
+                <Card>
+
+                    <CardHeader>
+                        <CardTitle>Update annotation name</CardTitle>
+                        <CardDescription>Change the name of your note.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex flex-col space-y-1.5">
+                            <Label htmlFor="name">Name</Label>
+                            <Input id="name" placeholder="Name of your project"
+                                value={newAnnotationName.title} // Ajuste para acessar a propriedade newTitle
+                                onChange={(e) => setNewAnnotationName({ ...newAnnotationName, title: e.target.value })} />
+                        </div>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                        <Button variant="outline" onClick={() => setModalIsOpen(false)}>Cancel</Button>
+                        <Button onClick={() => handleUpdateName(newAnnotationName.id)}>Save</Button>
+                    </CardFooter>
+
+                </Card>
             </Modal>
 
         </>

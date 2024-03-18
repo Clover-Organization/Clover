@@ -1,5 +1,6 @@
 package com.goncalves.API.controller;
 
+import com.goncalves.API.DTO.UnauthorizedExceptionError;
 import com.goncalves.API.entities.commits.Commits;
 import com.goncalves.API.entities.commits.CommitsRepository;
 import com.goncalves.API.entities.files.Files;
@@ -10,6 +11,7 @@ import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
 import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
+import com.goncalves.API.entities.user.Users;
 import com.goncalves.API.infra.security.ErrorNotFoundId;
 import com.goncalves.API.infra.security.NotFoundException;
 import com.goncalves.API.infra.security.Successfully;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -66,16 +69,27 @@ public class FilesController {
             @PathVariable String idFile) {
         try {
             // Verifica se o projeto existe
+            Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             var projectOptional = projectsRepository.findById(idProjects);
+
+            // Obtém o projeto encontrado
+            var project = projectOptional.get();
+
+            // Verifica se o usuário específico está na lista de usuários compartilhados
+            var foundUser = project.getShareUsers().stream()
+                    .anyMatch(u -> u.equals(user));
+
+            //Verifica se esse usuario tem relação com o projeto
+            if (!project.getUser().getIdUsers().equals(user.getIdUsers()) && !foundUser) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(new UnauthorizedExceptionError("Error", "This user does not have access to this project."));
+            }
 
             // Se o projeto não for encontrado, retorna uma resposta de não encontrado
             if (projectOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new NotFoundException("Project not found", "NULL"));
             }
-
-            // Obtém o projeto encontrado
-            var project = projectOptional.get();
 
             // Procura diretamente no projeto
             Files file = findFileInProject(project, idFile);
