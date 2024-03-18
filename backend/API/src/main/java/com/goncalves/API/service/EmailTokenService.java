@@ -18,9 +18,7 @@ public class EmailTokenService {
         return token;
     }
 
-    public boolean validarToken(String token) {
-        return tokens.containsKey(token);
-    }
+    public boolean validarToken(String token) {return tokens.containsKey(token);}
 
     public String getEmailPorToken(String token) {
         return tokens.get(token);

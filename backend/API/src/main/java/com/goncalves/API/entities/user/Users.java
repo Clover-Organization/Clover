@@ -1,6 +1,7 @@
 package com.goncalves.API.entities.user;
 
 import com.goncalves.API.DTO.DadosAtualizarUser;
+import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.infra.security.RegistrationException;
 import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
@@ -14,9 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -39,7 +38,6 @@ public class Users implements UserDetails {
     private UserRole role;
     private byte[] profileImage;
 
-
     public Users(String username, String firstName, String lastName, String email, String password, String birth, LocalDateTime creationAccount, UserRole role, byte[] profileImage) {
         this.username = username;
         this.firstName = firstName;
@@ -53,19 +51,18 @@ public class Users implements UserDetails {
     }
 
     @Override
-    public String toString() {
-        return "Users{" +
-                "idUsers='" + idUsers + '\'' +
-                ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", birth='" + birth + '\'' +
-                ", creationAccount=" + creationAccount +
-                ", role=" + role +
-                ", profileImage=" + Arrays.toString(profileImage) +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Users users = (Users) o;
+        return Objects.equals(idUsers, users.idUsers) && Objects.equals(username, users.username) && Objects.equals(firstName, users.firstName) && Objects.equals(lastName, users.lastName) && Objects.equals(email, users.email) && Objects.equals(password, users.password) && Objects.equals(birth, users.birth) && Objects.equals(creationAccount, users.creationAccount) && role == users.role && Arrays.equals(profileImage, users.profileImage);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(idUsers, username, firstName, lastName, email, password, birth, creationAccount, role);
+        result = 31 * result + Arrays.hashCode(profileImage);
+        return result;
     }
 
     public void atualizarUser(DadosAtualizarUser dados) {

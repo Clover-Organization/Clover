@@ -20,6 +20,7 @@ import { Toaster } from "@/components/ui/sonner";
 import RoadMap from "./pages/roadmap/RoadMap.jsx";
 import Register from "./pages/auth/register/Register.jsx";
 import Login from "./pages/auth/login/Login.jsx";
+import ProjectShare from "./pages/projects/components/share-project/ProjectShare.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -36,27 +37,31 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/Settings/:idProject?",
-		element: <Settings />,
+		element: <ProtectedRoute element={Settings} />,
 	},
 	{
 		path: `/Project/:idProject`,
-		element: <Project />,
+		element: <ProtectedRoute element={Project} />,
 	},
 	{
 		path: "/Project/Folder/:idProject/:idFolder",
-		element: <FolderView />,
+		element: <ProtectedRoute element={FolderView} />,
 	},
 	{
 		path: `/Project/File/:idProject/:idFile/:idFolder?`,
-		element: <FileView />,
+		element: <ProtectedRoute element={FileView} />,
+	},
+	{
+		path: "/Project/Share/:token/:idProject",
+		element: <ProtectedRoute element={ProjectShare} />,
 	},
 	{
 		path: "/Annotation/:idProject",
-		element: <Annotation />,
+		element: <ProtectedRoute element={Annotation} />,
 	},
 	{
 		path: "/roadmap",
-		element: <RoadMap />,
+		element: <ProtectedRoute element={RoadMap} />,
 	},
 	{
 		path: "/Welcome",
