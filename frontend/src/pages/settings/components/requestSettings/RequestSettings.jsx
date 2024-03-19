@@ -9,6 +9,8 @@ import { fetchRequestById } from '../../../home/components/utils/fetchRequestByI
 import { deleteRequest } from '../../../home/components/utils/deleteRequest/DeleteRequest';
 import { useNavigate } from 'react-router-dom';
 import ShareProjectComp from './components/shareProject/ShareProjectComp';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export const RequestSettings = ({ idProject }) => {
     const navigate = useNavigate();
@@ -71,26 +73,29 @@ export const RequestSettings = ({ idProject }) => {
 
             <div className="excel-file-generator">
                 <h3>Update Project</h3>
-                <span>Here you can change the name and description of your project.</span>
+                <span className='hidden font-bold sm:inline-block text-secondary-foreground'>Here you can change the name and description of your project.</span>
 
-                <div className='addBtn' onClick={() => openModalConfirm(idProject, fetchProject, setModalConfirmIsOpen)}>
-                    <button>Update</button>
+                <div>
+                    <Button onClick={() => openModalConfirm(idProject, fetchProject, setModalConfirmIsOpen)}>
+                        Update
+                    </Button>
                 </div>
 
             </div>
             <div className="excel-file-generator">
                 <h3>Share project</h3>
-                <span>You can share your project with your friends!</span>
+                <span className="hidden font-bold sm:inline-block text-secondary-foreground">You can share your project with your friends!</span>
 
-                <div className='addBtn' onClick={() => setModalShareProject(true)}>
-                    <button>To share</button>
+                <div>
+                    <Button onClick={() => setModalShareProject(true)}>
+                        To share
+                    </Button>
                 </div>
 
             </div>
 
             <Modal isOpen={modalShareProject} onClose={() => closeModal(setModalShareProject)}>
                 <ShareProjectComp
-                    idProject={idProject}
                     dataShareProject={dataShareProject}
                     setDataShareProject={setDataShareProject}
                     close={() => closeModal(setModalShareProject)}

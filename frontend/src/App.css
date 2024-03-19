@@ -138,7 +138,6 @@ div.noActive {
 nav.show a,
 .aside-ul-settings-content a {
   text-decoration: none;
-  color: var(--text-color);
   position: relative;
   padding: 10px;
 
@@ -944,11 +943,6 @@ div.image {
 
 .excel-file-generator>h3 {
   color: var(--primary-color);
-  font-weight: normal;
-}
-
-.excel-file-generator>span {
-  color: var(--text-color);
 }
 
 .downloadBtn>button,
@@ -1060,12 +1054,11 @@ hr {
 }
 
 .description-project h3 {
-  color: var(--text-color);
   padding-bottom: var(--padding-medium);
 }
 
 .description-project span {
-  color: rgba(255, 255, 255, 0.64);
+  /* color: rgba(255, 255, 255, 0.64); */
   font-size: 15px;
 }
 
@@ -1082,7 +1075,6 @@ hr {
 
 .commitsProject h4,
 .commitsProject-dsp-flex-align h4 {
-  color: var(--text-color);
   font-weight: normal;
 }
 
@@ -1322,10 +1314,6 @@ pre {
   gap: var(--gap-tiny);
 }
 
-.div-aside-title-annotation h3 {
-  color: var(--text-color);
-}
-
 .div-aside-title-annotation img {
   cursor: pointer;
   width: 20px;
@@ -1346,10 +1334,6 @@ pre {
 
 .ul-annotation-content img {
   width: 20px;
-}
-
-.ul-annotation-content li {
-  color: var(--text-color);
 }
 
 /* === Article annotation CSS === */

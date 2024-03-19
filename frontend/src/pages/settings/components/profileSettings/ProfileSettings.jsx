@@ -12,7 +12,7 @@ import InputField from "../../../home/components/inputField/InputField";
 import Modal from '../../../components/Modal';
 
 import user from '../../assets/user.png';
-import Swal from "sweetalert2";
+import { toast } from 'sonner';
 import { useNavigate } from "react-router-dom";
 import {
     Card,
@@ -22,8 +22,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 
 export const ProfileSettings = () => {
@@ -108,12 +106,8 @@ export const ProfileSettings = () => {
     }
 
     const handleLogouUser = () => {
-        Swal.fire({
-            text: `Logout! `,
-            icon: 'success',
-            customClass: {
-                popup: 'custom-popup-class',
-            },
+        toast.success("Sucess!", {
+            description: "Logout Successfully!",
         });
         localStorage.removeItem('token');
         localStorage.removeItem('role');

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { toast } from 'sonner';
 
 const ProtectedRoute = ({ element: Element, ...rest }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -27,18 +27,14 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
             setIsAuthenticated(false);
 
             // Exibir alerta de erro
-            Swal.fire({
-              icon: 'error',
-              title: 'Erro',
-              text: 'Invalid or expired token!',
+            toast.error("Error", {
+              description: "Invalid or expired token.",
             });
           }
         } catch (error) {
           // Exibir alerta de erro
-          Swal.fire({
-            icon: 'error',
-            title: 'Erro',
-            text: 'Error fetching token!',
+          toast.error("Error", {
+            description: "Error fetching token!",
           });
 
           localStorage.removeItem('role');
