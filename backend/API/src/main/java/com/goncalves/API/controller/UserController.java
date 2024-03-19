@@ -48,7 +48,7 @@ public class UserController {
     @GetMapping
     @Operation(summary = "User pagination to get all users based on creationAccount data", method = "GET")
     @ApiResponse(responseCode = "200", description = "Search completed successfully.")
-    public ResponseEntity<Page<DadosListagemUser>> getUsers(@PageableDefault(size = 10, sort = {"creationAccount"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemUser>> getUsers(@PageableDefault(size = Integer.MAX_VALUE, sort = {"creationAccount"}) Pageable paginacao) {
         // Obtém a página de usuários paginada a partir do repositório e mapeia para DTOs correspondentes
         var page = repository.findAll(paginacao).map(DadosListagemUser::new);
         // Retorna a página de usuários paginada dentro de um ResponseEntity
@@ -276,7 +276,6 @@ public class UserController {
         String lowercaseFileName = fileName.toLowerCase();
         return lowercaseFileName.endsWith(".jpg") || lowercaseFileName.endsWith(".jpeg") || lowercaseFileName.endsWith(".png") || lowercaseFileName.endsWith(".gif") || lowercaseFileName.endsWith(".bmp");
     }
-
 
 
     /**

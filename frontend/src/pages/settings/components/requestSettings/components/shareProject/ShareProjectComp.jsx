@@ -1,51 +1,55 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@radix-ui/react-dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '@/pages/home/components/utils/getAllUsers/getAllUsers';
+import { Pagination } from '@/pages/home/components/pagination/Pagination';
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { AvatarImage } from '@radix-ui/react-avatar';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@radix-ui/react-dropdown-menu';
 import { Loader2 } from 'lucide-react';
 import { ProjectSharing } from '../utils/ProjectSharing';
-import { useState } from 'react';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
-import { AvatarImage } from '@radix-ui/react-avatar';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
-
-const ShareProjectComp = ({ dataShareProject, setDataShareProject, close, token, loading, setLoading }) => {
-
-
+const ShareProjectComp = ({
+    dataShareProject,
+    setDataShareProject,
+    close,
+    token,
+    loading,
+    setLoading
+}) => {
     const [userData, setUserData] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+
+    useEffect(() => {
+        handleGetAllUsers();
+    }, [currentPage]);
 
     const handleGetAllUsers = async () => {
-        await getAllUsers(token, setUserData);
-    }
+        await getAllUsers(token, setUserData, currentPage);
+        setFilteredUsers(userData); // Atualiza os usuários filtrados com base na nova página
+    };
 
     const handleShareProject = async () => {
         setLoading(true);
         await ProjectSharing(token, dataShareProject);
         setLoading(false);
-    }
-
+    };
 
     const handleInputChange = (e) => {
-        handleGetAllUsers()
         const { value } = e.target;
         setDataShareProject({ ...dataShareProject, usernameOrEmail: value });
 
         // Filtra os usuários com base no valor inserido no campo de entrada
         const filteredUsers = userData.filter((user) =>
-            user.username.toLowerCase().includes(value.toLowerCase())
+            user.username.toLowerCase().includes(value.toLowerCase()) ||
+            user.email.toLowerCase().includes(value.toLowerCase())
         );
         setFilteredUsers(filteredUsers);
     };
+
     return (
         <Card className="w-[350px]">
             <CardHeader>
@@ -56,8 +60,8 @@ const ShareProjectComp = ({ dataShareProject, setDataShareProject, close, token,
                 <form>
                     <div className="grid w-full items-center gap-4">
                         <div className="flex flex-col space-y-1.5">
-                            <Label htmlFor="name">Email or Username</Label>
-                            <Input id="projectName" placeholder="Email or Username"
+                            <Label htmlFor="name">Email or username</Label>
+                            <Input id="projectName" placeholder="Email or username"
                                 value={dataShareProject.usernameOrEmail}
                                 onChange={handleInputChange} />
                         </div>
@@ -75,12 +79,11 @@ const ShareProjectComp = ({ dataShareProject, setDataShareProject, close, token,
                     </Button>
                 )}
             </CardFooter>
-            <CardContent className={"w-full"}>
-                {filteredUsers.map((user, index) => (
-                    // Renderizar os usuários filtrados
+            <CardContent className={"w-full grid place-items-center"}>
+                {filteredUsers.slice(0, 5).map((user, index) => (
                     <Table key={index} className="w-full flex items-center justify-center rounded-md border gap-2 ">
                         <TableBody className="w-full">
-                            <TableRow onClick={() => setDataShareProject({ usernameOrEmail: user.email })}>
+                            <TableRow className="cursor-pointer" onClick={() => setDataShareProject({ usernameOrEmail: user.email })}>
                                 <TableCell className="w-50">
                                     <Avatar>
                                         <AvatarImage src={`data:image/jpeg;base64,${user.profileImage}`} alt="" width={100} />
@@ -88,7 +91,8 @@ const ShareProjectComp = ({ dataShareProject, setDataShareProject, close, token,
                                     </Avatar>
                                 </TableCell>
                                 <TableCell className="w-full">
-                                    {user.username}
+                                    <div>{user.username}</div>
+                                    <div>{user.email}</div>
                                 </TableCell>
                             </TableRow>
                         </TableBody>

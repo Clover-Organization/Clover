@@ -1,5 +1,7 @@
 import { toast } from "sonner";
-export const getAllUsers = async (token, setUserData) => {
+
+export const getAllUsers = async (token, setUserData, page) => {
+    console.log(page);
     try {
         const response = await fetch(`http://localhost:8080`, {
             method: "GET",

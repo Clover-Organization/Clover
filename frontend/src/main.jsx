@@ -36,7 +36,7 @@ const router = createBrowserRouter([
 		],
 	},
 	{
-		path: "/Settings/:idProject?",
+		path: "/Settings/:idProject?/:selected?",
 		element: <ProtectedRoute element={Settings} />,
 	},
 	{

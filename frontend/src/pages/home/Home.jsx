@@ -138,7 +138,7 @@ const HomeSecurity = () => {
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => {
       // Chama a função fetchRequests imediatamente após a mudança da página
-      const previousPage = prevPage - 1;
+      const previousPage = Math.max(prevPage - 1, 0);
       role === "ADMIN"
         ? fetchRequestsPage(
           previousPage,
