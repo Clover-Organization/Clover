@@ -34,7 +34,6 @@ const ShareProjectComp = ({
 
     const handleShareProject = async () => {
         setLoading(true);
-        console.log(dataShareProject);
         await ProjectSharing(token, dataShareProject);
         setLoading(false);
     };
