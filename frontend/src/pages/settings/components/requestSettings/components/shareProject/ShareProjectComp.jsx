@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '@/pages/home/components/utils/getAllUsers/getAllUsers';
-import { Pagination } from '@/pages/home/components/pagination/Pagination';
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AvatarImage } from '@radix-ui/react-avatar';
@@ -17,7 +16,8 @@ const ShareProjectComp = ({
     close,
     token,
     loading,
-    setLoading
+    setLoading,
+    idProject
 }) => {
     const [userData, setUserData] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
@@ -34,13 +34,14 @@ const ShareProjectComp = ({
 
     const handleShareProject = async () => {
         setLoading(true);
+        console.log(dataShareProject);
         await ProjectSharing(token, dataShareProject);
         setLoading(false);
     };
 
     const handleInputChange = (e) => {
         const { value } = e.target;
-        setDataShareProject({ ...dataShareProject, usernameOrEmail: value });
+        setDataShareProject({ ...dataShareProject, usernameOrEmail: value, idProject });
 
         // Filtra os usuários com base no valor inserido no campo de entrada
         const filteredUsers = userData.filter((user) =>
@@ -83,7 +84,7 @@ const ShareProjectComp = ({
                 {filteredUsers.slice(0, 5).map((user, index) => (
                     <Table key={index} className="w-full flex items-center justify-center rounded-md border gap-2 ">
                         <TableBody className="w-full">
-                            <TableRow className="cursor-pointer" onClick={() => setDataShareProject({ usernameOrEmail: user.email })}>
+                            <TableRow className="cursor-pointer" onClick={() => setDataShareProject({ ...dataShareProject, usernameOrEmail: user.email })}>
                                 <TableCell className="w-50">
                                     <Avatar>
                                         <AvatarImage src={`data:image/jpeg;base64,${user.profileImage}`} alt="" width={100} />

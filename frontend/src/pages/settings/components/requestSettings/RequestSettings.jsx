@@ -90,12 +90,14 @@ export const RequestSettings = ({ idProject }) => {
 
             <Modal isOpen={modalShareProject} onClose={() => closeModal(setModalShareProject)}>
                 <ShareProjectComp
+                    idProject={idProject}
                     dataShareProject={dataShareProject}
                     setDataShareProject={setDataShareProject}
                     close={() => closeModal(setModalShareProject)}
                     token={token}
                     loading={loading}
                     setLoading={setLoading}
+                    idProject={idProject}
                 />
             </Modal>
 
