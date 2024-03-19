@@ -76,7 +76,7 @@ export const RequestSettings = ({ idProject }) => {
                 <span className='hidden font-bold sm:inline-block text-secondary-foreground'>Here you can change the name and description of your project.</span>
 
                 <div>
-                    <Button onClick={() => openModalConfirm(idProject, fetchProject, setModalConfirmIsOpen)}>
+                    <Button variant="outline" onClick={() => openModalConfirm(idProject, fetchProject, setModalConfirmIsOpen)}>
                         Update
                     </Button>
                 </div>
@@ -87,7 +87,7 @@ export const RequestSettings = ({ idProject }) => {
                 <span className="hidden font-bold sm:inline-block text-secondary-foreground">You can share your project with your friends!</span>
 
                 <div>
-                    <Button onClick={() => setModalShareProject(true)}>
+                    <Button variant="outline" onClick={() => setModalShareProject(true)}>
                         To share
                     </Button>
                 </div>

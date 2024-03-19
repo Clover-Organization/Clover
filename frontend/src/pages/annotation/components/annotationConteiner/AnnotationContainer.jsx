@@ -59,7 +59,7 @@ const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject }) => {
                 </div>
             </div>
 
-            <div className="annotation-content">
+            <div className="annotation-content text-black">
                 <ReactQuill
                     className="reactQuill"
                     ref={quillRef}

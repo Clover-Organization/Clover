@@ -1,6 +1,7 @@
 import React from "react";
 import lupa from '../../../home/assets/lupa.png';
 import { openModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
+import { Button } from "@/components/ui/button";
 
 const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen }) => {
     return (
@@ -19,9 +20,7 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
                             onChange={(e) => setFilterText(e.target.value)}
                         />
                     </div>
-                    <div className="addBtn-project">
-                        <button onClick={() => openModal(setModalIsOpen)}>Upload</button>
-                    </div>
+                    <Button variant="outline" onClick={() => openModal(setModalIsOpen)}>Upload</Button>
                 </div>
             </nav>
             <hr className="hr-project-title" />
