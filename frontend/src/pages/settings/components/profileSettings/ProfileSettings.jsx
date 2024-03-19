@@ -122,31 +122,31 @@ export const ProfileSettings = () => {
                     <div className="information-user-content">
                         <div className="idProfileSettings">
                             <span>Id</span>
-                            <p>{userData.idUsers || 'NaN'}</p>
+                            <p className="ul-annotation-content">{userData.idUsers || 'NaN'}</p>
                         </div>
                         <div>
                             <span>Username</span>
-                            <p>{userData.username || 'NaN'}</p>
+                            <p className="ul-annotation-content">{userData.username || 'NaN'}</p>
                         </div>
                         <div>
                             <span>First name</span>
-                            <p>{userData.firstName || 'NaN'}</p>
+                            <p className="ul-annotation-content">{userData.firstName || 'NaN'}</p>
                         </div>
                         <div>
                             <span>Last name</span>
-                            <p>{userData.lastName || 'NaN'}</p>
+                            <p className="ul-annotation-content">{userData.lastName || 'NaN'}</p>
                         </div>
                         <div>
                             <span>Email</span>
-                            <p>{userData.email || 'NaN'}</p>
+                            <p className="ul-annotation-content">{userData.email || 'NaN'}</p>
                         </div>
                         <div>
                             <span>Birth</span>
-                            <p>{userData.birth || 'NaN'}</p>
+                            <p className="ul-annotation-content">{userData.birth || 'NaN'}</p>
                         </div>
                         <div>
                             <span>Creation Account</span>
-                            <p>{userData.creationAccount || 'NaN'}</p>
+                            <p className="ul-annotation-content">{userData.creationAccount || 'NaN'}</p>
                         </div>
                         <div className="btnAlign-profile">
                             <div className="addBtn">

@@ -812,7 +812,6 @@ div.page>button:hover {
 
 .information-user-content p {
   font-size: 16px;
-  color: var(--text-color);
 }
 
 .div-user-content {
@@ -912,7 +911,6 @@ div.image {
 }
 
 .idProfileSettings p {
-  color: rgba(255, 255, 255, 0.64);
   font-size: 12px;
 }
 
