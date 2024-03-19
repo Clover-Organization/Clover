@@ -157,10 +157,10 @@ export default function LoginScreen() {
 				<form onSubmit={handleSubmit}>
 					<div className="grid w-full items-center gap-4">
 						<div className="flex flex-col space-y-1.5 gap-2">
-							<Label htmlFor="username">Username</Label>
+							<Label htmlFor="username">Username or email</Label>
 							<Input
 								id="name"
-								placeholder="Enter your username"
+								placeholder="Enter your username or email"
 								value={username}
 								onChange={handleUsernameChange}
 							/>
