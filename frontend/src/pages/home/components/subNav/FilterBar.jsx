@@ -1,6 +1,5 @@
 // FilterBar.js
 import React from 'react';
-import filtro from '../../assets/filtro.png';
 import lupa from '../../assets/lupa.png';
 
 const FilterBar = ({ handleSearch, searchTerm }) => {
