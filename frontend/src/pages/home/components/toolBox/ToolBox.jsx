@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import user from "../../assets/user.png";
-import { openModalConfirm } from "../utils/ModalFunctions/ModalFunctions";
-import { calculateTimeDifference } from "../utils/calculateTimeDifference/CalculateTimeDifference";
 
 export const ToolBox = ({ box, loading, showId, role }) => {
   return (
@@ -16,7 +14,7 @@ export const ToolBox = ({ box, loading, showId, role }) => {
             <Link to={`/project/${box.idProject}`}>
               <div className="toolTitle">
                 <div className="box-status-priority-image-content">
-                <h2>{box.projectName}</h2>
+                  <h2>{box.projectName}</h2>
                   <img
                     src={
                       box.user
@@ -25,17 +23,8 @@ export const ToolBox = ({ box, loading, showId, role }) => {
                     }
                   />
                 </div>
-                {/* <p> {box.idProject}</p> */}
-                <p>
-                  {calculateTimeDifference(
-                    box.creationDate,
-                    true,
-                    true,
-                    true,
-                    false
-                  )}
-                </p>
-                
+                <hr className="hrToolBox" />
+                <p className="m-2">{box.projectDescription}</p>
               </div>
             </Link>
           </div>
