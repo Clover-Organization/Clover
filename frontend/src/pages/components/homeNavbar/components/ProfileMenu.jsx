@@ -25,23 +25,19 @@ const ProfileMenu = ({ userData, idProject }) => {
             <MenubarMenu>
                 <MenubarTrigger className="cursor-pointer">Settings</MenubarTrigger>
                 <MenubarContent>
-                    <MenubarItem className="gap-5 cursor-pointer">
-                        <img
-                            width={40}
-                            className="rounded-full h-10"
-                            src={
-                                userData.profileImage
-                                    ? `data:image/png;base64,${userData.profileImage}`
-                                    : "null"
-                            }
-                            alt="userImage"
-                        />
-                        <h1>{userData.username}</h1>
-                    </MenubarItem>
-                    <MenubarSeparator />
                     <Link to={"/Settings"}>
-                        <MenubarItem inset className="cursor-pointer text-secondary-foreground">
-                            Edit...
+                        <MenubarItem className="gap-5 cursor-pointer">
+                            <img
+                                width={40}
+                                className="rounded-full h-10"
+                                src={
+                                    userData.profileImage
+                                        ? `data:image/png;base64,${userData.profileImage}`
+                                        : "null"
+                                }
+                                alt="userImage"
+                            />
+                            <h1>{userData.username}</h1>
                         </MenubarItem>
                     </Link>
                     <MenubarSeparator />

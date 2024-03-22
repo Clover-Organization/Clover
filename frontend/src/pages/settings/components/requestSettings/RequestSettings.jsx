@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import UpdateRequest from '../../../home/components/updateRequest/UpdateRequest';
-import Modal from '../../../components/Modal';
-import RequestDetails from '../../../home/components/requestDetails/RequestDetails';
-import DeleteRequestConfirmation from '../../../home/components/deleteRequestConfirmation/deleteRequestConfirmation';
 import { updateRequest } from '../../../home/components/utils/updateRequest/UpdateRequest';
-import { closeModal, closeModalConfirm, closeModalDelete, closeModalUpdate, openModalConfirm } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
+import { closeModal, closeModalDelete, closeModalUpdate, openModalConfirm, openModalDelete, openModalUpdate } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
 import { fetchRequestById } from '../../../home/components/utils/fetchRequestById/fetchRequestById';
 import { deleteRequest } from '../../../home/components/utils/deleteRequest/DeleteRequest';
 import { useNavigate } from 'react-router-dom';
-import ShareProjectComp from './components/shareProject/ShareProjectComp';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { CardDescription, CardTitle } from '@/components/ui/card';
+import UpdateRequest from '../../../home/components/updateRequest/UpdateRequest';
+import Modal from '../../../components/Modal';
+import DeleteRequestConfirmation from '../../../home/components/deleteRequestConfirmation/deleteRequestConfirmation';
+import ShareProjectComp from './components/shareProject/ShareProjectComp';
+import UserDetailsSettingsMenu from './components/userDetailsSettingsMenu/UserDetailsSettingsMenu';
 
 export const RequestSettings = ({ idProject }) => {
     const navigate = useNavigate();
@@ -69,29 +69,32 @@ export const RequestSettings = ({ idProject }) => {
 
     return (
         <article className='article-settings-content'>
-            <h1>Project Configurations</h1>
-
-            <div className="excel-file-generator">
-                <h3>Update Project</h3>
-                <span className='hidden font-bold sm:inline-block text-secondary-foreground'>Here you can change the name and description of your project.</span>
-
-                <div>
-                    <Button variant="outline" onClick={() => openModalConfirm(idProject, fetchProject, setModalConfirmIsOpen)}>
-                        Update
-                    </Button>
-                </div>
-
+            <div className='my-6'>
+                <CardTitle>Project Configurations</CardTitle>
+                <CardDescription>Settings relating to your project</CardDescription>
             </div>
-            <div className="excel-file-generator">
-                <h3>Share project</h3>
-                <span className="hidden font-bold sm:inline-block text-secondary-foreground">You can share your project with your friends!</span>
 
-                <div>
-                    <Button variant="outline" onClick={() => setModalShareProject(true)}>
-                        To share
-                    </Button>
+            <div className='flex items-center w-9/12 justify-between flex-wrap'>
+                <div className='grid'>
+                    <div className="excel-file-generator">
+                        <h3>Share project</h3>
+                        <span className="font-bold sm:inline-block text-secondary-foreground">You can share your project with your friends!</span>
+                        <div>
+                            <Button variant="outline" onClick={() => setModalShareProject(true)}>
+                                Share
+                            </Button>
+                        </div>
+                    </div>
+
+                    <UserDetailsSettingsMenu
+                        singleRequest={singleRequest}
+                        fetchProject={fetchProject}
+                        setEditedRequest={setEditedRequest}
+                        editedRequest={editedRequest}
+                        setModalUpdateIsOpen={setModalUpdateIsOpen}
+                        handleDeleteAction={handleDeleteAction}
+                    />
                 </div>
-
             </div>
 
             <Modal isOpen={modalShareProject} onClose={() => closeModal(setModalShareProject)}>
@@ -104,20 +107,6 @@ export const RequestSettings = ({ idProject }) => {
                     setLoading={setLoading}
                     idProject={idProject}
                 />
-            </Modal>
-
-            <Modal isOpen={modalConfirmIsOpen} onClose={() => closeModalConfirm(setModalConfirmIsOpen)}>
-                <RequestDetails
-                    singleRequest={singleRequest}
-                    isExpanded={isExpanded}
-                    focusDescription={focusDescription}
-                    handleSomeAction={fetchProject}
-                    setEditedRequest={setEditedRequest}
-                    setModalUpdateIsOpen={setModalUpdateIsOpen}
-                    editedRequest={editedRequest}
-                    role={role}
-                />
-
             </Modal>
 
 
@@ -138,9 +127,8 @@ export const RequestSettings = ({ idProject }) => {
                     editedRequest={editedRequest}
                     singleRequest={singleRequest}
                     setEditedRequest={setEditedRequest}
-                    handleSomeAction={fetchProject}
                     handleUpdateAction={handleUpdateAction}
-                    setModalDeleteIsOpen={setModalDeleteIsOpen}
+                    onClose={() => closeModal(setModalUpdateIsOpen)}
                 />
             </Modal>
 
