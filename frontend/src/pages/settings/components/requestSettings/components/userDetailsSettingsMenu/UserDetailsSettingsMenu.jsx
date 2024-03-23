@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { openModalDelete, openModalUpdate } from "@/pages/home/components/utils/ModalFunctions/ModalFunctions";
+import { openModalUpdate } from "@/pages/home/components/utils/ModalFunctions/ModalFunctions";
 import { calculateTimeDifference } from "@/pages/home/components/utils/calculateTimeDifference/CalculateTimeDifference";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 

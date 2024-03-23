@@ -935,8 +935,6 @@ div.image {
 .excel-file-generator {
   display: grid;
   gap: var(--gap-tiny);
-  padding-top: var(--gap-large);
-  padding: var(--padding-large);
 }
 
 .excel-file-generator>h3 {

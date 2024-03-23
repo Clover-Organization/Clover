@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { updateRequest } from '../../../home/components/utils/updateRequest/UpdateRequest';
-import { closeModal, closeModalDelete, closeModalUpdate, openModalConfirm, openModalDelete, openModalUpdate } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
+import { closeModal, closeModalDelete, closeModalUpdate } from '../../../home/components/utils/ModalFunctions/ModalFunctions';
 import { fetchRequestById } from '../../../home/components/utils/fetchRequestById/fetchRequestById';
 import { deleteRequest } from '../../../home/components/utils/deleteRequest/DeleteRequest';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { CardDescription, CardTitle } from '@/components/ui/card';
+import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import UpdateRequest from '../../../home/components/updateRequest/UpdateRequest';
 import Modal from '../../../components/Modal';
-import DeleteRequestConfirmation from '../../../home/components/deleteRequestConfirmation/deleteRequestConfirmation';
 import ShareProjectComp from './components/shareProject/ShareProjectComp';
 import UserDetailsSettingsMenu from './components/userDetailsSettingsMenu/UserDetailsSettingsMenu';
+import { Separator } from '@radix-ui/react-separator';
 
 export const RequestSettings = ({ idProject }) => {
     const navigate = useNavigate();
@@ -26,6 +26,7 @@ export const RequestSettings = ({ idProject }) => {
     const [requestsLoaded, setRequestsLoaded] = useState(false);
     const [singleRequest, setSingleRequest] = useState({});
     const [editedRequest, setEditedRequest] = useState({
+        idProject: idProject,
         projectName: "",
         projectDescription: "",
     });
@@ -77,7 +78,7 @@ export const RequestSettings = ({ idProject }) => {
             <div className='flex items-center w-9/12 justify-between flex-wrap'>
                 <div className='grid'>
                     <div className="excel-file-generator">
-                        <h3>Share project</h3>
+                        <CardTitle>Share project</CardTitle>
                         <span className="font-bold sm:inline-block text-secondary-foreground">You can share your project with your friends!</span>
                         <div>
                             <Button variant="outline" onClick={() => setModalShareProject(true)}>
@@ -107,18 +108,6 @@ export const RequestSettings = ({ idProject }) => {
                     setLoading={setLoading}
                     idProject={idProject}
                 />
-            </Modal>
-
-
-            <Modal isOpen={modalDeleteIsOpen} onClose={() => closeModalDelete(setModalDeleteIsOpen)}>
-
-                <DeleteRequestConfirmation
-                    singleRequest={singleRequest}
-                    handleDeleteAction={handleDeleteAction}
-                    editedRequest={editedRequest}
-                    role={role}
-                />
-
             </Modal>
 
             <Modal isOpen={modalUpdateIsOpen} onClose={() => { closeModalUpdate(setModalUpdateIsOpen) }}>
