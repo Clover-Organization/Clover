@@ -4,9 +4,12 @@ import Editor from "@monaco-editor/react";
 import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
 import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
 import Modal from "../../../components/Modal";
-import InputField from "../../../home/components/inputField/InputField";
-import { handleInputBlur, handleInputFocus } from "../../../home/components/utils/handleInput/HandleInput";
 import { closeModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 
 const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const editorRef = useRef(null);
@@ -91,25 +94,34 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                 />
             </div>
             <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-                <div className="password-update-modal">
-
-                    <h5>Commit File</h5>
-                    <p>Insert your new file</p>
-
-                    <InputField
-                        id="commit"
-                        label="Commit message"
-                        value={newCommitAndFile.newCommit}
-                        onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
-                        onMouseEnter={() => handleInputFocus('commitLabel')}
-                        onMouseLeave={() => handleInputBlur('commitLabel')}
-                    />
-
-                    <div className="btnSave">
-                        <button onClick={() => sendCommit(newCommitAndFile)}>Send!</button>
+                <Card className="w-[350px]">
+                    <div className="w-full h-1 p-2 text-end">
+                        <Button variant="link" size="icon" className="hover:bg-stone-900 w-4 h-4" onClick={() => closeModal(setModalIsOpen)}> <X width={20} /></Button>
                     </div>
+                    <CardHeader>
+                        <CardTitle>Commit File</CardTitle>
+                        <CardDescription>Enter a descriptive message</CardDescription>
+                    </CardHeader>
 
-                </div>
+                    <CardContent>
+
+                        <div className="grid w-full items-center gap-4">
+                            <div className="flex flex-col space-y-1.5">
+                                <Label htmlFor="name">New commit</Label>
+                                <Input
+                                    id="commit"
+                                    placeholder="New commit"
+                                    value={newCommitAndFile.newCommit}
+                                    onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
+                                />
+                                <Button nClick={() => sendCommit(newCommitAndFile)}>Save!</Button>
+                            </div>
+
+                        </div>
+
+                    </CardContent>
+
+                </Card>
             </Modal>
         </div>
     );

@@ -1,4 +1,8 @@
+import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
+import { ComboBoxEditorTheme } from "./components/comboBoxEditorTheme/ComboBoxEditorTheme";
+import { Separator } from "@/components/ui/separator";
+import SelectFontFamilyEditor from "./components/SelectFontFamilyEditor/SelectFontFamilyEditor";
 
 const EditorSettings = () => {
 
@@ -13,53 +17,33 @@ const EditorSettings = () => {
     return (
         <article className="article-settings-content">
             <div className="div-user-content">
-                <h2>Editor Settings</h2>
+                <div className='my-6'>
+                    <CardTitle>Editor configuration</CardTitle>
+                    <CardDescription>File Editor Settings</CardDescription>
+                </div>
                 <div className="user-info-image-content">
-                    <div className="editor-settings-menu">
-                        <div>
-                            <span className="editor-span-content">
-                                Theme:
-                            </span>
-                            <select
-                                value={theme}
-                                onChange={(e) => setTheme(e.target.value)}
-                                className="select-theme"
-                            >
-                                <option value="vs">vs</option>
-                                <option value="vs-dark">vs-dark</option>
-                                <option value="hc-black">hc-black</option>
-                            </select>
-                        </div>
-                        <div>
-                            <span className="editor-span-content">
-                                Font-Family:
-                            </span>
-                            <select
-                                value={fontFamily}
-                                onChange={(e) => setFontFamily(e.target.value)}
-                                className="select-theme"
-                            >
-                                <option value="JetBrains Mono">JetBrains Mono</option>
-                                <option value="system-ui">system-ui</option>
-                                <option value="Arial">Arial</option>
-                                <option value="Sans-Serif">Sans-Serif</option>
-                            </select>
-                        </div>
-                        <div>
-                            <span className="editor-span-content">
-                                Font Size:
-                            </span>
-                            <select
-                                id="fontSizeSelect"
-                                value={fontSize}
-                                onChange={(e) => setFontSize(e.target.value)}
-                                className="select-theme"
-                            >
-                                {[...Array(11)].map((_, index) => (
-                                    <option key={index} value={index * 2 + 12}>{index * 2 + 12}px</option>
-                                ))}
-                            </select>
-                        </div>
+                    <div className="excel-file-generator editor-settings-menu">
+                        <CardTitle>Theme editor</CardTitle>
+                        <CardDescription>Choose your editor theme color</CardDescription>
+                        <Separator className="my-4" />
+                        <CardContent>
+                            <ComboBoxEditorTheme
+                                theme={theme}
+                                setTheme={setTheme}
+                            />
+                        </CardContent>
+
+                        <CardTitle>Font editor</CardTitle>
+                        <CardDescription>Choose your editor font-family or font-size</CardDescription>
+                        <Separator className="my-4" />
+                        <CardContent>
+                            <SelectFontFamilyEditor
+                                fontFamily={fontFamily}
+                                setFontFamily={setFontFamily}
+                                fontSize={fontSize}
+                                setFontSize={setFontSize}
+                            />
+                        </CardContent>
                     </div>
                 </div>
             </div>

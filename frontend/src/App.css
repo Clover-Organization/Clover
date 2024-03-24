@@ -795,7 +795,6 @@ div.page>button:hover {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: var(--padding-large);
 }
 
 .information-user-content {
@@ -935,8 +934,6 @@ div.image {
 .excel-file-generator {
   display: grid;
   gap: var(--gap-tiny);
-  padding-top: var(--gap-large);
-  padding: var(--padding-large);
 }
 
 .excel-file-generator>h3 {
