@@ -2,16 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
 import { updateAnnotation } from "../utils/updateAnnotation/UpdateAnnotation";
 import { fetchAnnotation } from "./utils/FetchAnnotation";
 import { deleteAnnotaion } from "./utils/deleteAnnotaion/deleteAnnotaion";
+import { CardTitle } from "@/components/ui/card";
+import { DropdownMenuAnnotation } from "./components/dropdownMenu/DropdownMenuAnnotation";
 
-import lixo from '../../../projects/assets/lixoIcon.png';
-import saveIcon from '../../assets/saveIcon.png';
-
-const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject }) => {
+const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject, handlePostNewAnnotation }) => {
     const token = localStorage.getItem('token');
-
     var [content, setContent] = useState({
         annotationContent: selectedAnnotation.annotationContent,
     });
@@ -48,15 +47,12 @@ const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject }) => {
     return (
         <>
             <div className="nav-annotation">
-                <h2>{selectedAnnotation.title}</h2>
-                <div className="lupaSearch">
-                    <div className="commitsProject-dsp-flex-align">
-                        <img onClick={() => handleSaveAnnotation()} src={saveIcon} alt="Save icon" width={24} />
-                    </div>
-                    <div className="commitsProject-dsp-flex-align">
-                        <img onClick={() => handleDeleteAnnotation()} src={lixo} alt="clear icon" width={24} />
-                    </div>
-                </div>
+                <CardTitle>{selectedAnnotation.title}</CardTitle>
+                <DropdownMenuAnnotation
+                    handleSaveAnnotation={handleSaveAnnotation}
+                    handleDeleteAnnotation={handleDeleteAnnotation}
+                    handlePostNewAnnotation={handlePostNewAnnotation}
+                />
             </div>
 
             <div className="annotation-content text-black">
