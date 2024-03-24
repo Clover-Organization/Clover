@@ -144,7 +144,7 @@ const Project = () => {
         />
       </Modal>
       <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-        <DropFileZone idProject={idProject} token={token} />
+        <DropFileZone idProject={idProject} token={token}  onClose={() => closeModal(setModalIsOpen)}/>
       </Modal>
     </main>
   );

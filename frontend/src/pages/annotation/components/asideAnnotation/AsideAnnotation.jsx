@@ -44,7 +44,7 @@ const AsideAnnotation = ({ idProject, singleRequest, setSelectedAnnotation }) =>
         <>
             <Sheet>
                 <SheetTrigger asChild>
-                    <Button variant="link" size="icon" className="hover:bg-stone-900 "><ChevronRight /></Button>
+                    <Button variant="link" size="icon" className="hover:bg-stone-900"><ChevronRight /></Button>
                 </SheetTrigger>
                 <SheetContent side="left">
                     <SheetHeader>
