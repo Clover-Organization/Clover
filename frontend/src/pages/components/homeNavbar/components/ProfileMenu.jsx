@@ -47,9 +47,19 @@ const ProfileMenu = ({ userData, idProject }) => {
                     <MenubarSeparator />
                     {idProject && (
                         <>
-                            <Link to={`/settings/${idProject}`}>
+                            <Link to={`/settings/${idProject}/1`}>
                                 <MenubarItem inset className="cursor-pointer text-secondary-foreground">
-                                    Project
+                                    Project...
+                                </MenubarItem>
+                            </Link>
+                            <MenubarSeparator />
+                        </>
+                    )}
+                    {idProject && (
+                        <>
+                            <Link to={`/settings/${idProject}/2`}>
+                                <MenubarItem inset className="cursor-pointer text-secondary-foreground">
+                                    Editor...
                                 </MenubarItem>
                             </Link>
                             <MenubarSeparator />

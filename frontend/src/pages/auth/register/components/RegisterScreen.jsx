@@ -130,7 +130,7 @@ export default function RegisterScreen() {
 				toast.success("Sucess!", {
 					description: "Successfully registered!",
 				});
-				navigate("/");
+				navigate("/auth/login");
 			} else if (response.status === 400) {
 				const errorData = await response.json();
 				const errorArray = [];

@@ -49,12 +49,12 @@ const AsideAnnotation = ({ idProject, singleRequest, setSelectedAnnotation }) =>
     return (
         <>
             <div className="div-aside-title-annotation">
-                <h3>New Annotation</h3>
+                <h3 className='text-secondary-foreground'>New Annotation</h3>
                 <img src={add} alt="add" onClick={handlePostNewAnnotation} />
             </div>
 
             <nav className="nav-annotation-scroll">
-                <ul className="ul-annotation-content">
+                <ul className="ul-annotation-content text-secondary-foreground">
                     {Array.isArray(singleRequest.annotations) && singleRequest.annotations.length > 0 ? (
                         singleRequest.annotations.map((annotation, index) => (
                             <div key={annotation.idAnnotation} onClick={() => setSelectedAnnotation(annotation)}>

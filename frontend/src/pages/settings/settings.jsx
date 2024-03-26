@@ -11,8 +11,11 @@ import EditorSettings from './components/editorSettings/EditorSettings';
 
 const Settings = () => {
   const [asideOpen, setAsideOpen] = useState(true);
-  const [select, setSelect] = useState(0);
   const { idProject } = useParams();
+  const { selected } = useParams();
+  const [select, setSelect] = useState(selected ? parseInt(selected) : 0);
+
+  console.log(select);
 
   const toggleAside = () => {
     setAsideOpen((prevAsideOpen) => !prevAsideOpen);
@@ -53,7 +56,7 @@ const Settings = () => {
 
   return (
     <main className="main-settings-content">
-      <Navbar idProject={idProject}/>
+      <Navbar idProject={idProject} />
       <section className="section-settings-content">
         <div className='menuConfig'>
           {asideOpen && <Aside select={select} setSelect={setSelect} idProject={idProject} />}
