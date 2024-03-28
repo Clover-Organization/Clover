@@ -255,14 +255,16 @@ const FileView = () => {
                             </CardHeader>
                             <CardContent>
                                 <div className="grid w-full items-center gap-4">
-                                    <div className="flex flex-col space-y-1.5">
-                                        <Label htmlFor="name">New commit</Label>
-                                        <Input
-                                            id="commit"
-                                            placeholder="New commit"
-                                            value={newCommitAndFile.newCommit}
-                                            onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
-                                        />
+                                    <div className="flex flex-col space-y-1.5 gap-4">
+                                        <div>
+                                            <Label htmlFor="name">New commit</Label>
+                                            <Input
+                                                id="commit"
+                                                placeholder="New commit"
+                                                value={newCommitAndFile.newCommit}
+                                                onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
+                                            />
+                                        </div>
                                         <Button onClick={() => setStateModal(false)}>Save!</Button>
                                     </div>
 
@@ -278,13 +280,15 @@ const FileView = () => {
                             </CardHeader>
                             <CardContent>
                                 <div className="grid w-full items-center gap-4">
-                                    <div className="flex flex-col space-y-1.5">
-                                        <Label htmlFor="file">File</Label>
-                                        <Input
-                                            id="file"
-                                            type="file"
-                                            onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newFile: e.target.files[0] }))}
-                                        />
+                                    <div className="flex flex-col space-y-1.5 gap-4">
+                                        <div>
+                                            <Label htmlFor="file">File</Label>
+                                            <Input
+                                                id="file"
+                                                type="file"
+                                                onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newFile: e.target.files[0] }))}
+                                            />
+                                        </div>
                                         <Button onClick={() => sendCommit(newCommitAndFile)}>Send!</Button>
                                     </div>
                                 </div>
