@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { GitCompareArrows, Users, Blocks } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SparklesCore } from "@/components/ui/sparkles";
-
+import Spline from "@splinetool/react-spline";
 
 const WelcomeIntro = () => {
 	return (
@@ -42,7 +42,7 @@ const WelcomeIntro = () => {
 						programming learners
 					</p>
 				</div>
-
+				<Spline className="z-10" scene="https://prod.spline.design/VII16kLioCuRlIlY/scene.splinecode" />
 				<div className="btnTxt">
 					<Link to={"/auth/register"}>
 						<button className="animated-button">
