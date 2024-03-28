@@ -15,7 +15,6 @@ const UserDetailsSettingsMenu = ({
 }) => {
     return (
         <>
-
             <CardHeader>
                 <CardTitle>Project information</CardTitle>
                 <CardDescription>See your current project data</CardDescription>
@@ -81,10 +80,8 @@ const UserDetailsSettingsMenu = ({
                         </AlertDialogContent>
                     </AlertDialog>
                 </div>
-
             </CardContent>
         </>
-
     )
 }
 
