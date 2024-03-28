@@ -114,7 +114,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                     value={newCommitAndFile.newCommit}
                                     onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
                                 />
-                                <Button nClick={() => sendCommit(newCommitAndFile)}>Save!</Button>
+                                <Button onClick={() => sendCommit(newCommitAndFile)}>Save!</Button>
                             </div>
 
                         </div>
