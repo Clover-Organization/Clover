@@ -376,6 +376,78 @@ div.boxTools {
   overflow-y: auto;
 }
 
+@media screen and (min-width: 360px) {
+  div.boxTools {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Cria três colunas de largura igual */
+    grid-gap: 20px; /* Espaçamento entre as células */
+    /* max-height: 100vh; */
+    overflow-y: auto;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  div.boxTools {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr; /* Cria três colunas de largura igual */
+    grid-gap: 20px; /* Espaçamento entre as células */
+    /* max-height: 100vh; */
+    overflow-y: auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  div.boxTools {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Cria três colunas de largura igual */
+    grid-gap: 20px; /* Espaçamento entre as células */
+    /* max-height: 100vh; */
+    overflow-y: auto;
+  }
+}
+
+@media screen and (min-width: 1336px) {
+  div.boxTools {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Cria três colunas de largura igual */
+    grid-gap: 20px; /* Espaçamento entre as células */
+    /* max-height: 100vh; */
+    overflow-y: auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  div.boxTools {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Cria três colunas de largura igual */
+    grid-gap: 20px; /* Espaçamento entre as células */
+    /* max-height: 100vh; */
+    overflow-y: auto;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  div.boxTools {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* Cria três colunas de largura igual */
+    grid-gap: 20px; /* Espaçamento entre as células */
+    /* max-height: 100vh; */
+    overflow-y: auto;
+  }
+}
+
 div.tool {
   font-weight: bold;
   border: solid 1px var(--secondary-color);
