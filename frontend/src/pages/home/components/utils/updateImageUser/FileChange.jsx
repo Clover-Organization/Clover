@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import Swal from 'sweetalert2';
 
 export const FileChange = async (e, token) => {
@@ -19,25 +20,19 @@ export const FileChange = async (e, token) => {
 
                 if (response.ok) {
                     // Exibir alerta de sucesso
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Imagem do usuário atualizada com sucesso!',
+                    toast.success("Sucess", {
+                        description: `User image updated successfully!`,
                     });
                 } else {
                     // Exibir alerta de erro
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro',
-                        text: `Erro ao atualizar imagem do usuário: ${response.status}`,
+                    toast.error("Error", {
+                        description: `Error updating user image: ${response.status}`,
                     });
                 }
             } catch (error) {
                 // Exibir alerta de erro
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: `Erro ao processar a imagem: ${error.message}`,
+                toast.error("Error", {
+                    description: `Error processing image: ${error.message}`,
                 });
             }
         }
