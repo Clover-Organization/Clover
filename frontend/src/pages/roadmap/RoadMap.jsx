@@ -19,11 +19,10 @@ const RoadMap = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setBgTheme(localStorage.getItem("vite-ui-theme"));
-        }, 0);
+        }, 1000);
 
         return () => clearInterval(intervalId);
     }, [bgTheme]);
-
 
     useEffect(() => {
         if (isMounted && containerRef.current) {

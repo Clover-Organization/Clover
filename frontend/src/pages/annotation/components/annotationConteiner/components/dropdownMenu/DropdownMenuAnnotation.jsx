@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Settings } from "lucide-react"
 
-export function DropdownMenuAnnotation({ handleSaveAnnotation, handleDeleteAnnotation, handlePostNewAnnotation }) {
+
+export function DropdownMenuAnnotation({ handleSaveAnnotation, openModalDelete, handlePostNewAnnotation }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -23,15 +24,15 @@ export function DropdownMenuAnnotation({ handleSaveAnnotation, handleDeleteAnnot
                 <DropdownMenuGroup>
                     <DropdownMenuItem onClick={() => handleSaveAnnotation()}>
                         Save
-                        <DropdownMenuShortcut>⇧⌘S</DropdownMenuShortcut>
+                        <DropdownMenuShortcut>Ctrl+S</DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => handlePostNewAnnotation()}>
                         Create new Annotation
-                        <DropdownMenuShortcut>⇧⌘N</DropdownMenuShortcut>
+                        <DropdownMenuShortcut>Ctrl+Alt+N</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleDeleteAnnotation()}>
+                    <DropdownMenuItem onClick={() => openModalDelete()}>
                         Delete
-                        <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
+                        <DropdownMenuShortcut>Del</DropdownMenuShortcut>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>

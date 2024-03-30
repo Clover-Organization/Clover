@@ -3,7 +3,17 @@ import { CardContent, CardDescription, CardHeader, CardTitle } from "@/component
 import { Separator } from "@/components/ui/separator";
 import { openModalUpdate } from "@/pages/home/components/utils/ModalFunctions/ModalFunctions";
 import { calculateTimeDifference } from "@/pages/home/components/utils/calculateTimeDifference/CalculateTimeDifference";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
 
 const UserDetailsSettingsMenu = ({
     singleRequest,
