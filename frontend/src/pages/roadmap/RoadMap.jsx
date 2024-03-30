@@ -46,6 +46,16 @@ const RoadMap = () => {
                             'color': bgTheme == "dark" ? "white" : "black",
                             'font-family': fontFamily ? fontFamily : 'JetBrains mono',
                         }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 3,
+                            'line-color': '#ccc',
+                            'target-arrow-color': '#ccc',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
                     }
                 ],
                 layout: { name: 'cose' },
