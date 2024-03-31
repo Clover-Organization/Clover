@@ -19,9 +19,7 @@ export const RequestSettings = ({ idProject }) => {
 
     const [loading, setLoading] = useState(false);
     const [isExpanded, setExpanded] = useState(false);
-    const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState(false);
     const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState(false);
-    const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false);
     const [modalShareProject, setModalShareProject] = useState(false);
     const [requestsLoaded, setRequestsLoaded] = useState(false);
     const [singleRequest, setSingleRequest] = useState({});
@@ -57,14 +55,11 @@ export const RequestSettings = ({ idProject }) => {
     const handleUpdateAction = async () => {
         await updateRequest(token, editedRequest, setSingleRequest);
         setModalUpdateIsOpen(false);
-        setModalConfirmIsOpen(false);
     }
 
     const handleDeleteAction = async () => {
         await deleteRequest(token, editedRequest);
-        setModalConfirmIsOpen(false);
         setModalUpdateIsOpen(false);
-        setModalDeleteIsOpen(false);
         navigate('/');
     };
 

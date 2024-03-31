@@ -25,14 +25,14 @@ const SplashScreen = () => {
             setShowSplash(false);
             setTimeout(() => {
                 setSplashDisplay({ display: 'none' });
-            }, 500); // Tempo para a animação de fade-out
-        }, 500); // Tempo para exibir o splash
+            }, 600); // Tempo para a animação de fade-out
+        }, 600); // Tempo para exibir o splash
     }, []);
 
     const splashClasses = showSplash ? 'SplashScreen fade-in' : 'SplashScreen fade-out';
 
     return (
-        <div className={splashClasses} style={{ display: splashDisplay.display }}>
+        <div className={splashClasses + " bg-background"} style={{ display: splashDisplay.display }}>
             <article>
                 <div className="titleSplash">
                     <h1>Clover</h1>

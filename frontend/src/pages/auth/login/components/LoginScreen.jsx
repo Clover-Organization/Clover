@@ -13,8 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Github, Eye, EyeOff, GithubIcon } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import PasswordUpdate from "./PasswordUpdate";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 

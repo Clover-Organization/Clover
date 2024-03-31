@@ -57,17 +57,20 @@ const AsideAnnotation = ({ idProject, singleRequest, setSelectedAnnotation }) =>
                         <div className="p-4">
                             {Array.isArray(singleRequest.annotations) && singleRequest.annotations.length > 0 ? (
                                 singleRequest.annotations.map((annotation, index) => (
-                                    <>
-                                        <div key={annotation.idAnnotation} onClick={() => setSelectedAnnotation(annotation)} className="text-sm cursor-pointer list-none flex gap-2 items-center">
+                                    <React.Fragment key={annotation.idAnnotation}>
+                                        <div onClick={() => setSelectedAnnotation(annotation)} className="text-sm cursor-pointer list-none flex gap-2 items-center">
                                             <img src={file} alt="file" />
-                                            <li onDoubleClick={() => { setModalIsOpen(true), setNewAnnotationName({ title: annotation.title, id: annotation.idAnnotation }); }}>{annotation.title}</li>
+                                            <li onDoubleClick={() => { setModalIsOpen(true); setNewAnnotationName({ title: annotation.title, id: annotation.idAnnotation }); }}>{annotation.title}</li>
                                         </div>
                                         <Separator className="my-2" />
-                                    </>
+                                    </React.Fragment>
                                 ))
                             ) : (
-                                <li>Create a new annotation!</li>
+                                <div className='text-center'>
+                                    <SheetTitle>Create a new annotation!</SheetTitle>
+                                </div>
                             )}
+
                         </div>
                     </ScrollArea>
                 </SheetContent>
