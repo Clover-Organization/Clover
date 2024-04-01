@@ -35,8 +35,8 @@ const RoadMap = () => {
                         style: {
                             'background-color': bgTheme == "dark" ? "white" : "black",
                             'border-width': 1,
-                            'width': 30,
-                            'height': 30,
+                            'width': 50,
+                            'height': 50,
                             'text-margin-y': 3,
                             'label': 'data(label)',
                             'text-valign': 'bottom',
