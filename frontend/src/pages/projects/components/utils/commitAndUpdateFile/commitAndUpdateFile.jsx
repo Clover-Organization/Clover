@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { toast } from 'sonner';
 
 export const commitAndUpdateFile = async (token, idProject, idFile, newCommitAndFile) => {
     try {
@@ -16,35 +15,22 @@ export const commitAndUpdateFile = async (token, idProject, idFile, newCommitAnd
         });
 
         if (response.ok) {
-            // Use SweetAlert2 para exibir uma mensagem de sucesso
-            Swal.fire({
-                icon: 'success',
-                title: 'File Committed Successfully!',
-                showConfirmButton: false,
-                timer: 1500, // Tempo em milissegundos
+            toast.success("Sucess!", {
+                description: "File Committed Successfully!",
             });
-
-            // Você pode retornar dados adicionais ou tratar de acordo com a necessidade
         } else {
-            // Use SweetAlert2 para exibir uma mensagem de erro
-            Swal.fire({
-                icon: 'error',
-                title: 'Error Committing File',
-                text: `HTTP Status: ${response.status}`,
+            toast.error("Error!", {
+                description: `HTTP Status: ${response.status}`,
             });
 
             console.error('Error committing file:', response.status);
             // Trate o erro conforme necessário
         }
     } catch (error) {
-        // Use SweetAlert2 para exibir uma mensagem de erro
-        Swal.fire({
-            icon: 'error',
-            title: 'Error Committing File',
-            text: `Error Details: ${error.message}`,
+        toast.error("Error!", {
+            description: `Error Details: ${error.message}`,
         });
 
         console.error('Error committing file:', error);
-        // Trate o erro conforme necessário
     }
 };

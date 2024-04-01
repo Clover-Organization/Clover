@@ -13,8 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Github, Eye, EyeOff, GithubIcon } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import PasswordUpdate from "./PasswordUpdate";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
@@ -157,10 +157,10 @@ export default function LoginScreen() {
 				<form onSubmit={handleSubmit}>
 					<div className="grid w-full items-center gap-4">
 						<div className="flex flex-col space-y-1.5 gap-2">
-							<Label htmlFor="username">Username</Label>
+							<Label htmlFor="username">Username or email</Label>
 							<Input
 								id="name"
-								placeholder="Enter your username"
+								placeholder="Enter your username or email"
 								value={username}
 								onChange={handleUsernameChange}
 							/>

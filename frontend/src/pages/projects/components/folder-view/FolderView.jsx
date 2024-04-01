@@ -70,15 +70,15 @@ const FolderView = () => {
                                         filesRequest.files
                                             .filter(file => file && file.fileName && file.fileName.includes(searchTerm))
                                             .map((file, index) => {
-                                                return(
-                                                <React.Fragment key={index}>
-                                                    <Link to={`/project/file/${idProject}/${file.idFile}/${idFolder}`}>
-                                                        <div className="file-content">
-                                                            <FileContent item={file} imgIcon={GetLanguageInfos(file.fileName).imgUrl} token={token} />
-                                                        </div>
-                                                    </Link>
-                                                    <hr className="hr-project-title" />
-                                                </React.Fragment>)
+                                                return (
+                                                    <React.Fragment key={index}>
+                                                        <Link to={`/project/file/${idProject}/${file.idFile}/${idFolder}`}>
+                                                            <div className="file-content">
+                                                                <FileContent item={file} imgIcon={GetLanguageInfos(file.fileName).imgUrl} token={token} />
+                                                            </div>
+                                                        </Link>
+                                                        <hr className="hr-project-title" />
+                                                    </React.Fragment>)
                                             }))}
 
                                     {(Array.isArray(filesRequest.subFolders) && filesRequest.subFolders.length > 0) && (
@@ -103,7 +103,7 @@ const FolderView = () => {
                 </section>
             </article>
             <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-                <DropZoneFolderView token={token} idProject={idProject} idFolder={idFolder} />
+                <DropZoneFolderView token={token} idProject={idProject} idFolder={idFolder} onClose={() => closeModal(setModalIsOpen)} />
             </Modal>
         </main>
     );

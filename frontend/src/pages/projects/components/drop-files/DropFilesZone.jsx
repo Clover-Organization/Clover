@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { uploadFiles } from "../utils/uploadFiles/UploadFiles";
 import { uploadFolder } from "../utils/uploadFolder/UploadFolder";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 
-const DropFileZone = ({ idProject, token }) => {
+const DropFileZone = ({ idProject, token, onClose }) => {
     const [loading, setLoading] = useState(false);
     const [acceptedFoldersAndFiles, setAcceptedFoldersAndFiles] = useState([]);
 
@@ -57,7 +60,10 @@ const DropFileZone = ({ idProject, token }) => {
     const firstFolder = allFolders.length > 0 ? allFolders[0] : null;
 
     return (
-        <div className="zone">
+        <Card className="p-4">
+            <div className="w-full text-end">
+                <Button variant="link" size="icon" className="hover:bg-stone-900 w-4 h-4" onClick={onClose}> <X width={20} /></Button>
+            </div>
             {loading && (
                 <div className="loading-container">
                     <div className="spinner"></div>
@@ -91,7 +97,7 @@ const DropFileZone = ({ idProject, token }) => {
                     </ul>
                 </div>
             )}
-        </div>
+        </Card>
     );
 };
 

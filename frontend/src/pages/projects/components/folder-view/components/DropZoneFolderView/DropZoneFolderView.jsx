@@ -4,8 +4,11 @@ import { handleInputBlur, handleInputFocus } from "../../../../../home/component
 import { uploadFolder } from "../../../utils/uploadFolder/UploadFolder";
 import { useState } from "react";
 import { uploadFilesIntoFolder } from "../../../utils/uploadsFilesIntoFolder/UploadFilesIntoFolder";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 
-const DropZoneFolderView = ({ token, idProject, idFolder }) => {
+const DropZoneFolderView = ({ token, idProject, idFolder, onClose }) => {
     const [loading, setLoading] = useState(false);
     const [acceptedFoldersAndFiles, setAcceptedFoldersAndFiles] = useState([]);
 
@@ -57,7 +60,10 @@ const DropZoneFolderView = ({ token, idProject, idFolder }) => {
     const firstFolder = allFolders.length > 0 ? allFolders[0] : null;
 
     return (
-        <div className="zone">
+        <Card className="p-4">
+            <div className="w-full text-end">
+                <Button variant="link" size="icon" className="hover:bg-stone-900 w-4 h-4" onClick={onClose}> <X width={20} /></Button>
+            </div>
             {loading && (
                 <div className="loading-container">
                     <div className="spinner"></div>
@@ -91,7 +97,7 @@ const DropZoneFolderView = ({ token, idProject, idFolder }) => {
                     </ul>
                 </div>
             )}
-        </div>
+        </Card>
     );
 };
 

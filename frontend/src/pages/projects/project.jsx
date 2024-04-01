@@ -13,6 +13,7 @@ import DropFileZone from "./components/drop-files/DropFilesZone";
 import { getCommitsByProject } from "./components/utils/getCommitsByProject/GetCommitsByProject";
 import FolderContent from "./components/folder-content/FolderContent";
 import GetLanguageInfos from "./components/utils/getLanguageInfo/GetLanguageInfos";
+import ShareProjectComp from "../settings/components/requestSettings/components/shareProject/ShareProjectComp";
 
 const Project = () => {
   const token = localStorage.getItem("token");
@@ -20,8 +21,14 @@ const Project = () => {
   const [singleRequest, setSingleRequest] = useState({});
   const [commitsRequest, setCommitsRequest] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingModal, setLoadingModal] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalShareProject, setModalShareProject] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [dataShareProject, setDataShareProject] = useState({
+    idProject: idProject,
+    usernameOrEmail: "",
+  });
 
   const fetchProject = async () => {
     setLoading(true);
@@ -62,6 +69,7 @@ const Project = () => {
                 filterText={searchTerm}
                 setFilterText={setSearchTerm}
                 setModalIsOpen={setModalIsOpen}
+                setModalShareProject={setModalShareProject}
               />
               {loading ? (
                 <div className="align-loading">
@@ -124,8 +132,19 @@ const Project = () => {
           />
         </section>
       </article>
+      <Modal isOpen={modalShareProject} onClose={() => closeModal(setModalShareProject)}>
+        <ShareProjectComp
+          dataShareProject={dataShareProject}
+          setDataShareProject={setDataShareProject}
+          close={() => closeModal(setModalShareProject)}
+          token={token}
+          loading={loadingModal}
+          setLoading={setLoadingModal}
+          idProject={idProject}
+        />
+      </Modal>
       <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-        <DropFileZone idProject={idProject} token={token} />
+        <DropFileZone idProject={idProject} token={token}  onClose={() => closeModal(setModalIsOpen)}/>
       </Modal>
     </main>
   );

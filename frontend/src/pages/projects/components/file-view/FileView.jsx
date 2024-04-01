@@ -4,18 +4,21 @@ import Editor from "@monaco-editor/react";
 
 import Navbar from "../../../components/Navbar";
 import Modal from "../../../components/Modal";
-import InputField from "../../../home/components/inputField/InputField";
 import FileNav from "./components/file-nav/FileNav";
+import FileEditor from "../file-editor/FileEditor";
+import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
 import { useParams } from "react-router-dom";
 import { getFilesById } from "../utils/getFilesById/getFilesById";
 import { getFileContent } from "../utils/getFileContent/getFileContent";
 import { getCommitsByFiles } from "../utils/getCommitsByFiles/GetCommitsByFiles";
 import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
 import { closeModal, closeModalDelete } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
-import { handleInputBlur, handleInputFocus } from "../../../home/components/utils/handleInput/HandleInput";
 import { deleteFileByIdFileAndIdProject } from "../utils/deleteFileByIdFileAndIdProject/deleteFileByIdFileAndIdProject";
-import FileEditor from "../file-editor/FileEditor";
-import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
@@ -240,43 +243,59 @@ const FileView = () => {
             </Modal>
 
             <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-                <div className="password-update-modal">
+                <Card className="w-[350px]">
+                    <div className="w-full h-1 p-2 text-end">
+                        <Button variant="link" size="icon" className="hover:bg-stone-900 w-4 h-4" onClick={() => closeModal(setModalIsOpen)}> <X width={20} /></Button>
+                    </div>
                     {stateModal ? (
                         <>
-                            <h5>Commit File</h5>
-                            <p>Enter a descriptive message</p>
+                            <CardHeader>
+                                <CardTitle>Commit File</CardTitle>
+                                <CardDescription>Enter a descriptive message</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="grid w-full items-center gap-4">
+                                    <div className="flex flex-col space-y-1.5 gap-4">
+                                        <div>
+                                            <Label htmlFor="name">New commit</Label>
+                                            <Input
+                                                id="commit"
+                                                placeholder="New commit"
+                                                value={newCommitAndFile.newCommit}
+                                                onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
+                                            />
+                                        </div>
+                                        <Button onClick={() => setStateModal(false)}>Save!</Button>
+                                    </div>
 
-                            <InputField
-                                id="commit"
-                                label="Commit message"
-                                value={newCommitAndFile.newCommit}
-                                onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
-                                onMouseEnter={() => handleInputFocus('commitLabel')}
-                                onMouseLeave={() => handleInputBlur('commitLabel')}
-                            />
-                            <div className="btnSave">
-                                <button onClick={() => setStateModal(false)}>Save!</button>
-                            </div>
+                                </div>
+                            </CardContent>
+
                         </>
                     ) : (
                         <>
-                            <h5>Commit File</h5>
-                            <p>Insert your new file</p>
-
-                            <InputField
-                                id="file"
-                                onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newFile: e.target.files[0] }))}
-                                onMouseEnter={() => handleInputFocus('fileLabel')}
-                                onMouseLeave={() => handleInputBlur('fileLabel')}
-                                type="file"
-                            />
-
-                            <div className="btnSave">
-                                <button onClick={() => sendCommit(newCommitAndFile)}>Send!</button>
-                            </div>
+                            <CardHeader>
+                                <CardTitle>Commit File</CardTitle>
+                                <CardDescription>Insert your new file</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="grid w-full items-center gap-4">
+                                    <div className="flex flex-col space-y-1.5 gap-4">
+                                        <div>
+                                            <Label htmlFor="file">File</Label>
+                                            <Input
+                                                id="file"
+                                                type="file"
+                                                onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newFile: e.target.files[0] }))}
+                                            />
+                                        </div>
+                                        <Button onClick={() => sendCommit(newCommitAndFile)}>Send!</Button>
+                                    </div>
+                                </div>
+                            </CardContent>
                         </>
                     )}
-                </div>
+                </Card>
             </Modal>
         </main>
     );

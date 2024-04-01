@@ -138,7 +138,6 @@ div.noActive {
 nav.show a,
 .aside-ul-settings-content a {
   text-decoration: none;
-  color: var(--text-color);
   position: relative;
   padding: 10px;
 }
@@ -866,7 +865,6 @@ div.page > button:hover {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: var(--padding-large);
 }
 
 .information-user-content {
@@ -883,7 +881,6 @@ div.page > button:hover {
 
 .information-user-content p {
   font-size: 16px;
-  color: var(--text-color);
 }
 
 .div-user-content {
@@ -983,7 +980,6 @@ div.image {
 }
 
 .idProfileSettings p {
-  color: rgba(255, 255, 255, 0.64);
   font-size: 12px;
 }
 
@@ -1008,8 +1004,6 @@ div.image {
 .excel-file-generator {
   display: grid;
   gap: var(--gap-tiny);
-  padding-top: var(--gap-large);
-  padding: var(--padding-large);
 }
 
 .excel-file-generator > h3 {
@@ -1130,12 +1124,11 @@ hr {
 }
 
 .description-project h3 {
-  color: var(--text-color);
   padding-bottom: var(--padding-medium);
 }
 
 .description-project span {
-  color: rgba(255, 255, 255, 0.64);
+  /* color: rgba(255, 255, 255, 0.64); */
   font-size: 15px;
 }
 
@@ -1152,7 +1145,6 @@ hr {
 
 .commitsProject h4,
 .commitsProject-dsp-flex-align h4 {
-  color: var(--text-color);
   font-weight: normal;
 }
 
@@ -1392,10 +1384,6 @@ pre {
   gap: var(--gap-tiny);
 }
 
-.div-aside-title-annotation h3 {
-  color: var(--text-color);
-}
-
 .div-aside-title-annotation img {
   cursor: pointer;
   width: 20px;
@@ -1416,10 +1404,6 @@ pre {
 
 .ul-annotation-content img {
   width: 20px;
-}
-
-.ul-annotation-content li {
-  color: var(--text-color);
 }
 
 /* === Article annotation CSS === */
