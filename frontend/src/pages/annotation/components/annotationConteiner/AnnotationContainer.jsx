@@ -2,17 +2,20 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
 import { updateAnnotation } from "../utils/updateAnnotation/UpdateAnnotation";
 import { fetchAnnotation } from "./utils/FetchAnnotation";
 import { deleteAnnotaion } from "./utils/deleteAnnotaion/deleteAnnotaion";
+import { CardTitle } from "@/components/ui/card";
+import { DropdownMenuAnnotation } from "./components/dropdownMenu/DropdownMenuAnnotation";
+import Modal from "@/pages/components/Modal";
+import ModalDeleteAnnotation from "./components/modalDeleteAnnotation/ModalDeleteAnnotation";
+import { closeModal, openModal } from "@/pages/home/components/utils/ModalFunctions/ModalFunctions";
 
-import lixo from '../../../projects/assets/lixoIcon.png';
-import saveIcon from '../../assets/saveIcon.png';
-
-const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject }) => {
+const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject, handlePostNewAnnotation }) => {
     const token = localStorage.getItem('token');
-
-    var [content, setContent] = useState({
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [content, setContent] = useState({
         annotationContent: selectedAnnotation.annotationContent,
     });
 
@@ -26,37 +29,55 @@ const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject }) => {
         fetchAnnotationAndUpdateContent();
     }, [fetchAnnotationAndUpdateContent]);
 
-
-    const handleSaveAnnotation = async () => {
-        // Usa diretamente o estado atualizado na função de atualização
-        await updateAnnotation(token, content, selectedAnnotation.idAnnotation, idProject);
-    }
-
     useEffect(() => {
         fetchAnnotation(token, selectedAnnotation.idAnnotation, setContent);
     }, []);
-
 
     const handleChange = (value) => {
         setContent({ annotationContent: value });
     };
 
+    const handleSaveAnnotation = async () => {
+        await updateAnnotation(token, content, selectedAnnotation.idAnnotation, idProject);
+    };
+
     const handleDeleteAnnotation = async () => {
         await deleteAnnotaion(idProject, token, selectedAnnotation.idAnnotation);
-    }
+        window.location.reload();
+    };
+
+    // Adiciona evento para salvar quando pressionar Ctrl + S
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.ctrlKey && event.key === 's') {
+                event.preventDefault(); // Evita que o navegador abra o menu de salvar
+                handleSaveAnnotation();
+            } else if (event.ctrlKey && event.altKey && event.key === 'n') {
+                event.preventDefault();
+                handlePostNewAnnotation();
+            }
+            else if (event.key === 'Delete') {
+                event.preventDefault();
+                openModal(setModalIsOpen)
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [handleSaveAnnotation]);
 
     return (
         <>
             <div className="nav-annotation">
-                <h2>{selectedAnnotation.title}</h2>
-                <div className="lupaSearch">
-                    <div className="commitsProject-dsp-flex-align">
-                        <img onClick={() => handleSaveAnnotation()} src={saveIcon} alt="Save icon" width={24} />
-                    </div>
-                    <div className="commitsProject-dsp-flex-align">
-                        <img onClick={() => handleDeleteAnnotation()} src={lixo} alt="clear icon" width={24} />
-                    </div>
-                </div>
+                <CardTitle>{selectedAnnotation.title}</CardTitle>
+                <DropdownMenuAnnotation
+                    handleSaveAnnotation={handleSaveAnnotation}
+                    openModalDelete={() => openModal(setModalIsOpen)}
+                    handlePostNewAnnotation={handlePostNewAnnotation}
+                />
             </div>
 
             <div className="annotation-content text-black">
@@ -80,8 +101,14 @@ const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject }) => {
                     }}
                 />
             </div>
+            <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
+                <ModalDeleteAnnotation
+                    onClose={() => closeModal(setModalIsOpen)}
+                    handleDeleteAnnotation={handleDeleteAnnotation}
+                />
+            </Modal>
         </>
-    )
-}
+    );
+};
 
 export default AnnotationContainer;

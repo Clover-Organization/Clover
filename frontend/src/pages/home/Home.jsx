@@ -48,7 +48,7 @@ const HomeSecurity = () => {
   const [requestsLoaded, setRequestsLoaded] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
-  const size = 7;
+  const size = 10;
 
   // Fetch requests when the component mounts and requests are not loaded
   useEffect(() => {
@@ -107,22 +107,21 @@ const HomeSecurity = () => {
       const nextPage = prevPage + 1;
       role === "ADMIN"
         ? fetchRequestsPage(
-          nextPage,
-          setLoading,
-          token,
-          setToolBoxes,
-          getStatusClass,
-          setRequestsLoaded
-        )
-        :
-        fetchRequests(
-          setLoading,
-          token,
-          setToolBoxes,
-          getStatusClass,
-          setRequestsLoaded,
-          `http://localhost:8080/projects/user?page=${nextPage}&size=${size}`
-        );
+            nextPage,
+            setLoading,
+            token,
+            setToolBoxes,
+            getStatusClass,
+            setRequestsLoaded
+          )
+        : fetchRequests(
+            setLoading,
+            token,
+            setToolBoxes,
+            getStatusClass,
+            setRequestsLoaded,
+            `http://localhost:8080/projects/user?page=${nextPage}&size=${size}`
+          );
       fetchRequests(
         setLoading,
         token,
@@ -141,22 +140,21 @@ const HomeSecurity = () => {
       const previousPage = Math.max(prevPage - 1, 0);
       role === "ADMIN"
         ? fetchRequestsPage(
-          previousPage,
-          setLoading,
-          token,
-          setToolBoxes,
-          getStatusClass,
-          setRequestsLoaded
-        )
-        :
-        fetchRequests(
-          setLoading,
-          token,
-          setToolBoxes,
-          getStatusClass,
-          setRequestsLoaded,
-          `http://localhost:8080/projects/user?page=${previousPage}&size=${size}`
-        );
+            previousPage,
+            setLoading,
+            token,
+            setToolBoxes,
+            getStatusClass,
+            setRequestsLoaded
+          )
+        : fetchRequests(
+            setLoading,
+            token,
+            setToolBoxes,
+            getStatusClass,
+            setRequestsLoaded,
+            `http://localhost:8080/projects/user?page=${previousPage}&size=${size}`
+          );
       fetchRequests(
         setLoading,
         token,
@@ -177,24 +175,22 @@ const HomeSecurity = () => {
 
   const fetchData = async () => {
     role === "ADMIN"
-      ?
-      await fetchRequestsPage(
-        currentPage,
-        setLoading,
-        token,
-        setToolBoxes,
-        getStatusClass,
-        setRequestsLoaded
-      )
-      :
-      await fetchRequests(
-        setLoading,
-        token,
-        setToolBoxes,
-        getStatusClass,
-        setRequestsLoaded,
-        `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
-      );
+      ? await fetchRequestsPage(
+          currentPage,
+          setLoading,
+          token,
+          setToolBoxes,
+          getStatusClass,
+          setRequestsLoaded
+        )
+      : await fetchRequests(
+          setLoading,
+          token,
+          setToolBoxes,
+          getStatusClass,
+          setRequestsLoaded,
+          `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
+        );
     await fetchRequests(
       setLoading,
       token,
@@ -223,7 +219,10 @@ const HomeSecurity = () => {
     );
 
     // Combine os resultados dos dois filtros
-    filteredAndSortedToolBoxes.push(...filteredToolBoxes, ...filteredShareToolBox);
+    filteredAndSortedToolBoxes.push(
+      ...filteredToolBoxes,
+      ...filteredShareToolBox
+    );
   }
 
   useEffect(() => {
@@ -235,7 +234,6 @@ const HomeSecurity = () => {
       clearInterval(intervalId);
     };
   }, []);
-
 
   return (
     <section className="homeSection">
@@ -263,7 +261,6 @@ const HomeSecurity = () => {
               showId={showId}
               role={role}
             />
-
           ))}
         </div>
         <Pagination

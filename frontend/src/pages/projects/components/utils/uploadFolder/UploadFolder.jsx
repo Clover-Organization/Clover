@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { toast } from 'sonner';
 
 /**
  * Função para enviar uma pasta ao servidor.
@@ -133,11 +132,8 @@ export const uploadFolder = async (token, idProject, foldersFiles, idFolder) => 
                     }
 
                     // Exibe uma mensagem de sucesso para o usuário.
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Arquivos enviados com sucesso!',
-                        showConfirmButton: false,
-                        timer: 1500,
+                    toast.success("Sucess!", {
+                        description: "Folder sent successfully!",
                     });
                 }
             } else {
@@ -150,10 +146,8 @@ export const uploadFolder = async (token, idProject, foldersFiles, idFolder) => 
     } catch (error) {
         // Manipula erros durante a requisição.
         console.log("Error fetching the request:", error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro na requisição',
-            text: 'Ocorreu um erro ao enviar os arquivos. Por favor, tente novamente.',
+        toast.error("Error!", {
+            description: "An error occurred while uploading the files. Please try again.",
         });
     }
 };
@@ -165,17 +159,13 @@ export const uploadFolder = async (token, idProject, foldersFiles, idFolder) => 
 const handleErrorResponse = (response) => {
     if (response.status === 404) {
         console.log("Request not found");
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro 404',
-            text: 'Requisição não encontrada.',
+        toast.error("Error!", {
+            description: "Request not found.",
         });
     } else {
         console.log("An unexpected error occurred:", response.status);
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro inesperado',
-            text: 'Ocorreu um erro inesperado. Por favor, tente novamente.',
+        toast.error("Error!", {
+            description: "An unexpected error has occurred. Please try again.",
         });
     }
 };
