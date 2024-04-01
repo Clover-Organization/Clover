@@ -8,7 +8,7 @@ import Spline from "@splinetool/react-spline";
 
 const WelcomeIntro = () => {
 	return (
-		<section className="text-secondary-foreground py-20 px-6 md:px-12 h-screen">
+		<section className="text-secondary-foreground py-4 px-6 md:px-12 h-screen">
 			<div className="max-w-6xl mx-auto flex flex-col items-center justify-center text-center">
 				<div className="w-full absolute inset-0 h-screen">
 					<SparklesCore
@@ -42,7 +42,6 @@ const WelcomeIntro = () => {
 						programming learners
 					</p>
 				</div>
-				<Spline className="z-10" scene="https://prod.spline.design/VII16kLioCuRlIlY/scene.splinecode" />
 				<div className="btnTxt">
 					<Link to={"/auth/register"}>
 						<button className="animated-button">
@@ -65,6 +64,7 @@ const WelcomeIntro = () => {
 						</button>
 					</Link>
 				</div>
+        <Spline className="z-10" scene="https://draft.spline.design/83evNMY2VhHkoqT9/scene.splinecode" />
 			</div>
 			<div class="flex flex-wrap justify-center items-center mt-10 sm:mt-20 md:mt-32 lg:mt-44 gap-8">
 				<div class="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary">
