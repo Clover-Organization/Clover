@@ -72,7 +72,7 @@ const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject, handlePo
     return (
         <>
             <div className="nav-annotation">
-                <CardTitle onDoubleClick={() => { setModalUpdate(true); setNewAnnotationName({ title: selectedAnnotation.title, id: selectedAnnotation.idAnnotation }); }}>{selectedAnnotation.title}</CardTitle>
+                <CardTitle title="Two clicks to edit name" onDoubleClick={() => { setModalUpdate(true); setNewAnnotationName({ title: selectedAnnotation.title, id: selectedAnnotation.idAnnotation }); }}>{selectedAnnotation.title}</CardTitle>
                 <DropdownMenuAnnotation
                     handleSaveAnnotation={handleSaveAnnotation}
                     openModalDelete={() => openModal(setModalIsOpen)}

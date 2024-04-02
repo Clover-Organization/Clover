@@ -41,7 +41,7 @@ const AsideAnnotation = ({
                             {Array.isArray(singleRequest.annotations) && singleRequest.annotations.length > 0 ? (
                                 singleRequest.annotations.map((annotation, index) => (
                                     <React.Fragment key={annotation.idAnnotation}>
-                                        <div onClick={() => setSelectedAnnotation(annotation)} className="text-sm cursor-pointer list-none flex gap-2 items-center">
+                                        <div title="Two clicks to edit name" onClick={() => setSelectedAnnotation(annotation)} className="text-sm cursor-pointer list-none flex gap-2 items-center">
                                             <FileText width={20} />
                                             <li onDoubleClick={() => { setModalIsOpen(true); setNewAnnotationName({ title: annotation.title, id: annotation.idAnnotation }); }}>{annotation.title}</li>
                                         </div>
