@@ -58,7 +58,7 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "201", description = "User save successfully."),
             @ApiResponse(responseCode = "400", description = "Password field must have at least 9 characters.")
     })
-    public ResponseEntity register(@RequestPart("profileImage") MultipartFile profileImage,
+    public ResponseEntity register(@RequestPart(value = "profileImage", required = false) MultipartFile profileImage,
                                    @RequestPart("userData") @Valid AutenticarDados dados,
                                    UriComponentsBuilder uriComponentsBuilder) {
         try {
@@ -75,11 +75,15 @@ public class AuthenticationController {
             String encryptedPassword = new BCryptPasswordEncoder().encode(dados.password());
 
             // Converta o MultipartFile para byte[]
-            byte[] profileImageBytes = profileImage.getBytes();
+            byte[] profileImageBytes = new byte[0];
+            if (profileImage != null) {
+                profileImageBytes = profileImage.getBytes();
+            }
 
             Users newUser = new Users(dados.username(), dados.firstName(), dados.lastName(), dados.email(),
                     encryptedPassword, dados.birth(), LocalDateTime.now(), dados.role(), profileImageBytes);
             repository.save(newUser);
+
 
             // Construir a URI para o novo usuário
             var uri = uriComponentsBuilder.path("/users/{id_User}").buildAndExpand(newUser.getIdUsers()).toUri();
@@ -148,7 +152,7 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "200", description = "Login successfully."),
             @ApiResponse(responseCode = "401", description = "User does not exist or Invalid credentials.")
     })
-    public ResponseEntity registerByGoogle(@RequestPart("profileImage") MultipartFile profileImage,
+    public ResponseEntity registerByGoogle(@RequestPart(value = "profileImage", required = false) MultipartFile profileImage,
                                            @RequestPart("userData") @Valid AutenticarDados dados,
                                            UriComponentsBuilder uriComponentsBuilder) {
         try {
@@ -158,7 +162,10 @@ public class AuthenticationController {
             String encryptedPassword = new BCryptPasswordEncoder().encode(dados.password());
 
             // Converta o MultipartFile para byte[]
-            byte[] profileImageBytes = profileImage.getBytes();
+            byte[] profileImageBytes = new byte[0];
+            if (profileImage != null) {
+                profileImageBytes = profileImage.getBytes();
+            }
 
             Users newUser = new Users(dados.username(), dados.firstName(), dados.lastName(), dados.email(),
                     encryptedPassword, dados.birth(), LocalDateTime.now(), dados.role(), profileImageBytes);
