@@ -15,12 +15,12 @@ Este é o código-fonte e a documentação do meu Trabalho de Conclusão de Curs
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
-- [x] Versionamento de Projetos
-- [x] Compartilhamento de Projetos entre usuários
-- [x] Roadmaps sobre carreiras da área de TI
-- [x] Editor de código
-- [ ] Wiki sobre Linguagens
-- [ ] Atualização de UI/UX
+- ✅ Versionamento de Projetos
+- ✅ Compartilhamento de Projetos entre usuários
+- ✅ Roadmaps sobre carreiras da área de TI
+- ✅ Editor de código
+- ⬛ Wiki sobre Linguagens
+- ⬛ Atualização de UI/UX
 
 <br>
 
