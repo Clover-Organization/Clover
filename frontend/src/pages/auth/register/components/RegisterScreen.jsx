@@ -36,8 +36,6 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
-import user from '../../assets/user.png'
-
 const FormSchema = z.object({
 	username: z.string().min(2, {
 		message: "Username must be at least 2 characters.",
@@ -98,22 +96,10 @@ export default function RegisterScreen() {
 		return null;
 	};
 
-	const getUserFile = async (userImagePath) => {
-		const response = await fetch(userImagePath);
-		const blob = await response.blob();
-
-		const fileName = userImagePath.split("/").pop();
-
-		const userFile = new File([blob], fileName, { type: blob.type });
-
-		return userFile;
-	};
-
 	const handleRegister = async (userData) => {
-		const userFile = await getUserFile(user);
 
 		const formData = new FormData();
-		formData.append("profileImage", profileImage ? profileImage : userFile);
+		formData.append("profileImage", profileImage);
 
 		formData.append(
 			"userData",
@@ -187,11 +173,9 @@ export default function RegisterScreen() {
 				role: "USER",
 			};
 
-			const userFile = await getUserFile(user);
-
 			const formData = new FormData();
 
-			formData.append("profileImage", profileImage ? profileImage : userFile);
+			formData.append("profileImage", profileImage);
 
 			formData.append(
 				"userData",
@@ -306,7 +290,7 @@ export default function RegisterScreen() {
 												/>
 											</FormControl>
 											<FormDescription>
-												<p class="text-left break-words text-wrap w-60">
+												<p className="text-left break-words text-wrap w-60">
 													Your password must be at least 8 characters long and
 													contain at least one special character.
 												</p>
