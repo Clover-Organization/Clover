@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { toast } from 'sonner';
 
 // Function to delete a request
 export const deleteRequest = async (token, editedRequest) => {
@@ -13,29 +12,16 @@ export const deleteRequest = async (token, editedRequest) => {
         });
 
         if (response.ok) {
-            Swal.fire({
-                text: 'Request deleted successfully!',
-                icon: 'success',
-                customClass: {
-                    popup: 'custom-popup-class',
-                },
-                didOpen: () => {
-                    const modal = Swal.getPopup();
-                    modal.style.zIndex = 99999;
-                    // Adicione outras personalizações de estilo conforme necessário
-                },
+            toast.success("Sucess!", {
+                description: "Request deleted successfully!",
             });
         } else {
             console.error('Error deleting the request:', response.status);
         }
     } catch (error) {
         console.error('Error making delete request:', error);
-        Swal.fire({
-            text: 'Error making delete request. Please try again later.',
-            icon: 'error',
-            customClass: {
-                popup: 'custom-popup-class',
-            },
+        toast.error("Error!", {
+            description: "Error making delete request. Please try again later.",
         });
     }
 };
