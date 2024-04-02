@@ -12,7 +12,7 @@ import Modal from "@/pages/components/Modal";
 import ModalDeleteAnnotation from "./components/modalDeleteAnnotation/ModalDeleteAnnotation";
 import { closeModal, openModal } from "@/pages/home/components/utils/ModalFunctions/ModalFunctions";
 
-const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject, handlePostNewAnnotation }) => {
+const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject, handlePostNewAnnotation, setNewAnnotationName, setModalUpdate }) => {
     const token = localStorage.getItem('token');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [content, setContent] = useState({
@@ -72,7 +72,7 @@ const AnnotationContainer = ({ quillRef, selectedAnnotation, idProject, handlePo
     return (
         <>
             <div className="nav-annotation">
-                <CardTitle>{selectedAnnotation.title}</CardTitle>
+                <CardTitle onDoubleClick={() => { setModalUpdate(true); setNewAnnotationName({ title: selectedAnnotation.title, id: selectedAnnotation.idAnnotation }); }}>{selectedAnnotation.title}</CardTitle>
                 <DropdownMenuAnnotation
                     handleSaveAnnotation={handleSaveAnnotation}
                     openModalDelete={() => openModal(setModalIsOpen)}

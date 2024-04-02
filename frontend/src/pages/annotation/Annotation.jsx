@@ -4,11 +4,22 @@ import Navbar from "../components/Navbar";
 import AsideAnnotation from "./components/asideAnnotation/AsideAnnotation";
 import { useParams } from "react-router-dom";
 import { fetchRequestById } from "../home/components/utils/fetchRequestById/fetchRequestById";
-import { CardDescription, CardTitle } from "@/components/ui/card";
-import AnnotationContainer from "./components/annotationConteiner/AnnotationContainer";
 import { postNewAnnotation } from "./components/utils/postNewAnnotation/PostNewAnnotation";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { updateAnnotation } from "./components/utils/updateAnnotation/UpdateAnnotation";
+import AnnotationContainer from "./components/annotationConteiner/AnnotationContainer";
+import Modal from "../components/Modal";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 const Annotation = () => {
   const token = localStorage.getItem("token");
@@ -19,9 +30,20 @@ const Annotation = () => {
   const { idProject } = useParams();
   const quillRef = useRef(null);
 
+  const [newAnnotationName, setNewAnnotationName] = useState({
+    title: "",
+    id: "",
+  });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const fetchProject = async () => {
     await fetchRequestById(token, idProject, setSingleRequest);
   };
+
+  const handleUpdateName = async (id) => {
+    await updateAnnotation(token, newAnnotationName, id, idProject);
+    setModalIsOpen(false);
+  }
 
   const handlePostNewAnnotation = async () => {
     // Incrementa o valor de 'count'
@@ -62,6 +84,10 @@ const Annotation = () => {
             idProject={idProject}
             singleRequest={singleRequest}
             setSelectedAnnotation={setSelectedAnnotation}
+            setNewAnnotationName={setNewAnnotationName}
+            handleUpdateName={handleUpdateName}
+            newAnnotationName={newAnnotationName}
+            setModalIsOpen={setModalIsOpen}
           />
         </aside>
         <article className="article-annotation-content">
@@ -74,6 +100,8 @@ const Annotation = () => {
                 selectedAnnotation={selectedAnnotation}
                 idProject={idProject}
                 handlePostNewAnnotation={handlePostNewAnnotation}
+                setNewAnnotationName={setNewAnnotationName}
+                setModalUpdate={setModalIsOpen}
               />
             </>
           ) : (
@@ -88,6 +116,30 @@ const Annotation = () => {
           )}
         </article>
       </section>
+
+      <Modal isOpen={modalIsOpen} onClose={(() => setModalIsOpen(false))}>
+        <Card>
+
+          <CardHeader>
+            <CardTitle>Update annotation name</CardTitle>
+            <CardDescription>Change the name of your note.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="name">Name</Label>
+              <Input id="name" placeholder="Name of your project"
+                value={newAnnotationName.title} // Ajuste para acessar a propriedade newTitle
+                onChange={(e) => setNewAnnotationName({ ...newAnnotationName, title: e.target.value })} />
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button variant="outline" onClick={() => setModalIsOpen(false)}>Cancel</Button>
+            <Button onClick={() => handleUpdateName(newAnnotationName.id)}>Save</Button>
+          </CardFooter>
+
+        </Card>
+      </Modal>
+
     </main>
   );
 };
