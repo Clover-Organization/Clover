@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import user from "../../assets/user.png";
+import { User } from "lucide-react";
+import { isEmpty } from "lodash";
 
 export const ToolBox = ({ box, loading, showId, role }) => {
   return (
@@ -15,13 +16,16 @@ export const ToolBox = ({ box, loading, showId, role }) => {
               <div className="toolTitle">
                 <div className="box-status-priority-image-content">
                   <h2>{box.projectName}</h2>
-                  <img
-                    src={
-                      box.user
-                        ? `data:image/png;base64,${box.user.profileImage}`
-                        : user
-                    }
-                  />
+                  {box.user.profileImage != null && !isEmpty(box.user.profileImage) ? (
+                    <img
+                      width={40}
+                      className="rounded-full h-10"
+                      src={`data:image/png;base64,${box.user.profileImage}`}
+                      alt="userImage"
+                    />
+                  ) : (
+                    <User />
+                  )}
                 </div>
                 <hr className="hrToolBox" />
                 <p className="m-2">{box.projectDescription}</p>

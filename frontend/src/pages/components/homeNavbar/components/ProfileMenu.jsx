@@ -6,6 +6,8 @@ import {
     MenubarSeparator,
     MenubarTrigger,
 } from "@/components/ui/menubar"
+import { isEmpty } from "lodash";
+import { User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -27,16 +29,20 @@ const ProfileMenu = ({ userData, idProject }) => {
                 <MenubarContent>
                     <Link to={"/Settings"}>
                         <MenubarItem className="gap-5 cursor-pointer">
-                            <img
-                                width={40}
-                                className="rounded-full h-10"
-                                src={
-                                    userData.profileImage
-                                        ? `data:image/png;base64,${userData.profileImage}`
-                                        : "null"
-                                }
-                                alt="userImage"
-                            />
+                            {userData.profileImage != null || !isEmpty(userData.profileImage) ? (
+                                <img
+                                    width={40}
+                                    className="rounded-full h-10"
+                                    src={
+                                        userData.profileImage
+                                            ? `data:image/png;base64,${userData.profileImage}`
+                                            : "null"
+                                    }
+                                    alt="userImage"
+                                />
+                            ) : (
+                                <User />
+                            )}
                             <h1>{userData.username}</h1>
                         </MenubarItem>
                     </Link>
