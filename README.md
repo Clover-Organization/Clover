@@ -1,16 +1,28 @@
 # 🍀 Clover - Trabalho de Conclusão de Curso (TCC)
 
-Este repositório contém o código-fonte e a documentação do meu Trabalho de Conclusão de Curso (TCC) intitulado "Clover". O projeto foi desenvolvido utilizando a biblioteca React.js, uma tecnologia amplamente reconhecida por sua capacidade de criar interfaces de usuário interativas e dinâmicas, juntamente com o Vite para a compilação do código frontend.
+### Bem-vindo ao repositório do projeto Clover! Este é o código-fonte e a documentação do meu Trabalho de Conclusão de Curso (TCC), uma iniciativa que visa proporcionar uma experiência mais intuitiva no versionamento e edição de projetos para aqueles que estão ingressando no mundo da programação
 
-## Visão Geral 📚
+![image](https://github.com/thepokenik/clover/assets/118072254/66318802-bad4-40a1-827b-90139928e525)
 
-"Clover" é um projeto desenvolvido como parte do meu Trabalho de Conclusão de Curso (TCC), que tem como objetivo explorar e demonstrar a aplicação dos conceitos aprendidos durante o curso.
+> O Clover é uma aplicação desenvolvida utilizando a poderosa combinação da biblioteca React para o frontend, o framework Spring para o backend, e o MongoDB como banco de dados. Ele oferece uma plataforma amigável e acessível para que os novatos na área de programação possam gerenciar e editar seus projetos de forma eficiente.
 
-## Tecnologias Utilizadas 🛠️
+## 🛠️ Funções
 
-O projeto foi construído utilizando as seguintes tecnologias:
+O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
-- **React.js**: Uma biblioteca JavaScript para a construção de interfaces de usuário.
-- **Vite**: Um construtor de aplicações web rápido e flexível que utiliza o ecossistema do JavaScript moderno.
-- **Java Spring**: Um framework para desenvolvimento de aplicações web em Java.
-- **MongoDB**: Um banco de dados NoSQL orientado a documentos.
+- [x] Versionamento de Projetos
+- [x] Compartilhamento de Projetos entre usuários
+- [x] Roadmaps sobre carreiras da área de TI
+- [x] Editor de código
+- [ ] Wiki sobre Linguagens
+- [ ] Atualização de UI/UX
+
+## 🤝 Equipe
+
+Conheça a equipe talentosa por trás do projeto:
+
+| <img src="https://github.com/thepokenik.png" width="60px" alt="Foto do Nikolas"/> <br> **Nikolas Melo** <br> Gestão do Projeto | <img src="https://github.com/RyanGustavoGoncalves.png" width="60px" alt="Foto do Ryan"/> <br> **Ryan Gustavo** <br> Desenvolvedor Full Stack | <img src="https://github.com/lonelykkj.png" width="60px" alt="Foto do Heitor"/> <br> **Heitor Manoel** <br> Desenvolvedor Front-End |
+|---|---|---|
+| [GitHub](https://github.com/thepokenik) | [GitHub](https://github.com/RyanGustavoGoncalves) | [GitHub](https://github.com/lonelykkj) |
+
+
