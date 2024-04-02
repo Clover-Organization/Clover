@@ -2,7 +2,7 @@ import React from "react";
 import lupa from '../../../home/assets/lupa.png';
 import { openModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
 import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react";
+import { Search, Share2 } from "lucide-react";
 
 const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen, setModalShareProject }) => {
     return (
@@ -11,8 +11,9 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
                 <h2>{singleRequest && singleRequest.projectName}</h2>
                 <div className="align-nav-components">
                     <div className="lupaSearch-projects">
-                        <div className="lupa"><img src={lupa} alt="Search" /></div>
+                        <div className="lupa"><Search width={20}/></div>
                         <input
+                            className="bg-secondary"
                             title="Search"
                             placeholder="Search.."
                             type="search"

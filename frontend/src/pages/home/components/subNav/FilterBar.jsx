@@ -1,13 +1,17 @@
 // FilterBar.js
 import React from 'react';
 import lupa from '../../assets/lupa.png';
+import { Search } from 'lucide-react';
 
 const FilterBar = ({ handleSearch, searchTerm }) => {
   return (
     <div className="subNav">
       <div className="lupaSearch">
-        <div className="lupa"><img src={lupa} alt="Search" /></div>
+        <div className="lupa">
+          <Search width={20}/>
+        </div>
         <input
+          className='bg-secondary'
           type="search"
           placeholder="Search.."
           onChange={handleSearch}

@@ -307,9 +307,7 @@ div.lupaSearch>input,
   width: 80%;
   padding: var(--padding-small);
   border-radius: var(--border-radius-small);
-  color: var(--text-color);
   font-weight: bold;
-  background-color: var(--background-color);
   border: solid 1px var(--secondary-color);
   outline: none;
   text-indent: var(--padding-large);
@@ -317,17 +315,18 @@ div.lupaSearch>input,
 
 .lupaSearch>input:focus,
 .lupaSearch-projects>input:focus {
-  border: solid 1px var(--focus-color);
+  border: solid 1px hsl(var(--ring));
 }
 
 div.lupa {
+  position: relative;
   display: flex;
   align-items: center;
+  left: 35px;
 }
 
 div.lupaSearch>div.lupa>img,
 .lupaSearch-projects>div.lupa>img {
-  width: 50px;
   padding-inline: var(--padding-medium);
   position: absolute;
 }
