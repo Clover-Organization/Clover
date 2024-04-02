@@ -11,12 +11,14 @@ import Modal from '../../../components/Modal';
 import ShareProjectComp from './components/shareProject/ShareProjectComp';
 import UserDetailsSettingsMenu from './components/userDetailsSettingsMenu/UserDetailsSettingsMenu';
 import { Separator } from '@radix-ui/react-separator';
+import { FetchUser } from '@/pages/home/components/utils/getInfoUser/FetchUser';
 
 export const RequestSettings = ({ idProject }) => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
 
+    const [userData, setUserData] = useState({});
     const [loading, setLoading] = useState(false);
     const [isExpanded, setExpanded] = useState(false);
     const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState(false);
@@ -33,6 +35,12 @@ export const RequestSettings = ({ idProject }) => {
         idProject: idProject,
         usernameOrEmail: "",
     });
+
+    if (role) {
+        useEffect(() => {
+            FetchUser(token, setUserData);
+        }, [token]);
+    }
 
     // Fetch requests when the component mounts and requests are not loaded
     useEffect(() => {
@@ -62,6 +70,21 @@ export const RequestSettings = ({ idProject }) => {
         setModalUpdateIsOpen(false);
         navigate('/');
     };
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            if (singleRequest.shareUsers !== undefined && Array.isArray(singleRequest.shareUsers) && singleRequest.shareUsers.length > 0) {
+                // Verifica se o usuário compartilhou
+                const hasShared = singleRequest.shareUsers.some(element => element.idUsers === userData.idUsers);
+                if (hasShared) {
+                    navigate("/");
+                }
+                console.log(hasShared);
+            }
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [singleRequest.shareUsers, userData.idUsers, navigate]);
 
     return (
         <article className='article-settings-content'>
