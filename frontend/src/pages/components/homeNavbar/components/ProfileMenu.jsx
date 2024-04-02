@@ -29,7 +29,7 @@ const ProfileMenu = ({ userData, idProject }) => {
                 <MenubarContent>
                     <Link to={"/Settings"}>
                         <MenubarItem className="gap-5 cursor-pointer">
-                            {userData.profileImage != null || !isEmpty(userData.profileImage) ? (
+                            {userData.profileImage != null && !isEmpty(userData.profileImage) ? (
                                 <img
                                     width={40}
                                     className="rounded-full h-10"

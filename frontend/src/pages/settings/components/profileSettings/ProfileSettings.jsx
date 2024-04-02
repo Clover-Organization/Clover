@@ -162,7 +162,7 @@ export const ProfileSettings = () => {
                     <div className="userImage">
                         <h2>Profile picture</h2>
                         <div className="image" onClick={() => openModalUpdateImage()}>
-                            {userData.profileImage != null || !isEmpty(userData.profileImage) ? (
+                            {userData.profileImage != null && !isEmpty(userData.profileImage) ? (
                                 <img src={userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user} />
                             ) : (
                                 <CircleUserRound width={300} height={300} />
