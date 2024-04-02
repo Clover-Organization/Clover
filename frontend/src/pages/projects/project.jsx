@@ -4,15 +4,14 @@ import "../../App.css";
 import Navbar from "../components/Navbar";
 import { Link, useParams } from "react-router-dom";
 import { fetchRequestById } from "../home/components/utils/fetchRequestById/fetchRequestById";
+import { getCommitsByProject } from "./components/utils/getCommitsByProject/GetCommitsByProject";
+import { closeModal } from "../home/components/utils/ModalFunctions/ModalFunctions";
 import ProjectDescription from "./components/projectTitleDescription/ProjectDescription";
 import TitleProject from "./components/titleProject/TitleProject";
 import FileContent from "./components/file-content/fileContent";
 import Modal from "../components/Modal";
-import { closeModal } from "../home/components/utils/ModalFunctions/ModalFunctions";
 import DropFileZone from "./components/drop-files/DropFilesZone";
-import { getCommitsByProject } from "./components/utils/getCommitsByProject/GetCommitsByProject";
 import FolderContent from "./components/folder-content/FolderContent";
-import GetLanguageInfos from "./components/utils/getLanguageInfo/GetLanguageInfos";
 import ShareProjectComp from "../settings/components/requestSettings/components/shareProject/ShareProjectComp";
 
 const Project = () => {
@@ -93,7 +92,7 @@ const Project = () => {
                               to={`/project/file/${idProject}/${file.idFile}`}
                             >
                               <div className="file-content">
-                                <FileContent item={file} imgIcon={GetLanguageInfos(file.fileName).imgUrl} token={token} />
+                                <FileContent item={file} token={token} />
                               </div>
                             </Link>
                             <hr className="hr-project-title" />
