@@ -82,7 +82,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 			<SplashScreen />
 			<RouterProvider router={router} />
-			<Toaster position="top-right" richColors visibleToasts="1" />
+			<Toaster closeButton={true} richColors visibleToasts="1" />
 		</ThemeProvider>
 	</React.StrictMode>
 );
