@@ -1,5 +1,4 @@
 import React from "react";
-import lupa from '../../../home/assets/lupa.png';
 import { openModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
 import { Button } from "@/components/ui/button";
 import { Search, Share2 } from "lucide-react";

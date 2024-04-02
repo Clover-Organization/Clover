@@ -1,6 +1,5 @@
 // FilterBar.js
 import React from 'react';
-import lupa from '../../assets/lupa.png';
 import { Search } from 'lucide-react';
 
 const FilterBar = ({ handleSearch, searchTerm }) => {
