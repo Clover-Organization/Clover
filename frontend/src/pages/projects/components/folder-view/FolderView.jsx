@@ -58,7 +58,12 @@ const FolderView = () => {
                 <section className="section-project-description-folder-view">
                     <div className="projectFiles-sc-max-folder">
                         <>
-                            <TitleProject singleRequest={singleRequest} filterText={searchTerm} setFilterText={setSearchTerm} setModalIsOpen={setModalIsOpen} />
+                            <TitleProject
+                                singleRequest={singleRequest}
+                                filterText={searchTerm}
+                                setFilterText={setSearchTerm}
+                                setModalIsOpen={setModalIsOpen}
+                                idProject={idProject} />
                             {loading ? (
                                 <div className="align-loading">
                                     <div className="spinner"></div>
