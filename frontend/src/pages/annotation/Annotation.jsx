@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import './css/style.css';
 
 import AsideAnnotation from "./components/asideAnnotation/AsideAnnotation";
 import { useParams } from "react-router-dom";

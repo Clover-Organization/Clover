@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "Clover", version = "1.0", description = "API for the Clover - Undergraduate Thesis Project"))
+@OpenAPIDefinition(info = @Info(title = "Clover", version = "2.0", description = "API for the Clover - Undergraduate Thesis Project"))
 public class ApiApplication {
 
 	public static void main(String[] args) {
