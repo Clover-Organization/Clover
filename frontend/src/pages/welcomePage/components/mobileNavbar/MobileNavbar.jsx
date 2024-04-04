@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import Icon from "@/pages/components/Icon";
 import logo from '../../../components/assets/PTCC.png'
 
 export function MobileNav({ role, idProject, singleRequest }) {

@@ -194,6 +194,7 @@ export default function RegisterScreen() {
 				toast.success("Sucess!", {
 					description: "Successfully registered! You can now sign in!",
 				});
+				navigate("/auth/login");
 			} else {
 				console.log("Error: " + response.status);
 				toast.error("Error!", {

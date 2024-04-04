@@ -8,12 +8,25 @@ import {
 } from "@/components/ui/menubar"
 import { isEmpty } from "lodash";
 import { User } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 
-const ProfileMenu = ({ userData, idProject }) => {
+const ProfileMenu = ({ userData, idProject, shareUsers }) => {
     const navigate = useNavigate('/')
+    const [isShareUser, setIsShareUser] = useState(false);
+
+    useEffect(() => {
+        if (shareUsers !== undefined && Array.isArray(shareUsers) && shareUsers.length > 0) {
+            // Verifica se o usuário compartilhou
+            const hasShared = shareUsers.some(element => element.idUsers === userData.idUsers);
+            setIsShareUser(hasShared);
+        }
+    }, [shareUsers, userData.idUsers]);
+
+    localStorage.setItem("shareUser", isShareUser);
+
     const handleLogouUser = () => {
         toast.success("Sucess!", {
             description: "Logout Successfully!",
@@ -29,7 +42,7 @@ const ProfileMenu = ({ userData, idProject }) => {
                 <MenubarContent>
                     <Link to={"/Settings"}>
                         <MenubarItem className="gap-5 cursor-pointer">
-                            {userData.profileImage != null || !isEmpty(userData.profileImage) ? (
+                            {userData.profileImage != null && !isEmpty(userData.profileImage) ? (
                                 <img
                                     width={40}
                                     className="rounded-full h-10"
@@ -47,10 +60,10 @@ const ProfileMenu = ({ userData, idProject }) => {
                         </MenubarItem>
                     </Link>
                     <MenubarSeparator />
-                    {idProject && (
+                    {idProject != null && (
                         <>
-                            <Link to={`/settings/${idProject}/1`}>
-                                <MenubarItem inset className="cursor-pointer text-secondary-foreground">
+                            <Link to={isShareUser ? `` : `/settings/${idProject}/1`}>
+                                <MenubarItem inset className={isShareUser ? "cursor-no-drop " : "cursor-pointer " + "text-secondary-foreground"}>
                                     Project...
                                 </MenubarItem>
                             </Link>

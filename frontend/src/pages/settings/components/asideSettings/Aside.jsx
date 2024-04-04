@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const Aside = ({ select, setSelect, idProject }) => {
+export const Aside = ({ select, setSelect, idProject, isShare }) => {
     const changeSelectNumber = (value) => {
         setSelect(value);
     };
@@ -13,7 +13,7 @@ export const Aside = ({ select, setSelect, idProject }) => {
                         Profile
                     </Link>
                 </li>
-                {idProject !== undefined && (
+                {idProject !== undefined && isShare == "false" && (
                     <li>
                         <Link onClick={() => changeSelectNumber(1)} className={select === 1 ? "active text-secondary-foreground" : "noActive text-secondary-foreground"}>
                             Project Configurations

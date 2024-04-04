@@ -8,14 +8,14 @@ import seta from './assets/seta.png'
 import { RequestSettings } from './components/requestSettings/RequestSettings';
 import { useParams } from 'react-router-dom';
 import EditorSettings from './components/editorSettings/EditorSettings';
+import AlertPage from './components/alertPage/AlertPage';
 
 const Settings = () => {
   const [asideOpen, setAsideOpen] = useState(true);
   const { idProject } = useParams();
   const { selected } = useParams();
   const [select, setSelect] = useState(selected ? parseInt(selected) : 0);
-
-  console.log(select);
+  const isShare = localStorage.getItem("shareUser");
 
   const toggleAside = () => {
     setAsideOpen((prevAsideOpen) => !prevAsideOpen);
@@ -59,16 +59,25 @@ const Settings = () => {
       <Navbar idProject={idProject} />
       <section className="section-settings-content">
         <div className='menuConfig'>
-          {asideOpen && <Aside select={select} setSelect={setSelect} idProject={idProject} />}
+          {asideOpen && <Aside select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />}
           <img src={seta} alt="menu" onClick={toggleAside} />
         </div>
         {select === 0 && (
           <ProfileSettings />
-        )}{select === 1 && (
-          <RequestSettings idProject={idProject} />
-        )}{select === 2 && (
+        )}
+
+        {select === 1 && isShare === "false" && (
+          <RequestSettings idProject={idProject} isShare={isShare} />
+        )}
+
+        {select === 1 && isShare !== "false" && (
+          <AlertPage />
+        )}
+
+        {select === 2 && (
           <EditorSettings idProject={idProject} />
         )}
+
       </section>
     </main>
   );

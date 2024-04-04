@@ -24,7 +24,7 @@ export const ToolBox = ({ box, loading, showId, role }) => {
                       alt="userImage"
                     />
                   ) : (
-                    <User />
+                    <User width={40} height={40} />
                   )}
                 </div>
                 <hr className="hrToolBox" />

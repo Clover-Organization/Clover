@@ -20,8 +20,6 @@ export default function WelcomeHeader({ idProject }) {
 			FetchUser(token, setUserData);
 			fetchRequestById(token, idProject, setSingleRequest);
 		}, [token]);
-
-		useEffect(() => { }, [userData.profileImage]);
 	}
 
 	return (
@@ -45,7 +43,7 @@ export default function WelcomeHeader({ idProject }) {
 									</>
 								) : (
 									<>
-										<ProfileMenu userData={userData} idProject={idProject}/>
+										<ProfileMenu userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers}/>
 									</>
 								)
 								}
