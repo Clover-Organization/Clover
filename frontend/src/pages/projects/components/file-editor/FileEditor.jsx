@@ -75,10 +75,10 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     }
     return (
         <div>
-            <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#1e1e1e', padding: '30px', borderRadius: '20px', margin: '50px auto', width: '90%' }}>
+            <div className="file-content-editor">
                 <Editor
                     className="editor-container"
-                    height="50vh"
+                    height="70vh"
                     width="100%"
                     language={GetLanguageInfos(singleRequest.fileName).name}
                     defaultValue={fileContent.data}
