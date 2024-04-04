@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+
 
 @layer base {
   :root {
@@ -26,7 +27,7 @@
     --ring: 142.1 76.2% 36.3%;
     --radius: 0.5rem;
   }
-
+  
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -50,11 +51,15 @@
   }
 }
 
- 
+* {
+  scrollbar-color: hsl(var(--muted-foreground)) hsl(var(--secondary));
+}
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
