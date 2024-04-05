@@ -10,11 +10,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { checkerTheme } from "../file-view/components/checkerTheme/checkerTheme";
 
 const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const editorRef = useRef(null);
     const token = localStorage.getItem('token')
-    const theme = localStorage.getItem('theme');
+    const theme = checkerTheme(localStorage.getItem('theme'));
     const fontSize = localStorage.getItem('fontSize');
     const fontFamily = localStorage.getItem('fontFamily')
 
@@ -64,9 +65,9 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
 
     const sendCommit = async () => {
         // Chamar a função convertContentByFile() para obter o objeto File
-        const teste = convertContentByFile(editorRef.current.getValue());
+        const convertContent = convertContentByFile(editorRef.current.getValue());
 
-        newCommitAndFile.newFile = teste;
+        newCommitAndFile.newFile = convertContent;
 
         // Enviar a commit e atualizar o arquivo
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
@@ -82,7 +83,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                     width="100%"
                     language={GetLanguageInfos(singleRequest.fileName).name}
                     defaultValue={fileContent.data}
-                    theme={theme}
+                    theme={checkerTheme(theme)}
                     onMount={handleEditorDidMount}
                     options={{
                         selectOnLineNumbers: true,

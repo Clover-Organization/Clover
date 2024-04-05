@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { WelcomeNavbar } from "../welcomeNavbar/WelcomeNavbar";
 import { MobileNav } from "../mobileNavbar/MobileNavbar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import HomeNavbar from "@/pages/components/homeNavbar/HomeNavbar";
 import { fetchRequestById } from "@/pages/home/components/utils/fetchRequestById/fetchRequestById";
