@@ -77,7 +77,7 @@ const FileView = () => {
 
     const handleGetAllCommitsAction = async () => {
         await getCommitsByFiles(token, idFile, setCommitsRequest);
-        setShowCommits(true);
+        setShowCommits(!showCommits)
     }
 
     const handleShowCommitsAction = (commit) => {
