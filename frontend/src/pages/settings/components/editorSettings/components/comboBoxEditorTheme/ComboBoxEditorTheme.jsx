@@ -25,6 +25,7 @@ export function ComboBoxEditorTheme({ theme, setTheme }) {
                 <SelectContent>
                     <SelectGroup>
                         <SelectLabel>Themes</SelectLabel>
+                        <SelectItem value="system">System</SelectItem>
                         <SelectItem value="vs">Vs</SelectItem>
                         <SelectItem value="vs-dark">Vs-dark</SelectItem>
                         <SelectItem value="hc-black">Hc-black</SelectItem>

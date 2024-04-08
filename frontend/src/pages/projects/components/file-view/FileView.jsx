@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { checkerTheme } from "./components/checkerTheme/checkerTheme";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
@@ -137,7 +138,7 @@ const FileView = () => {
                                     {Array.isArray(commitsRequest) && commitsRequest.length > 0 && (
                                         commitsRequest.map((commit) => (
                                             <React.Fragment key={commit.idCommit}>
-                                                <div className="commits-content" onClick={() => handleShowCommitsAction(commit)}>
+                                                <div className="commits-content text-secondary-foreground" onClick={() => handleShowCommitsAction(commit)}>
                                                     {commit.commitMessage}
                                                 </div>
                                                 <hr className="hr-project-title" />
@@ -165,7 +166,7 @@ const FileView = () => {
                                                     width="100%"
                                                     language={GetLanguageInfos(singleRequest.fileName).name}
                                                     defaultValue={showCommitsSelected.changes}
-                                                    theme={theme}
+                                                    theme={checkerTheme(theme)}
                                                     onMount={handleEditorDidMount}
                                                     options={{
                                                         selectOnLineNumbers: true,
@@ -206,7 +207,7 @@ const FileView = () => {
                                                             width="100%"
                                                             language={GetLanguageInfos(singleRequest.fileName).name}
                                                             defaultValue={fileContent.data}
-                                                            theme={theme}
+                                                            theme={checkerTheme(theme)}
                                                             onMount={handleEditorDidMount}
                                                             options={{
                                                                 selectOnLineNumbers: true,

@@ -10,9 +10,9 @@ const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGe
 
     return (
         <>
-            <div className="lupaSearch">
+            <div className="lupaSearch cursor-pointer" onClick={() => { setShowCommits(false), setCommitNull()}}>
                 <img src={singleRequest && singleRequest.fileName && GetLanguageInfos(singleRequest.fileName) ? GetLanguageInfos(singleRequest.fileName).imgUrl : fileIcon} width={"40px"} />
-                <h2 style={{ cursor: "pointer" }} onClick={() => { setShowCommits(false), setCommitNull(); }}>
+                <h2>
                     {singleRequest.fileName}
                 </h2>
             </div>
