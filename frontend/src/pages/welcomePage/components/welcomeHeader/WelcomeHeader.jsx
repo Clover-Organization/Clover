@@ -4,9 +4,9 @@ import { WelcomeNavbar } from "../welcomeNavbar/WelcomeNavbar";
 import { MobileNav } from "../mobileNavbar/MobileNavbar";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import HomeNavbar from "@/pages/components/homeNavbar/HomeNavbar";
 import { fetchRequestById } from "@/pages/home/components/utils/fetchRequestById/fetchRequestById";
 import { FetchUser } from "@/pages/home/components/utils/getInfoUser/FetchUser";
+import HomeNavbar from "@/pages/components/homeNavbar/HomeNavbar";
 import ProfileMenu from "@/pages/components/homeNavbar/components/ProfileMenu";
 
 export default function WelcomeHeader({ idProject }) {

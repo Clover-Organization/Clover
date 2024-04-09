@@ -20,10 +20,10 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { checkerTheme } from "./components/checkerTheme/checkerTheme";
+import { useTheme } from "@/components/theme-provider";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
-    const theme = localStorage.getItem('theme');
     const fontSize = localStorage.getItem('fontSize');
     const fontFamily = localStorage.getItem('fontFamily');
     const { idProject, idFile, idFolder } = useParams();
@@ -110,6 +110,12 @@ const FileView = () => {
 
     }
 
+    const { theme } = useTheme();
+    const [editorTheme, setEditorTheme] = useState(checkerTheme(theme));
+    useEffect(() => {
+        setEditorTheme(checkerTheme(theme));
+    }, [theme]);
+
     return (
         <main className="main-file-view">
             <Navbar idProject={idProject} />
@@ -166,7 +172,7 @@ const FileView = () => {
                                                     width="100%"
                                                     language={GetLanguageInfos(singleRequest.fileName).name}
                                                     defaultValue={showCommitsSelected.changes}
-                                                    theme={checkerTheme(theme)}
+                                                    theme={editorTheme}
                                                     onMount={handleEditorDidMount}
                                                     options={{
                                                         selectOnLineNumbers: true,
@@ -207,7 +213,7 @@ const FileView = () => {
                                                             width="100%"
                                                             language={GetLanguageInfos(singleRequest.fileName).name}
                                                             defaultValue={fileContent.data}
-                                                            theme={checkerTheme(theme)}
+                                                            theme={editorTheme}
                                                             onMount={handleEditorDidMount}
                                                             options={{
                                                                 selectOnLineNumbers: true,
