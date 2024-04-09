@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Editor from "@monaco-editor/react";
 import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
-import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
 import Modal from "../../../components/Modal";
+import { useNavigate } from "react-router-dom";
+import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
 import { closeModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -11,11 +11,20 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { checkerTheme } from "../file-view/components/checkerTheme/checkerTheme";
+import { useTheme } from "@/components/theme-provider";
+import { useEffect } from "react";
 
 const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
+
+    const { theme } = useTheme();
+    const [editorTheme, setEditorTheme] = useState(checkerTheme(theme));
+
+    useEffect(() => {
+        setEditorTheme(checkerTheme(theme));
+    }, [theme]);
+
     const editorRef = useRef(null);
     const token = localStorage.getItem('token')
-    const theme = localStorage.getItem('theme');
     const fontSize = localStorage.getItem('fontSize');
     const fontFamily = localStorage.getItem('fontFamily')
 
@@ -83,7 +92,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                     width="100%"
                     language={GetLanguageInfos(singleRequest.fileName).name}
                     defaultValue={fileContent.data}
-                    theme={checkerTheme(theme)}
+                    theme={editorTheme}
                     onMount={handleEditorDidMount}
                     options={{
                         selectOnLineNumbers: true,

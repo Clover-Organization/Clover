@@ -2,14 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import cytoscape from 'cytoscape';
 import { roadData } from "./components/roadData/roadData";
+import { useTheme } from "@/components/theme-provider";
 
 const RoadMap = () => {
+    const { theme } = useTheme();
+
     const fontFamily = localStorage.getItem('fontFamily');
-    const [bgTheme, setBgTheme] = useState(localStorage.getItem("vite-ui-theme"));
+    const [bgTheme, setBgTheme] = useState(theme);
     const graphData = roadData();
     const containerRef = useRef(null);
     const cy = useRef(null);
     const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setBgTheme(theme);
+    }, [theme]);
 
     useEffect(() => {
         setIsMounted(true);
@@ -17,14 +24,7 @@ const RoadMap = () => {
     }, []);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setBgTheme(localStorage.getItem("vite-ui-theme"));
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-    }, [bgTheme]);
-
-    useEffect(() => {
+        console.log(containerRef.current);
         if (isMounted && containerRef.current) {
             cy.current = cytoscape({
                 container: containerRef.current,
