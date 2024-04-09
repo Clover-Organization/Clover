@@ -15,7 +15,7 @@ import { checkerTheme } from "../file-view/components/checkerTheme/checkerTheme"
 const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const editorRef = useRef(null);
     const token = localStorage.getItem('token')
-    const theme = checkerTheme(localStorage.getItem('theme'));
+    const theme = localStorage.getItem('theme');
     const fontSize = localStorage.getItem('fontSize');
     const fontFamily = localStorage.getItem('fontFamily')
 
