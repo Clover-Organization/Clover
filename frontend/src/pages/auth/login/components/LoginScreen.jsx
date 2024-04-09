@@ -157,7 +157,7 @@ export default function LoginScreen() {
 				<form onSubmit={handleSubmit}>
 					<div className="grid w-full items-center gap-4">
 						<div className="flex flex-col space-y-1.5 gap-2">
-							<Label htmlFor="username">Username or email</Label>
+							<Label htmlFor="username" className='text-secondary-foreground'>Username or email</Label>
 							<Input
 								id="name"
 								placeholder="Enter your username or email"
@@ -166,7 +166,7 @@ export default function LoginScreen() {
 							/>
 						</div>
 						<div className="grid w-full items-center gap-4">
-							<Label htmlFor="password">Password</Label>
+							<Label htmlFor="password" className='text-secondary-foreground'>Password</Label>
 							<div className="flex items-center space-y-1.5 gap-x-4">
 								<Input
 									type={showPassword ? "text" : "password"}
