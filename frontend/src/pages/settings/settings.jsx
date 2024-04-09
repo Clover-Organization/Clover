@@ -1,25 +1,19 @@
 import { useState, useEffect } from 'react';
-import ScrollReveal from 'scrollreveal';
-import Navbar from '../components/Navbar';
 import { Aside } from './components/asideSettings/Aside';
 import { ProfileSettings } from './components/profileSettings/ProfileSettings';
-
-import seta from './assets/seta.png'
 import { RequestSettings } from './components/requestSettings/RequestSettings';
 import { useParams } from 'react-router-dom';
+import ScrollReveal from 'scrollreveal';
+import Navbar from '../components/Navbar';
 import EditorSettings from './components/editorSettings/EditorSettings';
 import AlertPage from './components/alertPage/AlertPage';
+import AsideResponsive from './components/asideResponsive/AsideResponsive';
 
 const Settings = () => {
-  const [asideOpen, setAsideOpen] = useState(true);
   const { idProject } = useParams();
   const { selected } = useParams();
   const [select, setSelect] = useState(selected ? parseInt(selected) : 0);
   const isShare = localStorage.getItem("shareUser");
-
-  const toggleAside = () => {
-    setAsideOpen((prevAsideOpen) => !prevAsideOpen);
-  };
 
   useEffect(() => {
     const sr = ScrollReveal();
@@ -57,15 +51,18 @@ const Settings = () => {
   return (
     <main className="main-settings-content">
       <Navbar idProject={idProject} />
-      <section className="section-settings-content">
+      <section className="flex items-baseline">
         <div className='menuConfig'>
-          {asideOpen && <Aside select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />}
-          <img src={seta} alt="menu" onClick={toggleAside} />
+          <div className="lg:hidden p-4">
+            <AsideResponsive select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />
+          </div>
+          <div className='hidden lg:block p-8'>
+            <Aside select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />
+          </div>
         </div>
         {select === 0 && (
           <ProfileSettings />
         )}
-
         {select === 1 && isShare === "false" && (
           <RequestSettings idProject={idProject} isShare={isShare} />
         )}
@@ -77,7 +74,6 @@ const Settings = () => {
         {select === 2 && (
           <EditorSettings idProject={idProject} />
         )}
-
       </section>
     </main>
   );
