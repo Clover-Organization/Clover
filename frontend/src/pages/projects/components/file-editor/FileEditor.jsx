@@ -83,7 +83,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                 id: "myPaste2",
                 label: "Cancel",
                 keybindings: [
-                    monaco.KeyMod.CtrlCmd  | monaco.KeyMod.Alt | monaco.KeyCode.KeyS,
+                    monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyS,
                 ],
                 contextMenuGroupId: "0_cutcopypaste",
                 contextMenuOrder: 0,
@@ -111,7 +111,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
 
     const sendCommit = async () => {
         // Chamar a função convertContentByFile() para obter o objeto File
-        const convertContent = convertContentByFile(editorRef.current.getValue());
+        const convertContent = convertContentByFile(saveContent);
 
         newCommitAndFile.newFile = convertContent;
 
@@ -134,8 +134,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                             height="70vh"
                             width="100%"
                             language={GetLanguageInfos(singleRequest.fileName).name}
-                            original={saveContent} // Conteúdo original
-                            modified={initialContent} // Conteúdo modificado (mudança)
+                            original={initialContent} // Conteúdo original
+                            modified={saveContent} // Conteúdo modificado (mudança)
                             theme={editorTheme}
                             onMount={handleDiffEditorDidMount}
                             options={{
@@ -144,6 +144,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 scrollBeyondLastLine: false,
                                 fontSize: `${fontSize}px`,
                                 fontLigatures: true,
+                                readOnly: true,
                                 fontFamily: fontFamily,
                             }}
                         />
