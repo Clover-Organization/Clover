@@ -37,7 +37,6 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const autoClosingOvertype = localStorage.getItem('autoClosingOvertype');
     const autoClosingQuotes = localStorage.getItem('autoClosingQuotes');
     const autoIndent = localStorage.getItem('autoIndent');
-    const automaticLayout = localStorage.getItem('automaticLayout');
     const codeLens = localStorage.getItem('codeLens');
     const contextmenu = localStorage.getItem('contextmenu');
     const cursorBlinking = localStorage.getItem('cursorBlinking');
@@ -49,6 +48,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const emptySelectionClipboard = localStorage.getItem('emptySelectionClipboard');
     const fixedOverflowWidgets = localStorage.getItem('fixedOverflowWidgets');
     const fontLigatures = localStorage.getItem('fontLigatures');
+    const formatOnPaste = localStorage.getItem('formatOnPaste');
+    const formatOnType = localStorage.getItem('formatOnType');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -189,7 +190,6 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 autoClosingOvertype: autoClosingOvertype,
                                 autoClosingQuotes: autoClosingQuotes,
                                 autoIndent: autoIndent,
-                                // automaticLayout: automaticLayout,
                                 codeLens: codeLens,
                                 contextmenu: contextmenu,
                                 cursorBlinking: cursorBlinking,
@@ -201,6 +201,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 emptySelectionClipboard: emptySelectionClipboard,
                                 fixedOverflowWidgets: fixedOverflowWidgets,
                                 fontLigatures: fontLigatures,
+                                formatOnPaste: formatOnPaste,
+                                formatOnType: formatOnType,
                             }}
                         />
                     </>

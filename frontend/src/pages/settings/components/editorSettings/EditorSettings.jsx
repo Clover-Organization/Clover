@@ -16,7 +16,6 @@ const EditorSettings = () => {
     const [autoClosingOvertype, setAutoClosingOvertype] = useState(localStorage.getItem('autoClosingOvertype') ? localStorage.getItem('autoClosingOvertype') : "auto");
     const [autoClosingQuotes, setAutoClosingQuotes] = useState(localStorage.getItem('autoClosingQuotes') ? localStorage.getItem('autoClosingQuotes') : "languageDefined");
     const [autoIndent, setAutoIndent] = useState(localStorage.getItem('autoIndent') ? localStorage.getItem('autoIndent') : 'advanced');
-    // const [automaticLayout, setAutomaticLayout] = useState(localStorage.getItem('automaticLayout') ? JSON.parse(localStorage.getItem('automaticLayout')) : false);
     const [codeLens, setCodeLens] = useState(localStorage.getItem('codeLens') ? JSON.parse(localStorage.getItem('codeLens')) : true);
     const [contextmenu, setContextmenu] = useState(localStorage.getItem('contextmenu') ? JSON.parse(localStorage.getItem('contextmenu')) : true);
     const [cursorBlinking, setCursorBlinking] = useState(localStorage.getItem('cursorBlinking') ? localStorage.getItem('cursorBlinking') : "blink");
@@ -28,8 +27,8 @@ const EditorSettings = () => {
     const [emptySelectionClipboard, setEmptySelectionClipboard] = useState(localStorage.getItem('emptySelectionClipboard') ? JSON.parse(localStorage.getItem('emptySelectionClipboard')) : true);
     const [fixedOverflowWidgets, setFixedOverflowWidgets] = useState(localStorage.getItem('fixedOverflowWidgets') ? JSON.parse(localStorage.getItem('fixedOverflowWidgets')) : false);
     const [fontLigatures, setFontLigatures] = useState(localStorage.getItem('fontLigatures') ? JSON.parse(localStorage.getItem('fontLigatures')) : true);
-    const [formatOnPaste, setFormatOnPaste] = useState(false);
-    const [formatOnType, setFormatOnType] = useState(false);
+    const [formatOnPaste, setFormatOnPaste] = useState(localStorage.getItem('formatOnPaste') ? JSON.parse(localStorage.getItem('formatOnPaste')) : false);
+    const [formatOnType, setFormatOnType] = useState(localStorage.getItem('formatOnType') ? JSON.parse(localStorage.getItem('formatOnType')) : false);
     const [formatOnSave, setFormatOnSave] = useState(false);
     const [glyphMargin, setGlyphMargin] = useState(true);
     const [gotoLocation, setGotoLocation] = useState({});
@@ -50,7 +49,6 @@ const EditorSettings = () => {
     localStorage.setItem('autoClosingOvertype', autoClosingOvertype);
     localStorage.setItem('autoClosingQuotes', autoClosingQuotes);
     localStorage.setItem('autoIndent', autoIndent);
-    // localStorage.setItem('automaticLayout', automaticLayout);
     localStorage.setItem('codeLens', codeLens);
     localStorage.setItem('contextmenu', contextmenu);
     localStorage.setItem('cursorBlinking', cursorBlinking);
@@ -62,6 +60,8 @@ const EditorSettings = () => {
     localStorage.setItem('emptySelectionClipboard', emptySelectionClipboard);
     localStorage.setItem('fixedOverflowWidgets', fixedOverflowWidgets);
     localStorage.setItem('fontLigatures', fontLigatures);
+    localStorage.setItem('formatOnPaste', formatOnPaste);
+    localStorage.setItem('formatOnType', formatOnType);
 
     return (
         <article className="article-settings-content">
@@ -111,8 +111,6 @@ const EditorSettings = () => {
                                 autoClosingQuotes={autoClosingQuotes}
                                 setAutoIndent={setAutoIndent}
                                 autoIndent={autoIndent}
-                                // setAutomaticLayout={setAutomaticLayout}
-                                // automaticLayout={automaticLayout}
                                 setCodeLens={setCodeLens}
                                 codeLens={codeLens}
                                 setContextmenu={setContextmenu}
@@ -133,6 +131,12 @@ const EditorSettings = () => {
                                 emptySelectionClipboard={emptySelectionClipboard}
                                 setFixedOverflowWidgets={setFixedOverflowWidgets}
                                 fixedOverflowWidgets={fixedOverflowWidgets}
+                                setFontLigatures={setFontLigatures}
+                                fontLigatures={fontLigatures}
+                                setFormatOnPaste={setFormatOnPaste}
+                                formatOnPaste={formatOnPaste}
+                                setFormatOnType={setFormatOnType}
+                                formatOnType={formatOnType}
                             />
                         </CardContent>
                     </div>

@@ -24,8 +24,6 @@ const CheckBoxContent =
         autoClosingQuotes,
         setAutoIndent,
         autoIndent,
-        // setAutomaticLayout,
-        // automaticLayout,
         setCodeLens,
         codeLens,
         setContextmenu,
@@ -127,21 +125,21 @@ const CheckBoxContent =
                         </p>
                     </div>
 
-                    {/* <Checkbox id="terms1"
-                        checked={automaticLayout}
-                        onCheckedChange={setAutomaticLayout}
+                    <Checkbox id="terms1"
+                        checked={fontLigatures}
+                        onCheckedChange={setFontLigatures}
                     />
                     <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                            Automatic layout
+                            Font ligatures
                         </label>
                         <p className="text-sm text-muted-foreground">
-                            Defines whether the editor layout should be updated automatically.
+                            Sets whether font ligatures are enabled.
                         </p>
-                    </div> */}
+                    </div>
 
                     <Checkbox id="terms5"
                         checked={contextmenu}
@@ -239,6 +237,41 @@ const CheckBoxContent =
                         </label>
                         <p className="text-sm text-muted-foreground">
                             Sets whether overflow widgets are sticky.
+                        </p>
+                    </div>
+
+                    <Checkbox id="terms11"
+                        checked={formatOnPaste}
+                        onCheckedChange={setFormatOnPaste}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Format on paste
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Sets whether code should be automatically formatted when pasted.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div className="items-top flex space-x-2 mt-6">
+                    <Checkbox id="terms12"
+                        checked={formatOnType}
+                        onCheckedChange={setFormatOnType}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Format on type
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Sets whether the code should be automatically formatted when you type.
                         </p>
                     </div>
 
