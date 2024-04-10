@@ -31,12 +31,7 @@ const EditorSettings = () => {
     const [formatOnType, setFormatOnType] = useState(localStorage.getItem('formatOnType') ? JSON.parse(localStorage.getItem('formatOnType')) : false);
     const [glyphMargin, setGlyphMargin] = useState(localStorage.getItem('glyphMargin') ? JSON.parse(localStorage.getItem('glyphMargin')) : false);
     const [hideCursorInOverviewRuler, setHideCursorInOverviewRuler] = useState(localStorage.getItem('hideCursorInOverviewRuler') ? JSON.parse(localStorage.getItem('hideCursorInOverviewRuler')) : true);
-    const [highlightActiveIndentGuide, setHighlightActiveIndentGuide] = useState(true);
-    const [hover, setHover] = useState({ enabled: true });
-    const [letterSpacing, setLetterSpacing] = useState(0);
-    const [lightbulb, setLightbulb] = useState(true);
-    const [lineDecorationsWidth, setLineDecorationsWidth] = useState(0);
-    const [lineNumbers, setLineNumbers] = useState("on");
+    const [letterSpacing, setLetterSpacing] = useState(localStorage.getItem('letterSpacing') ? JSON.parse(localStorage.getItem('letterSpacing')) : 0);
 
     localStorage.setItem('theme', theme);
     localStorage.setItem('fontSize', fontSize);
@@ -62,6 +57,7 @@ const EditorSettings = () => {
     localStorage.setItem('formatOnType', formatOnType);
     localStorage.setItem('glyphMargin', glyphMargin);
     localStorage.setItem('hideCursorInOverviewRuler', hideCursorInOverviewRuler);
+    localStorage.setItem('letterSpacing', letterSpacing);
 
     return (
         <article className="article-settings-content">
@@ -141,6 +137,8 @@ const EditorSettings = () => {
                                 glyphMargin={glyphMargin}
                                 setHideCursorInOverviewRuler={setHideCursorInOverviewRuler}
                                 hideCursorInOverviewRuler={hideCursorInOverviewRuler}
+                                setLetterSpacing={setLetterSpacing}
+                                letterSpacing={letterSpacing}
                             />
                         </CardContent>
                     </div>

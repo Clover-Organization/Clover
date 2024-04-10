@@ -27,6 +27,28 @@ const FileView = () => {
     const token = localStorage.getItem('token');
     const fontSize = localStorage.getItem('fontSize');
     const fontFamily = localStorage.getItem('fontFamily');
+    const acceptSuggestionOnEnter = localStorage.getItem('acceptSuggestionOnEnter');
+    const autoClosingBrackets = localStorage.getItem('autoClosingBrackets');
+    const autoClosingDelete = localStorage.getItem('autoClosingDelete');
+    const autoClosingOvertype = localStorage.getItem('autoClosingOvertype');
+    const autoClosingQuotes = localStorage.getItem('autoClosingQuotes');
+    const autoIndent = localStorage.getItem('autoIndent');
+    const codeLens = localStorage.getItem('codeLens');
+    const contextmenu = localStorage.getItem('contextmenu');
+    const cursorBlinking = localStorage.getItem('cursorBlinking');
+    const cursorSmoothCaretAnimation = localStorage.getItem('cursorSmoothCaretAnimation');
+    const cursorStyle = localStorage.getItem('cursorStyle');
+    const disableLayerHinting = localStorage.getItem('disableLayerHinting');
+    const disableMonospaceOptimizations = localStorage.getItem('disableMonospaceOptimizations');
+    const dragAndDrop = localStorage.getItem('dragAndDrop');
+    const emptySelectionClipboard = localStorage.getItem('emptySelectionClipboard');
+    const fixedOverflowWidgets = localStorage.getItem('fixedOverflowWidgets');
+    const fontLigatures = localStorage.getItem('fontLigatures');
+    const formatOnPaste = localStorage.getItem('formatOnPaste');
+    const formatOnType = localStorage.getItem('formatOnType');
+    const glyphMargin = localStorage.getItem('glyphMargin');
+    const hideCursorInOverviewRuler = localStorage.getItem('hideCursorInOverviewRuler');
+    const letterSpacing = localStorage.getItem('letterSpacing');
     const { idProject, idFile, idFolder } = useParams();
 
     const [singleRequest, setSingleRequest] = useState({});
@@ -179,9 +201,30 @@ const FileView = () => {
                                                         selectOnLineNumbers: true,
                                                         scrollBeyondLastLine: false,
                                                         fontSize: `${fontSize}px`,
-                                                        fontLigatures: true,
+                                                        fontLigatures: fontLigatures,
+                                                        readOnly: true,
                                                         fontFamily: fontFamily,
-                                                        readOnly: true
+                                                        acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                                        autoClosingBrackets: autoClosingBrackets,
+                                                        autoClosingDelete: autoClosingDelete,
+                                                        autoClosingOvertype: autoClosingOvertype,
+                                                        autoClosingQuotes: autoClosingQuotes,
+                                                        autoIndent: autoIndent,
+                                                        codeLens: codeLens,
+                                                        contextmenu: contextmenu,
+                                                        cursorBlinking: cursorBlinking,
+                                                        cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                                        cursorStyle: cursorStyle,
+                                                        disableLayerHinting: disableLayerHinting,
+                                                        disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                                        dragAndDrop: dragAndDrop,
+                                                        emptySelectionClipboard: emptySelectionClipboard,
+                                                        fixedOverflowWidgets: fixedOverflowWidgets,
+                                                        formatOnPaste: formatOnPaste,
+                                                        formatOnType: formatOnType,
+                                                        glyphMargin: glyphMargin,
+                                                        hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                                        letterSpacing: letterSpacing,
                                                     }}
                                                 />
                                             </div>
@@ -220,9 +263,30 @@ const FileView = () => {
                                                                 selectOnLineNumbers: true,
                                                                 scrollBeyondLastLine: false,
                                                                 fontSize: `${fontSize}px`,
-                                                                fontLigatures: true,
+                                                                fontLigatures: fontLigatures,
                                                                 fontFamily: fontFamily,
-                                                                readOnly: true
+                                                                readOnly: true,
+                                                                acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                                                autoClosingBrackets: autoClosingBrackets,
+                                                                autoClosingDelete: autoClosingDelete,
+                                                                autoClosingOvertype: autoClosingOvertype,
+                                                                autoClosingQuotes: autoClosingQuotes,
+                                                                autoIndent: autoIndent,
+                                                                codeLens: codeLens,
+                                                                contextmenu: contextmenu,
+                                                                cursorBlinking: cursorBlinking,
+                                                                cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                                                cursorStyle: cursorStyle,
+                                                                disableLayerHinting: disableLayerHinting,
+                                                                disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                                                dragAndDrop: dragAndDrop,
+                                                                emptySelectionClipboard: emptySelectionClipboard,
+                                                                fixedOverflowWidgets: fixedOverflowWidgets,
+                                                                formatOnPaste: formatOnPaste,
+                                                                formatOnType: formatOnType,
+                                                                glyphMargin: glyphMargin,
+                                                                hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                                                letterSpacing: letterSpacing
                                                             }}
                                                         />
                                                     </div>

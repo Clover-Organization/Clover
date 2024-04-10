@@ -52,6 +52,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const formatOnType = localStorage.getItem('formatOnType');
     const glyphMargin = localStorage.getItem('glyphMargin');
     const hideCursorInOverviewRuler = localStorage.getItem('hideCursorInOverviewRuler');
+    const letterSpacing = localStorage.getItem('letterSpacing');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -164,9 +165,30 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 selectOnLineNumbers: true,
                                 scrollBeyondLastLine: false,
                                 fontSize: `${fontSize}px`,
-                                fontLigatures: true,
+                                fontLigatures: fontLigatures,
                                 readOnly: true,
                                 fontFamily: fontFamily,
+                                acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                autoClosingBrackets: autoClosingBrackets,
+                                autoClosingDelete: autoClosingDelete,
+                                autoClosingOvertype: autoClosingOvertype,
+                                autoClosingQuotes: autoClosingQuotes,
+                                autoIndent: autoIndent,
+                                codeLens: codeLens,
+                                contextmenu: contextmenu,
+                                cursorBlinking: cursorBlinking,
+                                cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                cursorStyle: cursorStyle,
+                                disableLayerHinting: disableLayerHinting,
+                                disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                dragAndDrop: dragAndDrop,
+                                emptySelectionClipboard: emptySelectionClipboard,
+                                fixedOverflowWidgets: fixedOverflowWidgets,
+                                formatOnPaste: formatOnPaste,
+                                formatOnType: formatOnType,
+                                glyphMargin: glyphMargin,
+                                hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                letterSpacing: letterSpacing,
                             }}
                         />
                     </>
@@ -206,7 +228,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 formatOnPaste: formatOnPaste,
                                 formatOnType: formatOnType,
                                 glyphMargin: glyphMargin,
-                                hideCursorInOverviewRuler: hideCursorInOverviewRuler
+                                hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                letterSpacing: letterSpacing
                             }}
                         />
                     </>

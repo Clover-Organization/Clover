@@ -54,18 +54,8 @@ const CheckBoxContent =
         glyphMargin,
         setHideCursorInOverviewRuler,
         hideCursorInOverviewRuler,
-        setHighlightActiveIndentGuide,
-        highlightActiveIndentGuide,
-        setHover,
-        hover,
         setLetterSpacing,
         letterSpacing,
-        setLightbulb,
-        lightbulb,
-        setLineDecorationsWidth,
-        lineDecorationsWidth,
-        setLineNumbers,
-        lineNumbers,
     }) => {
 
         return (
@@ -541,6 +531,35 @@ const CheckBoxContent =
                         </Select>
                         <p className="text-sm text-muted-foreground">
                             Sets the cursor style.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="items-top flex space-x-2 mt-6">
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Font-Size
+                        </label>
+                        <Select onValueChange={setLetterSpacing}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue
+                                    placeholder={letterSpacing}
+                                />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    {[...Array(11)].map((_, index) => (
+                                        <SelectItem key={index} value={index * 2}>{index * 2}px</SelectItem>
+                                    ))}
+                                </SelectGroup>
+
+                            </SelectContent>
+                        </Select>
+                        <p className="text-sm text-muted-foreground">
+                            Sets the spacing between letters.
                         </p>
                     </div>
                 </div>
