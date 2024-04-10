@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { checkerTheme } from "./components/checkerTheme/checkerTheme";
 import { useTheme } from "@/components/theme-provider";
+import { DiffEditor } from "@monaco-editor/react";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
@@ -151,7 +152,6 @@ const FileView = () => {
                                             </React.Fragment>
                                         ))
                                     )}
-
                                 </pre>
                             </div>
                         </>
@@ -165,16 +165,17 @@ const FileView = () => {
                                                 <img src={showCommits.changes} alt="image" />
                                             </div>
                                         ) : (
-                                            <div className="file-content-editor">
-                                                <Editor
+                                            <div className="file-content-editor flex">
+                                                <DiffEditor
                                                     className="editor-container"
                                                     height="70vh"
                                                     width="100%"
                                                     language={GetLanguageInfos(singleRequest.fileName).name}
-                                                    defaultValue={showCommitsSelected.changes}
+                                                    original={fileContent.data} // Conteúdo original
+                                                    modified={showCommitsSelected.changes} // Conteúdo modificado (mudança)
                                                     theme={editorTheme}
-                                                    onMount={handleEditorDidMount}
                                                     options={{
+                                                        renderSideBySide: true, // Renderização lado a lado
                                                         selectOnLineNumbers: true,
                                                         scrollBeyondLastLine: false,
                                                         fontSize: `${fontSize}px`,
