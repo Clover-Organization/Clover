@@ -24,8 +24,8 @@ const CheckBoxContent =
         autoClosingQuotes,
         setAutoIndent,
         autoIndent,
-        setAutomaticLayout,
-        automaticLayout,
+        // setAutomaticLayout,
+        // automaticLayout,
         setCodeLens,
         codeLens,
         setContextmenu,
@@ -127,7 +127,7 @@ const CheckBoxContent =
                         </p>
                     </div>
 
-                    <Checkbox id="terms1"
+                    {/* <Checkbox id="terms1"
                         checked={automaticLayout}
                         onCheckedChange={setAutomaticLayout}
                     />
@@ -141,7 +141,7 @@ const CheckBoxContent =
                         <p className="text-sm text-muted-foreground">
                             Defines whether the editor layout should be updated automatically.
                         </p>
-                    </div>
+                    </div> */}
 
                     <Checkbox id="terms5"
                         checked={contextmenu}
@@ -190,6 +190,55 @@ const CheckBoxContent =
                         </label>
                         <p className="text-sm text-muted-foreground">
                             Defines whether monospaced optimizations should be disabled.
+                        </p>
+
+                    </div>
+                    <Checkbox id="terms8"
+                        checked={dragAndDrop}
+                        onCheckedChange={setDragAndDrop}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Drag and drop
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Sets whether drag and drop functionality is enabled.
+                        </p>
+                    </div>
+                </div>
+                <div className="items-top flex space-x-2 mt-6">
+                    <Checkbox id="terms9"
+                        checked={emptySelectionClipboard}
+                        onCheckedChange={setEmptySelectionClipboard}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Empty selection clipboard
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Sets whether the clipboard should contain the current line when empty.
+                        </p>
+                    </div>
+
+                    <Checkbox id="terms10"
+                        checked={fixedOverflowWidgets}
+                        onCheckedChange={setFixedOverflowWidgets}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Fixed overflow widgets
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Sets whether overflow widgets are sticky.
                         </p>
                     </div>
 

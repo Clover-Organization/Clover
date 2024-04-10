@@ -45,6 +45,10 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const cursorStyle = localStorage.getItem('cursorStyle');
     const disableLayerHinting = localStorage.getItem('disableLayerHinting');
     const disableMonospaceOptimizations = localStorage.getItem('disableMonospaceOptimizations');
+    const dragAndDrop = localStorage.getItem('dragAndDrop');
+    const emptySelectionClipboard = localStorage.getItem('emptySelectionClipboard');
+    const fixedOverflowWidgets = localStorage.getItem('fixedOverflowWidgets');
+    const fontLigatures = localStorage.getItem('fontLigatures');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -178,7 +182,6 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 selectOnLineNumbers: true,
                                 scrollBeyondLastLine: false,
                                 fontSize: `${fontSize}px`,
-                                fontLigatures: true,
                                 fontFamily: fontFamily,
                                 acceptSuggestionOnEnter: acceptSuggestionOnEnter,
                                 autoClosingBrackets: autoClosingBrackets,
@@ -186,14 +189,18 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 autoClosingOvertype: autoClosingOvertype,
                                 autoClosingQuotes: autoClosingQuotes,
                                 autoIndent: autoIndent,
-                                automaticLayout: automaticLayout,
+                                // automaticLayout: automaticLayout,
                                 codeLens: codeLens,
                                 contextmenu: contextmenu,
                                 cursorBlinking: cursorBlinking,
                                 cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
                                 cursorStyle: cursorStyle,
                                 disableLayerHinting: disableLayerHinting,
-                                disableMonospaceOptimizations: disableMonospaceOptimizations
+                                disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                dragAndDrop: dragAndDrop,
+                                emptySelectionClipboard: emptySelectionClipboard,
+                                fixedOverflowWidgets: fixedOverflowWidgets,
+                                fontLigatures: fontLigatures,
                             }}
                         />
                     </>

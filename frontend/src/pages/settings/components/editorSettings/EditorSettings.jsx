@@ -16,7 +16,7 @@ const EditorSettings = () => {
     const [autoClosingOvertype, setAutoClosingOvertype] = useState(localStorage.getItem('autoClosingOvertype') ? localStorage.getItem('autoClosingOvertype') : "auto");
     const [autoClosingQuotes, setAutoClosingQuotes] = useState(localStorage.getItem('autoClosingQuotes') ? localStorage.getItem('autoClosingQuotes') : "languageDefined");
     const [autoIndent, setAutoIndent] = useState(localStorage.getItem('autoIndent') ? localStorage.getItem('autoIndent') : 'advanced');
-    const [automaticLayout, setAutomaticLayout] = useState(localStorage.getItem('automaticLayout') ? JSON.parse(localStorage.getItem('automaticLayout')) : false);
+    // const [automaticLayout, setAutomaticLayout] = useState(localStorage.getItem('automaticLayout') ? JSON.parse(localStorage.getItem('automaticLayout')) : false);
     const [codeLens, setCodeLens] = useState(localStorage.getItem('codeLens') ? JSON.parse(localStorage.getItem('codeLens')) : true);
     const [contextmenu, setContextmenu] = useState(localStorage.getItem('contextmenu') ? JSON.parse(localStorage.getItem('contextmenu')) : true);
     const [cursorBlinking, setCursorBlinking] = useState(localStorage.getItem('cursorBlinking') ? localStorage.getItem('cursorBlinking') : "blink");
@@ -24,10 +24,10 @@ const EditorSettings = () => {
     const [cursorStyle, setCursorStyle] = useState(localStorage.getItem('cursorStyle') ? localStorage.getItem('cursorStyle') : "line");
     const [disableLayerHinting, setDisableLayerHinting] = useState(localStorage.getItem('disableLayerHinting') ? JSON.parse(localStorage.getItem('disableLayerHinting')) : false);
     const [disableMonospaceOptimizations, setDisableMonospaceOptimizations] = useState(localStorage.getItem('disableMonospaceOptimizations') ? JSON.parse(localStorage.getItem('disableMonospaceOptimizations')) : false);
-    const [dragAndDrop, setDragAndDrop] = useState(true);
-    const [emptySelectionClipboard, setEmptySelectionClipboard] = useState(true);
-    const [fixedOverflowWidgets, setFixedOverflowWidgets] = useState(false);
-    const [fontLigatures, setFontLigatures] = useState(false);
+    const [dragAndDrop, setDragAndDrop] = useState(localStorage.getItem('dragAndDrop') ? JSON.parse(localStorage.getItem('dragAndDrop')) : false);
+    const [emptySelectionClipboard, setEmptySelectionClipboard] = useState(localStorage.getItem('emptySelectionClipboard') ? JSON.parse(localStorage.getItem('emptySelectionClipboard')) : true);
+    const [fixedOverflowWidgets, setFixedOverflowWidgets] = useState(localStorage.getItem('fixedOverflowWidgets') ? JSON.parse(localStorage.getItem('fixedOverflowWidgets')) : false);
+    const [fontLigatures, setFontLigatures] = useState(localStorage.getItem('fontLigatures') ? JSON.parse(localStorage.getItem('fontLigatures')) : true);
     const [formatOnPaste, setFormatOnPaste] = useState(false);
     const [formatOnType, setFormatOnType] = useState(false);
     const [formatOnSave, setFormatOnSave] = useState(false);
@@ -50,7 +50,7 @@ const EditorSettings = () => {
     localStorage.setItem('autoClosingOvertype', autoClosingOvertype);
     localStorage.setItem('autoClosingQuotes', autoClosingQuotes);
     localStorage.setItem('autoIndent', autoIndent);
-    localStorage.setItem('automaticLayout', automaticLayout);
+    // localStorage.setItem('automaticLayout', automaticLayout);
     localStorage.setItem('codeLens', codeLens);
     localStorage.setItem('contextmenu', contextmenu);
     localStorage.setItem('cursorBlinking', cursorBlinking);
@@ -58,6 +58,10 @@ const EditorSettings = () => {
     localStorage.setItem('cursorStyle', cursorStyle);
     localStorage.setItem('disableLayerHinting', disableLayerHinting);
     localStorage.setItem('disableMonospaceOptimizations', disableMonospaceOptimizations);
+    localStorage.setItem('dragAndDrop', dragAndDrop);
+    localStorage.setItem('emptySelectionClipboard', emptySelectionClipboard);
+    localStorage.setItem('fixedOverflowWidgets', fixedOverflowWidgets);
+    localStorage.setItem('fontLigatures', fontLigatures);
 
     return (
         <article className="article-settings-content">
@@ -107,8 +111,8 @@ const EditorSettings = () => {
                                 autoClosingQuotes={autoClosingQuotes}
                                 setAutoIndent={setAutoIndent}
                                 autoIndent={autoIndent}
-                                setAutomaticLayout={setAutomaticLayout}
-                                automaticLayout={automaticLayout}
+                                // setAutomaticLayout={setAutomaticLayout}
+                                // automaticLayout={automaticLayout}
                                 setCodeLens={setCodeLens}
                                 codeLens={codeLens}
                                 setContextmenu={setContextmenu}
@@ -121,8 +125,14 @@ const EditorSettings = () => {
                                 cursorStyle={cursorStyle}
                                 setDisableLayerHinting={setDisableLayerHinting}
                                 disableLayerHinting={disableLayerHinting}
-                                setDisableMonospaceOptimizations={disableMonospaceOptimizations}
+                                setDisableMonospaceOptimizations={setDisableMonospaceOptimizations}
                                 disableMonospaceOptimizations={disableMonospaceOptimizations}
+                                setDragAndDrop={setDragAndDrop}
+                                dragAndDrop={dragAndDrop}
+                                setEmptySelectionClipboard={setEmptySelectionClipboard}
+                                emptySelectionClipboard={emptySelectionClipboard}
+                                setFixedOverflowWidgets={setFixedOverflowWidgets}
+                                fixedOverflowWidgets={fixedOverflowWidgets}
                             />
                         </CardContent>
                     </div>
