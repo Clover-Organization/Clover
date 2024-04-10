@@ -43,6 +43,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const cursorBlinking = localStorage.getItem('cursorBlinking');
     const cursorSmoothCaretAnimation = localStorage.getItem('cursorSmoothCaretAnimation');
     const cursorStyle = localStorage.getItem('cursorStyle');
+    const disableLayerHinting = localStorage.getItem('disableLayerHinting');
+    const disableMonospaceOptimizations = localStorage.getItem('disableMonospaceOptimizations');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -189,7 +191,9 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 contextmenu: contextmenu,
                                 cursorBlinking: cursorBlinking,
                                 cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
-                                cursorStyle: cursorStyle
+                                cursorStyle: cursorStyle,
+                                disableLayerHinting: disableLayerHinting,
+                                disableMonospaceOptimizations: disableMonospaceOptimizations
                             }}
                         />
                     </>

@@ -22,8 +22,8 @@ const EditorSettings = () => {
     const [cursorBlinking, setCursorBlinking] = useState(localStorage.getItem('cursorBlinking') ? localStorage.getItem('cursorBlinking') : "blink");
     const [cursorSmoothCaretAnimation, setCursorSmoothCaretAnimation] = useState(localStorage.getItem('cursorSmoothCaretAnimation') ? localStorage.getItem('cursorSmoothCaretAnimation') : "off");
     const [cursorStyle, setCursorStyle] = useState(localStorage.getItem('cursorStyle') ? localStorage.getItem('cursorStyle') : "line");
-    const [disableLayerHinting, setDisableLayerHinting] = useState(false);
-    const [disableMonospaceOptimizations, setDisableMonospaceOptimizations] = useState(false);
+    const [disableLayerHinting, setDisableLayerHinting] = useState(localStorage.getItem('disableLayerHinting') ? JSON.parse(localStorage.getItem('disableLayerHinting')) : false);
+    const [disableMonospaceOptimizations, setDisableMonospaceOptimizations] = useState(localStorage.getItem('disableMonospaceOptimizations') ? JSON.parse(localStorage.getItem('disableMonospaceOptimizations')) : false);
     const [dragAndDrop, setDragAndDrop] = useState(true);
     const [emptySelectionClipboard, setEmptySelectionClipboard] = useState(true);
     const [fixedOverflowWidgets, setFixedOverflowWidgets] = useState(false);
@@ -56,6 +56,8 @@ const EditorSettings = () => {
     localStorage.setItem('cursorBlinking', cursorBlinking);
     localStorage.setItem('cursorSmoothCaretAnimation', cursorSmoothCaretAnimation);
     localStorage.setItem('cursorStyle', cursorStyle);
+    localStorage.setItem('disableLayerHinting', disableLayerHinting);
+    localStorage.setItem('disableMonospaceOptimizations', disableMonospaceOptimizations);
 
     return (
         <article className="article-settings-content">
@@ -117,6 +119,10 @@ const EditorSettings = () => {
                                 cursorSmoothCaretAnimation={cursorSmoothCaretAnimation}
                                 setCursorStyle={setCursorStyle}
                                 cursorStyle={cursorStyle}
+                                setDisableLayerHinting={setDisableLayerHinting}
+                                disableLayerHinting={disableLayerHinting}
+                                setDisableMonospaceOptimizations={disableMonospaceOptimizations}
+                                disableMonospaceOptimizations={disableMonospaceOptimizations}
                             />
                         </CardContent>
                     </div>

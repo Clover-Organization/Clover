@@ -161,6 +161,41 @@ const CheckBoxContent =
                 </div>
 
                 <div className="items-top flex space-x-2 mt-6">
+                    <Checkbox id="terms6"
+                        checked={disableLayerHinting}
+                        onCheckedChange={setDisableLayerHinting}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Disable layer hinting
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Defines whether layer hinting should be disabled.
+                        </p>
+                    </div>
+
+                    <Checkbox id="terms7"
+                        checked={disableMonospaceOptimizations}
+                        onCheckedChange={setDisableMonospaceOptimizations}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Disable monospace optimizations
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Defines whether monospaced optimizations should be disabled.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div className="items-top flex space-x-2 mt-6">
                     <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
