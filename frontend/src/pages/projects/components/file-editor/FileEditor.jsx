@@ -13,11 +13,15 @@ import { X } from "lucide-react";
 import { checkerTheme } from "../file-view/components/checkerTheme/checkerTheme";
 import { useTheme } from "@/components/theme-provider";
 import { useEffect } from "react";
+import { DiffEditor } from "@monaco-editor/react";
 
 const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
 
     const { theme } = useTheme();
     const [editorTheme, setEditorTheme] = useState(checkerTheme(theme));
+    const [contentBefore, setContentBefore] = useState(false);
+    const [saveContent, setSaveContent] = useState(fileContent.data);
+    const [initialContent, setInitialContent] = useState(fileContent.data);
 
     useEffect(() => {
         setEditorTheme(checkerTheme(theme));
@@ -52,7 +56,40 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                 contextMenuOrder: 0,
 
                 run: editor => {
+                    setContentBefore(true);
+                }
+            });
+        }
+    }
+    const handleDiffEditorDidMount = (editor, monaco) => {
+        editorRef.current = editor;
+
+        if (monaco) {
+            editor.addAction({
+                id: "myPaste",
+                label: "Save",
+                keybindings: [
+                    monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,
+                ],
+                contextMenuGroupId: "0_cutcopypaste",
+                contextMenuOrder: 0,
+
+                run: editor => {
                     setModalIsOpen(true);
+                }
+            });
+
+            editor.addAction({
+                id: "myPaste2",
+                label: "Cancel",
+                keybindings: [
+                    monaco.KeyMod.CtrlCmd  | monaco.KeyMod.Alt | monaco.KeyCode.KeyS,
+                ],
+                contextMenuGroupId: "0_cutcopypaste",
+                contextMenuOrder: 0,
+
+                run: editor => {
+                    setContentBefore(false);
                 }
             });
         }
@@ -83,25 +120,55 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
         setModalIsOpen(false);
         navigate(`/project/${idProject}`)
     }
+
+    const handleEditorChange = (value, event) => {
+        setSaveContent(value); // Atualiza o estado com o novo valor
+    };
     return (
         <div>
             <div className="file-content-editor">
-                <Editor
-                    className="editor-container"
-                    height="70vh"
-                    width="100%"
-                    language={GetLanguageInfos(singleRequest.fileName).name}
-                    defaultValue={fileContent.data}
-                    theme={editorTheme}
-                    onMount={handleEditorDidMount}
-                    options={{
-                        selectOnLineNumbers: true,
-                        scrollBeyondLastLine: false,
-                        fontSize: `${fontSize}px`,
-                        fontLigatures: true,
-                        fontFamily: fontFamily,
-                    }}
-                />
+                {contentBefore ? (
+                    <>
+                        <DiffEditor
+                            className="editor-container"
+                            height="70vh"
+                            width="100%"
+                            language={GetLanguageInfos(singleRequest.fileName).name}
+                            original={saveContent} // Conteúdo original
+                            modified={initialContent} // Conteúdo modificado (mudança)
+                            theme={editorTheme}
+                            onMount={handleDiffEditorDidMount}
+                            options={{
+                                renderSideBySide: true, // Renderização lado a lado
+                                selectOnLineNumbers: true,
+                                scrollBeyondLastLine: false,
+                                fontSize: `${fontSize}px`,
+                                fontLigatures: true,
+                                fontFamily: fontFamily,
+                            }}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <Editor
+                            className="editor-container"
+                            height="70vh"
+                            width="100%"
+                            language={GetLanguageInfos(singleRequest.fileName).name}
+                            defaultValue={saveContent}
+                            onChange={handleEditorChange}
+                            theme={editorTheme}
+                            onMount={handleEditorDidMount}
+                            options={{
+                                selectOnLineNumbers: true,
+                                scrollBeyondLastLine: false,
+                                fontSize: `${fontSize}px`,
+                                fontLigatures: true,
+                                fontFamily: fontFamily,
+                            }}
+                        />
+                    </>
+                )}
             </div>
             <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
                 <Card className="w-[350px]">
