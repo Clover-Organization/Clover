@@ -38,6 +38,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const autoClosingQuotes = localStorage.getItem('autoClosingQuotes');
     const autoIndent = localStorage.getItem('autoIndent');
     const automaticLayout = localStorage.getItem('automaticLayout');
+    const codeLens = localStorage.getItem('codeLens');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -180,7 +181,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 autoClosingQuotes: autoClosingQuotes,
                                 autoIndent: autoIndent,
                                 automaticLayout: automaticLayout,
-                                codeLens: 
+                                codeLens: codeLens,
                             }}
                         />
                     </>
