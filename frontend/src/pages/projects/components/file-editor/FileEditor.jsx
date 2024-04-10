@@ -50,6 +50,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const fontLigatures = localStorage.getItem('fontLigatures');
     const formatOnPaste = localStorage.getItem('formatOnPaste');
     const formatOnType = localStorage.getItem('formatOnType');
+    const glyphMargin = localStorage.getItem('glyphMargin');
+    const hideCursorInOverviewRuler = localStorage.getItem('hideCursorInOverviewRuler');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -203,6 +205,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 fontLigatures: fontLigatures,
                                 formatOnPaste: formatOnPaste,
                                 formatOnType: formatOnType,
+                                glyphMargin: glyphMargin,
+                                hideCursorInOverviewRuler: hideCursorInOverviewRuler
                             }}
                         />
                     </>

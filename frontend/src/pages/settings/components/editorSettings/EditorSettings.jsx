@@ -29,10 +29,8 @@ const EditorSettings = () => {
     const [fontLigatures, setFontLigatures] = useState(localStorage.getItem('fontLigatures') ? JSON.parse(localStorage.getItem('fontLigatures')) : true);
     const [formatOnPaste, setFormatOnPaste] = useState(localStorage.getItem('formatOnPaste') ? JSON.parse(localStorage.getItem('formatOnPaste')) : false);
     const [formatOnType, setFormatOnType] = useState(localStorage.getItem('formatOnType') ? JSON.parse(localStorage.getItem('formatOnType')) : false);
-    const [formatOnSave, setFormatOnSave] = useState(false);
-    const [glyphMargin, setGlyphMargin] = useState(true);
-    const [gotoLocation, setGotoLocation] = useState({});
-    const [hideCursorInOverviewRuler, setHideCursorInOverviewRuler] = useState(false);
+    const [glyphMargin, setGlyphMargin] = useState(localStorage.getItem('glyphMargin') ? JSON.parse(localStorage.getItem('glyphMargin')) : false);
+    const [hideCursorInOverviewRuler, setHideCursorInOverviewRuler] = useState(localStorage.getItem('hideCursorInOverviewRuler') ? JSON.parse(localStorage.getItem('hideCursorInOverviewRuler')) : true);
     const [highlightActiveIndentGuide, setHighlightActiveIndentGuide] = useState(true);
     const [hover, setHover] = useState({ enabled: true });
     const [letterSpacing, setLetterSpacing] = useState(0);
@@ -62,6 +60,8 @@ const EditorSettings = () => {
     localStorage.setItem('fontLigatures', fontLigatures);
     localStorage.setItem('formatOnPaste', formatOnPaste);
     localStorage.setItem('formatOnType', formatOnType);
+    localStorage.setItem('glyphMargin', glyphMargin);
+    localStorage.setItem('hideCursorInOverviewRuler', hideCursorInOverviewRuler);
 
     return (
         <article className="article-settings-content">
@@ -137,6 +137,10 @@ const EditorSettings = () => {
                                 formatOnPaste={formatOnPaste}
                                 setFormatOnType={setFormatOnType}
                                 formatOnType={formatOnType}
+                                setGlyphMargin={setGlyphMargin}
+                                glyphMargin={glyphMargin}
+                                setHideCursorInOverviewRuler={setHideCursorInOverviewRuler}
+                                hideCursorInOverviewRuler={hideCursorInOverviewRuler}
                             />
                         </CardContent>
                     </div>

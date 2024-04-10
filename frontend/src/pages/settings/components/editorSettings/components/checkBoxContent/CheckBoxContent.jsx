@@ -50,12 +50,8 @@ const CheckBoxContent =
         formatOnPaste,
         setFormatOnType,
         formatOnType,
-        setFormatOnSave,
-        formatOnSave,
         setGlyphMargin,
         glyphMargin,
-        setGotoLocation,
-        gotoLocation,
         setHideCursorInOverviewRuler,
         hideCursorInOverviewRuler,
         setHighlightActiveIndentGuide,
@@ -275,6 +271,37 @@ const CheckBoxContent =
                         </p>
                     </div>
 
+                    <Checkbox id="terms13"
+                        checked={glyphMargin}
+                        onCheckedChange={setGlyphMargin}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Glyph margin
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Sets whether glyph margin is enabled.
+                        </p>
+                    </div>
+
+                    <Checkbox id="terms14"
+                        checked={hideCursorInOverviewRuler}
+                        onCheckedChange={setHideCursorInOverviewRuler}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Ghide cursor in overview ruler
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Sets whether the cursor should be hidden in the overview ruler.
+                        </p>
+                    </div>
                 </div>
 
                 <div className="items-top flex space-x-2 mt-6">
