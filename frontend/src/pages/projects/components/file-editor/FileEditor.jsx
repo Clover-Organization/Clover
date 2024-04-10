@@ -39,6 +39,10 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const autoIndent = localStorage.getItem('autoIndent');
     const automaticLayout = localStorage.getItem('automaticLayout');
     const codeLens = localStorage.getItem('codeLens');
+    const contextmenu = localStorage.getItem('contextmenu');
+    const cursorBlinking = localStorage.getItem('cursorBlinking');
+    const cursorSmoothCaretAnimation = localStorage.getItem('cursorSmoothCaretAnimation');
+    const cursorStyle = localStorage.getItem('cursorStyle');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -182,6 +186,10 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 autoIndent: autoIndent,
                                 automaticLayout: automaticLayout,
                                 codeLens: codeLens,
+                                contextmenu: contextmenu,
+                                cursorBlinking: cursorBlinking,
+                                cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                cursorStyle: cursorStyle
                             }}
                         />
                     </>

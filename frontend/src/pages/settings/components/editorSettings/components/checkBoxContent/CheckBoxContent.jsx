@@ -126,6 +126,38 @@ const CheckBoxContent =
                             Defines whether codelenses should be displayed.
                         </p>
                     </div>
+
+                    <Checkbox id="terms1"
+                        checked={automaticLayout}
+                        onCheckedChange={setAutomaticLayout}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Automatic layout
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Defines whether the editor layout should be updated automatically.
+                        </p>
+                    </div>
+
+                    <Checkbox id="terms5"
+                        checked={contextmenu}
+                        onCheckedChange={setContextmenu}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Context menu
+                        </label>
+                        <p className="text-sm text-muted-foreground">
+                            Defines whether the editor context menu should be displayed.
+                        </p>
+                    </div>
                 </div>
 
                 <div className="items-top flex space-x-2 mt-6">
@@ -273,6 +305,98 @@ const CheckBoxContent =
                         </Select>
                         <p className="text-sm text-muted-foreground">
                             Sets whether automatic indentation is enabled.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="items-top flex space-x-2 mt-6">
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Cursor blinking
+                        </label>
+                        <Select onValueChange={setCursorBlinking}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue
+                                    placeholder={cursorBlinking}
+                                />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    {/* <SelectLabel>{cursorBlinking}</SelectLabel> */}
+                                    <SelectItem value="blink">blink (Default)</SelectItem>
+                                    <SelectItem value="smooth">smooth</SelectItem>
+                                    <SelectItem value="phase">phase</SelectItem>
+                                    <SelectItem value="expand">expand</SelectItem>
+                                    <SelectItem value="solid">solid</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        <p className="text-sm text-muted-foreground">
+                            Sets the cursor blinking style.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="items-top flex space-x-2 mt-6">
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Cursor smooth caret animation
+                        </label>
+                        <Select onValueChange={setCursorSmoothCaretAnimation}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue
+                                    placeholder={cursorSmoothCaretAnimation}
+                                />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    {/* <SelectLabel>{cursorSmoothCaretAnimation}</SelectLabel> */}
+                                    <SelectItem value="off">off (Default)</SelectItem>
+                                    <SelectItem value="explicit">explicit</SelectItem>
+                                    <SelectItem value="on">on</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        <p className="text-sm text-muted-foreground">
+                            Sets whether cursor smoothing animation is enabled.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="items-top flex space-x-2 mt-6">
+                    <div className="grid gap-1.5 leading-none">
+                        <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Cursor style
+                        </label>
+                        <Select onValueChange={setCursorStyle}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue
+                                    placeholder={cursorStyle}
+                                />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    {/* <SelectLabel>{cursorSmoothCaretAnimation}</SelectLabel> */}
+                                    <SelectItem value="line">line (Default)</SelectItem>
+                                    <SelectItem value="block">block</SelectItem>
+                                    <SelectItem value="underline">underline</SelectItem>
+                                    <SelectItem value="line-thin">line-thin</SelectItem>
+                                    <SelectItem value="block-outline">block-outline</SelectItem>
+                                    <SelectItem value="underline-thin">underline-thin</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        <p className="text-sm text-muted-foreground">
+                            Sets the cursor style.
                         </p>
                     </div>
                 </div>

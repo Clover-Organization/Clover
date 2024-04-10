@@ -18,10 +18,10 @@ const EditorSettings = () => {
     const [autoIndent, setAutoIndent] = useState(localStorage.getItem('autoIndent') ? localStorage.getItem('autoIndent') : 'advanced');
     const [automaticLayout, setAutomaticLayout] = useState(localStorage.getItem('automaticLayout') ? JSON.parse(localStorage.getItem('automaticLayout')) : false);
     const [codeLens, setCodeLens] = useState(localStorage.getItem('codeLens') ? JSON.parse(localStorage.getItem('codeLens')) : true);
-    const [contextmenu, setContextmenu] = useState(true);
-    const [cursorBlinking, setCursorBlinking] = useState("blink");
-    const [cursorSmoothCaretAnimation, setCursorSmoothCaretAnimation] = useState(false);
-    const [cursorStyle, setCursorStyle] = useState("line");
+    const [contextmenu, setContextmenu] = useState(localStorage.getItem('contextmenu') ? JSON.parse(localStorage.getItem('contextmenu')) : true);
+    const [cursorBlinking, setCursorBlinking] = useState(localStorage.getItem('cursorBlinking') ? localStorage.getItem('cursorBlinking') : "blink");
+    const [cursorSmoothCaretAnimation, setCursorSmoothCaretAnimation] = useState(localStorage.getItem('cursorSmoothCaretAnimation') ? localStorage.getItem('cursorSmoothCaretAnimation') : "off");
+    const [cursorStyle, setCursorStyle] = useState(localStorage.getItem('cursorStyle') ? localStorage.getItem('cursorStyle') : "line");
     const [disableLayerHinting, setDisableLayerHinting] = useState(false);
     const [disableMonospaceOptimizations, setDisableMonospaceOptimizations] = useState(false);
     const [dragAndDrop, setDragAndDrop] = useState(true);
@@ -52,6 +52,10 @@ const EditorSettings = () => {
     localStorage.setItem('autoIndent', autoIndent);
     localStorage.setItem('automaticLayout', automaticLayout);
     localStorage.setItem('codeLens', codeLens);
+    localStorage.setItem('contextmenu', contextmenu);
+    localStorage.setItem('cursorBlinking', cursorBlinking);
+    localStorage.setItem('cursorSmoothCaretAnimation', cursorSmoothCaretAnimation);
+    localStorage.setItem('cursorStyle', cursorStyle);
 
     return (
         <article className="article-settings-content">
@@ -105,6 +109,14 @@ const EditorSettings = () => {
                                 automaticLayout={automaticLayout}
                                 setCodeLens={setCodeLens}
                                 codeLens={codeLens}
+                                setContextmenu={setContextmenu}
+                                contextmenu={contextmenu}
+                                setCursorBlinking={setCursorBlinking}
+                                cursorBlinking={cursorBlinking}
+                                setCursorSmoothCaretAnimation={setCursorSmoothCaretAnimation}
+                                cursorSmoothCaretAnimation={cursorSmoothCaretAnimation}
+                                setCursorStyle={setCursorStyle}
+                                cursorStyle={cursorStyle}
                             />
                         </CardContent>
                     </div>
