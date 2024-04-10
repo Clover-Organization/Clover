@@ -30,7 +30,14 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const editorRef = useRef(null);
     const token = localStorage.getItem('token')
     const fontSize = localStorage.getItem('fontSize');
-    const fontFamily = localStorage.getItem('fontFamily')
+    const fontFamily = localStorage.getItem('fontFamily');
+    const acceptSuggestionOnEnter = localStorage.getItem('acceptSuggestionOnEnter');
+    const autoClosingBrackets = localStorage.getItem('autoClosingBrackets');
+    const autoClosingDelete = localStorage.getItem('autoClosingDelete');
+    const autoClosingOvertype = localStorage.getItem('autoClosingOvertype');
+    const autoClosingQuotes = localStorage.getItem('autoClosingQuotes');
+    const autoIndent = localStorage.getItem('autoIndent');
+    const automaticLayout = localStorage.getItem('automaticLayout');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -166,6 +173,14 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 fontSize: `${fontSize}px`,
                                 fontLigatures: true,
                                 fontFamily: fontFamily,
+                                acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                autoClosingBrackets: autoClosingBrackets,
+                                autoClosingDelete: autoClosingDelete,
+                                autoClosingOvertype: autoClosingOvertype,
+                                autoClosingQuotes: autoClosingQuotes,
+                                autoIndent: autoIndent,
+                                automaticLayout: automaticLayout,
+                                codeLens: 
                             }}
                         />
                     </>
