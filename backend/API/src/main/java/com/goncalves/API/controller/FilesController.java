@@ -21,6 +21,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -288,6 +290,44 @@ public class FilesController {
         }
     }
 
+    @PostMapping("/{idFile}/download")
+    public ResponseEntity downloadFile(@PathVariable String idFile) {
+        try {
+            // Verifica se o ID do arquivo é nulo
+            if (idFile == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ErrorNotFoundId("File not found.", idFile));
+            }
+
+            // Busca o arquivo no repositório
+            var filesOptional = repository.findById(idFile);
+
+            // Se o arquivo não for encontrado, retorna um status 404
+            if (!filesOptional.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ErrorNotFoundId("File not found.", idFile));
+            }
+
+            // Recupera o conteúdo do arquivo
+            var files = filesOptional.get();
+            ByteArrayResource resource = new ByteArrayResource(files.getFileContent());
+
+            // Configura os cabeçalhos para a resposta HTTP
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + idFile); // Força o download
+
+            // Retorna a resposta HTTP com o arquivo
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(resource);
+
+        } catch (Exception e) {
+            // Se ocorrer uma exceção, retorna um status 500 e uma mensagem de erro genérica
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new InternalError("An internal server error occurred."));
+        }
+    }
+
     /**
      * Endpoint para encontrar um arquivo com base no ID do arquivo.
      *
@@ -435,4 +475,3 @@ public class FilesController {
         }
     }
 }
-
