@@ -1,5 +1,6 @@
 package com.goncalves.API.controller;
 
+import com.goncalves.API.DTO.DadosFileDownload;
 import com.goncalves.API.DTO.UnauthorizedExceptionError;
 import com.goncalves.API.entities.commits.Commits;
 import com.goncalves.API.entities.commits.CommitsRepository;
@@ -290,7 +291,7 @@ public class FilesController {
         }
     }
 
-    @PostMapping("/{idFile}/download")
+    @GetMapping("/{idFile}/download")
     public ResponseEntity downloadFile(@PathVariable String idFile) {
         try {
             // Verifica se o ID do arquivo é nulo
@@ -319,7 +320,7 @@ public class FilesController {
             // Retorna a resposta HTTP com o arquivo
             return ResponseEntity.ok()
                     .headers(headers)
-                    .body(resource);
+                    .body(new DadosFileDownload(files.getFileName(), resource));
 
         } catch (Exception e) {
             // Se ocorrer uma exceção, retorna um status 500 e uma mensagem de erro genérica

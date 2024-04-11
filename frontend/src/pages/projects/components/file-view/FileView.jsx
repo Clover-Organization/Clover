@@ -22,6 +22,7 @@ import { Label } from "@/components/ui/label";
 import { checkerTheme } from "./components/checkerTheme/checkerTheme";
 import { useTheme } from "@/components/theme-provider";
 import { DiffEditor } from "@monaco-editor/react";
+import { downloadFile } from "../utils/downloadFile/downloadFile";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
@@ -139,6 +140,10 @@ const FileView = () => {
         setEditorTheme(checkerTheme(theme));
     }, [theme]);
 
+    const handleDownloadFile = async () => {
+        await downloadFile(token, idFile);
+    }
+
     return (
         <main className="main-file-view">
             <Navbar idProject={idProject} />
@@ -154,6 +159,7 @@ const FileView = () => {
                         setCommitNull={() => setShowCommitsSelected({ selectedCommit: false, commitMessage: "", changes: null })}
                         handleShowFileEditor={handleShowFileEditor}
                         showFileEditor={showFileEditor}
+                        handleDownloadFile={handleDownloadFile}
                     />
                 </nav>
 
