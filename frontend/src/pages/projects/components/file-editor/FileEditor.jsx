@@ -30,7 +30,29 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
     const editorRef = useRef(null);
     const token = localStorage.getItem('token')
     const fontSize = localStorage.getItem('fontSize');
-    const fontFamily = localStorage.getItem('fontFamily')
+    const fontFamily = localStorage.getItem('fontFamily');
+    const acceptSuggestionOnEnter = localStorage.getItem('acceptSuggestionOnEnter');
+    const autoClosingBrackets = localStorage.getItem('autoClosingBrackets');
+    const autoClosingDelete = localStorage.getItem('autoClosingDelete');
+    const autoClosingOvertype = localStorage.getItem('autoClosingOvertype');
+    const autoClosingQuotes = localStorage.getItem('autoClosingQuotes');
+    const autoIndent = localStorage.getItem('autoIndent');
+    const codeLens = localStorage.getItem('codeLens');
+    const contextmenu = localStorage.getItem('contextmenu');
+    const cursorBlinking = localStorage.getItem('cursorBlinking');
+    const cursorSmoothCaretAnimation = localStorage.getItem('cursorSmoothCaretAnimation');
+    const cursorStyle = localStorage.getItem('cursorStyle');
+    const disableLayerHinting = localStorage.getItem('disableLayerHinting');
+    const disableMonospaceOptimizations = localStorage.getItem('disableMonospaceOptimizations');
+    const dragAndDrop = localStorage.getItem('dragAndDrop');
+    const emptySelectionClipboard = localStorage.getItem('emptySelectionClipboard');
+    const fixedOverflowWidgets = localStorage.getItem('fixedOverflowWidgets');
+    const fontLigatures = localStorage.getItem('fontLigatures');
+    const formatOnPaste = localStorage.getItem('formatOnPaste');
+    const formatOnType = localStorage.getItem('formatOnType');
+    const glyphMargin = localStorage.getItem('glyphMargin');
+    const hideCursorInOverviewRuler = localStorage.getItem('hideCursorInOverviewRuler');
+    const letterSpacing = localStorage.getItem('letterSpacing');
 
     const [newCommitAndFile, setNewCommitAndFile] = useState({ newCommit: '', newFile: null });
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -83,7 +105,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                 id: "myPaste2",
                 label: "Cancel",
                 keybindings: [
-                    monaco.KeyMod.CtrlCmd  | monaco.KeyMod.Alt | monaco.KeyCode.KeyS,
+                    monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyS,
                 ],
                 contextMenuGroupId: "0_cutcopypaste",
                 contextMenuOrder: 0,
@@ -111,7 +133,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
 
     const sendCommit = async () => {
         // Chamar a função convertContentByFile() para obter o objeto File
-        const convertContent = convertContentByFile(editorRef.current.getValue());
+        const convertContent = convertContentByFile(saveContent);
 
         newCommitAndFile.newFile = convertContent;
 
@@ -134,8 +156,8 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                             height="70vh"
                             width="100%"
                             language={GetLanguageInfos(singleRequest.fileName).name}
-                            original={saveContent} // Conteúdo original
-                            modified={initialContent} // Conteúdo modificado (mudança)
+                            original={initialContent} // Conteúdo original
+                            modified={saveContent} // Conteúdo modificado (mudança)
                             theme={editorTheme}
                             onMount={handleDiffEditorDidMount}
                             options={{
@@ -143,8 +165,30 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 selectOnLineNumbers: true,
                                 scrollBeyondLastLine: false,
                                 fontSize: `${fontSize}px`,
-                                fontLigatures: true,
+                                fontLigatures: fontLigatures,
+                                readOnly: true,
                                 fontFamily: fontFamily,
+                                acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                autoClosingBrackets: autoClosingBrackets,
+                                autoClosingDelete: autoClosingDelete,
+                                autoClosingOvertype: autoClosingOvertype,
+                                autoClosingQuotes: autoClosingQuotes,
+                                autoIndent: autoIndent,
+                                codeLens: codeLens,
+                                contextmenu: contextmenu,
+                                cursorBlinking: cursorBlinking,
+                                cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                cursorStyle: cursorStyle,
+                                disableLayerHinting: disableLayerHinting,
+                                disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                dragAndDrop: dragAndDrop,
+                                emptySelectionClipboard: emptySelectionClipboard,
+                                fixedOverflowWidgets: fixedOverflowWidgets,
+                                formatOnPaste: formatOnPaste,
+                                formatOnType: formatOnType,
+                                glyphMargin: glyphMargin,
+                                hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                letterSpacing: letterSpacing,
                             }}
                         />
                     </>
@@ -163,8 +207,29 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                                 selectOnLineNumbers: true,
                                 scrollBeyondLastLine: false,
                                 fontSize: `${fontSize}px`,
-                                fontLigatures: true,
                                 fontFamily: fontFamily,
+                                acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                autoClosingBrackets: autoClosingBrackets,
+                                autoClosingDelete: autoClosingDelete,
+                                autoClosingOvertype: autoClosingOvertype,
+                                autoClosingQuotes: autoClosingQuotes,
+                                autoIndent: autoIndent,
+                                codeLens: codeLens,
+                                contextmenu: contextmenu,
+                                cursorBlinking: cursorBlinking,
+                                cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                cursorStyle: cursorStyle,
+                                disableLayerHinting: disableLayerHinting,
+                                disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                dragAndDrop: dragAndDrop,
+                                emptySelectionClipboard: emptySelectionClipboard,
+                                fixedOverflowWidgets: fixedOverflowWidgets,
+                                fontLigatures: fontLigatures,
+                                formatOnPaste: formatOnPaste,
+                                formatOnType: formatOnType,
+                                glyphMargin: glyphMargin,
+                                hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                letterSpacing: letterSpacing
                             }}
                         />
                     </>

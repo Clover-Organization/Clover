@@ -77,7 +77,7 @@ export const uploadFolder = async (token, idProject, foldersFiles, idFolder) => 
         }
 
         // Agora, você pode acessar o número de subfolders para cada pasta usando subfolderCount.
-        console.log(subfolderCount);
+        // console.log(subfolderCount);
 
 
 
@@ -89,7 +89,7 @@ export const uploadFolder = async (token, idProject, foldersFiles, idFolder) => 
             // Verifica se há subfolders para o path atual
             const hasSubfolders = subfolderCount[path] > 0;
 
-            console.log(hasSubfolders);
+            // console.log(hasSubfolders);
 
             // Adiciona os arquivos ao FormData, convertendo cada um no processo
             filesInPath.forEach((file) => {
@@ -99,7 +99,7 @@ export const uploadFolder = async (token, idProject, foldersFiles, idFolder) => 
             // Adiciona o nome do path ao FormData.
             formData.append('name', path);
 
-            console.log("folder a ser salvo ", path);
+            // console.log("folder a ser salvo ", path);
 
             // Envia a requisição para o servidor.
             const response = await fetch(`http://localhost:8080/projects/folders/${idProject}`, {
