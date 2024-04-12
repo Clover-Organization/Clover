@@ -124,6 +124,29 @@ const FileView = () => {
 
     function handleEditorDidMount(editor, monaco) {
         editorRef.current = editor;
+
+        editor.addAction({
+            id: "myPaste",
+            label: "Editor",
+            keybindings: [
+                monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyE,
+            ],
+            contextMenuGroupId: "0_cutcopypaste",
+            contextMenuOrder: 0,
+
+            run: editor => {
+                setShowFileEditor(true);
+            }
+        });
+        editor.addAction({
+            id: 'OPEN_SETTINGS',
+            label: 'Settings editor',
+            contextMenuGroupId: "0_cutcopypaste",
+            contextMenuOrder: 2,
+            run: (ed) => {
+                navigate(`/settings/${idProject}/2`);
+            }
+        })
     }
 
 
@@ -247,6 +270,7 @@ const FileView = () => {
                                             fileContent={fileContent}
                                             idProject={idProject}
                                             idFile={idFile}
+                                            setShowFileEditor={setShowFileEditor}
                                         />
                                     ) :
                                         fileContent.contentType === "image" ? (
