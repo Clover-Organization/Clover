@@ -10,7 +10,7 @@ const Login = () => {
 			<div className="flex justify-center items-center h-screen">
 				<div className="p-4">
 					<LoginScreen />
-					<p className="mt-4 text-center text-gray-400">
+					<p className="mt-4 text-center text-secondary-foreground">
 						Don't have an account?
 						<Link
 							to={"/auth/register"}
