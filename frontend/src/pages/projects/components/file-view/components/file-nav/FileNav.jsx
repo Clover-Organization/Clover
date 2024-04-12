@@ -5,12 +5,13 @@ import lixoIcon from '../../../../assets/lixoIcon.png';
 import editIcon from '../../../../assets/fileEdit.png';
 import GetLanguageInfos from "../../../utils/getLanguageInfo/GetLanguageInfos";
 import fileIcon from '../../../../assets/fileIcon.png';
+import { Button } from "@/components/ui/button";
 
-const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGetAllCommitsAction, showCommit, setShowCommits, setCommitNull, handleShowFileEditor, showFileEditor }) => {
+const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGetAllCommitsAction, showCommit, setShowCommits, setCommitNull, handleShowFileEditor, showFileEditor, handleDownloadFile }) => {
 
     return (
         <>
-            <div className="lupaSearch cursor-pointer" onClick={() => { setShowCommits(false), setCommitNull()}}>
+            <div className="lupaSearch cursor-pointer" onClick={() => { setShowCommits(false), setCommitNull() }}>
                 <img src={singleRequest && singleRequest.fileName && GetLanguageInfos(singleRequest.fileName) ? GetLanguageInfos(singleRequest.fileName).imgUrl : fileIcon} width={"40px"} />
                 <h2>
                     {singleRequest.fileName}
@@ -19,7 +20,12 @@ const FileNav = ({ singleRequest, setModalIsOpen, setModalDeleteIsOpen, handleGe
             <div className="align-nav-components-files">
                 <div className="commitsProject-dsp-flex-align">
                     {!showFileEditor && (
-                        <img src={commitIcon} alt="Commits" onClick={() => setModalIsOpen(true)} />
+                        <>
+                            <Button onClick={() => handleDownloadFile()}>
+                                Download file
+                            </Button>
+                            <img src={commitIcon} alt="Commits" onClick={() => setModalIsOpen(true)} />
+                        </>
                     )}
                     <h4>
                         {showCommit !== undefined && showCommit !== "" ? (

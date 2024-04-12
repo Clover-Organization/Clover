@@ -1,5 +1,6 @@
 package com.goncalves.API.controller;
 
+import com.goncalves.API.DTO.DadosFileDownload;
 import com.goncalves.API.DTO.UnauthorizedExceptionError;
 import com.goncalves.API.entities.commits.Commits;
 import com.goncalves.API.entities.commits.CommitsRepository;
@@ -21,6 +22,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -289,6 +292,57 @@ public class FilesController {
     }
 
     /**
+     * Endpoint para baixar um arquivo com base no seu ID.
+     *
+     * @param idFile O ID do arquivo a ser baixado
+     * @return ResponseEntity contendo o arquivo para download, ou uma resposta de erro caso o arquivo não seja encontrado ou ocorra um erro interno do servidor
+     */
+    @GetMapping("/{idFile}/download")
+    @Operation(summary = "Upload a file ready for download", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "File send successfully."),
+            @ApiResponse(responseCode = "404", description = "Not found file ID."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
+    public ResponseEntity downloadFile(@PathVariable String idFile) {
+        try {
+            // Verifica se o ID do arquivo é nulo
+            if (idFile == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ErrorNotFoundId("File not found.", idFile));
+            }
+
+            // Busca o arquivo no repositório
+            var filesOptional = repository.findById(idFile);
+
+            // Se o arquivo não for encontrado, retorna um status 404
+            if (!filesOptional.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ErrorNotFoundId("File not found.", idFile));
+            }
+
+            // Recupera o conteúdo do arquivo
+            var files = filesOptional.get();
+            ByteArrayResource resource = new ByteArrayResource(files.getFileContent());
+
+            // Configura os cabeçalhos para a resposta HTTP
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + idFile); // Força o download
+
+            // Retorna a resposta HTTP com o arquivo
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(new DadosFileDownload(files.getFileName(), resource));
+
+        } catch (Exception e) {
+            // Se ocorrer uma exceção, retorna um status 500 e uma mensagem de erro genérica
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new InternalError("An internal server error occurred."));
+        }
+    }
+
+
+    /**
      * Endpoint para encontrar um arquivo com base no ID do arquivo.
      *
      * @param idFile O ID do arquivo a ser encontrado
@@ -435,4 +489,3 @@ public class FilesController {
         }
     }
 }
-
