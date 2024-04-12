@@ -23,6 +23,7 @@ const FileNav = ({
 	setShowCommits,
 	setCommitNull,
 	handleShowFileEditor,
+	isEditing,
 	showFileEditor,
 	handleDownloadFile,
 }) => {
@@ -49,16 +50,9 @@ const FileNav = ({
 			<div className="flex gap-4">
 				<div className="flex justify-center items-center gap-4">
 					{!showFileEditor && (
-						<>
-							<Button onClick={() => handleDownloadFile()}>
-								Download file
-							</Button>
-							<img
-								src={commitIcon}
-								alt="Commits"
-								onClick={() => setModalIsOpen(true)}
-							/>
-						</>
+						<Button onClick={() => handleDownloadFile()}>
+							Download file
+						</Button>
 					)}
 					<h4>
 						{showCommit !== undefined && showCommit !== ""
