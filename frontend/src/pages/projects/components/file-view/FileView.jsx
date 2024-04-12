@@ -19,10 +19,11 @@ import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { checkerTheme } from "./components/checkerTheme/checkerTheme";
+import { checkerTheme } from "./components/utils/checkerTheme/checkerTheme";
 import { useTheme } from "@/components/theme-provider";
 import { DiffEditor } from "@monaco-editor/react";
 import { downloadFile } from "../utils/downloadFile/downloadFile";
+import RendererFile from "./components/rendererFile/RendererFile";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
@@ -263,7 +264,6 @@ const FileView = () => {
                                 </>
                             ) : (
                                 <>
-
                                     {showFileEditor ? (
                                         <FileEditor
                                             singleRequest={singleRequest}
@@ -272,58 +272,58 @@ const FileView = () => {
                                             idFile={idFile}
                                             setShowFileEditor={setShowFileEditor}
                                         />
-                                    ) :
-                                        fileContent.contentType === "image" ? (
-                                            <div className="image-content">
-                                                <img src={fileContent.data} alt={singleRequest.fileName} />
-                                            </div>
-                                        ) : (
-                                            <>
-                                                {fileContent.data && (
-                                                    <div className="file-content-editor">
-                                                        <Editor
-                                                            className="editor-container"
-                                                            height="70vh"
-                                                            width="100%"
-                                                            language={GetLanguageInfos(singleRequest.fileName).name}
-                                                            defaultValue={fileContent.data}
-                                                            theme={editorTheme}
-                                                            onMount={handleEditorDidMount}
-                                                            options={{
-                                                                selectOnLineNumbers: true,
-                                                                scrollBeyondLastLine: false,
-                                                                fontSize: `${fontSize}px`,
-                                                                fontLigatures: fontLigatures,
-                                                                fontFamily: fontFamily,
-                                                                readOnly: true,
-                                                                acceptSuggestionOnEnter: acceptSuggestionOnEnter,
-                                                                autoClosingBrackets: autoClosingBrackets,
-                                                                autoClosingDelete: autoClosingDelete,
-                                                                autoClosingOvertype: autoClosingOvertype,
-                                                                autoClosingQuotes: autoClosingQuotes,
-                                                                autoIndent: autoIndent,
-                                                                codeLens: codeLens,
-                                                                contextmenu: contextmenu,
-                                                                cursorBlinking: cursorBlinking,
-                                                                cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
-                                                                cursorStyle: cursorStyle,
-                                                                disableLayerHinting: disableLayerHinting,
-                                                                disableMonospaceOptimizations: disableMonospaceOptimizations,
-                                                                dragAndDrop: dragAndDrop,
-                                                                emptySelectionClipboard: emptySelectionClipboard,
-                                                                fixedOverflowWidgets: fixedOverflowWidgets,
-                                                                formatOnPaste: formatOnPaste,
-                                                                formatOnType: formatOnType,
-                                                                glyphMargin: glyphMargin,
-                                                                hideCursorInOverviewRuler: hideCursorInOverviewRuler,
-                                                                letterSpacing: letterSpacing
-                                                            }}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </>
-                                        )
-                                    }
+                                    ) : (
+                                        <>
+                                            {singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "Undefined" ? (
+                                                <RendererFile fileContent={fileContent} singleRequest={singleRequest} />
+                                            ) : (
+                                                <>
+                                                    {fileContent.data && (
+                                                        <div className="file-content-editor">
+                                                            <Editor
+                                                                className="editor-container"
+                                                                height="70vh"
+                                                                width="100%"
+                                                                language={singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name}
+                                                                defaultValue={fileContent.data}
+                                                                theme={editorTheme}
+                                                                onMount={handleEditorDidMount}
+                                                                options={{
+                                                                    selectOnLineNumbers: true,
+                                                                    scrollBeyondLastLine: false,
+                                                                    fontSize: `${fontSize}px`,
+                                                                    fontLigatures: fontLigatures,
+                                                                    fontFamily: fontFamily,
+                                                                    readOnly: true,
+                                                                    acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                                                    autoClosingBrackets: autoClosingBrackets,
+                                                                    autoClosingDelete: autoClosingDelete,
+                                                                    autoClosingOvertype: autoClosingOvertype,
+                                                                    autoClosingQuotes: autoClosingQuotes,
+                                                                    autoIndent: autoIndent,
+                                                                    codeLens: codeLens,
+                                                                    contextmenu: contextmenu,
+                                                                    cursorBlinking: cursorBlinking,
+                                                                    cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                                                    cursorStyle: cursorStyle,
+                                                                    disableLayerHinting: disableLayerHinting,
+                                                                    disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                                                    dragAndDrop: dragAndDrop,
+                                                                    emptySelectionClipboard: emptySelectionClipboard,
+                                                                    fixedOverflowWidgets: fixedOverflowWidgets,
+                                                                    formatOnPaste: formatOnPaste,
+                                                                    formatOnType: formatOnType,
+                                                                    glyphMargin: glyphMargin,
+                                                                    hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                                                    letterSpacing: letterSpacing
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </>
+                                            )}
+                                        </>
+                                    )}
                                 </>
                             )}
                         </>
