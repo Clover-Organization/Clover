@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
-const PdfViewer = ({ url }) => {
+const PdfViewer = () => {
 
     return (
-        <div id="pdfViewer" className="pdf-viewer-container"></div>
+        <h1>Unsupported file</h1>
     );
 };
 

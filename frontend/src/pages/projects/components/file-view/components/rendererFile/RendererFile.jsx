@@ -1,3 +1,4 @@
+import MarkDownViewer from "./components/markDownViewer/MarkDownViewer";
 import PdfViewer from "./components/pdfViewer/PdfViewer";
 
 const RendererFile = ({ fileContent, singleRequest }) => {
@@ -25,14 +26,12 @@ const RendererFile = ({ fileContent, singleRequest }) => {
             case 'pdf':
                 return (
                     <div className="pdf-content">
-                        <PdfViewer pdfData={singleRequest.data}/>
+                        <PdfViewer pdfData={fileContent.data} />
                     </div>
                 );
             case 'markdown':
                 return (
-                    <div className="markdown-content">
-                        {/* Renderizar Markdown */}
-                    </div>
+                    <MarkDownViewer mdData={fileContent.data} />
                 );
             case 'image':
                 return (
@@ -44,7 +43,7 @@ const RendererFile = ({ fileContent, singleRequest }) => {
             default:
                 return (
                     <div className="other-content">
-                        {/* Renderizar outros tipos de arquivo */}
+                        <h1>Unsupported file</h1>
                     </div>
                 );
         }
