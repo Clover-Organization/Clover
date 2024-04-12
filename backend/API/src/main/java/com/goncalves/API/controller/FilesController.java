@@ -291,7 +291,19 @@ public class FilesController {
         }
     }
 
+    /**
+     * Endpoint para baixar um arquivo com base no seu ID.
+     *
+     * @param idFile O ID do arquivo a ser baixado
+     * @return ResponseEntity contendo o arquivo para download, ou uma resposta de erro caso o arquivo não seja encontrado ou ocorra um erro interno do servidor
+     */
     @GetMapping("/{idFile}/download")
+    @Operation(summary = "Upload a file ready for download", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "File send successfully."),
+            @ApiResponse(responseCode = "404", description = "Not found file ID."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
     public ResponseEntity downloadFile(@PathVariable String idFile) {
         try {
             // Verifica se o ID do arquivo é nulo
@@ -328,6 +340,7 @@ public class FilesController {
                     .body(new InternalError("An internal server error occurred."));
         }
     }
+
 
     /**
      * Endpoint para encontrar um arquivo com base no ID do arquivo.
