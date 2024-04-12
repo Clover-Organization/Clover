@@ -15,7 +15,7 @@ import { useTheme } from "@/components/theme-provider";
 import { useEffect } from "react";
 import { DiffEditor } from "@monaco-editor/react";
 
-const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
+const FileEditor = ({ singleRequest, fileContent, idProject, idFile, setShowFileEditor }) => {
 
     const { theme } = useTheme();
     const [editorTheme, setEditorTheme] = useState(checkerTheme(theme));
@@ -63,13 +63,20 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
         fileContent.data = "";
     }
 
+    const handleEditorDidMonacoGlobal = (editor, monaco) => {
+        editorRef.current = editor;
+
+        editor.addAction(this.showSettings())
+    }
+
 
     const handleEditorDidMount = (editor, monaco) => {
         editorRef.current = editor;
 
         if (monaco) {
+
             editor.addAction({
-                id: "myPaste",
+                id: "SAVE",
                 label: "Save",
                 keybindings: [
                     monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,
@@ -81,6 +88,29 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                     setContentBefore(true);
                 }
             });
+            editor.addAction({
+                id: "EXIT-TO-VIEW-EDITOR",
+                label: "Exit editor",
+                keybindings: [
+                    monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyE,
+                ],
+                contextMenuGroupId: "0_cutcopypaste",
+                contextMenuOrder: 1,
+
+                run: editor => {
+                    setShowFileEditor(false);
+                }
+            });
+
+            editor.addAction({
+                id: 'OPEN_SETTINGS',
+                label: 'Settings editor',
+                contextMenuGroupId: "0_cutcopypaste",
+                contextMenuOrder: 2,
+                run: (ed) => {
+                    navigate(`/settings/${idProject}/2`);
+                }
+            })
         }
     }
     const handleDiffEditorDidMount = (editor, monaco) => {
@@ -88,7 +118,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
 
         if (monaco) {
             editor.addAction({
-                id: "myPaste",
+                id: "SAVE",
                 label: "Save",
                 keybindings: [
                     monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,
@@ -102,13 +132,13 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
             });
 
             editor.addAction({
-                id: "myPaste2",
+                id: "CANCEL_SAVE",
                 label: "Cancel",
                 keybindings: [
                     monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyS,
                 ],
                 contextMenuGroupId: "0_cutcopypaste",
-                contextMenuOrder: 0,
+                contextMenuOrder: 1,
 
                 run: editor => {
                     setContentBefore(false);
@@ -116,6 +146,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
             });
         }
     }
+
 
     const convertContentByFile = (content) => {
         // Obter os dados do conteúdo do arquivo
@@ -159,7 +190,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile }) => {
                             original={initialContent} // Conteúdo original
                             modified={saveContent} // Conteúdo modificado (mudança)
                             theme={editorTheme}
-                            onMount={handleDiffEditorDidMount}
+                            onMount={handleDiffEditorDidMount, handleEditorDidMonacoGlobal}
                             options={{
                                 renderSideBySide: true, // Renderização lado a lado
                                 selectOnLineNumbers: true,
