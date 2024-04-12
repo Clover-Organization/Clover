@@ -52,17 +52,8 @@ const FormSchema = z.object({
 				message: "Password must contain at least one special character.",
 			}
 		),
-	firstName: z.string().min(1, {
-		message: "",
-	}),
-	lastName: z.string().min(1, {
-		message: "",
-	}),
 	email: z.string().email({ message: "Invalid email address" }),
-	birth: z.date({
-		required_error: "Please select a date and time",
-		invalid_type_error: "That's not a date!",
-	}),
+
 	role: z.string(),
 });
 
@@ -169,7 +160,7 @@ export default function RegisterScreen() {
 				lastName: decoded.payload.family_name,
 				email: decoded.payload.email,
 				password: decoded.payload.sub,
-				birth: "00-00-0000",
+				birth: "",
 				role: "USER",
 			};
 

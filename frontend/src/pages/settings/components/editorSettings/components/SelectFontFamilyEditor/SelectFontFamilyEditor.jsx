@@ -1,11 +1,15 @@
-import { CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 
 const SelectFontFamilyEditor = ({ fontFamily, setFontFamily, fontSize, setFontSize }) => {
     return (
         <>
-            <CardDescription>Font-family</CardDescription>
+            <label
+                htmlFor="terms1"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+                Font-Family
+            </label>
             <Select onValueChange={setFontFamily}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue
@@ -23,7 +27,12 @@ const SelectFontFamilyEditor = ({ fontFamily, setFontFamily, fontSize, setFontSi
                 </SelectContent>
             </Select>
             <Separator className="my-4" />
-                <CardDescription>Font-size</CardDescription>
+            <label
+                htmlFor="terms1"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+                Font-Size
+            </label>
             <Select onValueChange={setFontSize}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue

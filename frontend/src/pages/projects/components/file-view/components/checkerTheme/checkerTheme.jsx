@@ -1,9 +1,9 @@
 export const checkerTheme = (theme) => {
-    const bgTheme = localStorage.getItem("vite-ui-theme");
+    const themeEditor = localStorage.getItem("theme");
 
-    if (theme === "system") {
-        return bgTheme === "dark" ? "vs-dark" : "vs";
+    if (themeEditor === "system") {
+        return theme === "dark" ? "vs-dark" : "vs";
     } else {
-        return theme;
+        return themeEditor;
     }
 }

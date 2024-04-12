@@ -323,6 +323,7 @@ div.lupa {
   display: flex;
   align-items: center;
   left: 35px;
+  background-color: hsl(var(--secondary));
 }
 
 div.lupaSearch>div.lupa>img,

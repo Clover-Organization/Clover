@@ -48,12 +48,26 @@ const FileNav = ({
 			</div>
 			<div className="flex gap-4">
 				<div className="flex justify-center items-center gap-4">
+					{!showFileEditor && (
+						<>
+							<Button onClick={() => handleDownloadFile()}>
+								Download file
+							</Button>
+							<img
+								src={commitIcon}
+								alt="Commits"
+								onClick={() => setModalIsOpen(true)}
+							/>
+						</>
+					)}
 					<h4>
 						{showCommit !== undefined && showCommit !== ""
 							? showCommit
-							: singleRequest.commits && singleRequest.commits.length > 0
-								? singleRequest.commits[singleRequest.commits.length - 1]
-										.commitMessage
+							: singleRequest.commits &&
+								  singleRequest.commits.length > 0
+								? singleRequest.commits[
+										singleRequest.commits.length - 1
+									].commitMessage
 								: null}
 					</h4>
 					<Button onClick={() => setModalIsOpen(true)}>

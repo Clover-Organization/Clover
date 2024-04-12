@@ -198,12 +198,8 @@ public class AuthenticationController {
         if (repository.findByEmail(dados.email()) != null) {
             throw new RegistrationException("email", "There is already a user with this email!");
         }
-
-        validateField(dados.firstName(), "firstName", "first name field must have at least 3 characters!");
-        validateField(dados.lastName(), "lastName", "last name field must have at least 3 characters!");
         validateField(dados.username(), "username", "User field must have at least 3 characters!");
         validateField(dados.email(), "email", "Empty email field!");
-        validateField(dados.birth(), "birth", "Birth field cannot be null");
     }
 
     /**
