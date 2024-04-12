@@ -23,8 +23,8 @@ const FileNav = ({
 	setShowCommits,
 	setCommitNull,
 	handleShowFileEditor,
-	isEditing,
 	showFileEditor,
+	handleDownloadFile,
 }) => {
 	return (
 		<>
