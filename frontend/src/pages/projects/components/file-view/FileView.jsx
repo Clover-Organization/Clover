@@ -165,7 +165,7 @@ const FileView = () => {
     }, [theme]);
 
     const handleDownloadFile = async () => {
-        await downloadFile(token, idFile);
+        await downloadFile(token, idFile, idProject, singleRequest);
     }
 
     return (
