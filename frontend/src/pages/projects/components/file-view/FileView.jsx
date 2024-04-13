@@ -274,7 +274,7 @@ const FileView = () => {
                                         />
                                     ) : (
                                         <>
-                                            {singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "Undefined" ? (
+                                            {singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "Undefined" || singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "md"  ? (
                                                 <RendererFile fileContent={fileContent} singleRequest={singleRequest} />
                                             ) : (
                                                 <>
