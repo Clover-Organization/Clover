@@ -102,7 +102,7 @@ const FileView = () => {
 
     const handleGetAllCommitsAction = async () => {
         await getCommitsByFiles(token, idFile, setCommitsRequest);
-        setShowCommits(true);
+        setShowCommits(!showCommits)
     }
 
     const handleShowCommitsAction = (commit) => {
@@ -182,6 +182,7 @@ const FileView = () => {
                         setShowCommits={setShowCommits}
                         setCommitNull={() => setShowCommitsSelected({ selectedCommit: false, commitMessage: "", changes: null })}
                         handleShowFileEditor={handleShowFileEditor}
+                        isEditing={showFileEditor}
                         showFileEditor={showFileEditor}
                         handleDownloadFile={handleDownloadFile}
                     />
