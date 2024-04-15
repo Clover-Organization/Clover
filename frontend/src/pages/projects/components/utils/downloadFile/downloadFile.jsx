@@ -1,12 +1,7 @@
-/**
- * Faz o download de um arquivo do servidor.
- * @param {string} token - Token de autenticação para a requisição.
- * @param {string} idFile - ID do arquivo a ser baixado.
- */
-export const downloadFile = async (token, idFile) => {
+export const downloadFile = async (token, idFile, idProject, singleRequest) => {
     try {
         // Faz a requisição para baixar o arquivo
-        const response = await fetch(`http://localhost:8080/projects/files/${idFile}/download`, {
+        const response = await fetch(`http://localhost:8080/projects/files/${idProject}/${idFile}/content`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -16,20 +11,17 @@ export const downloadFile = async (token, idFile) => {
         // Verifica se a requisição foi bem-sucedida
         if (response.ok) {
             // Extrai os dados da resposta
-            const file = await response.json();
-
-            // Cria um Blob com o conteúdo do arquivo
-            const blob = new Blob([file.fileContent], { type: 'text/plain' });
+            const file = await response.blob();
 
             // Cria um URL temporário para o Blob
-            const url = window.URL.createObjectURL(blob);
+            const url = window.URL.createObjectURL(file);
             
             // Cria um link para iniciar o download
             const link = document.createElement('a');
             link.href = url;
-            link.download = file.fileName; // Define o nome do arquivo para download
+            link.download = singleRequest.fileName; // Defina um nome de arquivo apropriado aqui
             
-            // Dispara o clique no link para iniciar o download
+            // // Dispara o clique no link para iniciar o download
             link.click();
             
             // Libera o URL temporário
