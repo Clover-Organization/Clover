@@ -5,7 +5,7 @@ import lixoIcon from "../../../../assets/lixoIcon.png";
 import editIcon from "../../../../assets/fileEdit.png";
 import GetLanguageInfos from "../../../utils/getLanguageInfo/GetLanguageInfos";
 import fileIcon from "../../../../assets/fileIcon.png";
-import { ListPlus, Pencil, Trash2, ListCollapse, List } from "lucide-react";
+import { ListPlus, Pencil, Trash2, ListCollapse, List, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	Tooltip,
@@ -48,22 +48,8 @@ const FileNav = ({
 				<h2>{singleRequest.fileName}</h2>
 			</div>
 			<div className="flex gap-4">
-				<div className="flex justify-center items-center gap-4">
-					{!showFileEditor && (
-						<Button onClick={() => handleDownloadFile()}>
-							Download file
-						</Button>
-					)}
-					<h4>
-						{showCommit !== undefined && showCommit !== ""
-							? showCommit
-							: singleRequest.commits &&
-								  singleRequest.commits.length > 0
-								? singleRequest.commits[
-										singleRequest.commits.length - 1
-									].commitMessage
-								: null}
-					</h4>
+				<div className="flex justify-center items-center gap-2">
+					
 					<Button onClick={() => setModalIsOpen(true)}>
 						<ListPlus className="mr-2 h-4 w-4" /> New Commit
 					</Button>
@@ -81,6 +67,28 @@ const FileNav = ({
 						</h4>
 					</Button>
 				</div>
+				{!showFileEditor && (
+						
+					
+				<div className="commitsProject-dsp-flex-align">
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="outline"
+									size="icon"
+									onClick={handleDownloadFile}
+								>
+									<Download className="h-4 w-4" />
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>Download File</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</div>
+				)}
 				<div className="commitsProject-dsp-flex-align">
 					<TooltipProvider>
 						<Tooltip>
