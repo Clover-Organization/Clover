@@ -7,11 +7,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public record DadosFileDownload(String fileName, String fileContent) {
+public record DadosFileDownload(String fileName, String fileType, String fileContent) {
 
     // Construtor que aceita um ByteArrayResource e converte para string
-    public DadosFileDownload(String fileName, ByteArrayResource byteArrayResource) {
-        this(fileName, convertByteArrayResourceToString(byteArrayResource));
+    public DadosFileDownload(String fileName, String fileType, ByteArrayResource byteArrayResource) {
+        this(fileName, fileType, convertByteArrayResourceToString(byteArrayResource));
     }
 
     // Método para converter ByteArrayResource para string

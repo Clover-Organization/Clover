@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import { checkerTheme } from "../file-view/components/checkerTheme/checkerTheme";
+import { checkerTheme } from "../file-view/components/utils/checkerTheme/checkerTheme";
 import { useTheme } from "@/components/theme-provider";
 import { useEffect } from "react";
 import { DiffEditor } from "@monaco-editor/react";
