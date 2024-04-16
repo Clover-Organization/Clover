@@ -22,7 +22,7 @@ const AnnotationDocs = () => {
                     <AsideNavDocs selected={selected} />
                     <div className="grid">
                         <CardHeader>
-                            <CardTitle>Versioning</CardTitle>
+                            <CardTitle>Annotations</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <CardDescription className="text-lg">
