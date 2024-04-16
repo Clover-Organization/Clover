@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { toast } from 'sonner';
 
 export const uploadSubFolder = async (token, idProject, acceptedFiles, nameFolder, idFolder) => {
     try {
@@ -19,35 +18,22 @@ export const uploadSubFolder = async (token, idProject, acceptedFiles, nameFolde
         });
 
         if (response.ok) {
-
-            Swal.fire({
-                icon: 'success',
-                title: 'Arquivos enviados com sucesso!',
-                showConfirmButton: false,
-                timer: 1500,
+            toast.success("Sucess", {
+                description: `Files uploaded successfully!`,
             });
 
         } else if (response.status === 404) {
-            console.log("Request not found");
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro 404',
-                text: 'Requisição não encontrada.',
+            toast.error("Error", {
+                description: `Request not found.`,
             });
         } else {
-            console.log("An unexpected error occurred:", response.status);
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro inesperado',
-                text: 'Ocorreu um erro inesperado. Por favor, tente novamente.',
+            toast.error("Error", {
+                description: `An unexpected error occurred: ${response.status}`,
             });
         }
     } catch (error) {
-        console.log("Error fetching the request:", error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro na requisição',
-            text: 'Ocorreu um erro ao enviar os arquivos. Por favor, tente novamente.',
+        toast.error("Error", {
+            description: `Error fetching the request: ${error.message}`,
         });
     }
 };

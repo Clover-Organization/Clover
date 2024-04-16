@@ -1,5 +1,5 @@
-import React from 'react';
-import Swal from 'sweetalert2';
+import { toast } from "sonner";
+
 export const GenerateExcelFile = async ({ allUsers, token, setFileUrl }) => {
     try {
 
@@ -16,18 +16,13 @@ export const GenerateExcelFile = async ({ allUsers, token, setFileUrl }) => {
             const url = window.URL.createObjectURL(new Blob([blob]));
             setFileUrl(url);
         } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                text: `Failed to fetch data from API.`,
+            toast.error("Error", {
+                description: "Error. Failed to fetch data from API.",
             });
         }
     } catch (error) {
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Erro',
-            text: `Error ${error}`,
+        toast.error("Error", {
+            description: `Error. ${error}`,
         });
     }
 };

@@ -63,13 +63,6 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile, setShowFile
         fileContent.data = "";
     }
 
-    const handleEditorDidMonacoGlobal = (editor, monaco) => {
-        editorRef.current = editor;
-
-        editor.addAction(this.showSettings())
-    }
-
-
     const handleEditorDidMount = (editor, monaco) => {
         editorRef.current = editor;
 
@@ -118,7 +111,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile, setShowFile
 
         if (monaco) {
             editor.addAction({
-                id: "SAVE",
+                id: "SAVE1",
                 label: "Save",
                 keybindings: [
                     monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,
@@ -190,7 +183,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile, setShowFile
                             original={initialContent} // Conteúdo original
                             modified={saveContent} // Conteúdo modificado (mudança)
                             theme={editorTheme}
-                            onMount={handleDiffEditorDidMount, handleEditorDidMonacoGlobal}
+                            onMount={handleDiffEditorDidMount}
                             options={{
                                 renderSideBySide: true, // Renderização lado a lado
                                 selectOnLineNumbers: true,
