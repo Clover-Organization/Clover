@@ -21,7 +21,7 @@ export function WelcomeNavbar() {
 					to="/docs"
 					className={cn(
 						"transition-colors hover:text-foreground/80",
-						pathname === "/docs" ? "text-foreground" : "text-foreground/60"
+						pathname.startsWith("/docs") ? "text-foreground" : "text-foreground/60"
 					)}
 				>
 					Docs

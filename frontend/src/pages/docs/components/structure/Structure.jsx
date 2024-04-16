@@ -6,10 +6,11 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import Navbar from "@/pages/components/Navbar"
-import { Link } from "react-router-dom"
+import AsideNavDocs from "../asideNav/AsideNavDocs"
 
 const Structure = () => {
     const { theme } = useTheme();
+    const selected = 2;
     return (
         <div className="flex min-h-screen w-full flex-col">
             <Navbar />
@@ -18,14 +19,7 @@ const Structure = () => {
                     <h1 className="text-3xl font-semibold">Docs</h1>
                 </div>
                 <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-                    <nav
-                        className="grid gap-4 text-sm text-muted-foreground" x-chunk="dashboard-04-chunk-0"
-                    >
-                        <Link to={'/docs'}>
-                            Introduction
-                        </Link>
-                        <Link href="#" className="font-semibold text-primary">Structure</Link>
-                    </nav>
+                    <AsideNavDocs selected={selected}/>
                     <div className="grid">
                         <CardHeader>
                             <CardTitle>Structure</CardTitle>
