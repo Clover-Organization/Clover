@@ -21,6 +21,7 @@ import RoadMap from "./pages/roadmap/RoadMap.jsx";
 import Register from "./pages/auth/register/Register.jsx";
 import Login from "./pages/auth/login/Login.jsx";
 import ProjectShare from "./pages/projects/components/share-project/ProjectShare.jsx";
+import Docs from "./pages/docs/Docs.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
 	{
 		path: "/Welcome",
 		element: <Welcome />,
+	},
+	{
+		path: "/docs",
+		element: <Docs />,
 	},
 	{
 		path: "Auth/Register",
