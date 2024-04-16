@@ -23,6 +23,7 @@ import Login from "./pages/auth/login/Login.jsx";
 import ProjectShare from "./pages/projects/components/share-project/ProjectShare.jsx";
 import Docs from "./pages/docs/Docs.jsx";
 import Structure from "./pages/docs/components/structure/Structure.jsx";
+import Versioning from "./pages/docs/components/versioning/Versioning.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
 	{
 		path: "/docs/structure",
 		element: <Structure />
+	},
+	{
+		path: "/docs/versioning",
+		element: <Versioning />
 	},
 	{
 		path: "Auth/Register",

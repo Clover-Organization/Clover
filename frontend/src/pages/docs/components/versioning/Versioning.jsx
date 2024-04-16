@@ -1,13 +1,14 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-
 import {
+    Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import Navbar from "../components/Navbar"
 import AsideNavDocs from "../asideNav/AsideNavDocs"
+import Navbar from "@/pages/components/Navbar";
+import versioningPicture from './assets/picture_versioning.png';
+import Project from "@/pages/projects/project";
 
 const Versioning = () => {
     const selected = 3;
@@ -19,46 +20,25 @@ const Versioning = () => {
                     <h1 className="text-3xl font-semibold">Docs</h1>
                 </div>
                 <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-                    <AsideNavDocs selected={selected}/>
+                    <AsideNavDocs selected={selected} />
                     <div className="grid">
                         <CardHeader>
-                            <CardTitle>Introduction</CardTitle>
+                            <CardTitle>Versioning</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <CardDescription className="text-lg">
-                                The Clover software was created based on the difficulties faced by programmers in the code versioning process. Through research, it is clear that many users face difficulties in learning and dealing with the complexities of GitHub, especially due to lack of time. For this reason, Clover was developed, with the aim of simplifying this experience.
+                                The project versioning has been intelligently crafted to meet the demands of comprehensive project versioning. Our smart versioning approach is designed to support not only individual files but also entire directories, ensuring effective management of changes across all levels of granularity.
                             </CardDescription>
                             <CardDescription className="text-lg pt-8">
-                                The goal of the project is to offer a more accessible and intuitive platform, allowing users to feel directed when navigating and versioning projects, rather than worrying about the complexities of versioning. Through it, tasks that were previously complicated and took a lot of time become simpler and more accessible.
+                                This strategy enables our versioning system to handle a wide variety of use cases, from small changes in individual files to large directory restructurings. By capturing and recording changes to files and folders in a granular manner, we ensure complete traceability of changes over time, providing a solid foundation for collaboration and continuous development.
                             </CardDescription>
                             <CardDescription className="text-lg pt-8">
-                                With a clean and friendly interface, it facilitates code sharing and promotes a more efficient project experience. Its purpose is to save users time and effort, allowing them to achieve their development goals more easily.
-                            </CardDescription>
-
-                            <Accordion type="single" collapsible className="w-full pt-8">
-                                <AccordionItem value="item-1">
-                                    <AccordionTrigger>Versioning</AccordionTrigger>
-                                    <AccordionContent>
-                                        The project versioning was built using a NoSQL database MongoDB alongside JavaSpring for the versioning logic.
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-2">
-                                    <AccordionTrigger>The design</AccordionTrigger>
-                                    <AccordionContent>
-                                        The design was developed using the shadcn library alongside Tailwind, leveraging React + Vite. This combination resulted in a simple and intuitive interface, enhancing the overall user experience.
-                                    </AccordionContent>
-                                </AccordionItem>
-                            </Accordion>
-
-                        </CardContent>
-                        <CardHeader>
-                            <CardTitle>Problem identification and consequences</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <CardDescription className="text-lg">
-                                Code versioning is an essential step in software development, allowing developers to track changes made to a project over time. However, despite the importance of this practice, many developers face significant challenges when dealing with the complexities of code versioning, especially on platforms like GitHub.
+                                Furthermore, the robustness of our versioning system allows it to handle projects of any scale, ensuring it is scalable and capable of keeping up with the growth and evolution of our projects over time. This proactive approach to versioning positions us ideally to tackle the challenges of software development and ensure the integrity and cohesion of our projects at all stages of the development lifecycle.
                             </CardDescription>
                         </CardContent>
+                        <Card>
+                            <Project />
+                        </Card>
                     </div>
                 </div>
             </main>
