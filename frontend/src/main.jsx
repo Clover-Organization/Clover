@@ -24,6 +24,7 @@ import ProjectShare from "./pages/projects/components/share-project/ProjectShare
 import Docs from "./pages/docs/Docs.jsx";
 import Structure from "./pages/docs/components/structure/Structure.jsx";
 import Versioning from "./pages/docs/components/versioning/Versioning.jsx";
+import AnnotationDocs from "./pages/docs/components/annotationsDocs/AnnotationsDocs.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
 	{
 		path: "/docs/versioning",
 		element: <Versioning />
+	},
+	{
+		path: "/docs/annotations",
+		element: <AnnotationDocs />
 	},
 	{
 		path: "Auth/Register",

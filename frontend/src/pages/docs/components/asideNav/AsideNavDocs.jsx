@@ -10,6 +10,7 @@ const AsideNavDocs = ({ selected }) => {
             </Link>
             <Link to={"/docs/structure"} className={selected === 2 && `font-semibold text-primary`}>Structure</Link>
             <Link to={"/docs/versioning"} className={selected === 3 && `font-semibold text-primary`}>Versioning</Link>
+            <Link to={"/docs/annotations"} className={selected === 4 && `font-semibold text-primary`}>Annotations</Link>
         </nav>
     )
 }

@@ -7,10 +7,10 @@ import {
 } from "@/components/ui/card";
 import AsideNavDocs from "../asideNav/AsideNavDocs";
 import Navbar from "@/pages/components/Navbar";
-import Project from "@/pages/projects/project";
+import Annotation from "@/pages/annotation/Annotation";
 
-const Versioning = () => {
-    const selected = 3;
+const AnnotationDocs = () => {
+    const selected = 4;
     return (
         <div className="flex min-h-screen w-full flex-col">
             <Navbar />
@@ -26,17 +26,17 @@ const Versioning = () => {
                         </CardHeader>
                         <CardContent>
                             <CardDescription className="text-lg">
-                                The project versioning has been intelligently crafted to meet the demands of comprehensive project versioning. Our smart versioning approach is designed to support not only individual files but also entire directories, ensuring effective management of changes across all levels of granularity.
+                                Our note-taking interface has been designed specifically for those who value keeping their project documentation up-to-date, offering a variety of configurations for annotations to ensure that users feel comfortable writing about their code.
                             </CardDescription>
                             <CardDescription className="text-lg pt-8">
-                                This strategy enables our versioning system to handle a wide variety of use cases, from small changes in individual files to large directory restructurings. By capturing and recording changes to files and folders in a granular manner, we ensure complete traceability of changes over time, providing a solid foundation for collaboration and continuous development.
+                                With customizable settings tailored to individual preferences, our interface empowers users to annotate their code effortlessly, fostering a sense of comfort and ease in documenting their projects. Whether it's highlighting key concepts, jotting down implementation details, or providing explanations for future reference, our note-taking tool provides a seamless and intuitive experience for users to capture their thoughts and insights directly within their codebase.
                             </CardDescription>
                             <CardDescription className="text-lg pt-8">
-                                Furthermore, the robustness of our versioning system allows it to handle projects of any scale, ensuring it is scalable and capable of keeping up with the growth and evolution of our projects over time. This proactive approach to versioning positions us ideally to tackle the challenges of software development and ensure the integrity and cohesion of our projects at all stages of the development lifecycle.
+                                By prioritizing user comfort and usability, our note-taking interface serves as a valuable companion for developers, enabling them to maintain comprehensive documentation and enhance collaboration within their projects.
                             </CardDescription>
                         </CardContent>
                         <Card>
-                            <Project />
+                            <Annotation />
                         </Card>
                     </div>
                 </div>
@@ -45,4 +45,4 @@ const Versioning = () => {
     )
 }
 
-export default Versioning;
+export default AnnotationDocs;
