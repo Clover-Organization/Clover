@@ -25,6 +25,7 @@ import Docs from "./pages/docs/Docs.jsx";
 import Structure from "./pages/docs/components/structure/Structure.jsx";
 import Versioning from "./pages/docs/components/versioning/Versioning.jsx";
 import AnnotationDocs from "./pages/docs/components/annotationsDocs/AnnotationsDocs.jsx";
+import RoadmapDocs from "./pages/docs/components/roadmap/RoadmapDocs.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
 	{
 		path: "/docs/annotations",
 		element: <AnnotationDocs />
+	},
+	{
+		path: "/docs/roadmap",
+		element: <RoadmapDocs />
 	},
 	{
 		path: "Auth/Register",
