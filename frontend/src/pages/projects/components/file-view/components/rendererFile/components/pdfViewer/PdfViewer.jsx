@@ -1,9 +1,17 @@
+import {
+    CardContent,
+    CardDescription,
+    CardTitle
+} from '@/components/ui/card';
 import React, { useEffect } from 'react';
 
 const PdfViewer = () => {
 
     return (
-        <h1>Unsupported file</h1>
+        <CardContent className='grid place-items-center'>
+            <CardTitle>Unsupported file</CardTitle>
+            <CardDescription>This file is not supported.</CardDescription>
+        </CardContent>
     );
 };
 

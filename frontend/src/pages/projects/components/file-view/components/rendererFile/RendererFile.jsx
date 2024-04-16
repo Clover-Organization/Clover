@@ -43,7 +43,7 @@ const RendererFile = ({ fileContent, singleRequest }) => {
             default:
                 return (
                     <div className="other-content">
-                        <h1>Unsupported file</h1>
+                        <PdfViewer pdfData={fileContent.data} />
                     </div>
                 );
         }
