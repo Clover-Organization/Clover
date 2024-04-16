@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { toast } from "sonner";
 
 export const FinishRequestAndSendEmail = async (token, email, problem, username, id) => {
     try {
@@ -21,29 +20,17 @@ export const FinishRequestAndSendEmail = async (token, email, problem, username,
         });
 
         if (response.ok) {
-            Swal.fire({
-                text: 'Finished!',
-                icon: 'success',
+            toast.success("Success!", {
+                description: "Finished.",
             });
         } else {
-            console.log("Ocorreu um erro ao gerar o token:", response.status);
-            const errorMessage = await response.text();
-            Swal.fire({
-                text: `Erro ao gerar o token: ${errorMessage}`,
-                icon: 'error',
-                customClass: {
-                    popup: 'custom-popup-class',
-                },
+            toast.error("Error", {
+                description: "Error generating token. Try again later.",
             });
         }
     } catch (error) {
-        console.log("Erro ao gerar o token:", error);
-        Swal.fire({
-            text: 'Erro ao gerar o token. Por favor, tente novamente mais tarde.',
-            icon: 'error',
-            customClass: {
-                popup: 'custom-popup-class',
-            },
+        toast.error("Error", {
+            description: "Error generating token. Try again later.",
         });
     }
 }
