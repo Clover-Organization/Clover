@@ -25,10 +25,6 @@ const Docs = () => {
                             Introduction
                         </Link>
                         <Link to={"/docs/structure"}>Structure</Link>
-                        <Link href="#">Integrations</Link>
-                        <Link href="#">Support</Link>
-                        <Link href="#">Organizations</Link>
-                        <Link href="#">Advanced</Link>
                     </nav>
                     <div className="grid">
                         <CardHeader>

@@ -27,10 +27,6 @@ const Structure = () => {
                             Introduction
                         </Link>
                         <Link href="#" className="font-semibold text-primary">Structure</Link>
-                        <Link href="#">Integrations</Link>
-                        <Link href="#">Support</Link>
-                        <Link href="#">Organizations</Link>
-                        <Link href="#">Advanced</Link>
                     </nav>
                     <div className="grid">
                         <CardHeader>
