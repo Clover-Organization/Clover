@@ -39,6 +39,7 @@ export function WelcomeNavbar() {
 				</Link>
 				<Link
 					to="https://github.com/thepokenik/clover"
+					target="__blank"
 					className={cn(
 						"hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
 					)}

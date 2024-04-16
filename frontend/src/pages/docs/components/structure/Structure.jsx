@@ -5,9 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
 import Navbar from "@/pages/components/Navbar"
-import { useState } from "react"
 import { Link } from "react-router-dom"
 
 const Structure = () => {
