@@ -74,7 +74,7 @@ const HomeNavbar = ({ idProject }) => {
                         pathname === "/roadmap" ? "text-foreground" : "text-foreground/60"
                     )}
                 >
-                    Road map
+                    Roadmaps
                 </Link>
             </nav>
         </div>
