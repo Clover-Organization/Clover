@@ -22,6 +22,7 @@ import Register from "./pages/auth/register/Register.jsx";
 import Login from "./pages/auth/login/Login.jsx";
 import ProjectShare from "./pages/projects/components/share-project/ProjectShare.jsx";
 import Docs from "./pages/docs/Docs.jsx";
+import Structure from "./pages/docs/components/structure/Structure.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
 	{
 		path: "/docs",
 		element: <Docs />,
+	},
+	{
+		path: "/docs/structure",
+		element: <Structure />
 	},
 	{
 		path: "Auth/Register",
