@@ -136,7 +136,7 @@ export function MobileNav({ role, idProject, singleRequest }) {
                                         pathname === "/roadmap" ? "text-foreground" : "text-foreground/60"
                                     )}
                                 >
-                                    Road map
+                                    Roadmaps
                                 </MobileLink>
                             </>
                         )}
