@@ -19,7 +19,7 @@ export const ToolBox = ({ box, loading, showId, role }) => {
                   {box.user.profileImage != null && !isEmpty(box.user.profileImage) ? (
                     <img
                       width={40}
-                      className="rounded-full h-10"
+                      className="rounded-full h-10 object-cover"
                       src={`data:image/png;base64,${box.user.profileImage}`}
                       alt="userImage"
                     />

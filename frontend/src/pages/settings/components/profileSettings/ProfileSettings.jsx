@@ -281,7 +281,7 @@ export const ProfileSettings = () => {
                         <div className="user-image-update w-full">
                             <div className="flex flex-col space-y-1.5">
                                 <div className="image " onClick={handleImageClick}>
-                                    <img className="rounded-full h-60" width={250} src={selectedFile ? URL.createObjectURL(selectedFile) : (userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user)} alt="userImage" />
+                                    <img className="rounded-full h-60 object-cover" width={250} src={selectedFile ? URL.createObjectURL(selectedFile) : (userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user)} alt="userImage" />
                                 </div>
                                 <input
                                     ref={fileInputRef}

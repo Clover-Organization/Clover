@@ -45,7 +45,7 @@ const ProfileMenu = ({ userData, idProject, shareUsers }) => {
                             {userData.profileImage != null && !isEmpty(userData.profileImage) ? (
                                 <img
                                     width={40}
-                                    className="rounded-full h-10"
+                                    className="rounded-full h-10 object-cover"
                                     src={
                                         userData.profileImage
                                             ? `data:image/png;base64,${userData.profileImage}`
