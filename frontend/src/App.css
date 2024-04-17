@@ -845,6 +845,7 @@ div.image {
   border-radius: 50%;
   border: dotted 2px var(--text-color);
   cursor: pointer;
+  object-fit: cover;
 }
 
 .user-image-update {
