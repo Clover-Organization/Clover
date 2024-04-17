@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import AsideNavDocs from "../asideNav/AsideNavDocs";
 import Navbar from "@/pages/components/Navbar";
-import Annotation from "@/pages/annotation/Annotation";
+import AnnotationPreview from "./annotationPreview/AnnotationPreview";
 
 const AnnotationDocs = () => {
     const selected = 4;
@@ -36,7 +36,7 @@ const AnnotationDocs = () => {
                             </CardDescription>
                         </CardContent>
                         <Card>
-                            <Annotation />
+                            <AnnotationPreview />
                         </Card>
                     </div>
                 </div>
