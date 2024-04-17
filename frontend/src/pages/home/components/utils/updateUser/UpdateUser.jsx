@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { toast } from 'sonner';
 
 export const updateUser = async (editUser, token, setUserData) => {
     try {
@@ -17,22 +16,17 @@ export const updateUser = async (editUser, token, setUserData) => {
             const responseData = await response.json();
 
             setUserData(responseData);
-            Swal.fire({
-                text: responseData.message || 'Update carried out successfully!',
-                icon: 'success',
+            toast.success("Sucess", {
+                description: responseData.message || 'Update carried out successfully!',
             });
-
         } else {
-            Swal.fire({
-                text: 'Unexpected error. Please try again later.',
-                icon: 'error',
+            toast.error("Error", {
+                description: `Unexpected error. Please try again later.`,
             });
         }
     } catch (error) {
-        console.error("Error updating user information:", error);
-        Swal.fire({
-            text: 'Error updating user information. Please try again later.',
-            icon: 'error',
+        toast.error("Error", {
+            description: `Error updating user information. Please try again later.`,
         });
     }
 };

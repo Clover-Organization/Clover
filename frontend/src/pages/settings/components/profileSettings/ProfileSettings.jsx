@@ -23,6 +23,8 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { CircleUserRound } from "lucide-react";
+import { isEmpty } from "lodash";
 
 export const ProfileSettings = () => {
 
@@ -160,7 +162,11 @@ export const ProfileSettings = () => {
                     <div className="userImage">
                         <h2>Profile picture</h2>
                         <div className="image" onClick={() => openModalUpdateImage()}>
-                            <img src={userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user} />
+                            {userData.profileImage != null && !isEmpty(userData.profileImage) ? (
+                                <img src={userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user} />
+                            ) : (
+                                <CircleUserRound width={300} height={300} />
+                            )}
                         </div>
                     </div>
                 </div>
@@ -275,7 +281,7 @@ export const ProfileSettings = () => {
                         <div className="user-image-update w-full">
                             <div className="flex flex-col space-y-1.5">
                                 <div className="image " onClick={handleImageClick}>
-                                    <img className="rounded-full h-60" width={250} src={selectedFile ? URL.createObjectURL(selectedFile) : (userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user)} alt="userImage" />
+                                    <img className="rounded-full h-60 object-cover" width={250} src={selectedFile ? URL.createObjectURL(selectedFile) : (userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user)} alt="userImage" />
                                 </div>
                                 <input
                                     ref={fileInputRef}

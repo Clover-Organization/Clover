@@ -307,9 +307,7 @@ div.lupaSearch>input,
   width: 80%;
   padding: var(--padding-small);
   border-radius: var(--border-radius-small);
-  color: var(--text-color);
   font-weight: bold;
-  background-color: var(--background-color);
   border: solid 1px var(--secondary-color);
   outline: none;
   text-indent: var(--padding-large);
@@ -317,17 +315,19 @@ div.lupaSearch>input,
 
 .lupaSearch>input:focus,
 .lupaSearch-projects>input:focus {
-  border: solid 1px var(--focus-color);
+  border: solid 1px hsl(var(--ring));
 }
 
 div.lupa {
+  position: relative;
   display: flex;
   align-items: center;
+  left: 35px;
+  background-color: hsl(var(--secondary));
 }
 
 div.lupaSearch>div.lupa>img,
 .lupaSearch-projects>div.lupa>img {
-  width: 50px;
   padding-inline: var(--padding-medium);
   position: absolute;
 }
@@ -845,6 +845,7 @@ div.image {
   border-radius: 50%;
   border: dotted 2px var(--text-color);
   cursor: pointer;
+  object-fit: cover;
 }
 
 .user-image-update {
@@ -1117,7 +1118,6 @@ pre {
 }
 
 .file-content-editor {
-  background-color: var(--box-shadow-color);
   border-radius: 0px 0px 10px 10px;
 }
 

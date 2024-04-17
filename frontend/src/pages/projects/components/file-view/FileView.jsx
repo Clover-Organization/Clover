@@ -19,12 +19,38 @@ import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { checkerTheme } from "./components/utils/checkerTheme/checkerTheme";
+import { useTheme } from "@/components/theme-provider";
+import { DiffEditor } from "@monaco-editor/react";
+import { downloadFile } from "../utils/downloadFile/downloadFile";
+import RendererFile from "./components/rendererFile/RendererFile";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
-    const theme = localStorage.getItem('theme');
     const fontSize = localStorage.getItem('fontSize');
     const fontFamily = localStorage.getItem('fontFamily');
+    const acceptSuggestionOnEnter = localStorage.getItem('acceptSuggestionOnEnter');
+    const autoClosingBrackets = localStorage.getItem('autoClosingBrackets');
+    const autoClosingDelete = localStorage.getItem('autoClosingDelete');
+    const autoClosingOvertype = localStorage.getItem('autoClosingOvertype');
+    const autoClosingQuotes = localStorage.getItem('autoClosingQuotes');
+    const autoIndent = localStorage.getItem('autoIndent');
+    const codeLens = localStorage.getItem('codeLens');
+    const contextmenu = localStorage.getItem('contextmenu');
+    const cursorBlinking = localStorage.getItem('cursorBlinking');
+    const cursorSmoothCaretAnimation = localStorage.getItem('cursorSmoothCaretAnimation');
+    const cursorStyle = localStorage.getItem('cursorStyle');
+    const disableLayerHinting = localStorage.getItem('disableLayerHinting');
+    const disableMonospaceOptimizations = localStorage.getItem('disableMonospaceOptimizations');
+    const dragAndDrop = localStorage.getItem('dragAndDrop');
+    const emptySelectionClipboard = localStorage.getItem('emptySelectionClipboard');
+    const fixedOverflowWidgets = localStorage.getItem('fixedOverflowWidgets');
+    const fontLigatures = localStorage.getItem('fontLigatures');
+    const formatOnPaste = localStorage.getItem('formatOnPaste');
+    const formatOnType = localStorage.getItem('formatOnType');
+    const glyphMargin = localStorage.getItem('glyphMargin');
+    const hideCursorInOverviewRuler = localStorage.getItem('hideCursorInOverviewRuler');
+    const letterSpacing = localStorage.getItem('letterSpacing');
     const { idProject, idFile, idFolder } = useParams();
 
     const [singleRequest, setSingleRequest] = useState({});
@@ -76,7 +102,7 @@ const FileView = () => {
 
     const handleGetAllCommitsAction = async () => {
         await getCommitsByFiles(token, idFile, setCommitsRequest);
-        setShowCommits(true);
+        setShowCommits(!showCommits)
     }
 
     const handleShowCommitsAction = (commit) => {
@@ -99,6 +125,29 @@ const FileView = () => {
 
     function handleEditorDidMount(editor, monaco) {
         editorRef.current = editor;
+
+        editor.addAction({
+            id: "myPaste",
+            label: "Editor",
+            keybindings: [
+                monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyE,
+            ],
+            contextMenuGroupId: "0_cutcopypaste",
+            contextMenuOrder: 0,
+
+            run: editor => {
+                setShowFileEditor(true);
+            }
+        });
+        editor.addAction({
+            id: 'OPEN_SETTINGS',
+            label: 'Settings editor',
+            contextMenuGroupId: "0_cutcopypaste",
+            contextMenuOrder: 2,
+            run: (ed) => {
+                navigate(`/settings/${idProject}/2`);
+            }
+        })
     }
 
 
@@ -107,6 +156,16 @@ const FileView = () => {
             setShowFileEditor(false);
         } else { setShowFileEditor(true); }
 
+    }
+
+    const { theme } = useTheme();
+    const [editorTheme, setEditorTheme] = useState(checkerTheme(theme));
+    useEffect(() => {
+        setEditorTheme(checkerTheme(theme));
+    }, [theme]);
+
+    const handleDownloadFile = async () => {
+        await downloadFile(token, idFile, idProject, singleRequest);
     }
 
     return (
@@ -123,7 +182,9 @@ const FileView = () => {
                         setShowCommits={setShowCommits}
                         setCommitNull={() => setShowCommitsSelected({ selectedCommit: false, commitMessage: "", changes: null })}
                         handleShowFileEditor={handleShowFileEditor}
+                        isEditing={showFileEditor}
                         showFileEditor={showFileEditor}
+                        handleDownloadFile={handleDownloadFile}
                     />
                 </nav>
 
@@ -137,14 +198,13 @@ const FileView = () => {
                                     {Array.isArray(commitsRequest) && commitsRequest.length > 0 && (
                                         commitsRequest.map((commit) => (
                                             <React.Fragment key={commit.idCommit}>
-                                                <div className="commits-content" onClick={() => handleShowCommitsAction(commit)}>
+                                                <div className="commits-content text-secondary-foreground" onClick={() => handleShowCommitsAction(commit)}>
                                                     {commit.commitMessage}
                                                 </div>
                                                 <hr className="hr-project-title" />
                                             </React.Fragment>
                                         ))
                                     )}
-
                                 </pre>
                             </div>
                         </>
@@ -158,22 +218,44 @@ const FileView = () => {
                                                 <img src={showCommits.changes} alt="image" />
                                             </div>
                                         ) : (
-                                            <div className="file-content-editor">
-                                                <Editor
+                                            <div className="file-content-editor flex">
+                                                <DiffEditor
                                                     className="editor-container"
                                                     height="70vh"
                                                     width="100%"
                                                     language={GetLanguageInfos(singleRequest.fileName).name}
-                                                    defaultValue={showCommitsSelected.changes}
-                                                    theme={theme}
-                                                    onMount={handleEditorDidMount}
+                                                    original={fileContent.data} // Conteúdo original
+                                                    modified={showCommitsSelected.changes} // Conteúdo modificado (mudança)
+                                                    theme={editorTheme}
                                                     options={{
+                                                        renderSideBySide: true, // Renderização lado a lado
                                                         selectOnLineNumbers: true,
                                                         scrollBeyondLastLine: false,
                                                         fontSize: `${fontSize}px`,
-                                                        fontLigatures: true,
+                                                        fontLigatures: fontLigatures,
+                                                        readOnly: true,
                                                         fontFamily: fontFamily,
-                                                        readOnly: true
+                                                        acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                                        autoClosingBrackets: autoClosingBrackets,
+                                                        autoClosingDelete: autoClosingDelete,
+                                                        autoClosingOvertype: autoClosingOvertype,
+                                                        autoClosingQuotes: autoClosingQuotes,
+                                                        autoIndent: autoIndent,
+                                                        codeLens: codeLens,
+                                                        contextmenu: contextmenu,
+                                                        cursorBlinking: cursorBlinking,
+                                                        cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                                        cursorStyle: cursorStyle,
+                                                        disableLayerHinting: disableLayerHinting,
+                                                        disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                                        dragAndDrop: dragAndDrop,
+                                                        emptySelectionClipboard: emptySelectionClipboard,
+                                                        fixedOverflowWidgets: fixedOverflowWidgets,
+                                                        formatOnPaste: formatOnPaste,
+                                                        formatOnType: formatOnType,
+                                                        glyphMargin: glyphMargin,
+                                                        hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                                        letterSpacing: letterSpacing,
                                                     }}
                                                 />
                                             </div>
@@ -183,45 +265,66 @@ const FileView = () => {
                                 </>
                             ) : (
                                 <>
-
                                     {showFileEditor ? (
                                         <FileEditor
                                             singleRequest={singleRequest}
                                             fileContent={fileContent}
                                             idProject={idProject}
                                             idFile={idFile}
+                                            setShowFileEditor={setShowFileEditor}
                                         />
-                                    ) :
-                                        fileContent.contentType === "image" ? (
-                                            <div className="image-content">
-                                                <img src={fileContent.data} alt={singleRequest.fileName} />
-                                            </div>
-                                        ) : (
-                                            <>
-                                                {fileContent.data && (
-                                                    <div className="file-content-editor">
-                                                        <Editor
-                                                            className="editor-container"
-                                                            height="70vh"
-                                                            width="100%"
-                                                            language={GetLanguageInfos(singleRequest.fileName).name}
-                                                            defaultValue={fileContent.data}
-                                                            theme={theme}
-                                                            onMount={handleEditorDidMount}
-                                                            options={{
-                                                                selectOnLineNumbers: true,
-                                                                scrollBeyondLastLine: false,
-                                                                fontSize: `${fontSize}px`,
-                                                                fontLigatures: true,
-                                                                fontFamily: fontFamily,
-                                                                readOnly: true
-                                                            }}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </>
-                                        )
-                                    }
+                                    ) : (
+                                        <>
+                                            {singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "Undefined" || singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "md"  ? (
+                                                <RendererFile fileContent={fileContent} singleRequest={singleRequest} />
+                                            ) : (
+                                                <>
+                                                    {fileContent.data && (
+                                                        <div className="file-content-editor">
+                                                            <Editor
+                                                                className="editor-container"
+                                                                height="70vh"
+                                                                width="100%"
+                                                                language={singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name}
+                                                                defaultValue={fileContent.data}
+                                                                theme={editorTheme}
+                                                                onMount={handleEditorDidMount}
+                                                                options={{
+                                                                    selectOnLineNumbers: true,
+                                                                    scrollBeyondLastLine: false,
+                                                                    fontSize: `${fontSize}px`,
+                                                                    fontLigatures: fontLigatures,
+                                                                    fontFamily: fontFamily,
+                                                                    readOnly: true,
+                                                                    acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                                                    autoClosingBrackets: autoClosingBrackets,
+                                                                    autoClosingDelete: autoClosingDelete,
+                                                                    autoClosingOvertype: autoClosingOvertype,
+                                                                    autoClosingQuotes: autoClosingQuotes,
+                                                                    autoIndent: autoIndent,
+                                                                    codeLens: codeLens,
+                                                                    contextmenu: contextmenu,
+                                                                    cursorBlinking: cursorBlinking,
+                                                                    cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                                                    cursorStyle: cursorStyle,
+                                                                    disableLayerHinting: disableLayerHinting,
+                                                                    disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                                                    dragAndDrop: dragAndDrop,
+                                                                    emptySelectionClipboard: emptySelectionClipboard,
+                                                                    fixedOverflowWidgets: fixedOverflowWidgets,
+                                                                    formatOnPaste: formatOnPaste,
+                                                                    formatOnType: formatOnType,
+                                                                    glyphMargin: glyphMargin,
+                                                                    hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                                                    letterSpacing: letterSpacing
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </>
+                                            )}
+                                        </>
+                                    )}
                                 </>
                             )}
                         </>

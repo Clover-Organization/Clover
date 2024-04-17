@@ -1,18 +1,28 @@
 import React from "react";
-import lupa from '../../../home/assets/lupa.png';
-import { openModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
+import { closeModal, openModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
 import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react";
+import { Search, Share2 } from "lucide-react";
+import Modal from "@/pages/components/Modal";
+import ShareProjectComp from "@/pages/settings/components/requestSettings/components/shareProject/ShareProjectComp";
+import { useState } from "react";
 
-const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen, setModalShareProject }) => {
+const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen, idProject }) => {
+    const token = localStorage.getItem("token");
+    const [loadingModal, setLoadingModal] = useState(false);
+    const [dataShareProject, setDataShareProject] = useState({
+        idProject: idProject,
+        usernameOrEmail: "",
+    });
+    const [modalShareProject, setModalShareProject] = useState(false);
     return (
         <div className="titleProject">
             <nav className="nav-project">
                 <h2>{singleRequest && singleRequest.projectName}</h2>
                 <div className="align-nav-components">
                     <div className="lupaSearch-projects">
-                        <div className="lupa"><img src={lupa} alt="Search" /></div>
+                        <div className="lupa"><Search width={20} /></div>
                         <input
+                            className="bg-secondary"
                             title="Search"
                             placeholder="Search.."
                             type="search"
@@ -30,6 +40,17 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
                 </div>
             </nav>
             <hr className="hr-project-title" />
+            <Modal isOpen={modalShareProject} onClose={() => closeModal(setModalShareProject)}>
+                <ShareProjectComp
+                    dataShareProject={dataShareProject}
+                    setDataShareProject={setDataShareProject}
+                    close={() => closeModal(setModalShareProject)}
+                    token={token}
+                    loading={loadingModal}
+                    setLoading={setLoadingModal}
+                    idProject={idProject}
+                />
+            </Modal>
         </div>
     )
 }

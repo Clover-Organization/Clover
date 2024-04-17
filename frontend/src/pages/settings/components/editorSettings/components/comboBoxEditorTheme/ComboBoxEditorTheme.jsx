@@ -9,13 +9,17 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { CardDescription } from "@/components/ui/card"
 
 export function ComboBoxEditorTheme({ theme, setTheme }) {
 
     return (
         <>
-            <CardDescription>Theme</CardDescription>
+            <label
+                htmlFor="terms1"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+                Theme
+            </label>
             <Select onValueChange={setTheme}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue
@@ -25,6 +29,7 @@ export function ComboBoxEditorTheme({ theme, setTheme }) {
                 <SelectContent>
                     <SelectGroup>
                         <SelectLabel>Themes</SelectLabel>
+                        <SelectItem value="system">System</SelectItem>
                         <SelectItem value="vs">Vs</SelectItem>
                         <SelectItem value="vs-dark">Vs-dark</SelectItem>
                         <SelectItem value="hc-black">Hc-black</SelectItem>

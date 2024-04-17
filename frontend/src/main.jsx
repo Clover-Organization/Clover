@@ -21,6 +21,11 @@ import RoadMap from "./pages/roadmap/RoadMap.jsx";
 import Register from "./pages/auth/register/Register.jsx";
 import Login from "./pages/auth/login/Login.jsx";
 import ProjectShare from "./pages/projects/components/share-project/ProjectShare.jsx";
+import Docs from "./pages/docs/Docs.jsx";
+import Structure from "./pages/docs/components/structure/Structure.jsx";
+import Versioning from "./pages/docs/components/versioning/Versioning.jsx";
+import AnnotationDocs from "./pages/docs/components/annotationsDocs/AnnotationsDocs.jsx";
+import RoadmapDocs from "./pages/docs/components/roadmap/RoadmapDocs.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -68,6 +73,26 @@ const router = createBrowserRouter([
 		element: <Welcome />,
 	},
 	{
+		path: "/docs",
+		element: <Docs />,
+	},
+	{
+		path: "/docs/structure",
+		element: <Structure />
+	},
+	{
+		path: "/docs/versioning",
+		element: <Versioning />
+	},
+	{
+		path: "/docs/annotations",
+		element: <AnnotationDocs />
+	},
+	{
+		path: "/docs/roadmap",
+		element: <RoadmapDocs />
+	},
+	{
 		path: "Auth/Register",
 		element: <Register />,
 	},
@@ -82,7 +107,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 			<SplashScreen />
 			<RouterProvider router={router} />
-			<Toaster position="top-right" richColors visibleToasts="1" />
+			<Toaster closeButton={true} richColors visibleToasts="1" />
 		</ThemeProvider>
 	</React.StrictMode>
 );

@@ -36,8 +36,6 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
-import user from '../../assets/user.png'
-
 const FormSchema = z.object({
 	username: z.string().min(2, {
 		message: "Username must be at least 2 characters.",
@@ -54,17 +52,8 @@ const FormSchema = z.object({
 				message: "Password must contain at least one special character.",
 			}
 		),
-	firstName: z.string().min(1, {
-		message: "",
-	}),
-	lastName: z.string().min(1, {
-		message: "",
-	}),
 	email: z.string().email({ message: "Invalid email address" }),
-	birth: z.date({
-		required_error: "Please select a date and time",
-		invalid_type_error: "That's not a date!",
-	}),
+
 	role: z.string(),
 });
 
@@ -98,22 +87,10 @@ export default function RegisterScreen() {
 		return null;
 	};
 
-	const getUserFile = async (userImagePath) => {
-		const response = await fetch(userImagePath);
-		const blob = await response.blob();
-
-		const fileName = userImagePath.split("/").pop();
-
-		const userFile = new File([blob], fileName, { type: blob.type });
-
-		return userFile;
-	};
-
 	const handleRegister = async (userData) => {
-		const userFile = await getUserFile(user);
 
 		const formData = new FormData();
-		formData.append("profileImage", profileImage ? profileImage : userFile);
+		formData.append("profileImage", profileImage);
 
 		formData.append(
 			"userData",
@@ -183,15 +160,13 @@ export default function RegisterScreen() {
 				lastName: decoded.payload.family_name,
 				email: decoded.payload.email,
 				password: decoded.payload.sub,
-				birth: "00-00-0000",
+				birth: "",
 				role: "USER",
 			};
 
-			const userFile = await getUserFile(user);
-
 			const formData = new FormData();
 
-			formData.append("profileImage", profileImage ? profileImage : userFile);
+			formData.append("profileImage", profileImage);
 
 			formData.append(
 				"userData",
@@ -210,6 +185,7 @@ export default function RegisterScreen() {
 				toast.success("Sucess!", {
 					description: "Successfully registered! You can now sign in!",
 				});
+				navigate("/auth/login");
 			} else {
 				console.log("Error: " + response.status);
 				toast.error("Error!", {
@@ -306,7 +282,7 @@ export default function RegisterScreen() {
 												/>
 											</FormControl>
 											<FormDescription>
-												<p class="text-left break-words text-wrap w-60">
+												<p className="text-left break-words text-wrap w-60">
 													Your password must be at least 8 characters long and
 													contain at least one special character.
 												</p>

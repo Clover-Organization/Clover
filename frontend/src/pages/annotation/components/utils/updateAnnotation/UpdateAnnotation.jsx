@@ -2,7 +2,6 @@ import { toast } from 'sonner';
 
 // Function to update a request
 export const updateAnnotation = async (token, editedRequest, idAnnotation, idProject) => {
-    console.log(JSON.stringify(editedRequest));
     try {
         const response = await fetch(`http://localhost:8080/projects/annotations/${idProject}/annotation/${idAnnotation}/update`, {
             method: 'PUT',

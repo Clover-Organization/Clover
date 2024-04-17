@@ -1,7 +1,7 @@
 import React from "react";
 
-import folderIcon from '../../assets/folderIcon.png';
 import { calculateTimeDifference } from "../../../home/components/utils/calculateTimeDifference/CalculateTimeDifference";
+import { Folder } from "lucide-react";
 
 const FolderContent = ({ item }) => {
 
@@ -9,7 +9,7 @@ const FolderContent = ({ item }) => {
     return (
         <div className="file-folder-content">
             <div className="file-folder">
-                <img src={folderIcon} alt="fileIcon" />
+                <Folder width={20}/>
                 <span>{item.folderName}</span>
             </div>
             <span>{calculateTimeDifference(item.creationFolder, true, true, true, false, false)}</span>
