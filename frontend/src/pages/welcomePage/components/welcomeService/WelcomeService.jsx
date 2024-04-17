@@ -1,4 +1,3 @@
-import { GitCompareArrows, Users, Blocks } from "lucide-react";
 import React, { useState } from "react";
 import {
 	AccordionTrigger,
