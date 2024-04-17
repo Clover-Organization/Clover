@@ -2,26 +2,42 @@ import React from "react";
 import '../../style/style.css';
 import AboutImg from './assets/AboutImg.png'
 import iconBalanca from './assets/iconBalanca.png';
+import { GitCompareArrows, Users, Blocks } from "lucide-react";
 
 const WelcomeDescri = () => {
 
     return (
-        <section className="WelcomeDescSection" id="hyper">
-            <article className="WelcomeDescArticle">
-                <img src={AboutImg} alt="AboutImage" />
-                <div className="TxtWelcomeDesc">
-                    <h2>About</h2>
-                    <span>The request ease project aims to help users help themselves with job requests, facilitating and reducing administrative stress.</span>
-                </div>
-            </article>
-            <div className="centerBalance">
-                <div className="WelcomeDescBalance">
-                    <img src={iconBalanca} alt="balance" />
-                    <span>
-                        Experience, commitment and value. It is our mission to consistently provide this to our customers.
-                    </span>
-                </div>
-            </div>
+        <section>
+           <div className="flex flex-wrap justify-center items-center mt-10 sm:mt-20 md:mt-32 lg:mt-44 gap-8">
+				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary">
+					<GitCompareArrows className="text-primary mb-4" />
+					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+						Version Control Made Easy
+					</h3>
+					<p className="leading-7 mt-6">
+						Seamlessly manage your code versions with Clover's intuitive
+						interface
+					</p>
+				</div>
+				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary mt-4 sm:mt-0">
+					<Users className="text-primary mb-4" />
+					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+						Effortless Collaboration
+					</h3>
+					<p className="leading-7 mt-6">
+						Work together on projects seamlessly, ensuring smooth teamwork
+					</p>
+				</div>
+				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary mt-4 md:mt-0">
+					<Blocks className="text-primary mb-4" />
+					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+						Learning Made Fun
+					</h3>
+					<p className="leading-7 mt-6">
+						Embark on your coding journey and enjoy the learning process
+					</p>
+				</div>
+			</div>
         </section>
     );
 };
