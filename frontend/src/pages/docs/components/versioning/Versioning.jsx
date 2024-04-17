@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import AsideNavDocs from "../asideNav/AsideNavDocs";
 import Navbar from "@/pages/components/Navbar";
-import Project from "@/pages/projects/project";
+import ProjectPreview from "./projectPreview/ProjectPreview";
 
 const Versioning = () => {
     const selected = 3;
@@ -36,7 +36,7 @@ const Versioning = () => {
                             </CardDescription>
                         </CardContent>
                         <Card>
-                            <Project />
+                            <ProjectPreview />
                         </Card>
                     </div>
                 </div>
