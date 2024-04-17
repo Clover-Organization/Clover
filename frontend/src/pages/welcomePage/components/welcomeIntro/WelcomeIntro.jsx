@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../style/style.css";
-import { Button } from "@/components/ui/button";
-import { GitCompareArrows, Users, Blocks } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SparklesCore } from "@/components/ui/sparkles";
 import Spline from "@splinetool/react-spline";
@@ -37,9 +35,9 @@ const WelcomeIntro = () => {
 					</h1>
 
 					<p className="text-xl mb-8">
-						Unlock your coding potential effortlessly with Clover. where
-						versioning becomes intuitive and coding becomes a breeze for
-						programming learners
+						Unlock your coding potential effortlessly with Clover.
+						where versioning becomes intuitive and coding becomes a
+						breeze for programming learners
 					</p>
 				</div>
 				<div className="btnTxt">
@@ -64,37 +62,10 @@ const WelcomeIntro = () => {
 						</button>
 					</Link>
 				</div>
-        <Spline className="z-10" scene="https://draft.spline.design/83evNMY2VhHkoqT9/scene.splinecode" />
-			</div>
-			<div className="flex flex-wrap justify-center items-center mt-10 sm:mt-20 md:mt-32 lg:mt-44 gap-8">
-				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary">
-					<GitCompareArrows className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Version Control Made Easy
-					</h3>
-					<p className="leading-7 mt-6">
-						Seamlessly manage your code versions with Clover's intuitive
-						interface
-					</p>
-				</div>
-				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary mt-4 sm:mt-0">
-					<Users className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Effortless Collaboration
-					</h3>
-					<p className="leading-7 mt-6">
-						Work together on projects seamlessly, ensuring smooth teamwork
-					</p>
-				</div>
-				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary mt-4 md:mt-0">
-					<Blocks className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Learning Made Fun
-					</h3>
-					<p className="leading-7 mt-6">
-						Embark on your coding journey and enjoy the learning process
-					</p>
-				</div>
+				<Spline
+					className="z-10"
+					scene="https://draft.spline.design/83evNMY2VhHkoqT9/scene.splinecode"
+				/>
 			</div>
 		</section>
 	);
