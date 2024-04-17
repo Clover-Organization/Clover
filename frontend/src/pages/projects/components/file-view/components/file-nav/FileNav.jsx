@@ -38,8 +38,8 @@ const FileNav = ({
 				<img
 					src={
 						singleRequest &&
-						singleRequest.fileName &&
-						GetLanguageInfos(singleRequest.fileName)
+							singleRequest.fileName &&
+							GetLanguageInfos(singleRequest.fileName)
 							? GetLanguageInfos(singleRequest.fileName).imgUrl
 							: fileIcon
 					}
@@ -49,45 +49,56 @@ const FileNav = ({
 			</div>
 			<div className="flex gap-4">
 				<div className="flex justify-center items-center gap-2">
-					
+
 					<Button onClick={() => setModalIsOpen(true)}>
 						<ListPlus className="mr-2 h-4 w-4" /> New Commit
 					</Button>
-					<Button
-						className="getAllCommits"
-						onClick={handleGetAllCommitsAction}
-						variant="outline"
-					>
-						<ListCollapse className="mr-2 h-4 w-4" />
-						<h4>
-							Commits:{" "}
-							{singleRequest && singleRequest.commits
-								? singleRequest.commits.length
-								: 0}
-						</h4>
-					</Button>
-				</div>
-				{!showFileEditor && (
-						
-					
-				<div className="commitsProject-dsp-flex-align">
 					<TooltipProvider>
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Button
+									className="getAllCommits"
+									onClick={handleGetAllCommitsAction}
 									variant="outline"
-									size="icon"
-									onClick={handleDownloadFile}
 								>
-									<Download className="h-4 w-4" />
+									<ListCollapse className="mr-2 h-4 w-4" />
+									<h4>
+										Commits:{" "}
+										{singleRequest && singleRequest.commits
+											? singleRequest.commits.length
+											: 0}
+									</h4>
 								</Button>
 							</TooltipTrigger>
 							<TooltipContent>
-								<p>Download File</p>
+								{singleRequest.commits && singleRequest.commits.length > 0 && (
+									<p>{singleRequest.commits[singleRequest.commits.length - 1].commitMessage}</p>
+								)}
 							</TooltipContent>
 						</Tooltip>
 					</TooltipProvider>
 				</div>
+				{!showFileEditor && (
+
+
+					<div className="commitsProject-dsp-flex-align">
+						<TooltipProvider>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										variant="outline"
+										size="icon"
+										onClick={handleDownloadFile}
+									>
+										<Download className="h-4 w-4" />
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>Download File</p>
+								</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
+					</div>
 				)}
 				<div className="commitsProject-dsp-flex-align">
 					<TooltipProvider>
