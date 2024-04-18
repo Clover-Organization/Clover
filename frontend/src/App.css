@@ -1401,3 +1401,7 @@ pre {
   font-weight: bold;
   margin-left: 15px;
 }
+
+.markdown-body h2{
+    color: #e6edf3;
+}
