@@ -1,5 +1,6 @@
 import { uploadFiles } from '@/pages/projects/components/utils/uploadFiles/UploadFiles';
 import { uploadFilesIntoFolder } from '@/pages/projects/components/utils/uploadsFilesIntoFolder/UploadFilesIntoFolder';
+import { toast } from 'sonner';
 
 export const createFile = async (fileName, token, idProject, idFolder) => {
     // Verifica se o nome do arquivo possui uma extensão
@@ -18,8 +19,13 @@ export const createFile = async (fileName, token, idProject, idFolder) => {
         // Chama a função de upload de arquivos
         !idFolder ? await uploadFiles(token, idProject, [file]) : await uploadFilesIntoFolder(token, idProject, [file], idFolder);
 
-        console.log(`Arquivo "${finalFileName}" criado com sucesso.`);
+        toast.success("Sucess!", {
+            description: "File created successfully!",
+        });
     } catch (error) {
         console.error(`Erro ao criar o arquivo "${finalFileName}": ${error}`);
+        toast.error("Error!", {
+            description: `Error creating file ${error}`,
+        });
     }
 };
