@@ -46,7 +46,7 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
                             <DropdownMenuTrigger asChild>
                                 <Button variant="outline">Add file</Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-56">
+                            <DropdownMenuContent className="w-36">
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem onClick={() => openModal(setModalCreateFile)} className="flex gap-2">
                                         <Plus width={18} />
