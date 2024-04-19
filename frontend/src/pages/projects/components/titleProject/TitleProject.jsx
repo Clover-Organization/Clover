@@ -1,12 +1,20 @@
 import React from "react";
 import { closeModal, openModal } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
 import { Button } from "@/components/ui/button";
-import { Search, Share2 } from "lucide-react";
+import { Plus, Search, Share2, Upload } from "lucide-react";
+import { useState } from "react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Modal from "@/pages/components/Modal";
 import ShareProjectComp from "@/pages/settings/components/requestSettings/components/shareProject/ShareProjectComp";
-import { useState } from "react";
+import CreateFile from "./components/createFile/CreateFile";
 
-const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen, idProject }) => {
+const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen, idProject, idFolder }) => {
     const token = localStorage.getItem("token");
     const [loadingModal, setLoadingModal] = useState(false);
     const [dataShareProject, setDataShareProject] = useState({
@@ -14,6 +22,7 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
         usernameOrEmail: "",
     });
     const [modalShareProject, setModalShareProject] = useState(false);
+    const [modalCreateFile, setModalCreateFile] = useState(false);
     return (
         <div className="titleProject">
             <nav className="nav-project">
@@ -32,7 +41,25 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
                         />
                     </div>
                     <div className="flex gap-2">
-                        <Button variant="outline" onClick={() => openModal(setModalIsOpen)}>Upload</Button>
+
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline">Add file</Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56">
+                                <DropdownMenuGroup>
+                                    <DropdownMenuItem onClick={() => openModal(setModalCreateFile)} className="flex gap-2">
+                                        <Plus width={18} />
+                                        Create new file
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => openModal(setModalIsOpen)} className="flex gap-2">
+                                        <Upload width={18} />
+                                        Upload file
+                                    </DropdownMenuItem>
+                                </DropdownMenuGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
                         <Button variant="outline" size="icon" onClick={() => setModalShareProject(true)}>
                             <Share2 width={18} />
                         </Button>
@@ -49,6 +76,14 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
                     loading={loadingModal}
                     setLoading={setLoadingModal}
                     idProject={idProject}
+                />
+            </Modal>
+
+            <Modal isOpen={modalCreateFile} onClose={() => closeModal(setModalCreateFile)}>
+                <CreateFile
+                    close={() => closeModal(setModalCreateFile)}
+                    idProject={idProject}
+                    idFolder={idFolder}
                 />
             </Modal>
         </div>
