@@ -1,3 +1,4 @@
+import fileIcon from "../../../assets/fileIcon.png";
 const languagesData = {
     py: {
         name: "python",
@@ -63,14 +64,18 @@ const languagesData = {
         name: "scala",
         imgUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scala/scala-original.svg"
     },
-    sql:{
+    sql: {
         name: "sql",
         imgUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqldeveloper/sqldeveloper-plain.svg"
     },
-    md:{
+    md: {
         name: "md",
         imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@3.13.0/icons/markdown.svg"
     },
+    txt: {
+        name: "txt",
+        imgUrl: fileIcon
+    }
 };
 
 export default languagesData;
