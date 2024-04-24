@@ -74,17 +74,6 @@ export function MobileNav({ role, idProject, singleRequest }) {
                                     Docs
                                 </MobileLink>
                                 <MobileLink
-                                    to="/about"
-                                    className={cn(
-                                        "transition-colors hover:text-foreground/80",
-                                        pathname?.startsWith("/about")
-                                            ? "text-foreground"
-                                            : "text-foreground/60"
-                                    )}
-                                >
-                                    About
-                                </MobileLink>
-                                <MobileLink
                                     to="https://github.com/thepokenik/clover"
                                     className={cn(
                                         "text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
