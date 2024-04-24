@@ -71,34 +71,6 @@ const Settings = () => {
   }, []);
 
   return (
-    // <main className="main-settings-content">
-    //   <Navbar idProject={idProject} />
-    //   <section className="flex items-baseline">
-    //     <div className='menuConfig'>
-    //       <div className="lg:hidden p-4">
-    // <AsideResponsive select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />
-    //       </div>
-    //       <div className='hidden lg:block p-8'>
-    // <Aside select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />
-    //       </div>
-    //     </div>
-    //     {select === 0 && (
-    //       <ProfileSettings />
-    //     )}
-    //     {select === 1 && isShare === "false" && (
-    //       <RequestSettings idProject={idProject} isShare={isShare} />
-    //     )}
-
-    //     {select === 1 && isShare !== "false" && (
-    //       <AlertPage />
-    //     )}
-
-    //     {select === 2 && (
-    //       <EditorSettings idProject={idProject} />
-    //     )}
-    //   </section>
-    // </main>
-
     <div className="flex min-h-screen w-full flex-col">
       <Navbar idProject={idProject} />
       <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
