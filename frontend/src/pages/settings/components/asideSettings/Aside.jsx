@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 export const Aside = ({ select, setSelect, idProject, isShare }) => {

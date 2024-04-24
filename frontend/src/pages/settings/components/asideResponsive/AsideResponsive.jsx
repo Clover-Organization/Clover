@@ -9,9 +9,8 @@ import {
 import { ChevronRight } from 'lucide-react';
 import { Aside } from "../asideSettings/Aside";
 
-const AsideResponsive = (select, setSelect, idProject, isShare) => {
+const AsideResponsive = ({ select, setSelect, idProject, isShare }) => {
     return (
-
         <Sheet>
             <SheetTrigger asChild>
                 <Button variant="link" size="icon" className="hover:bg-stone-900"><ChevronRight /></Button>
