@@ -1,3 +1,4 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 // Function to create a new request
@@ -8,7 +9,7 @@ export const CreateNewRequest = async (formData, token) => {
     };
 
     try {
-        const response = await fetch("http://localhost:8080/projects/upload", {
+        const response = await fetch(`${url}/projects/upload`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

@@ -1,8 +1,9 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
 
 export const ProjectSharing = async (token, dataShareProject) => {
     try {
-        const response = await fetch(`http://localhost:8080/projects/share`, {
+        const response = await fetch(`${url}/projects/share`, {
             method: "POST",
             headers: {
                 Accept: "application/json",

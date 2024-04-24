@@ -1,3 +1,4 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const FileChange = async (e, token) => {
@@ -9,7 +10,7 @@ export const FileChange = async (e, token) => {
                 const formData = new FormData();
                 formData.append('file', file);
 
-                const response = await fetch('http://localhost:8080/updateUserImage', {
+                const response = await fetch(`${url}/updateUserImage`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${token}`,

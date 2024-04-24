@@ -17,6 +17,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PasswordUpdate from "./PasswordUpdate";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { url } from "@/infra/url";
 
 export default function LoginScreen() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -73,7 +74,7 @@ export default function LoginScreen() {
 		};
 
 		try {
-			const response = await fetch("http://localhost:8080/auth/login", {
+			const response = await fetch(`${url}/auth/login`, {
 				headers: {
 					Accept: "application/json",
 					"Content-Type": "application/json",
@@ -114,7 +115,7 @@ export default function LoginScreen() {
 		};
 
 		try {
-			const response = await fetch("http://localhost:8080/auth/login", {
+			const response = await fetch(`${url}/auth/login`, {
 				headers: {
 					Accept: "application/json",
 					"Content-Type": "application/json",

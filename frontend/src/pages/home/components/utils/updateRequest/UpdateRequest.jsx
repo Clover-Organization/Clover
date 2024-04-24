@@ -1,8 +1,9 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const updateRequest = async (token, editedRequest, setSingleRequest) => {
     try {
-        const response = await fetch(`http://localhost:8080/projects/${editedRequest.idProject}`, {
+        const response = await fetch(`${url}/projects/${editedRequest.idProject}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
