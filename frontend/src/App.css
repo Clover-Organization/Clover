@@ -767,23 +767,12 @@ div.page>button:hover {
   height: 20px;
 }
 
-.aside-settings-content {
-  max-width: 100%;
-  height: 50vh;
-  border-right: solid 1px var(--box-shadow-color);
-}
-
 .aside-ul-settings-content {
   display: grid;
-  gap: var(--gap-medium);
 }
 
 .aside-ul-settings-content a {
   padding: 0;
-}
-
-.aside-ul-settings-content li {
-  padding: 0.5rem;
 }
 
 /* === CSS ProfileSettings === */

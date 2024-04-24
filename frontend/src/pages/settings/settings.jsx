@@ -1,25 +1,19 @@
 import { useState, useEffect } from 'react';
-import ScrollReveal from 'scrollreveal';
-import Navbar from '../components/Navbar';
 import { Aside } from './components/asideSettings/Aside';
 import { ProfileSettings } from './components/profileSettings/ProfileSettings';
-
-import seta from './assets/seta.png'
 import { RequestSettings } from './components/requestSettings/RequestSettings';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import ScrollReveal from 'scrollreveal';
+import Navbar from '../components/Navbar';
 import EditorSettings from './components/editorSettings/EditorSettings';
 import AlertPage from './components/alertPage/AlertPage';
+import AsideResponsive from './components/asideResponsive/AsideResponsive';
 
 const Settings = () => {
-  const [asideOpen, setAsideOpen] = useState(true);
   const { idProject } = useParams();
   const { selected } = useParams();
   const [select, setSelect] = useState(selected ? parseInt(selected) : 0);
   const isShare = localStorage.getItem("shareUser");
-
-  const toggleAside = () => {
-    setAsideOpen((prevAsideOpen) => !prevAsideOpen);
-  };
 
   useEffect(() => {
     const sr = ScrollReveal();
@@ -55,31 +49,40 @@ const Settings = () => {
   }, []);
 
   return (
-    <main className="main-settings-content">
+    <div className="flex min-h-screen w-full flex-col">
       <Navbar idProject={idProject} />
-      <section className="section-settings-content">
-        <div className='menuConfig'>
-          {asideOpen && <Aside select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />}
-          <img src={seta} alt="menu" onClick={toggleAside} />
+      <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
+        <div className="mx-auto grid w-full max-w-6xl gap-2">
+          <h1 className="text-3xl font-semibold">Settings</h1>
         </div>
-        {select === 0 && (
-          <ProfileSettings />
-        )}
+        <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+          <div className='menuConfig'>
+            <div className="lg:hidden">
+              <AsideResponsive select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />
+            </div>
+            <div className='hidden lg:block'>
+              <Aside select={select} setSelect={setSelect} idProject={idProject} isShare={isShare} />
+            </div>
+          </div>
+          <div className="grid gap-6">
+            {select === 0 && (
+              <ProfileSettings />
+            )}
+            {select === 1 && isShare === "false" && (
+              <RequestSettings idProject={idProject} isShare={isShare} />
+            )}
 
-        {select === 1 && isShare === "false" && (
-          <RequestSettings idProject={idProject} isShare={isShare} />
-        )}
+            {select === 1 && isShare !== "false" && (
+              <AlertPage />
+            )}
 
-        {select === 1 && isShare !== "false" && (
-          <AlertPage />
-        )}
-
-        {select === 2 && (
-          <EditorSettings idProject={idProject} />
-        )}
-
-      </section>
-    </main>
+            {select === 2 && (
+              <EditorSettings idProject={idProject} />
+            )}
+          </div>
+        </div>
+      </main>
+    </div>
   );
 };
 

@@ -6,26 +6,14 @@ export const Aside = ({ select, setSelect, idProject, isShare }) => {
     };
 
     return (
-        <aside className="aside-settings-content">
-            <ul className="aside-ul-settings-content">
-                <li>
-                    <Link onClick={() => changeSelectNumber(0)} className={select === 0 ? "active text-secondary-foreground" : "noActive text-secondary-foreground"}>
-                        Profile
-                    </Link>
-                </li>
-                {idProject !== undefined && isShare == "false" && (
-                    <li>
-                        <Link onClick={() => changeSelectNumber(1)} className={select === 1 ? "active text-secondary-foreground" : "noActive text-secondary-foreground"}>
-                            Project Configurations
-                        </Link>
-                    </li>
-                )}
-                <li>
-                    <Link onClick={() => changeSelectNumber(2)} className={select === 2 ? "active text-secondary-foreground" : "noActive text-secondary-foreground"}>
-                        Editor Settings
-                    </Link>
-                </li>
-            </ul>
-        </aside>
+        <nav
+            className="grid gap-4 text-sm text-muted-foreground" x-chunk="dashboard-04-chunk-0"
+        >
+            <Link href="#" onClick={() => changeSelectNumber(0)} className={select == "0" && "font-semibold text-primary"}>Profile</Link>
+            {idProject !== undefined && isShare == "false" && (
+                <Link href="#" onClick={() => changeSelectNumber(1)} className={select == "1" && "font-semibold text-primary"}>Project Configurations</Link>
+            )}
+            <Link href="#" onClick={() => changeSelectNumber(2)} className={select == "2" && "font-semibold text-primary"}>Editor Settings</Link>
+        </nav>
     );
 };

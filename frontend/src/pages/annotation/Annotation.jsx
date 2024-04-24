@@ -120,7 +120,6 @@ const Annotation = () => {
 
       <Modal isOpen={modalIsOpen} onClose={(() => setModalIsOpen(false))}>
         <Card>
-
           <CardHeader>
             <CardTitle>Update annotation name</CardTitle>
             <CardDescription>Change the name of your note.</CardDescription>
@@ -137,7 +136,6 @@ const Annotation = () => {
             <Button variant="outline" onClick={() => setModalIsOpen(false)}>Cancel</Button>
             <Button onClick={() => handleUpdateName(newAnnotationName.id)}>Save</Button>
           </CardFooter>
-
         </Card>
       </Modal>
 
