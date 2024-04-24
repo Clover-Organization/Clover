@@ -9,7 +9,6 @@ import EditorSettings from './components/editorSettings/EditorSettings';
 import AlertPage from './components/alertPage/AlertPage';
 import AsideResponsive from './components/asideResponsive/AsideResponsive';
 
-
 const Settings = () => {
   const { idProject } = useParams();
   const { selected } = useParams();

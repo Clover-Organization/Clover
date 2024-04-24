@@ -17,7 +17,7 @@ const EditorSettings = () => {
     return (
         <article className="article-settings-content">
             <div className="div-user-content">
-                <div className='my-6'>
+                <div className='my-4'>
                     <CardTitle>Editor configuration</CardTitle>
                     <CardDescription>File Editor Settings</CardDescription>
                 </div>

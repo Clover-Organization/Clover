@@ -88,7 +88,7 @@ export const RequestSettings = ({ idProject }) => {
 
     return (
         <article className='article-settings-content'>
-            <div className='my-6'>
+            <div className='my-4'>
                 <CardTitle>Project Configurations</CardTitle>
                 <CardDescription>Settings relating to your project</CardDescription>
             </div>
