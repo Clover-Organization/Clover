@@ -323,6 +323,7 @@ div.lupa {
   display: flex;
   align-items: center;
   left: 35px;
+  background-color: hsl(var(--secondary));
 }
 
 div.lupaSearch>div.lupa>img,
@@ -833,6 +834,7 @@ div.image {
   border-radius: 50%;
   border: dotted 2px var(--text-color);
   cursor: pointer;
+  object-fit: cover;
 }
 
 .user-image-update {
@@ -1387,4 +1389,8 @@ pre {
   font-size: 16px;
   font-weight: bold;
   margin-left: 15px;
+}
+
+.markdown-body h2{
+    color: #e6edf3;
 }

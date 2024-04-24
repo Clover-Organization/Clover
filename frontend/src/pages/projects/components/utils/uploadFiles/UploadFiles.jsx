@@ -23,9 +23,6 @@ export const uploadFiles = async (token, idProject, acceptedFiles) => {
 
         } else if (response.status === 404) {
             console.log("Request not found");
-            toast.success("Error!", {
-                description: "Files sent successfully!",
-            });
             toast.error("Error!", {
                 description: "Request not found.",
             });

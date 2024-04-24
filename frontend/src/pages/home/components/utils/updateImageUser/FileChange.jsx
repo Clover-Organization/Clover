@@ -1,5 +1,4 @@
 import { toast } from 'sonner';
-import Swal from 'sweetalert2';
 
 export const FileChange = async (e, token) => {
     const fileInput = e.target;
@@ -19,18 +18,15 @@ export const FileChange = async (e, token) => {
                 });
 
                 if (response.ok) {
-                    // Exibir alerta de sucesso
                     toast.success("Sucess", {
                         description: `User image updated successfully!`,
                     });
                 } else {
-                    // Exibir alerta de erro
                     toast.error("Error", {
                         description: `Error updating user image: ${response.status}`,
                     });
                 }
             } catch (error) {
-                // Exibir alerta de erro
                 toast.error("Error", {
                     description: `Error processing image: ${error.message}`,
                 });
