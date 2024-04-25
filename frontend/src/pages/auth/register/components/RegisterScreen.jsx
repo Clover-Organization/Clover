@@ -210,7 +210,7 @@ export default function RegisterScreen() {
 						<div className="w-40 h-40 object-center text-primary">
 							{profileImage ? (
 								<Avatar className="w-48 h-48 object-center">
-									<AvatarImage src={handleImagePreview()} alt="userImage" />
+									<AvatarImage src={handleImagePreview()} className="object-cover" alt="userImage" />
 								</Avatar>
 							) : (
 								<CircleUserRound className="w-48 h-48 text-secondary-foreground object-center" />
