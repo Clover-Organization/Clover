@@ -677,6 +677,11 @@ div.page>button:hover {
   }
 }
 
+@media (max-width: 500px) {
+  .box-status-priority-image-content img {
+    display: none;
+  }
+}
 @media (max-width: 420px) {
   .boxTools {
     height: 60vh;
@@ -692,10 +697,6 @@ div.page>button:hover {
 
   .box-status-priority-image-content {
     justify-content: center;
-  }
-
-  .box-status-priority-image-content img {
-    display: none;
   }
 
   div.toolTitle>h2 {
