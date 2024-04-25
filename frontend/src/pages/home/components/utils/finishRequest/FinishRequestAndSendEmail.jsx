@@ -1,3 +1,4 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
 
 export const FinishRequestAndSendEmail = async (token, email, problem, username, id) => {
@@ -9,7 +10,7 @@ export const FinishRequestAndSendEmail = async (token, email, problem, username,
             id: id
         };
 
-        const response = await fetch("http://localhost:8080/request/finish-request", {
+        const response = await fetch(`${url}/request/finish-request`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",

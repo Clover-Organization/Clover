@@ -1,7 +1,9 @@
+import { url } from "@/infra/url";
+
 export const getFoldersByProject = async (token, idProject, setFilesRequest) => {
 
     try {
-        const response = await fetch(`http://localhost:8080/projects/${idProject}/folder`, {
+        const response = await fetch(`${url}/projects/${idProject}/folder`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

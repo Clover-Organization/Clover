@@ -1,8 +1,9 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const FetchUser = async (token, setUserData) => {
     try {
-        const response = await fetch("http://localhost:8080/user/token", {
+        const response = await fetch(`${url}/user/token`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

@@ -1,8 +1,9 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const updateUser = async (editUser, token, setUserData) => {
     try {
-        const response = await fetch("http://localhost:8080", {
+        const response = await fetch(url, {
             method: 'PUT',
             headers: {
                 Accept: "application/json",

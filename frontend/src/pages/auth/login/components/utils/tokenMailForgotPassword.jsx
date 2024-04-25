@@ -1,9 +1,10 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
 
 export const tokenMailForgotPassword = async (emailEdit) => {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/update-password/generate-token/forgot-password",
+			`${url}/update-password/generate-token/forgot-password`,
 			{
 				method: "PUT",
 				headers: {

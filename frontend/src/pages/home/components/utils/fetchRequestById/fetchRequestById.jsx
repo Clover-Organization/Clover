@@ -1,3 +1,4 @@
+import { url } from "@/infra/url";
 
 
 // Function to fetch a request by ID
@@ -7,7 +8,7 @@ export const fetchRequestById = async (token, idProject, setSingleRequest) => {
     }
 
     try {
-        const response = await fetch(`http://localhost:8080/projects/${idProject}`, {
+        const response = await fetch(`${url}/projects/${idProject}`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

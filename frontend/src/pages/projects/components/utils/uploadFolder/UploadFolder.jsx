@@ -1,3 +1,4 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 /**
@@ -102,7 +103,7 @@ export const uploadFolder = async (token, idProject, foldersFiles, idFolder) => 
             // console.log("folder a ser salvo ", path);
 
             // Envia a requisição para o servidor.
-            const response = await fetch(`http://localhost:8080/projects/folders/${idProject}`, {
+            const response = await fetch(`${url}/projects/folders/${idProject}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -1,9 +1,10 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
  
 export const tokenCheckAndUpdatePassword = async (tokenMailLabel) => {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/update-password/confirm-reset",
+			`${url}/update-password/confirm-reset`,
 			{
 				method: "POST",
 				headers: {

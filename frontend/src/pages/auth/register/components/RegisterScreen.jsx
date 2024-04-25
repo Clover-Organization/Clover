@@ -35,6 +35,7 @@ import { CircleUserRound } from "lucide-react";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { url } from "@/infra/url";
 
 const FormSchema = z.object({
 	username: z.string().min(2, {
@@ -98,7 +99,7 @@ export default function RegisterScreen() {
 		);
 
 		try {
-			const response = await fetch("http://localhost:8080/auth/register", {
+			const response = await fetch(`${url}/auth/register`, {
 				method: "POST",
 				body: formData,
 			});
@@ -174,7 +175,7 @@ export default function RegisterScreen() {
 			);
 
 			const response = await fetch(
-				"http://localhost:8080/auth/register/google",
+				`${url}/auth/register/google`,
 				{
 					method: "POST",
 					body: formData,

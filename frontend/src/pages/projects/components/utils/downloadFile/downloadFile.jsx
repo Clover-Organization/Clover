@@ -1,7 +1,9 @@
+import { url } from "@/infra/url";
+
 export const downloadFile = async (token, idFile, idProject, singleRequest) => {
     try {
         // Faz a requisição para baixar o arquivo
-        const response = await fetch(`http://localhost:8080/projects/files/${idProject}/${idFile}/content`, {
+        const response = await fetch(`${url}/projects/files/${idProject}/${idFile}/content`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${token}`,

@@ -1,3 +1,4 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const commitAndUpdateFile = async (token, idProject, idFile, newCommitAndFile) => {
@@ -6,7 +7,7 @@ export const commitAndUpdateFile = async (token, idProject, idFile, newCommitAnd
         formData.append('file', newCommitAndFile.newFile);
         formData.append('commitMessage', newCommitAndFile.newCommit);
 
-        const response = await fetch(`http://localhost:8080/projects/commits/${idProject}/commitAndUpdate/${idFile}`, {
+        const response = await fetch(`${url}/projects/commits/${idProject}/commitAndUpdate/${idFile}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
