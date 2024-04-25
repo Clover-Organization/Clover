@@ -1,3 +1,4 @@
+import { url } from '@/infra/url';
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -11,7 +12,7 @@ const ProtectedRoute = ({ element: Element, ...rest }) => {
 
       if (token) {
         try {
-          const response = await fetch('http://localhost:8080/token', {
+          const response = await fetch(`${url}/token`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
