@@ -43,7 +43,7 @@ public class EmailService {
     public void shareProjectEmail(String destinatario, String token, String project) {
         String assunto = "Project sharing";
         String corpo = "Click on the link below to accept the invitation to this project:\n" +
-                "<a href=\"https://clover-rho.vercel.app/project/share/" + token + "/" + project + "\">Accept invite</a>\n\n" +
+                "<a href=\"https://clover-phi.vercel.app/project/share/" + token + "/" + project + "\">Accept invite</a>\n\n" +
                 "Thanks,\n the Clover team!";
 
         logger.info("Enviando e-mail para: {}", destinatario);
