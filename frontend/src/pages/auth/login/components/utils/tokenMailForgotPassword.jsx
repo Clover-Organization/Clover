@@ -23,12 +23,12 @@ export const tokenMailForgotPassword = async (emailEdit) => {
 			});
 			return response;
 		} else {
-			console.log("Error generating token:", data);
+			console.error("Error generating token:", data);
 			toast.warning(`${data["email"]} not Found`, { description: data["msg"] });
 			return response;
 		}
 	} catch (error) {
-		console.log("Erro ao gerar o token:", error);
+		console.error("Erro ao gerar o token:", error);
 		toast.error("Error", {
 			description: "Error generating token. Try again later.",
 		});
