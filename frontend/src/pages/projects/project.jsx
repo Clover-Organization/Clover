@@ -43,7 +43,7 @@ const Project = () => {
     const intervalId = setInterval(() => {
       fetchProject();
       getCommits();
-    }, 10000);
+    }, 15000);
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);

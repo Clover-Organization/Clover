@@ -63,7 +63,7 @@ const HomeSecurity = () => {
     const intervalId = setInterval(() => {
       console.log(token);
       fetchData(currentPage);
-    }, 5000);
+    }, 15000);
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
@@ -205,6 +205,7 @@ const HomeSecurity = () => {
 
   const createNewRequest = async () => {
     await CreateNewRequest(formData, token);
+    fetchData(currentPage);
     setModalIsOpen(false);
   };
 
