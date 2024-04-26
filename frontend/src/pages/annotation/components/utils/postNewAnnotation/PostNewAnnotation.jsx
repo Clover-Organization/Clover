@@ -1,8 +1,9 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const postNewAnnotation = async (token, title, idProject, setSelectedAnnotation) => {
     try {
-        const response = await fetch(`http://localhost:8080/projects/annotations/${idProject}/upload`, {
+        const response = await fetch(`${url}/projects/annotations/${idProject}/upload`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
