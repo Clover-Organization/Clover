@@ -10,6 +10,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { CardTitle } from "@/components/ui/card";
 
 const FileNav = ({
 	singleRequest,
@@ -42,7 +43,7 @@ const FileNav = ({
 					}
 					width={"40px"}
 				/>
-				<h2>{singleRequest.fileName}</h2>
+				<CardTitle>{singleRequest.fileName}</CardTitle>
 			</div>
 			<div className="flex flex-wrap gap-4">
 				<div className="flex justify-center items-center gap-2">

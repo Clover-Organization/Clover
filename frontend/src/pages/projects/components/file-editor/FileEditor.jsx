@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { checkerTheme } from "../file-view/components/utils/checkerTheme/checkerTheme";
 import { useTheme } from "@/components/theme-provider";
 import { useEffect } from "react";
@@ -18,6 +18,7 @@ import { DiffEditor } from "@monaco-editor/react";
 const FileEditor = ({ singleRequest, fileContent, idProject, idFile, setShowFileEditor }) => {
 
     const { theme } = useTheme();
+    const [loading, setLoading] = useState(false);
     const [editorTheme, setEditorTheme] = useState(checkerTheme(theme));
     const [contentBefore, setContentBefore] = useState(false);
     const [saveContent, setSaveContent] = useState(fileContent.data);
@@ -156,6 +157,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile, setShowFile
     }
 
     const sendCommit = async () => {
+        setLoading(true);
         // Chamar a função convertContentByFile() para obter o objeto File
         const convertContent = convertContentByFile(saveContent);
 
@@ -164,6 +166,7 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile, setShowFile
         // Enviar a commit e atualizar o arquivo
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
         setModalIsOpen(false);
+        setLoading(false);
         navigate(`/project/${idProject}`)
     }
 
@@ -282,7 +285,15 @@ const FileEditor = ({ singleRequest, fileContent, idProject, idFile, setShowFile
                                         onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newCommit: e.target.value }))}
                                     />
                                 </div>
-                                <Button onClick={() => sendCommit(newCommitAndFile)}>Save!</Button>
+                                {!loading ? (
+                                    <Button onClick={() => sendCommit(newCommitAndFile)}>Save!</Button>
+
+                                ) : (
+                                    <Button disabled>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Please wait
+                                    </Button>
+                                )}
                             </div>
 
                         </div>
