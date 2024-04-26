@@ -88,6 +88,7 @@ const FileView = () => {
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
         cls();
         setStateModal(true)
+        navigate(`/project/${idProject}`)
     }
 
     const cls = () => {
