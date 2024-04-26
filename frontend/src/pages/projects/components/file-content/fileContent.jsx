@@ -24,7 +24,7 @@ const FileContent = ({ item, token }) => {
                 <span>{item.fileName}</span>
             </div>
             <span>{commitsRequest && commitsRequest.length > 0 && commitsRequest[commitsRequest.length - 1].commitMessage}</span>
-            <span>{calculateTimeDifference(item.creationFile, true, true, true, false, false)}</span>
+            <span>{calculateTimeDifference(item.creationFile, true, true, true, true, false)}</span>
         </div>
     )
 }
