@@ -292,9 +292,7 @@ const CheckBoxContent =
                             Sets whether the cursor should be hidden in the overview ruler.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6">
                     <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
@@ -324,8 +322,8 @@ const CheckBoxContent =
                     </div>
                 </div>
 
-                <div className="items-top flex space-x-2 mt-6">
-                    <div className="grid gap-1.5 leading-none">
+                <div className="items-top flex space-x-2 mt-6 gap-5">
+                    <div className="grid gap-1.5 leading-none w-1/2">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -351,10 +349,8 @@ const CheckBoxContent =
                             Sets whether to delete auto-closing characters next to the cursor.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6">
-                    <div className="grid gap-1.5 leading-none">
+                    <div className="grid gap-1.5 leading-none w-1/2">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -382,8 +378,8 @@ const CheckBoxContent =
                     </div>
                 </div>
 
-                <div className="items-top flex space-x-2 mt-6">
-                    <div className="grid gap-1.5 leading-none">
+                <div className="items-top flex space-x-2 mt-6 gap-5">
+                    <div className="grid gap-1.5 leading-none w-1/2">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -410,10 +406,8 @@ const CheckBoxContent =
                             Defines whether quotes should be automatically closed.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6">
-                    <div className="grid gap-1.5 leading-none">
+                    <div className="grid gap-1.5 leading-none w-1/2">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -443,8 +437,8 @@ const CheckBoxContent =
                     </div>
                 </div>
 
-                <div className="items-top flex space-x-2 mt-6">
-                    <div className="grid gap-1.5 leading-none">
+                <div className="items-top flex space-x-2 mt-6 gap-5">
+                    <div className="grid gap-1.5 leading-none w-1/2">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -472,10 +466,8 @@ const CheckBoxContent =
                             Sets the cursor blinking style.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6">
-                    <div className="grid gap-1.5 leading-none">
+                    <div className="grid gap-1.5 leading-none w-1/2">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -503,8 +495,8 @@ const CheckBoxContent =
                     </div>
                 </div>
 
-                <div className="items-top flex space-x-2 mt-6">
-                    <div className="grid gap-1.5 leading-none">
+                <div className="items-top flex space-x-2 mt-6 gap-5">
+                    <div className="grid gap-1.5 leading-none w-1/2">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -533,15 +525,13 @@ const CheckBoxContent =
                             Sets the cursor style.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6">
-                    <div className="grid gap-1.5 leading-none">
+                    <div className="grid gap-1.5 leading-none w-1/2">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                            Font-Size
+                            Letter spacing
                         </label>
                         <Select onValueChange={setLetterSpacing}>
                             <SelectTrigger className="w-[180px]">
