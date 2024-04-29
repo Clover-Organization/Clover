@@ -81,7 +81,7 @@ const EditorSettings = () => {
                         <CardTitle>Font Editor</CardTitle>
                         <CardDescription>Choose your editor font-family or font-size</CardDescription>
                         <Separator className="my-4" />
-                        <CardContent>
+                        <CardContent className="grid gap-5 grid-cols-1 md:grid-cols-2">
                             <SelectFontFamilyEditor
                                 fontFamily={fontFamily}
                                 setFontFamily={setFontFamily}
