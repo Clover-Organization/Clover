@@ -60,238 +60,260 @@ const CheckBoxContent =
 
         return (
             <>
-                <div className="items-top flex space-x-2">
-                    <Checkbox id="terms1"
-                        checked={acceptSuggestionOnEnter}
-                        onCheckedChange={setAcceptSuggestionOnEnter}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Accept suggestion on enter
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Defines whether a code suggestion should be automatically accepted when pressing Enter.
-                        </p>
+                <div className="grid gap-5 grid-cols-1 md:grid-cols-2 break-words">
+                    <div className="flex gap-2">
+                        <Checkbox id="terms1"
+                            checked={acceptSuggestionOnEnter}
+                            onCheckedChange={setAcceptSuggestionOnEnter}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Accept suggestion on enter
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Defines whether a code suggestion should be automatically accepted when pressing Enter.
+                            </p>
+                        </div>
                     </div>
 
-                    <Checkbox id="terms3"
-                        checked={codeLens}
-                        onCheckedChange={setCodeLens}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Code lens
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Defines whether the editor layout should be updated automatically.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="items-top flex space-x-2 mt-6">
-                    <Checkbox id="terms1"
-                        checked={codeLens}
-                        onCheckedChange={setCodeLens}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Code lens
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Defines whether codelenses should be displayed.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms3"
+                            checked={codeLens}
+                            onCheckedChange={setCodeLens}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Code lens
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Defines whether the editor layout should be updated automatically.
+                            </p>
+                        </div>
                     </div>
 
-                    <Checkbox id="terms1"
-                        checked={fontLigatures}
-                        onCheckedChange={setFontLigatures}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Font ligatures
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Sets whether font ligatures are enabled.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms1"
+                            checked={codeLens}
+                            onCheckedChange={setCodeLens}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Code lens
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Defines whether codelenses should be displayed.
+                            </p>
+                        </div>
                     </div>
 
-                    <Checkbox id="terms5"
-                        checked={contextmenu}
-                        onCheckedChange={setContextmenu}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Context menu
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Defines whether the editor context menu should be displayed.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="items-top flex space-x-2 mt-6">
-                    <Checkbox id="terms6"
-                        checked={disableLayerHinting}
-                        onCheckedChange={setDisableLayerHinting}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Disable layer hinting
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Defines whether layer hinting should be disabled.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms1"
+                            checked={fontLigatures}
+                            onCheckedChange={setFontLigatures}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Font ligatures
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Sets whether font ligatures are enabled.
+                            </p>
+                        </div>
                     </div>
 
-                    <Checkbox id="terms7"
-                        checked={disableMonospaceOptimizations}
-                        onCheckedChange={setDisableMonospaceOptimizations}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Disable monospace optimizations
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Defines whether monospaced optimizations should be disabled.
-                        </p>
-
-                    </div>
-                    <Checkbox id="terms8"
-                        checked={dragAndDrop}
-                        onCheckedChange={setDragAndDrop}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Drag and drop
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Sets whether drag and drop functionality is enabled.
-                        </p>
-                    </div>
-                </div>
-                <div className="items-top flex space-x-2 mt-6">
-                    <Checkbox id="terms9"
-                        checked={emptySelectionClipboard}
-                        onCheckedChange={setEmptySelectionClipboard}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Empty selection clipboard
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Sets whether the clipboard should contain the current line when empty.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms5"
+                            checked={contextmenu}
+                            onCheckedChange={setContextmenu}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Context menu
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Defines whether the editor context menu should be displayed.
+                            </p>
+                        </div>
                     </div>
 
-                    <Checkbox id="terms10"
-                        checked={fixedOverflowWidgets}
-                        onCheckedChange={setFixedOverflowWidgets}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Fixed overflow widgets
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Sets whether overflow widgets are sticky.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms6"
+                            checked={disableLayerHinting}
+                            onCheckedChange={setDisableLayerHinting}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Disable layer hinting
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Defines whether layer hinting should be disabled.
+                            </p>
+                        </div>
                     </div>
 
-                    <Checkbox id="terms11"
-                        checked={formatOnPaste}
-                        onCheckedChange={setFormatOnPaste}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Format on paste
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Sets whether code should be automatically formatted when pasted.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms7"
+                            checked={disableMonospaceOptimizations}
+                            onCheckedChange={setDisableMonospaceOptimizations}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Disable monospace optimizations
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Defines whether monospaced optimizations should be disabled.
+                            </p>
+                        </div>
                     </div>
 
-                </div>
-
-                <div className="items-top flex space-x-2 mt-6">
-                    <Checkbox id="terms12"
-                        checked={formatOnType}
-                        onCheckedChange={setFormatOnType}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Format on type
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Sets whether the code should be automatically formatted when you type.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms8"
+                            checked={dragAndDrop}
+                            onCheckedChange={setDragAndDrop}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Drag and drop
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Sets whether drag and drop functionality is enabled.
+                            </p>
+                        </div>
                     </div>
 
-                    <Checkbox id="terms13"
-                        checked={glyphMargin}
-                        onCheckedChange={setGlyphMargin}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Glyph margin
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Sets whether glyph margin is enabled.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms9"
+                            checked={emptySelectionClipboard}
+                            onCheckedChange={setEmptySelectionClipboard}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Empty selection clipboard
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Sets whether the clipboard should contain the current line when empty.
+                            </p>
+                        </div>
                     </div>
 
-                    <Checkbox id="terms14"
-                        checked={hideCursorInOverviewRuler}
-                        onCheckedChange={setHideCursorInOverviewRuler}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                        <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            Ghide cursor in overview ruler
-                        </label>
-                        <p className="text-sm text-muted-foreground">
-                            Sets whether the cursor should be hidden in the overview ruler.
-                        </p>
+                    <div className="flex gap-2">
+                        <Checkbox id="terms10"
+                            checked={fixedOverflowWidgets}
+                            onCheckedChange={setFixedOverflowWidgets}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Fixed overflow widgets
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Sets whether overflow widgets are sticky.
+                            </p>
+                        </div>
                     </div>
+
+                    <div className="flex gap-2">
+                        <Checkbox id="terms11"
+                            checked={formatOnPaste}
+                            onCheckedChange={setFormatOnPaste}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Format on paste
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Sets whether code should be automatically formatted when pasted.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div className="flex gap-2">
+                        <Checkbox id="terms12"
+                            checked={formatOnType}
+                            onCheckedChange={setFormatOnType}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Format on type
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Sets whether the code should be automatically formatted when you type.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                        <Checkbox id="terms13"
+                            checked={glyphMargin}
+                            onCheckedChange={setGlyphMargin}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Glyph margin
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Sets whether glyph margin is enabled.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                        <Checkbox id="terms14"
+                            checked={hideCursorInOverviewRuler}
+                            onCheckedChange={setHideCursorInOverviewRuler}
+                        />
+                        <div className="grid gap-1.5 leading-none">
+                            <label
+                                htmlFor="terms1"
+                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                Ghide cursor in overview ruler
+                            </label>
+                            <p className="text-sm text-muted-foreground">
+                                Sets whether the cursor should be hidden in the overview ruler.
+                            </p>
+                        </div>
+                    </div>
+
 
                     <div className="grid gap-1.5 leading-none">
                         <label
@@ -320,10 +342,8 @@ const CheckBoxContent =
                             Defines whether brackets should be automatically closed.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6 gap-5">
-                    <div className="grid gap-1.5 leading-none w-1/2">
+                    <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -350,7 +370,7 @@ const CheckBoxContent =
                         </p>
                     </div>
 
-                    <div className="grid gap-1.5 leading-none w-1/2">
+                    <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -376,10 +396,8 @@ const CheckBoxContent =
                             Sets whether to replace auto-closing characters if they are present to the right of the cursor.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6 gap-5">
-                    <div className="grid gap-1.5 leading-none w-1/2">
+                    <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -407,7 +425,7 @@ const CheckBoxContent =
                         </p>
                     </div>
 
-                    <div className="grid gap-1.5 leading-none w-1/2">
+                    <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -435,10 +453,8 @@ const CheckBoxContent =
                             Sets whether automatic indentation is enabled.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6 gap-5">
-                    <div className="grid gap-1.5 leading-none w-1/2">
+                    <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -467,7 +483,7 @@ const CheckBoxContent =
                         </p>
                     </div>
 
-                    <div className="grid gap-1.5 leading-none w-1/2">
+                    <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -493,10 +509,8 @@ const CheckBoxContent =
                             Sets whether cursor smoothing animation is enabled.
                         </p>
                     </div>
-                </div>
 
-                <div className="items-top flex space-x-2 mt-6 gap-5">
-                    <div className="grid gap-1.5 leading-none w-1/2">
+                    <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -526,7 +540,7 @@ const CheckBoxContent =
                         </p>
                     </div>
 
-                    <div className="grid gap-1.5 leading-none w-1/2">
+                    <div className="grid gap-1.5 leading-none">
                         <label
                             htmlFor="terms1"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
