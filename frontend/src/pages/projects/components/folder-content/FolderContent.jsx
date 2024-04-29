@@ -12,7 +12,7 @@ const FolderContent = ({ item }) => {
                 <Folder width={20}/>
                 <span>{item.folderName}</span>
             </div>
-            <span>{calculateTimeDifference(item.creationFolder, true, true, true, false, false)}</span>
+            <span>{calculateTimeDifference(item.creationFolder, true, true, true, true, false)}</span>
         </div>
     )
 }

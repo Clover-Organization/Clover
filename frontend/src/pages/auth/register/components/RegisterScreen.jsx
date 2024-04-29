@@ -4,7 +4,7 @@ import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { Calendar } from "@/components/ui/calendar";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, Loader2 } from "lucide-react";
 import {
 	Popover,
 	PopoverContent,
@@ -60,6 +60,7 @@ const FormSchema = z.object({
 
 export default function RegisterScreen() {
 	const [profileImage, setProfileImage] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const inputRef = useRef(null);
 	const navigate = useNavigate();
 
@@ -89,7 +90,7 @@ export default function RegisterScreen() {
 	};
 
 	const handleRegister = async (userData) => {
-
+		setLoading(true);
 		const formData = new FormData();
 		formData.append("profileImage", profileImage);
 
@@ -126,6 +127,8 @@ export default function RegisterScreen() {
 			}
 		} catch (error) {
 			console.log("Error: ", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -152,6 +155,7 @@ export default function RegisterScreen() {
 	};
 
 	const handleRegisterGoogle = async (token) => {
+		setLoading(true);
 		try {
 			const decoded = decodeToken(token);
 
@@ -195,6 +199,8 @@ export default function RegisterScreen() {
 			}
 		} catch (error) {
 			console.error("Erro ao decodificar o token:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -210,7 +216,7 @@ export default function RegisterScreen() {
 						<div className="w-40 h-40 object-center text-primary">
 							{profileImage ? (
 								<Avatar className="w-48 h-48 object-center">
-									<AvatarImage src={handleImagePreview()} alt="userImage" />
+									<AvatarImage src={handleImagePreview()} className="object-cover" alt="userImage" />
 								</Avatar>
 							) : (
 								<CircleUserRound className="w-48 h-48 text-secondary-foreground object-center" />
@@ -384,30 +390,45 @@ export default function RegisterScreen() {
 											onScriptLoadSuccess={handleScriptLoadSuccess}
 											onScriptLoadError={handleScriptLoadError}
 										>
-											<GoogleLogin
-												type="standard"
-												theme="outline"
-												shape="round"
-												size="large"
-												text="signin"
-												width={"10px"}
-												onSuccess={(credentialResponse) => {
-													handleRegisterGoogle(
-														credentialResponse.credential,
-														credentialResponse.clientId
-													);
-												}}
-												onError={() => {
-													toast.error("Error", {
-														description:
-															"Error while signing in with Google! Try again!",
-													});
-												}}
-												useOneTap
-											/>
+											{!loading ? (
+
+												<GoogleLogin
+													type="standard"
+													theme="outline"
+													shape="round"
+													size="large"
+													text="signin"
+													width={"10px"}
+													onSuccess={(credentialResponse) => {
+														handleRegisterGoogle(
+															credentialResponse.credential,
+															credentialResponse.clientId
+														);
+													}}
+													onError={() => {
+														toast.error("Error", {
+															description:
+																"Error while signing in with Google! Try again!",
+														});
+													}}
+													useOneTap
+												/>
+											) : (
+												<Button className="bg-white" disabled>
+													<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+													Please wait
+												</Button>
+											)}
 										</GoogleOAuthProvider>
 										or
-										<Button type="submit">Register</Button>
+										{!loading ? (
+											<Button type="submit">Register</Button>
+										) : (
+											<Button disabled>
+												<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+												Please wait
+											</Button>
+										)}
 									</div>
 								</div>
 							</div>

@@ -694,7 +694,7 @@ div.page>button:hover {
     justify-content: center;
   }
 
-  .box-status-priority-image-content img {
+  .box-status-priority-image-content img, .box-status-priority-image-content svg {
     display: none;
   }
 
@@ -986,6 +986,7 @@ hr {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .nav-project>h2,

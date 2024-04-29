@@ -13,6 +13,7 @@ import {
 import Modal from "@/pages/components/Modal";
 import ShareProjectComp from "@/pages/settings/components/requestSettings/components/shareProject/ShareProjectComp";
 import CreateFile from "./components/createFile/CreateFile";
+import { CardTitle } from "@/components/ui/card";
 
 const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen, idProject, idFolder }) => {
     const token = localStorage.getItem("token");
@@ -26,7 +27,7 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
     return (
         <div className="titleProject">
             <nav className="nav-project">
-                <h2>{singleRequest && singleRequest.projectName}</h2>
+                <CardTitle>{singleRequest && singleRequest.projectName}</CardTitle>
                 <div className="align-nav-components">
                     <div className="lupaSearch-projects">
                         <div className="lupa"><Search width={20} /></div>

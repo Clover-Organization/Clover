@@ -1,3 +1,4 @@
+import { url } from "@/infra/url";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -14,7 +15,7 @@ const ProjectShare = () => {
     useEffect(() => {
         const validateToken = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/projects/confirm-token/share/${token}/${idProject}`, {
+                const response = await fetch(`${url}/projects/confirm-token/share/${token}/${idProject}`, {
                     method: "POST",
                     headers: {
                         Accept: "application/json",

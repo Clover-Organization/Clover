@@ -15,6 +15,7 @@ import { ToolBox } from "./components/toolBox/ToolBox";
 import { Pagination } from "./components/pagination/Pagination";
 import RequestForm from "./components/requestForm/RequestForm";
 import { fetchRequests } from "./components/utils/fetchRequests/FetchRequest";
+import { url } from "@/infra/url";
 
 const HomeSecurity = () => {
   // Retrieve token from local storage
@@ -62,7 +63,7 @@ const HomeSecurity = () => {
     const intervalId = setInterval(() => {
       console.log(token);
       fetchData(currentPage);
-    }, 5000);
+    }, 30000);
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
@@ -121,7 +122,7 @@ const HomeSecurity = () => {
             setToolBoxes,
             getStatusClass,
             setRequestsLoaded,
-            `http://localhost:8080/projects/user?page=${nextPage}&size=${size}`
+            `${url}/projects/user?page=${nextPage}&size=${size}`
           );
       fetchRequests(
         setLoading,
@@ -129,7 +130,7 @@ const HomeSecurity = () => {
         setShareToolBox,
         getStatusClass,
         setRequestsLoaded,
-        `http://localhost:8080/projects/ShareUsers?page=${nextPage}&size=${size}`
+        `${url}/projects/ShareUsers?page=${nextPage}&size=${size}`
       );
       return nextPage;
     });
@@ -154,7 +155,7 @@ const HomeSecurity = () => {
             setToolBoxes,
             getStatusClass,
             setRequestsLoaded,
-            `http://localhost:8080/projects/user?page=${previousPage}&size=${size}`
+            `${url}/projects/user?page=${previousPage}&size=${size}`
           );
       fetchRequests(
         setLoading,
@@ -162,7 +163,7 @@ const HomeSecurity = () => {
         setShareToolBox,
         getStatusClass,
         setRequestsLoaded,
-        `http://localhost:8080/projects/ShareUsers?page=${previousPage}&size=${size}`
+        `${url}/projects/ShareUsers?page=${previousPage}&size=${size}`
       );
 
       return previousPage;
@@ -190,7 +191,7 @@ const HomeSecurity = () => {
           setToolBoxes,
           getStatusClass,
           setRequestsLoaded,
-          `http://localhost:8080/projects/user?page=${currentPage}&size=${size}`
+          `${url}/projects/user?page=${currentPage}&size=${size}`
         );
     await fetchRequests(
       setLoading,
@@ -198,12 +199,13 @@ const HomeSecurity = () => {
       setShareToolBox,
       getStatusClass,
       setRequestsLoaded,
-      `http://localhost:8080/projects/ShareUsers?page=${currentPage}&size=${size}`
+      `${url}/projects/ShareUsers?page=${currentPage}&size=${size}`
     );
   };
 
   const createNewRequest = async () => {
     await CreateNewRequest(formData, token);
+    fetchData(currentPage);
     setModalIsOpen(false);
   };
 

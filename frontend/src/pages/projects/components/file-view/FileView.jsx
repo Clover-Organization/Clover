@@ -16,7 +16,7 @@ import { closeModal, closeModalDelete } from "../../../home/components/utils/Mod
 import { deleteFileByIdFileAndIdProject } from "../utils/deleteFileByIdFileAndIdProject/deleteFileByIdFileAndIdProject";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { checkerTheme } from "./components/utils/checkerTheme/checkerTheme";
@@ -54,6 +54,7 @@ const FileView = () => {
     const letterSpacing = localStorage.getItem('letterSpacing');
     const { idProject, idFile, idFolder } = useParams();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [singleRequest, setSingleRequest] = useState({});
     const [fileContent, setFileContent] = useState({ contentType: "", data: "" });
     const [commitsRequest, setCommitsRequest] = useState([]);
@@ -85,9 +86,12 @@ const FileView = () => {
     }, []);
 
     const sendCommit = async () => {
+        setLoading(true);
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
         cls();
         setStateModal(true)
+        setLoading(false);
+        navigate(`/project/${idProject}`)
     }
 
     const cls = () => {
@@ -400,7 +404,15 @@ const FileView = () => {
                                                 onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newFile: e.target.files[0] }))}
                                             />
                                         </div>
-                                        <Button onClick={() => sendCommit(newCommitAndFile)}>Send!</Button>
+                                        {!loading ? (
+
+                                            <Button onClick={() => sendCommit(newCommitAndFile)}>Send!</Button>
+                                        ) : (
+                                            <Button disabled>
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                Please wait
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
                             </CardContent>

@@ -34,7 +34,7 @@ const FolderView = () => {
         const intervalId = setInterval(() => {
             getFolderAndFiles();
             // console.log(singleRequest);
-        }, 5000);
+        }, 30000);
 
         // Clear the interval when the component is unmounted
         return () => clearInterval(intervalId);

@@ -1,9 +1,10 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 // Function to update a request
 export const updateAnnotation = async (token, editedRequest, idAnnotation, idProject) => {
     try {
-        const response = await fetch(`http://localhost:8080/projects/annotations/${idProject}/annotation/${idAnnotation}/update`, {
+        const response = await fetch(`${url}/projects/annotations/${idProject}/annotation/${idAnnotation}/update`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
