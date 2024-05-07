@@ -179,11 +179,11 @@ export const ProfileSettings = () => {
                                             onMouseEnter={() => handleInputFocus('emailLabel')}
                                             onMouseLeave={() => handleInputBlur('emailLabel')}
                                         />
-                                        <Button onClick={() => sendToken({ email: editUser.email })}>Send!</Button>
+                                        <Button onClick={() => sendToken({ email: editUser.email })}>Send</Button>
                                     </div>
                                 </>
                             )}
-                            <Button variant="destructive" onClick={() => { setModalIsOpen(false), setModalLabelAndPassword(false), setUpdateModal(false), setShowUpdateScreen(true) }}>Cancel!</Button>
+                            <Button variant="outline" onClick={() => { setModalIsOpen(false), setModalLabelAndPassword(false), setUpdateModal(false), setShowUpdateScreen(true) }}>Cancel</Button>
                         </div>
                     </CardContent>
                 </Card>
