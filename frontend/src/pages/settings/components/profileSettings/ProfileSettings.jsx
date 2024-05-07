@@ -183,7 +183,7 @@ export const ProfileSettings = () => {
                                     </div>
                                 </>
                             )}
-                            <Button variant="outline" onClick={() => { setModalIsOpen(false), setModalLabelAndPassword(false), setUpdateModal(false), setShowUpdateScreen(true) }}>Cancel</Button>
+                            <Button variant="outline" onClick={() => { closeModalUserUpdate(setModalIsOpen), setModalLabelAndPassword(false), setUpdateModal(false), setShowUpdateScreen(true) }}>Cancel</Button>
                         </div>
                     </CardContent>
                 </Card>
