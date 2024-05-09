@@ -14,7 +14,7 @@ import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
-import com.goncalves.API.infra.security.*;
+import com.goncalves.API.infra.exception.*;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;
 import io.swagger.v3.oas.annotations.Operation;

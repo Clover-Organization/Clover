@@ -1,11 +1,13 @@
 package com.goncalves.API.controller;
 
-import com.goncalves.API.DTO.AutenticarDados;
 import com.goncalves.API.DTO.DadosAtualizarUser;
 import com.goncalves.API.DTO.DadosListagemUser;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
-import com.goncalves.API.infra.security.*;
+import com.goncalves.API.infra.exception.ErrorNotFoundId;
+import com.goncalves.API.infra.exception.ErrorResponse;
+import com.goncalves.API.infra.exception.NotFoundException;
+import com.goncalves.API.infra.exception.RegistrationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -19,14 +21,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 
 @RestController
@@ -177,7 +177,7 @@ public class UserController {
 
             // Valida os dados de atualização do usuário
             validateRegistrationData(dados);
-            
+
             // Atualiza os dados do usuário
             user.atualizarUser(dados);
             repository.save(user);

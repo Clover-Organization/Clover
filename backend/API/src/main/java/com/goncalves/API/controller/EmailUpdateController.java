@@ -2,7 +2,10 @@ package com.goncalves.API.controller;
 
 import com.goncalves.API.DTO.DadosAtualizarSenha;
 import com.goncalves.API.DTO.DadosTokenEmailValidation;
-import com.goncalves.API.infra.security.*;
+import com.goncalves.API.infra.exception.ErrorInvalidToken;
+import com.goncalves.API.infra.exception.ErrorNotFoundUser;
+import com.goncalves.API.infra.exception.Successfully;
+import com.goncalves.API.infra.exception.SuccessfullyEmail;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;

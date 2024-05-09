@@ -1,4 +1,4 @@
-package com.goncalves.API.infra.security;
+package com.goncalves.API.infra.exception;
 
 import java.io.Serial;
 import java.io.Serializable;

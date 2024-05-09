@@ -1,6 +1,6 @@
 package com.goncalves.API.service;
 
-import com.goncalves.API.infra.security.EmailException;
+import com.goncalves.API.infra.exception.EmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
