@@ -177,7 +177,7 @@ public class UserController {
 
             // Valida os dados de atualização do usuário
             validateRegistrationData(dados);
-
+            
             // Atualiza os dados do usuário
             user.atualizarUser(dados);
             repository.save(user);
@@ -202,15 +202,8 @@ public class UserController {
      */
     private void validateRegistrationData(DadosAtualizarUser dados) throws RegistrationException {
         Users users = new Users();
-
-        // Valida o campo firstName
-        users.validateField(dados.firstName(), "firstName", "firstName field must have at least 3 characters!");
-        // Valida o campo lastName
-        users.validateField(dados.lastName(), "lastName", "lastName field must have at least 3 characters!");
         // Valida o campo email
         users.validateField(dados.email(), "email", "Empty email field!");
-        // Valida o campo birth
-        users.validateField(dados.birth(), "birth", "Birth field cannot be null!");
     }
 
     /**
