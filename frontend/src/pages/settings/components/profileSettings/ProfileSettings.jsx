@@ -57,8 +57,6 @@ export const ProfileSettings = () => {
 
 
     const handleUpdateUserAction = async () => {
-        console.log(editUser);
-        console.log(userData);
         await updateUser(editUser, token, setUserData)
         closeModalUserUpdate(setModalIsOpen);
     }
