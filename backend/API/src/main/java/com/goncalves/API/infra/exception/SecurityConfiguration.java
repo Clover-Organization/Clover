@@ -1,5 +1,6 @@
 package com.goncalves.API.infra.exception;
 
+import com.goncalves.API.infra.security.SecurityAdminFilter;
 import com.goncalves.API.infra.security.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -3,6 +3,7 @@ package com.goncalves.API.seeds;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.UserRole;
 import com.goncalves.API.entities.user.Users;
+import com.goncalves.API.service.AdminTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,12 +15,11 @@ import java.time.LocalDateTime;
 public class Seed implements CommandLineRunner {
 
     @Autowired
-    private UserRepository repository;
+    private AdminTemplateService service;
 
     @Override
     public void run(String... args) throws Exception {
         try {
-
             Users user = new Users(
                     "admin",
                     "admin",
@@ -31,8 +31,7 @@ public class Seed implements CommandLineRunner {
                     UserRole.ADMIN,
                     new byte[0]
             );
-            repository.save(user);
-            System.out.println("Usuário admin criado com sucesso!");
+            service.verifyAdminCreated(user);
         } catch (Exception e) {
             System.out.println("Erro ao criar usuário admin: " + e.getMessage());
         }
