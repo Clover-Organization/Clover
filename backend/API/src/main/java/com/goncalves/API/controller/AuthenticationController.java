@@ -112,7 +112,6 @@ public class AuthenticationController {
     })
     public ResponseEntity login(@RequestBody @Valid AutenticarDados dados) {
         try {
-
             var user = repository.findByEmail(dados.username());
 
             UserDetails username;
