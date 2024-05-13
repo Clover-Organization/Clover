@@ -109,7 +109,7 @@ const FolderView = () => {
                 </section>
             </article>
             <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-                <DropZoneFolderView token={token} idProject={idProject} idFolder={idFolder} onClose={() => closeModal(setModalIsOpen)} />
+                <DropZoneFolderView token={token} idProject={idProject} idFolder={idFolder} onClose={() => closeModal(setModalIsOpen)} getFolderAndFiles={getFolderAndFiles} />
             </Modal>
         </main>
     );

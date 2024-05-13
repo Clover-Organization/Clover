@@ -125,7 +125,7 @@ const Project = () => {
         </section>
       </article>
       <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-        <DropFileZone idProject={idProject} token={token} onClose={() => closeModal(setModalIsOpen)} />
+        <DropFileZone idProject={idProject} token={token} onClose={() => closeModal(setModalIsOpen)} fetchProject={fetchProject}/>
       </Modal>
     </main>
   );
