@@ -12,7 +12,6 @@ const welcome = () => {
 		<main className="max-w-1020px">
 			<WelcomeHeader />
 			<WelcomeIntro />
-			<WelcomeDescri />
 			<WelcomeService />
 			<Footer />
 		</main>
