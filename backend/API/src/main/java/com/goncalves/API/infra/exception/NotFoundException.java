@@ -1,4 +1,4 @@
-package com.goncalves.API.infra.security;
+package com.goncalves.API.infra.exception;
 
 public class NotFoundException extends RuntimeException {
     private final String id;

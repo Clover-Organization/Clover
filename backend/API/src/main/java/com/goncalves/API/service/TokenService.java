@@ -1,4 +1,4 @@
-package com.goncalves.API.infra.security;
+package com.goncalves.API.service;
 
 
 import com.auth0.jwt.JWT;
@@ -7,8 +7,6 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.goncalves.API.entities.user.Users;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

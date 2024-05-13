@@ -25,7 +25,7 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                             <CircleUserRound width={96} height={96} />
                         )}
                         <div className="space-y-1">
-                            <h1 className="text-2xl font-bold">{userData.username}</h1>
+                            <h1 className="text-2xl font-bold">{editUser.username}</h1>
                             <Button onClick={() => openModalUpdateImage()} size="sm">Change photo</Button>
                         </div>
                     </div>
@@ -38,10 +38,9 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                                 <Label htmlFor="firstname">First name</Label>
                                 <Input
                                     id="firstname"
-                                    value={userData.firstName}
+                                    value={editUser.firstName}
                                     onChange={(e) => {
                                         setEditUser((prev) => ({ ...prev, firstName: e.target.value }));
-                                        setUserData({ ...userData, firstName: e.target.value });
                                     }}
                                 />
 
@@ -49,28 +48,25 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                             <div>
                                 <Label htmlFor="lastname">Last name</Label>
                                 <Input id="lastname"
-                                    value={userData.lastName}
+                                    value={editUser.lastName}
                                     onChange={(e) => {
                                         setEditUser((prev) => ({ ...prev, lastName: e.target.value }));
-                                        setUserData({ ...userData, lastName: e.target.value });
                                     }}
                                 />
                             </div>
                             <div>
                                 <Label htmlFor="email">Email</Label>
-                                <Input id="email" value={userData.email} type="email"
+                                <Input id="email" value={editUser.email} type="email"
                                     onChange={(e) => {
                                         setEditUser((prev) => ({ ...prev, email: e.target.value }));
-                                        setUserData({ ...userData, email: e.target.value });
                                     }}
                                 />
                             </div>
                             <div>
                                 <Label htmlFor="birth">birth</Label>
-                                <Input id="birth" value={userData.birth} type="text"
+                                <Input id="birth" value={editUser.birth} type="text"
                                     onChange={(e) => {
                                         setEditUser((prev) => ({ ...prev, birth: e.target.value }));
-                                        setUserData({ ...userData, birth: e.target.value });
                                     }}
                                 />
                             </div>
@@ -78,9 +74,9 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                    <Button variant="outline" onClick={() => handleUpdateUserAction(editUser, token)}>Save!</Button>
-                    <Button variant="outline" onClick={() => openModalUserUpdate(setModalIsOpen, setEditUser, userData)}>Change password!</Button>
-                    <Button variant="destructive" onClick={() => handleLogouUser()}>Logout!</Button>
+                    <Button onClick={() => handleUpdateUserAction(editUser, token)}>Save</Button>
+                    <Button variant="outline" onClick={() => openModalUserUpdate(setModalIsOpen, setEditUser, userData)}>Change password</Button>
+                    <Button variant="destructive" onClick={() => handleLogouUser()}>Logout</Button>
                 </div>
             </div>
         </div>

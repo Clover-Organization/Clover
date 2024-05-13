@@ -1,8 +1,7 @@
 package com.goncalves.API.entities.user;
 
 import com.goncalves.API.DTO.DadosAtualizarUser;
-import com.goncalves.API.entities.request.Project;
-import com.goncalves.API.infra.security.RegistrationException;
+import com.goncalves.API.infra.exception.RegistrationException;
 import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
