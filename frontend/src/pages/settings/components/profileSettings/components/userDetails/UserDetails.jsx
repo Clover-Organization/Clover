@@ -38,7 +38,7 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                                 <Label htmlFor="firstname">First name</Label>
                                 <Input
                                     id="firstname"
-                                    value={editUser.firstName}
+                                    value={editUser.firstName || ''}
                                     onChange={(e) => {
                                         setEditUser((prev) => ({ ...prev, firstName: e.target.value }));
                                     }}
@@ -48,7 +48,7 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                             <div>
                                 <Label htmlFor="lastname">Last name</Label>
                                 <Input id="lastname"
-                                    value={editUser.lastName}
+                                    value={editUser.lastName || ''}
                                     onChange={(e) => {
                                         setEditUser((prev) => ({ ...prev, lastName: e.target.value }));
                                     }}
@@ -56,7 +56,8 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                             </div>
                             <div>
                                 <Label htmlFor="email">Email</Label>
-                                <Input id="email" value={editUser.email} type="email"
+                                <Input id="email"
+                                    value={editUser.email || ''} type="email"
                                     onChange={(e) => {
                                         setEditUser((prev) => ({ ...prev, email: e.target.value }));
                                     }}
@@ -64,7 +65,8 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                             </div>
                             <div>
                                 <Label htmlFor="birth">birth</Label>
-                                <Input id="birth" value={editUser.birth} type="text"
+                                <Input id="birth" 
+                                value={editUser.birth || ''} type="text"
                                     onChange={(e) => {
                                         setEditUser((prev) => ({ ...prev, birth: e.target.value }));
                                     }}
