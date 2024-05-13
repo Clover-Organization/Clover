@@ -64,7 +64,9 @@ const FolderView = () => {
                                 setFilterText={setSearchTerm}
                                 setModalIsOpen={setModalIsOpen}
                                 idProject={idProject}
-                                idFolder={idFolder} />
+                                idFolder={idFolder} 
+                                fetchProject={getFolderAndFiles}
+                                />
                             {loading ? (
                                 <div className="align-loading">
                                     <div className="spinner"></div>
