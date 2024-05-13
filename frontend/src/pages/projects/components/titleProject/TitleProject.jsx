@@ -15,7 +15,7 @@ import ShareProjectComp from "@/pages/settings/components/requestSettings/compon
 import CreateFile from "./components/createFile/CreateFile";
 import { CardTitle } from "@/components/ui/card";
 
-const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen, idProject, idFolder }) => {
+const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen, idProject, idFolder, fetchProject }) => {
     const token = localStorage.getItem("token");
     const [loadingModal, setLoadingModal] = useState(false);
     const [dataShareProject, setDataShareProject] = useState({
@@ -85,6 +85,7 @@ const TitleProject = ({ singleRequest, filterText, setFilterText, setModalIsOpen
                     close={() => closeModal(setModalCreateFile)}
                     idProject={idProject}
                     idFolder={idFolder}
+                    fetchProject={fetchProject}
                 />
             </Modal>
         </div>

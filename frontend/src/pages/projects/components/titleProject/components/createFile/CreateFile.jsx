@@ -5,13 +5,14 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { createFile } from "../utils/createFile/createFile";
 
-const CreateFile = ({ close, idProject, idFolder }) => {
+const CreateFile = ({ close, idProject, idFolder, fetchProject }) => {
     const token = localStorage.getItem('token');
     const [fileName, setFileName] = useState("");
 
     const handleCreateFile = async () => {
         await createFile(fileName, token, idProject, idFolder);
         close();
+        fetchProject();
     }
 
     return (

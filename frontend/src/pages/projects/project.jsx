@@ -62,6 +62,7 @@ const Project = () => {
                 setFilterText={setSearchTerm}
                 setModalIsOpen={setModalIsOpen}
                 idProject={idProject}
+                fetchProject={fetchProject}
               />
               {loading ? (
                 <div className="align-loading">
