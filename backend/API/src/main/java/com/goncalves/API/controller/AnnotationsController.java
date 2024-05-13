@@ -144,7 +144,7 @@ public class AnnotationsController {
             // Salvar as alterações no projeto
             projectRepository.save(optionalProject);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(optionalAnnotations);
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {

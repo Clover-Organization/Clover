@@ -45,7 +45,7 @@ const Annotation = () => {
 
   const handleUpdateName = async (id) => {
     setLoading(true);
-    await updateAnnotation(token, newAnnotationName, id, idProject);
+    await updateAnnotation(token, newAnnotationName, id, idProject, setSelectedAnnotation);
     setModalIsOpen(false);
     setLoading(false);
   }
