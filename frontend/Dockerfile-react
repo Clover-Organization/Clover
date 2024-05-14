@@ -1,0 +1,17 @@
+# Use a imagem Node.js como base
+FROM node:latest
+
+# Define o diretório de trabalho dentro do contêiner
+WORKDIR /app
+
+# Copie os arquivos do diretório atual para o diretório de trabalho no contêiner
+COPY . .
+
+# Instale as dependências do projeto
+RUN npm install
+
+# Exponha a porta 5173 para que possamos acessar a aplicação React
+EXPOSE 5173
+
+# Comando para iniciar o servidor de desenvolvimento do Vite
+CMD ["npm", "run", "dev"]
