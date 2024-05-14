@@ -37,7 +37,7 @@ const HomeNavbar = ({ idProject }) => {
                         to={`/project/${idProject}`}
                         className={cn(
                             "transition-colors hover:text-foreground/80",
-                            pathname === `/project/${idProject}` ? "text-foreground" : "text-foreground/60"
+                            pathname === `/project/${idProject}` || `/project/folder/${idProject}` ? "text-foreground" : "text-foreground/60"
                         )}
                     >
                         {singleRequest.projectName}

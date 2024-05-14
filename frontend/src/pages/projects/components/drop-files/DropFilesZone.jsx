@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
-const DropFileZone = ({ idProject, token, onClose }) => {
+const DropFileZone = ({ idProject, token, onClose, fetchProject }) => {
     const [loading, setLoading] = useState(false);
     const [acceptedFoldersAndFiles, setAcceptedFoldersAndFiles] = useState([]);
 
@@ -30,6 +30,7 @@ const DropFileZone = ({ idProject, token, onClose }) => {
 
         setLoading(false);
         clearFiles();
+        fetchProject();
     };
 
     const clearFiles = () => {

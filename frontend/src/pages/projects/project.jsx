@@ -62,6 +62,7 @@ const Project = () => {
                 setFilterText={setSearchTerm}
                 setModalIsOpen={setModalIsOpen}
                 idProject={idProject}
+                fetchProject={fetchProject}
               />
               {loading ? (
                 <div className="align-loading">
@@ -125,7 +126,7 @@ const Project = () => {
         </section>
       </article>
       <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-        <DropFileZone idProject={idProject} token={token} onClose={() => closeModal(setModalIsOpen)} />
+        <DropFileZone idProject={idProject} token={token} onClose={() => closeModal(setModalIsOpen)} fetchProject={fetchProject}/>
       </Modal>
     </main>
   );

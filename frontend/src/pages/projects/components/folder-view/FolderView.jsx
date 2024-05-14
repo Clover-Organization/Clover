@@ -64,7 +64,9 @@ const FolderView = () => {
                                 setFilterText={setSearchTerm}
                                 setModalIsOpen={setModalIsOpen}
                                 idProject={idProject}
-                                idFolder={idFolder} />
+                                idFolder={idFolder} 
+                                fetchProject={getFolderAndFiles}
+                                />
                             {loading ? (
                                 <div className="align-loading">
                                     <div className="spinner"></div>
@@ -109,7 +111,7 @@ const FolderView = () => {
                 </section>
             </article>
             <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-                <DropZoneFolderView token={token} idProject={idProject} idFolder={idFolder} onClose={() => closeModal(setModalIsOpen)} />
+                <DropZoneFolderView token={token} idProject={idProject} idFolder={idFolder} onClose={() => closeModal(setModalIsOpen)} getFolderAndFiles={getFolderAndFiles} />
             </Modal>
         </main>
     );
