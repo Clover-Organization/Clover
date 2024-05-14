@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
   mongodb:
     image: mongo:latest
@@ -9,12 +9,12 @@ services:
   spring-app:
     build:
       context: .
-      dockerfile: backend\API\Dockerfile-spring
+      dockerfile: backend\API\Dockerfile
     ports:
       - "8080:8080"
   react-app:
     build:
       context: .
-      dockerfile: frontend\Dockerfile-react
+      dockerfile: frontend\Dockerfile
     ports:
       - "5173:5173"
