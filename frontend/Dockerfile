@@ -1,10 +1,14 @@
-FROM node:21.4.0-alpine as build
+FROM node:20-alpine
 
 WORKDIR /app
 
 COPY . .
+COPY package*.json ./
 
-RUN npm install
+RUN ls > logs.txt
+
+RUN npm install && \
+    apk add --no-cache xdg-utils
 
 EXPOSE 5173
 
