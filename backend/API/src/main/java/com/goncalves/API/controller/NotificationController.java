@@ -1,11 +1,13 @@
 package com.goncalves.API.controller;
 
+import com.goncalves.API.DTO.DadosNewMessages;
 import com.goncalves.API.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/notification")
@@ -14,9 +16,10 @@ public class NotificationController {
     private NotificationService notificationService;
 
     @GetMapping("/all")
-    public ResponseEntity NotificationController() {
-        try{
-            var messages = notificationService.getCache("notification:2");
+    public ResponseEntity NotificationController(@RequestBody int idNotification) {
+        try {
+            System.out.println(idNotification);
+            var messages = notificationService.getCache("notification:" + idNotification);
             return ResponseEntity.ok(messages);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
@@ -25,11 +28,12 @@ public class NotificationController {
 
     @GetMapping("/user")
     public ResponseEntity NotificationControllerByUser() {
-        try{
-            var messages = notificationService.getCacheByUser();
+        try {
+            var messages = notificationService.getAllCacheByUser();
             return ResponseEntity.ok(messages);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+            return ResponseEntity.badRequest().build();
         }
     }
+
 }

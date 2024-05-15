@@ -544,7 +544,7 @@ public class ProjectController {
             emailService.shareProjectEmail(destinatario, token, project.getIdProject());
 
             notificationService.saveNotification(new Notification(
-                    "2",
+                    "3",
                     "Project sharing",
                     "Click on the link below to accept the invitation to this project:\n" +
                             "<a href=\"http://localhost:5173/project/share/" + token + "/" + project.getIdProject() + "\">Accept invite</a>\n\n" +

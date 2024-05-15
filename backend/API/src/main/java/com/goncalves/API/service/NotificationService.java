@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -40,13 +42,15 @@ public class NotificationService {
     }
 
 
-    public String getCacheByUser(){
-        for (Object keyObj : redisTemplate.keys("*")) {
+    public List getAllCacheByUser() {
+        List<Object> cacheList = new ArrayList<>();
+        for (Object keyObj : redisTemplate.keys("notification:*")) {
             String key = (String) keyObj;
             if (key.startsWith(NOTIFICATION_PREFIX)) {
-                return (String) redisTemplate.opsForValue().get(key);
+                Object cacheValue = redisTemplate.opsForValue().get(key);
+                cacheList.add(cacheValue);
             }
         }
-        return null;
+        return cacheList;
     }
 }
