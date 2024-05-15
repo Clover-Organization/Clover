@@ -1,19 +1,10 @@
 services:
-  mongodb:
-    image: mongo
-    ports:
-      - 27017:27017
-    volumes:
-      - mongodb_data:/data/db
-
   spring-app:
     build:
       context: backend\API
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    depends_on:
-      - mongodb
 
   react-app:
     build:
@@ -21,6 +12,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-
-volumes:
-  mongodb_data:
