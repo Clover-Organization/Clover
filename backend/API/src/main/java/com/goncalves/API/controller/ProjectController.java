@@ -544,14 +544,14 @@ public class ProjectController {
             emailService.shareProjectEmail(destinatario, token, project.getIdProject());
 
             notificationService.saveNotification(new Notification(
-                    "1",
+                    "2",
                     "Project sharing",
                     "Click on the link below to accept the invitation to this project:\n" +
-                            "<a href=\"https://clover-phi.vercel.app/project/share/" + token + "/" + project.getIdProject() + "\">Accept invite</a>\n\n" +
+                            "<a href=\"http://localhost:5173/project/share/" + token + "/" + project.getIdProject() + "\">Accept invite</a>\n\n" +
                             "Thanks,\n the Clover team!",
                     false,
                     user
-            ), 3600000);
+            ), 3600);
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (InternalError e) {
