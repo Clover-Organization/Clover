@@ -10,6 +10,7 @@ import com.goncalves.API.entities.files.FilesRepository;
 import com.goncalves.API.entities.filesVersions.VersionsRepository;
 import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
+import com.goncalves.API.entities.notification.Notification;
 import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
@@ -17,6 +18,7 @@ import com.goncalves.API.entities.user.Users;
 import com.goncalves.API.infra.exception.*;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;
+import com.goncalves.API.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -60,6 +62,8 @@ public class ProjectController {
     private EmailService emailService;
     @Autowired
     private EmailTokenService emailTokenService;
+    @Autowired
+    private NotificationService notificationService;
 
     /**
      * Retorna uma lista paginada de projetos baseados na data de criação da solicitação.
@@ -538,6 +542,16 @@ public class ProjectController {
 
             String destinatario = (user.getEmail());
             emailService.shareProjectEmail(destinatario, token, project.getIdProject());
+
+            notificationService.saveNotification(new Notification(
+                    "1",
+                    "Project sharing",
+                    "Click on the link below to accept the invitation to this project:\n" +
+                            "<a href=\"https://clover-phi.vercel.app/project/share/" + token + "/" + project.getIdProject() + "\">Accept invite</a>\n\n" +
+                            "Thanks,\n the Clover team!",
+                    false,
+                    user
+            ), 3600000);
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (InternalError e) {
