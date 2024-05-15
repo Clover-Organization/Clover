@@ -1,15 +1,20 @@
-FROM node:20-alpine
+FROM node:21.4.0-alpine as build
 
 WORKDIR /app
 
-COPY . .
 COPY package*.json ./
 
-RUN ls > logs.txt
+RUN npm install
 
-RUN npm install && \
-    apk add --no-cache xdg-utils
+COPY . ./
 
-EXPOSE 5173
+RUN npm run build
 
-CMD ["npm", "run", "dev"]
+FROM nginx:stable-alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY ./docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 8000
+
+CMD ["nginx", "-g", "daemon off;"]

@@ -8,8 +8,8 @@ services:
 
   spring-app:
     build:
-      context: .
-      dockerfile: backend\API\Dockerfile
+      context: backend\API
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     depends_on:
@@ -17,10 +17,10 @@ services:
 
   react-app:
     build:
-      context: .
-      dockerfile: \frontend\Dockerfile
+      context: frontend
+      dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "8000:8000"
 
 volumes:
   mongodb_data:
