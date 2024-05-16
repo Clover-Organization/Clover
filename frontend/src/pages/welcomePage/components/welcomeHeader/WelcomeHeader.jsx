@@ -8,6 +8,7 @@ import { fetchRequestById } from "@/pages/home/components/utils/fetchRequestById
 import { FetchUser } from "@/pages/home/components/utils/getInfoUser/FetchUser";
 import HomeNavbar from "@/pages/components/homeNavbar/HomeNavbar";
 import ProfileMenu from "@/pages/components/homeNavbar/components/ProfileMenu";
+import { NotificationMenu } from "@/pages/components/homeNavbar/components/NotificationMenu";
 
 export default function WelcomeHeader({ idProject }) {
 	const [role, setRole] = useState(localStorage.getItem("role"));
@@ -42,9 +43,10 @@ export default function WelcomeHeader({ idProject }) {
 										<Button asChild><Link to="/auth/login">Sign In</Link></Button>
 									</>
 								) : (
-									<>
-										<ProfileMenu userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers}/>
-									</>
+									<div className="flex">
+										<ProfileMenu userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers} />
+										<NotificationMenu  userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers}/>
+									</div>
 								)
 								}
 							</div>
