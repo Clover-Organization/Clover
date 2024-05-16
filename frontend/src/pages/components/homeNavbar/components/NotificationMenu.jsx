@@ -82,19 +82,19 @@ export function NotificationMenu({ userData, idProject, shareUsers }) {
             <NavigationMenuList>
                 <NavigationMenuItem>
                     <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                    <NavigationMenuContent >
+                        <ul className="grid gap-3 p-4 md:w-[380px] lg:grid-cols-[.75fr_1fr]">
                             <li className="row-span-3">
                                 <NavigationMenuLink asChild>
                                     <Link
                                         className="flex h-full w-full select-none flex-col justify-center rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                                         to={`/settings`}
                                     >
-                                        <div className="mb-2 mt-4 text-lg font-medium">
+                                        <div className="mb-2 w-36 mt-4 text-lg font-medium">
                                             {userData.profileImage != null && !isEmpty(userData.profileImage) ? (
                                                 <img
-                                                    width={120}
-                                                    className="rounded-full h-32 object-cover"
+                                                    width={110}
+                                                    className="rounded-full h-28 object-cover"
                                                     src={
                                                         userData.profileImage
                                                             ? `data:image/png;base64,${userData.profileImage}`
@@ -103,7 +103,7 @@ export function NotificationMenu({ userData, idProject, shareUsers }) {
                                                     alt="userImage"
                                                 />
                                             ) : (
-                                                <User />
+                                                <User className="w-24 h-24"/>
                                             )}
                                         </div>
                                         <span className="text-lg leading-tight text-secondary-foreground">{userData.username}</span>
