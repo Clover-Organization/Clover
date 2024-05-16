@@ -10,7 +10,6 @@ import com.goncalves.API.entities.files.FilesRepository;
 import com.goncalves.API.entities.filesVersions.VersionsRepository;
 import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
-import com.goncalves.API.entities.notification.Notification;
 import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
@@ -521,6 +520,7 @@ public class ProjectController {
     })
     public ResponseEntity shareProject(@RequestBody DadosUsernameOrEmail dados) {
         try {
+            var userSender = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Users user;
 
             var isEmail = dados.usernameOrEmail().contains("@");
@@ -542,16 +542,9 @@ public class ProjectController {
 
             String destinatario = (user.getEmail());
             emailService.shareProjectEmail(destinatario, token, project.getIdProject());
-
-            notificationService.saveNotification(new Notification(
-                    "3",
-                    "Project sharing",
-                    "Click on the link below to accept the invitation to this project:\n" +
-                            "<a href=\"http://localhost:5173/project/share/" + token + "/" + project.getIdProject() + "\">Accept invite</a>\n\n" +
-                            "Thanks,\n the Clover team!",
-                    false,
-                    user
-            ), 3600);
+            notificationService.createNotification("Project sharing", "Click the link below to accept " + userSender.getUsername() + " invitation to this project:\n" +
+                    "<a href=\"https://clover-phi.vercel.app/project/share/" + token + "/" + project + "\">Accept invite</a>\n\n" +
+                    "Thanks,\n the Clover team!", false, user);
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (InternalError e) {
