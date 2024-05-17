@@ -8,7 +8,7 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -44,7 +44,6 @@ export function NotificationMenu({ userData, idProject, shareUsers }) {
 
     useEffect(() => {
         if (shareUsers !== undefined && Array.isArray(shareUsers) && shareUsers.length > 0) {
-            // Verifica se o usuário compartilhou
             const hasShared = shareUsers.some(element => element.idUsers === userData.idUsers);
             setIsShareUser(hasShared);
         }
@@ -71,7 +70,7 @@ export function NotificationMenu({ userData, idProject, shareUsers }) {
                                 <NavigationMenuLink asChild>
                                     <div className="flex h-full w-full select-none flex-col justify-between rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
                                         <Link
-                                        className="hover:brightness-90"
+                                            className="hover:brightness-90"
                                             to={`/settings`}
                                         >
                                             <div className="mb-2 w-36 mt-4 text-lg font-medium">
@@ -96,16 +95,16 @@ export function NotificationMenu({ userData, idProject, shareUsers }) {
                                             </p>
                                         </Link>
                                         <div className="flex justify-end">
-                                            <LogOut className="cursor-pointer hover:text-foreground/80" onClick={handleLogouUser} width={20}/>
+                                            <LogOut className="cursor-pointer hover:text-foreground/80" onClick={handleLogouUser} width={20} />
                                         </div>
                                     </div>
                                 </NavigationMenuLink>
                             </li>
-                            <ListItem to="/Notifications" title="Notifications">
+                            <ListItem to="/notifications" title="Notifications">
                                 See your notifications in the system.
                             </ListItem>
-                            {idProject != null && (
-                                <ListItem to={isShareUser ? `` : `/settings/${idProject}/1`} title="Project Settings">
+                            {idProject != null && idProject != 'editor' && (
+                                <ListItem to={isShareUser ? `` : `/settings/${idProject}/1`} title="Project Settings" className={isShareUser ? "cursor-no-drop " : "cursor-pointer " + "text-secondary-foreground"}>
                                     See your project information in more detail.
                                 </ListItem>
                             )}
@@ -139,6 +138,7 @@ export function NotificationMenu({ userData, idProject, shareUsers }) {
 
 const ListItem = React.forwardRef(
     ({ className, title, children, target, ...props }, ref) => {
+        const location = useLocation().pathname;
         return (
             <li>
                 <NavigationMenuLink asChild>
@@ -146,7 +146,7 @@ const ListItem = React.forwardRef(
                         target={target}
                         ref={ref}
                         className={cn(
-                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                            `block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${location === props.to ? "bg-accent text-accent-foreground" : "text-secondary-foreground"}`,
                             className
                         )}
                         {...props}

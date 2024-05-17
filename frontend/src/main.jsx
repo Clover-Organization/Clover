@@ -26,12 +26,12 @@ import Structure from "./pages/docs/components/structure/Structure.jsx";
 import Versioning from "./pages/docs/components/versioning/Versioning.jsx";
 import AnnotationDocs from "./pages/docs/components/annotationsDocs/AnnotationsDocs.jsx";
 import RoadmapDocs from "./pages/docs/components/roadmap/RoadmapDocs.jsx";
+import Notification from "./pages/notification/Notification.jsx";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <ProtectedRoute element={App} />,
-		// element: <App />,
 		errorElement: <ErrorPage />,
 		children: [
 			{
@@ -71,6 +71,10 @@ const router = createBrowserRouter([
 	{
 		path: "/Welcome",
 		element: <Welcome />,
+	},
+	{
+		path: "/notifications",
+		element: <Notification />,
 	},
 	{
 		path: "/docs",
