@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -21,14 +22,16 @@ public class Notification {
 
     private String title;
     private String message;
-    private boolean read;
+    private String body;
+
+    @DBRef
     private Users users;
     private LocalDateTime expirationDate;
 
-    public Notification(String title, String message, boolean read, Users users) {
+    public Notification(String title, String message, String body, Users users) {
         this.title = title;
         this.message = message;
-        this.read = read;
+        this.body = body;
         this.users = users;
         this.expirationDate = LocalDateTime.now();
     }

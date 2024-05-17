@@ -14,17 +14,17 @@ public class NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    public Notification createNotification(String title, String message, boolean read, Users users) {
+    public Notification createNotification(String title, String message,String body ,Users users) {
         try {
-            verifyFields(title, message, read, users);
-            Notification notification = new Notification(title, message, read, users);
+            verifyFields(title, message, users);
+            Notification notification = new Notification(title, message, body, users);
             return notificationRepository.save(notification);
         } catch (Exception e) {
             throw new RuntimeException("Error in create notification");
         }
     }
 
-    private void verifyFields(String title, String message, boolean read, Users users) {
+    private void verifyFields(String title, String message, Users users) {
         if (title == null || title.isEmpty()) {
             throw new RuntimeException("Title is required");
         }

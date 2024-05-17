@@ -14,7 +14,6 @@ public class NotificationCleanupService {
 
     @Scheduled(fixedRate = 3600000) // Executa a cada 1 hora (3600000 milissegundos)
     public void cleanupExpiredNotifications() {
-        System.out.println("Esta sendo executado!");
         LocalDateTime now = LocalDateTime.now();
         notificationRepository.deleteByExpirationDateBefore(now);
     }

@@ -542,9 +542,12 @@ public class ProjectController {
 
             String destinatario = (user.getEmail());
             emailService.shareProjectEmail(destinatario, token, project.getIdProject());
-            notificationService.createNotification("Project sharing", "Click the link below to accept " + userSender.getUsername() + " invitation to this project:\n" +
-                    "<a href=\"https://clover-phi.vercel.app/project/share/" + token + "/" + project + "\">Accept invite</a>\n\n" +
-                    "Thanks,\n the Clover team!", false, user);
+            notificationService.createNotification(
+                    "Project sharing", """
+                            You received a notification for user project sharing: %s click the button to accept the invitation.
+                            """.formatted(userSender.getUsername()),
+                    "Check project sharing in your email.",
+                    user);
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (InternalError e) {

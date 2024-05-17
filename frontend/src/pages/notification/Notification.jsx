@@ -1,17 +1,27 @@
-import { Button } from "@/components/ui/button"
 import {
     Card,
-    CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
-import Navbar from "../components/Navbar"
+} from "@/components/ui/card";
+import Navbar from "../components/Navbar";
+import { getAllNotificationsByUser } from "./components/utils/getAllNotificationsByUser";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Notification = () => {
+    const token = localStorage.getItem("token");
+    const [notifications, setNotifications] = useState([]);
+
+    const handleAllNotifications = async () => {
+        await getAllNotificationsByUser(token, setNotifications);
+    }
+
+    useEffect(() => {
+        handleAllNotifications();
+    }, []); // Adicione um array vazio aqui para garantir que useEffect só execute uma vez.
+
     return (
         <div className="flex min-h-screen w-full flex-col">
             <Navbar />
@@ -21,54 +31,34 @@ const Notification = () => {
                 </div>
                 <div className="mx-auto grid w-full max-w-6xl items-start gap-6 ">
                     <div className="grid gap-6">
-                        <Card x-chunk="dashboard-04-chunk-1">
-                            <CardHeader>
-                                <CardTitle>Store Name</CardTitle>
-                                <CardDescription>
-                                    Used to identify your store in the marketplace.
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <form>
-                                    <Input placeholder="Store Name" />
-                                </form>
-                            </CardContent>
-                            <CardFooter className="border-t px-6 py-4">
-                                <Button>Save</Button>
-                            </CardFooter>
-                        </Card>
-                        <Card x-chunk="dashboard-04-chunk-2">
-                            <CardHeader>
-                                <CardTitle>Plugins Directory</CardTitle>
-                                <CardDescription>
-                                    The directory within your project, in which your plugins are
-                                    located.
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <form className="flex flex-col gap-4">
-                                    <Input
-                                        placeholder="Project Name"
-                                        defaultValue="/content/plugins"
-                                    />
-                                    <div className="flex items-center space-x-2">
-                                        <Checkbox id="include" defaultChecked />
-                                        <label
-                                            htmlFor="include"
-                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                        >
-                                            Allow administrators to change the directory.
-                                        </label>
-                                    </div>
-                                </form>
-                            </CardContent>
-                            <CardFooter className="border-t px-6 py-4">
-                                <Button>Save</Button>
-                            </CardFooter>
-                        </Card>
+                        {notifications.length === 0 ? (
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>No notifications</CardTitle>
+                                    <CardDescription>
+                                        You don't have any notifications yet.
+                                    </CardDescription>
+                                </CardHeader>
+                            </Card>
+                        ) : (
+                            <>
+                                {notifications.map((notification, index) => (
+                                    <Card key={index} x-chunk="dashboard-04-chunk-1">
+                                        <CardHeader>
+                                            <CardTitle>{notification.title}</CardTitle>
+                                            <CardDescription>
+                                                {notification.message}
+                                            </CardDescription>
+                                            {notification.body}
+                                        </CardHeader>
+                                    </Card>
+                                ))}
+                            </>
+                        )}
                     </div>
                 </div>
             </main>
+
         </div>
     )
 }
