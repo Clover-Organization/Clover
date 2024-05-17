@@ -71,6 +71,7 @@ export function NotificationMenu({ userData, idProject, shareUsers }) {
                                 <NavigationMenuLink asChild>
                                     <div className="flex h-full w-full select-none flex-col justify-between rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
                                         <Link
+                                        className="hover:brightness-90"
                                             to={`/settings`}
                                         >
                                             <div className="mb-2 w-36 mt-4 text-lg font-medium">
@@ -95,7 +96,7 @@ export function NotificationMenu({ userData, idProject, shareUsers }) {
                                             </p>
                                         </Link>
                                         <div className="flex justify-end">
-                                            <LogOut onClick={handleLogouUser} />
+                                            <LogOut className="cursor-pointer hover:text-foreground/80" onClick={handleLogouUser} width={20}/>
                                         </div>
                                     </div>
                                 </NavigationMenuLink>
