@@ -63,7 +63,7 @@ const Notification = () => {
                                                 <Button variant="icon" className="hover:text-red-700" onClick={() => handleRemoveNotification(notification.idNotification)}><X /></Button>
                                             </CardDescription>
                                         </CardHeader>
-                                        {templateBodyBySubject(notification.subject, notification.utils)}
+                                        {templateBodyBySubject(notification)}
                                     </Card>
                                 ))}
                             </>

@@ -12,9 +12,11 @@ export const removeNotification = async (token, idNotification) => {
             if (res.ok) {
                 toast.success("Notification removed successfully");
             } else {
-                toast.error("Error removing notification");
+                toast.error("Error", {
+                    description: "Error removing notification. Please try again later.",
+                });
             }
-        
+
         })
         .catch((err) => console.log(err));
 }
