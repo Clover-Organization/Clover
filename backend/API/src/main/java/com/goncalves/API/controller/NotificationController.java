@@ -8,10 +8,14 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 
 /**
  * NotificationController is a REST controller that handles HTTP requests related to notifications.
@@ -64,11 +68,12 @@ public class NotificationController {
      */
     @Operation(summary = "Get all notifications for current user", description = "Retrieve all notifications for current user")
     @GetMapping("/user/all")
-    public ResponseEntity getAllNotificationsByUser() {
+    public ResponseEntity getAllNotificationsByUser(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "creationDate") String sort) {
         try {
             var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            var notification = notificationRepository.findAllByUsers(user);
-            if (notification == null) {
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+            var notification = notificationRepository.findAllByUsers(user, pageable);
+            if (notification == null || notification.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No notifications found for this user");
             }
             return ResponseEntity.ok(notification);

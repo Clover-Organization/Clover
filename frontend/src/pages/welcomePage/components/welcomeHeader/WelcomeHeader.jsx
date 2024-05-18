@@ -26,7 +26,7 @@ export default function WelcomeHeader({ idProject }) {
 	}
 
 	const handleAllNotifications = async () => {
-        await getAllNotificationsByUser(token, setNotifications);
+        await getAllNotificationsByUser(token, setNotifications, 0, "", () => {});
     }
 
 	useEffect(() => {

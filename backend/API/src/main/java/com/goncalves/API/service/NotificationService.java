@@ -16,10 +16,10 @@ public class NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    public Notification createNotification(String title, String message, Subject subject , Users users, List utils) {
+    public Notification createNotification(String title, String message, Subject subject, Users users, Users sender, List utils) {
         try {
             verifyFields(title, message, users);
-            Notification notification = new Notification(title, message, subject, users, utils);
+            Notification notification = new Notification(title, message, subject, users, sender, utils);
             return notificationRepository.save(notification);
         } catch (Exception e) {
             throw new RuntimeException("Error in create notification");

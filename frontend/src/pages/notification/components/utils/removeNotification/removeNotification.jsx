@@ -1,7 +1,8 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
 
 export const removeNotification = async (token, idNotification) => {
-    const response = await fetch(`http://localhost:8080/notification/delete/${idNotification}`, {
+    const response = await fetch(`${url}/notification/delete/${idNotification}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",

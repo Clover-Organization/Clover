@@ -1,5 +1,7 @@
-export const getAllNotificationsByUser = async (token, setNotifications) => {
-    const response = await fetch(`http://localhost:8080/notification/user/all`, {
+import { url } from "@/infra/url";
+
+export const getAllNotificationsByUser = async (token, setNotifications, page, filterBy, setTotalPages) => {
+    const response = await fetch(`${url}/notification/user/all?page=${page}&sort=${filterBy}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -8,7 +10,8 @@ export const getAllNotificationsByUser = async (token, setNotifications) => {
     })
         .then((res) => res.json())
         .then((data) => {
-            setNotifications(data);
+            setNotifications(data.content);
+            setTotalPages(data.totalPages);
         })
         .catch((err) => console.log(err));
 }

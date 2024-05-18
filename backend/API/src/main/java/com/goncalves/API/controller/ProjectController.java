@@ -549,6 +549,7 @@ public class ProjectController {
                             """.formatted(userSender.getUsername()),
                     Subject.PROJECT_SHARE,
                     user,
+                    userSender,
                     new ArrayList<>(Collections.singletonList("http://localhost:5173/project/share/" + token + "/" + project.getIdProject()))
                     );
 
