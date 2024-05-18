@@ -7,7 +7,6 @@ import {
 import Navbar from "../components/Navbar";
 import { getAllNotificationsByUser } from "./components/utils/getAllNotificationsByUser/getAllNotificationsByUser";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import HeaderNotification from "./components/headerNotifications/HeaderNotifications";
