@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import HeaderNotification from "./components/headerNotifications/HeaderNotifications";
 import { templateBodyBySubject } from "./components/utils/templateBodyBySubject/templateBodyBySubject";
+import { remove } from "lodash";
+import { removeNotification } from "./components/utils/removeNotification/removeNotification";
 
 const Notification = () => {
     const token = localStorage.getItem("token");
@@ -28,6 +30,11 @@ const Notification = () => {
     const filteredNotifications = notifications.filter(notification => {
         return notification.title.toLowerCase().includes(filter.toLowerCase());
     });
+
+    const handleRemoveNotification  = async (idNotification) => {
+        await removeNotification(token, idNotification)
+        handleAllNotifications();
+    }
 
     return (
         <div className="flex min-h-screen w-full flex-col">
@@ -53,7 +60,7 @@ const Notification = () => {
                                             <CardTitle className="text-primary">{notification.title}</CardTitle>
                                             <CardDescription className="flex justify-between">
                                                 {notification.message}
-                                                <Button variant="icon" className="hover:text-red-700"><X /></Button>
+                                                <Button variant="icon" className="hover:text-red-700" onClick={() => handleRemoveNotification(notification.idNotification)}><X /></Button>
                                             </CardDescription>
                                         </CardHeader>
                                         {templateBodyBySubject(notification.subject, notification.utils)}
