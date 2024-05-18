@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,18 +23,20 @@ public class Notification {
 
     private String title;
     private String message;
-    private String body;
+    private Subject subject;
+    private List<String> utils;
 
     @DBRef
     private Users users;
     private LocalDateTime expirationDate;
 
-    public Notification(String title, String message, String body, Users users) {
+    public Notification(String title, String message, Subject subject, Users users, List<String> utils) {
         this.title = title;
         this.message = message;
-        this.body = body;
+        this.subject = subject;
         this.users = users;
         this.expirationDate = LocalDateTime.now();
+        this.utils = utils;
     }
 
 }

@@ -10,6 +10,7 @@ import com.goncalves.API.entities.files.FilesRepository;
 import com.goncalves.API.entities.filesVersions.VersionsRepository;
 import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
+import com.goncalves.API.entities.notification.Subject;
 import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
@@ -546,8 +547,10 @@ public class ProjectController {
                     "Project sharing", """
                             You received a notification for user project sharing: %s click the button to accept the invitation.
                             """.formatted(userSender.getUsername()),
-                    "Check project sharing in your email.",
-                    user);
+                    Subject.PROJECT_SHARE,
+                    user,
+                    new ArrayList<>(Collections.singletonList("http://localhost:5173/project/share/" + token + "/" + project.getIdProject()))
+                    );
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (InternalError e) {

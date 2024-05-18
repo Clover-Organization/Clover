@@ -5,12 +5,13 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import Navbar from "../components/Navbar";
-import { getAllNotificationsByUser } from "./components/utils/getAllNotificationsByUser";
+import { getAllNotificationsByUser } from "./components/utils/getAllNotificationsByUser/getAllNotificationsByUser";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import HeaderNotification from "./components/headerNotifications/HeaderNotifications";
+import { templateBodyBySubject } from "./components/utils/templateBodyBySubject/templateBodyBySubject";
 
 const Notification = () => {
     const token = localStorage.getItem("token");
@@ -48,15 +49,15 @@ const Notification = () => {
                         ) : (
                             <>
                                 {filteredNotifications.map((notification, index) => (
-                                    <Card key={index} x-chunk="dashboard-04-chunk-1" className="shadow-md hover:opacity-75">
+                                    <Card key={index} x-chunk="dashboard-04-chunk-1" className="shadow-md w-full">
                                         <CardHeader>
                                             <CardTitle className="text-primary">{notification.title}</CardTitle>
                                             <CardDescription className="flex justify-between">
                                                 {notification.message}
                                                 <Button variant="icon" className="hover:text-red-700"><X /></Button>
                                             </CardDescription>
-                                            {notification.body}
                                         </CardHeader>
+                                        {templateBodyBySubject(notification.subject, notification.utils)}
                                     </Card>
                                 ))}
                             </>

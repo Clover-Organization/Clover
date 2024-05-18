@@ -2,11 +2,13 @@ package com.goncalves.API.service;
 
 import com.goncalves.API.entities.notification.Notification;
 import com.goncalves.API.entities.notification.NotificationRepository;
+import com.goncalves.API.entities.notification.Subject;
 import com.goncalves.API.entities.user.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class NotificationService {
@@ -14,10 +16,10 @@ public class NotificationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    public Notification createNotification(String title, String message,String body ,Users users) {
+    public Notification createNotification(String title, String message, Subject subject , Users users, List utils) {
         try {
             verifyFields(title, message, users);
-            Notification notification = new Notification(title, message, body, users);
+            Notification notification = new Notification(title, message, subject, users, utils);
             return notificationRepository.save(notification);
         } catch (Exception e) {
             throw new RuntimeException("Error in create notification");
