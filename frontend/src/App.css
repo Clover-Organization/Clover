@@ -326,6 +326,10 @@ div.lupa {
   background-color: hsl(var(--secondary));
 }
 
+.teste{
+  background-color: hsl(var(--secondary));
+}
+
 div.lupaSearch>div.lupa>img,
 .lupaSearch-projects>div.lupa>img {
   padding-inline: var(--padding-medium);
@@ -1393,4 +1397,8 @@ pre {
 
 .markdown-body h2{
     color: #e6edf3;
+}
+
+.notification-h{
+  min-height: 72vh;
 }

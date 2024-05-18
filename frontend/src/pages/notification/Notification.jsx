@@ -9,10 +9,13 @@ import { getAllNotificationsByUser } from "./components/utils/getAllNotification
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
+import HeaderNotification from "./components/headerNotifications/HeaderNotifications";
 
 const Notification = () => {
     const token = localStorage.getItem("token");
     const [notifications, setNotifications] = useState([]);
+    const [filter, setFilter] = useState("");
 
     const handleAllNotifications = async () => {
         await getAllNotificationsByUser(token, setNotifications);
@@ -20,18 +23,20 @@ const Notification = () => {
 
     useEffect(() => {
         handleAllNotifications();
-    }, []); // Adicione um array vazio aqui para garantir que useEffect só execute uma vez.
+    }, []);
+
+    const filteredNotifications = notifications.filter(notification => {
+        return notification.title.toLowerCase().includes(filter.toLowerCase());
+    });
 
     return (
         <div className="flex min-h-screen w-full flex-col">
             <Navbar />
-            <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10">
-                <div className="mx-auto grid w-full max-w-6xl gap-2">
-                    <h1 className="text-3xl font-semibold">Notifications</h1>
-                </div>
-                <div className="mx-auto grid w-full max-w-6xl items-start gap-6 ">
+            <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] h-full flex-1 flex-col gap-4 p-4 md:gap-2 md:p-10">
+                <HeaderNotification notifications={notifications} filter={filter} setFilter={setFilter} />
+                <div className="mx-auto grid w-full notification-h max-w-6xl items-start gap-6 border-solid border p-4 rounded-sm">
                     <div className="grid gap-6">
-                        {notifications.length === 0 ? (
+                        {filteredNotifications.length === 0 ? (
                             <Card>
                                 <CardHeader>
                                     <CardTitle>No notifications</CardTitle>
@@ -42,12 +47,13 @@ const Notification = () => {
                             </Card>
                         ) : (
                             <>
-                                {notifications.map((notification, index) => (
-                                    <Card key={index} x-chunk="dashboard-04-chunk-1">
+                                {filteredNotifications.map((notification, index) => (
+                                    <Card key={index} x-chunk="dashboard-04-chunk-1" className="shadow-md hover:opacity-75">
                                         <CardHeader>
-                                            <CardTitle>{notification.title}</CardTitle>
-                                            <CardDescription>
+                                            <CardTitle className="text-primary">{notification.title}</CardTitle>
+                                            <CardDescription className="flex justify-between">
                                                 {notification.message}
+                                                <Button variant="icon" className="hover:text-red-700"><X /></Button>
                                             </CardDescription>
                                             {notification.body}
                                         </CardHeader>
