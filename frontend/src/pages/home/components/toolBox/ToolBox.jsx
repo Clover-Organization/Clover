@@ -5,7 +5,7 @@ import { isEmpty } from "lodash";
 export const ToolBox = ({ box, loading, showId, role }) => {
   return (
     <div className="tool">
-      {!loading ? (
+      {loading ? (
         <div className="align-loading">
           <div className="spinner"></div>
         </div>
