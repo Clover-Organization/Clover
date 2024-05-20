@@ -326,10 +326,6 @@ div.lupa {
   background-color: hsl(var(--secondary));
 }
 
-.teste{
-  background-color: hsl(var(--secondary));
-}
-
 div.lupaSearch>div.lupa>img,
 .lupaSearch-projects>div.lupa>img {
   padding-inline: var(--padding-medium);
@@ -382,9 +378,9 @@ div.boxTools {
 div.tool {
   font-weight: bold;
   border: solid 1px var(--secondary-color);
+  border-radius: var(--border-radius-medium);
   width: 20rem;
   height: 12rem;
-  border-radius: var(--border-radius-medium);
   cursor: pointer;
   opacity: 5;
   transition: opacity 0.3s ease;
@@ -698,7 +694,8 @@ div.page>button:hover {
     justify-content: center;
   }
 
-  .box-status-priority-image-content img, .box-status-priority-image-content svg {
+  .box-status-priority-image-content img,
+  .box-status-priority-image-content svg {
     display: none;
   }
 
@@ -1395,10 +1392,10 @@ pre {
   margin-left: 15px;
 }
 
-.markdown-body h2{
-    color: #e6edf3;
+.markdown-body h2 {
+  color: #e6edf3;
 }
 
-.notification-h{
+.notification-h {
   min-height: 66vh;
 }

@@ -3,7 +3,7 @@ import 'github-markdown-css';
 
 const MarkDownViewer = ({ mdData }) => {
     return (
-        <div className="markdown-body">
+        <div className="markdown-body p-8">
             <ReactMarkdown children={mdData} />
         </div>
     );
