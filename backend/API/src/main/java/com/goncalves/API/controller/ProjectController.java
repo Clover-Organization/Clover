@@ -10,6 +10,7 @@ import com.goncalves.API.entities.files.FilesRepository;
 import com.goncalves.API.entities.filesVersions.VersionsRepository;
 import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
+import com.goncalves.API.entities.notification.Subject;
 import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
@@ -17,6 +18,7 @@ import com.goncalves.API.entities.user.Users;
 import com.goncalves.API.infra.exception.*;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;
+import com.goncalves.API.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -60,6 +62,8 @@ public class ProjectController {
     private EmailService emailService;
     @Autowired
     private EmailTokenService emailTokenService;
+    @Autowired
+    private NotificationService notificationService;
 
     /**
      * Retorna uma lista paginada de projetos baseados na data de criação da solicitação.
@@ -274,6 +278,9 @@ public class ProjectController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
 
+            if (dados.projectName().isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new BadRequestException(dados.projectName(), "Project name is empty."));
+
             // Cria um novo projeto com base nos dados fornecidos
             Project newRequest = new Project(
                     dados.projectName(),
@@ -295,7 +302,8 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
         } catch (Exception e) {
             // Retorna uma resposta com status INTERNAL SERVER ERROR caso ocorra uma exceção não prevista
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Internal server error"));
         }
     }
 
@@ -337,7 +345,8 @@ public class ProjectController {
 
                 return ResponseEntity.noContent().build();
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("not found id", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new NotFoundException("not found id", idProject));
             }
         } catch (Exception ex) {
             String mensagemErro = "Error deleting project: " + ex.getMessage();
@@ -517,6 +526,7 @@ public class ProjectController {
     })
     public ResponseEntity shareProject(@RequestBody DadosUsernameOrEmail dados) {
         try {
+            var userSender = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Users user;
 
             var isEmail = dados.usernameOrEmail().contains("@");
@@ -538,6 +548,15 @@ public class ProjectController {
 
             String destinatario = (user.getEmail());
             emailService.shareProjectEmail(destinatario, token, project.getIdProject());
+            notificationService.createNotification(
+                    "Project sharing", """
+                            You received a notification for user project sharing: %s click the button to accept the invitation.
+                            """.formatted(userSender.getUsername()),
+                    Subject.PROJECT_SHARE,
+                    user,
+                    userSender,
+                    new ArrayList<>(Collections.singletonList("http://localhost:5173/project/share/" + token + "/" + project.getIdProject()))
+            );
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (InternalError e) {

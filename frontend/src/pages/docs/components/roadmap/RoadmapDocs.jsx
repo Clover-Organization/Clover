@@ -16,7 +16,7 @@ const RoadmapDocs = () => {
                     <AsideNavDocs selected={selected} />
                     <div className="grid">
                         <CardHeader>
-                            <CardTitle>Versioning</CardTitle>
+                            <CardTitle>Roadmap</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <CardDescription className="text-lg">

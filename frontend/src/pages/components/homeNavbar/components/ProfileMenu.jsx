@@ -36,7 +36,7 @@ const ProfileMenu = ({ userData, idProject, shareUsers }) => {
         navigate('/welcome');
     }
     return (
-        <Menubar className="cursor-pointer">
+        <Menubar className="cursor-pointer md:hidden">
             <MenubarMenu>
                 <MenubarTrigger className="cursor-pointer">Settings</MenubarTrigger>
                 <MenubarContent>

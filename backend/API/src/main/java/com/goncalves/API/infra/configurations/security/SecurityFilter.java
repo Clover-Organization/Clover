@@ -1,4 +1,4 @@
-package com.goncalves.API.infra.security;
+package com.goncalves.API.infra.configurations.security;
 
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.service.TokenService;

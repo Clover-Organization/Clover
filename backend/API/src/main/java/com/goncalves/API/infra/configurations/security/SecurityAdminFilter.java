@@ -1,4 +1,4 @@
-package com.goncalves.API.infra.security;
+package com.goncalves.API.infra.configurations.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
