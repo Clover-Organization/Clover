@@ -108,7 +108,7 @@ export function NotificationMenu({ userData, idProject, shareUsers, notification
                                     See your project information in more detail.
                                 </ListItem>
                             )}
-                            <ListItem to="/settings/editor/2" title="Editor Settings">
+                            <ListItem to={idProject ? `/settings/${idProject}/2` : "/settings/editor/2"} title="Editor Settings">
                                 View editor settings and customize as desired.
                             </ListItem>
                         </ul>
