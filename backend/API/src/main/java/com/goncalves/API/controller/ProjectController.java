@@ -278,6 +278,9 @@ public class ProjectController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
 
+            if (dados.projectName().isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new BadRequestException(dados.projectName(), "Project name is empty."));
+
             // Cria um novo projeto com base nos dados fornecidos
             Project newRequest = new Project(
                     dados.projectName(),
@@ -299,7 +302,8 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
         } catch (Exception e) {
             // Retorna uma resposta com status INTERNAL SERVER ERROR caso ocorra uma exceção não prevista
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Internal server error"));
         }
     }
 
@@ -341,7 +345,8 @@ public class ProjectController {
 
                 return ResponseEntity.noContent().build();
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("not found id", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new NotFoundException("not found id", idProject));
             }
         } catch (Exception ex) {
             String mensagemErro = "Error deleting project: " + ex.getMessage();
@@ -551,7 +556,7 @@ public class ProjectController {
                     user,
                     userSender,
                     new ArrayList<>(Collections.singletonList("http://localhost:5173/project/share/" + token + "/" + project.getIdProject()))
-                    );
+            );
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (InternalError e) {

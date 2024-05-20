@@ -3,6 +3,9 @@ import { toast } from 'sonner';
 
 // Function to create a new request
 export const CreateNewRequest = async (formData, token) => {
+    const isValid = validateForm(formData);
+    if (!isValid) return;
+
     const data = {
         projectName: formData.projectName,
         projectDescription: formData.projectDescription,
@@ -21,7 +24,7 @@ export const CreateNewRequest = async (formData, token) => {
 
         if (response.status === 201) {
             toast.success("Sucess!", {
-                description: "Successfully project created!",
+                description: `Success in creating the project ${data.projectName}!`,
             });
         } else if (response.status === 400) {
             const errorData = await response.json();
@@ -43,3 +46,16 @@ export const CreateNewRequest = async (formData, token) => {
         });
     }
 };
+
+const validateForm = (formData) => {
+    let isValid = true;
+    
+    if (!formData.projectName) {
+        isValid = false;
+        toast.error("Error", {
+            description: "Project name is required.",
+        });
+    }
+
+    return isValid;
+}
