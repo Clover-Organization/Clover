@@ -3,6 +3,8 @@ package com.goncalves.API.controller;
 import com.goncalves.API.entities.notification.NotificationRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
+import com.goncalves.API.infra.exception.ErrorNotFoundId;
+import com.goncalves.API.infra.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,7 +52,8 @@ public class NotificationController {
      */
     @Operation(summary = "Get notifications by user ID", description = "Retrieve notifications by user ID")
     @GetMapping("/user/{idNotification}")
-    public ResponseEntity getNotificationsByUser(@Parameter(description = "Notification ID") @PathVariable String idNotification) {
+    public ResponseEntity getNotificationsByUser(@Parameter(description = "Notification ID")
+                                                     @PathVariable String idNotification) {
         try {
             var notification = notificationRepository.findById(idNotification);
             if (notification == null) {
@@ -58,7 +61,8 @@ public class NotificationController {
             }
             return ResponseEntity.ok(notification);
         } catch (InternalError e) {
-            return ResponseEntity.internalServerError().body(new InternalError("Error while trying to get notifications by user"));
+            return ResponseEntity.internalServerError()
+                    .body(new InternalError("Error while trying to get notifications by user"));
         }
     }
 
@@ -68,17 +72,21 @@ public class NotificationController {
      */
     @Operation(summary = "Get all notifications for current user", description = "Retrieve all notifications for current user")
     @GetMapping("/user/all")
-    public ResponseEntity getAllNotificationsByUser(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "creationDate") String sort) {
+    public ResponseEntity getAllNotificationsByUser(@RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "5") int size,
+                                                    @RequestParam(defaultValue = "creationDate") String sort) {
         try {
             var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
             var notification = notificationRepository.findAllByUsers(user, pageable);
             if (notification == null || notification.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No notifications found for this user");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ErrorNotFoundId("No notifications found for this user", "message"));
             }
             return ResponseEntity.ok(notification);
         } catch (InternalError e) {
-            return ResponseEntity.internalServerError().body(new InternalError("Error while trying to get notifications by user"));
+            return ResponseEntity.internalServerError()
+                    .body(new InternalError("Error while trying to get notifications by user"));
         }
     }
 
@@ -89,12 +97,14 @@ public class NotificationController {
      */
     @Operation(summary = "Delete notification by ID", description = "Delete notification by ID")
     @DeleteMapping("/delete/{idNotification}")
-    public ResponseEntity deleteNotification(@Parameter(description = "Notification ID") @PathVariable String idNotification) {
+    public ResponseEntity deleteNotification(@Parameter(description = "Notification ID")
+                                                 @PathVariable String idNotification) {
         try {
             notificationRepository.deleteById(idNotification);
             return ResponseEntity.noContent().build();
         } catch (InternalError e) {
-            return ResponseEntity.internalServerError().body(new InternalError("Error while trying to delete notification"));
+            return ResponseEntity.internalServerError()
+                    .body(new InternalError("Error while trying to delete notification"));
         }
     }
 }

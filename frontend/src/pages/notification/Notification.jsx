@@ -68,10 +68,10 @@ const Notification = () => {
                                 </CardHeader>
                             </Card>
                         ) : (
-                            <>
+                            <div className={`grid grid-cols-1 md:grid-cols-2 gap-4`}>
                                 {filteredNotifications.map((notification, index) => (
                                     <Card key={index} x-chunk="dashboard-04-chunk-1" className="shadow-md w-full">
-                                        <CardHeader className="">
+                                        <CardHeader>
                                             {notification.sender && notification.sender.profileImage != null && !isEmpty(notification.sender.profileImage) ? (
                                                 <img
                                                     width={110}
@@ -86,23 +86,16 @@ const Notification = () => {
                                             ) : (
                                                 <User className="w-12 h-12" />
                                             )}
-
                                             <CardTitle className="text-primary">{notification.title}</CardTitle>
                                             <CardDescription className="flex flex-wrap justify-end md:justify-between">
                                                 {notification.message}
-                                                <Button variant="icon" className="hover:text-red-700" onClick={() => handleRemoveNotification(notification.idNotification)}><X /></Button>
                                             </CardDescription>
-                                            {calculateTimeDifference(notification.creationDate,
-                                                true,
-                                                true,
-                                                true,
-                                                false
-                                            )}
+                                            {calculateTimeDifference(notification.creationDate, true, true, true, false)}
                                         </CardHeader>
-                                        {templateBodyBySubject(notification)}
+                                        {templateBodyBySubject(notification, handleRemoveNotification)}
                                     </Card>
                                 ))}
-                            </>
+                            </div>
                         )}
                     </div>
                     <div className="flex justify-center h-full">

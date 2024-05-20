@@ -10,8 +10,14 @@ export const getAllNotificationsByUser = async (token, setNotifications, page, f
     })
         .then((res) => res.json())
         .then((data) => {
-            setNotifications(data.content);
-            setTotalPages(data.totalPages);
+            if (data.msg) {
+                console.log(data.msg);
+                setNotifications([]);
+            } else {
+
+                setNotifications(data.content);
+                setTotalPages(data.totalPages);
+            }
         })
         .catch((err) => console.log(err));
 }

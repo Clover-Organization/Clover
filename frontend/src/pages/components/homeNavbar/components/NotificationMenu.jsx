@@ -63,7 +63,7 @@ export function NotificationMenu({ userData, idProject, shareUsers, notification
         <NavigationMenu className="hidden md:flex md:w-[900px]">
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger>Menu {notifications.length > 0 && (<div className="absolute top-5 left-1 bg-primary rounded-full mb-2 w-5 h-5"> <span className="relative -top-0">{notifications.length > 10 ? "10+" : notifications.length}</span> </div>)}</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>Menu {notifications.length > 0 && (<div className="absolute top-5 left-1 bg-primary rounded-full mb-2 w-5 h-5"> <span className="relative -top-0">{notifications.length >= 9 ? "9+" : notifications.length}</span> </div>)}</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid gap-3 p-4 md:w-[400px] lg:grid-cols-[.75fr_1fr]">
                             <li className="row-span-4">
@@ -151,7 +151,7 @@ const ListItem = React.forwardRef(
                         )}
                         {...props}
                     >
-                        <div className="text-sm font-medium leading-none flex items-center gap-2">{title}  {notifications > 0 && (<div className="bg-primary rounded-full w-5 h-5"> <span className="relative top-0.5 left-1.5">{notifications > 10 ? "10+" : notifications}</span> </div>)}</div>
+                        <div className="text-sm font-medium leading-none flex items-center gap-2">{title}  {notifications > 0 && (<div className="bg-primary rounded-full w-5 h-5"> <span className={`relative top-0.5 ${notifications >= 9 ? "left-0.5" : "left-1.5"}`}>{notifications >= 9 ? "9+" : notifications}</span> </div>)}</div>
                         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                             {children}
                         </p>
