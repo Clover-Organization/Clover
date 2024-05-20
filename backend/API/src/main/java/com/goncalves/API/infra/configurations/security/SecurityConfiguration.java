@@ -74,6 +74,7 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5173",
+                "http://localhost:8000",
                 "https://clover-rho.vercel.app",
                 "https://clover-phi.vercel.app/"
         ));
