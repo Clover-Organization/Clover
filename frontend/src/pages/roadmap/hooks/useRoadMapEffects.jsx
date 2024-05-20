@@ -78,15 +78,11 @@ export const useRoadMap = (graphData) => {
 			});
 			const containerElement = containerRef.current;
 
-			let isGrabbing = false;
-
 			const handleMouseDown = () => {
-				isGrabbing = true;
 				containerElement.style.cursor = 'grabbing';
 			};
 
 			const handleMouseUp = () => {
-				isGrabbing = false;
 				containerElement.style.cursor = 'default';
 			};
 
