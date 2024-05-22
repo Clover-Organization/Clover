@@ -12,6 +12,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+/**
+ * This service class is responsible for managing email-related operations.
+ * It provides methods to send emails for resetting password and sharing projects.
+ */
 @Service
 public class EmailService {
 
@@ -20,11 +24,20 @@ public class EmailService {
 
     @Value("${spring.mail.username}")
     private String fromMail;
+
     @Value("${app.base.url}")
     private String baseUrl;
 
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
+
+    /**
+     * This method sends an email to reset the password.
+     * It generates the email content, logs the operation, and sends the email.
+     *
+     * @param destinatario The recipient of the email.
+     * @param token The token to be included in the email content.
+     */
     public void enviarEmailRedefinirSenha(String destinatario, String token) {
         String assunto = "Reset your password";
         String corpo = "Use this token to change your password:\n" + token + " \n\n Thanks,\n the Clover team!";
@@ -42,6 +55,14 @@ public class EmailService {
         }
     }
 
+    /**
+     * This method sends an email to share a project.
+     * It generates the email content, logs the operation, and sends the email.
+     *
+     * @param destinatario The recipient of the email.
+     * @param token The token to be included in the email content.
+     * @param project The project to be shared.
+     */
     public void shareProjectEmail(String destinatario, String token, String project) {
         String assunto = "Project sharing";
         String corpo = "Click on the link below to accept the invitation to this project:\n" +
@@ -61,6 +82,15 @@ public class EmailService {
         }
     }
 
+    /**
+     * This method sends an email to share a project.
+     * It creates a MimeMessage, sets the email details, and sends the email.
+     *
+     * @param destinatario The recipient of the email.
+     * @param assunto The subject of the email.
+     * @param corpo The body of the email.
+     * @throws MessagingException If an error occurs while sending the email.
+     */
     public void sendEmailShareProject(String destinatario, String assunto, String corpo) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -78,6 +108,14 @@ public class EmailService {
         }
     }
 
+    /**
+     * This method sends an email.
+     * It creates a SimpleMailMessage, sets the email details, and sends the email.
+     *
+     * @param destinatario The recipient of the email.
+     * @param assunto The subject of the email.
+     * @param corpo The body of the email.
+     */
     public void enviarEmail(String destinatario, String assunto, String corpo) {
         SimpleMailMessage mensagem = new SimpleMailMessage();
         mensagem.setFrom(fromMail);
