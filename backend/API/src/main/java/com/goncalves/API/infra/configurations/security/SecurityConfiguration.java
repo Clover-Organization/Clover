@@ -47,7 +47,8 @@ public class SecurityConfiguration {
                                 "/auth/register",
                                 "/auth/register/google",
                                 "/update-password/generate-token/forgot-password",
-                                "/update-password/confirm-reset"
+                                "/update-password/confirm-reset",
+                                "/admin/**"
                         ).permitAll()
                         .requestMatchers(
                                 "/swagger-ui/**",

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body ng-app="loginApp" ng-controller="loginController">
+    <div class="login-container">
+        <h3 class="mb-4">Admin Login</h3>
+        <form name="loginForm" ng-submit="submitForm()" novalidate>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" ng-model="username" class="form-control"
+                    ng-required="true">
+                <div ng-show="loginForm.username.$dirty && loginForm.username.$error.required" class="text-danger">
+                    Username is required.</div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" ng-model="password" class="form-control"
+                    ng-required="true">
+                <div ng-show="loginForm.password.$dirty && loginForm.password.$error.required" class="text-danger">
+                    Password is required.</div>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Login</button>
+        </form>
+    </div>
+
+    <script>
+        var app = angular.module('loginApp', []);
+        app.controller('loginController', function ($scope, $http) {
+            $scope.submitForm = function () {
+
+                $http.post('http://localhost:8080/admin/login', {
+                    username: $scope.username,
+                    password: $scope.password
+                }).then((response) => {
+                    console.log(response);
+                }, (error) => {
+                    alert("Invalid username or password.");
+                    window.location.href = "https://www.google.com";
+                    console.log(error);
+                });
+            };
+        });
+    </script>
+</body>
+
+</html>
