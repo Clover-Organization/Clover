@@ -12,7 +12,7 @@ Antes de começar, verifique se o seguinte ambiente de desenvolvimento está con
 - **Apache Maven**: O Maven é uma ferramenta de automação de compilação amplamente utilizada para projetos Java. Certifique-se de ter o Maven instalado em seu sistema. Você pode baixar o Maven do [site oficial do Apache Maven](https://maven.apache.org/download.cgi) e seguir as instruções de instalação.
 - **IDE (Integrated Development Environment)**: Embora você possa usar qualquer IDE de sua preferência, recomenda-se o uso do IntelliJ IDEA ou do Spring Tool Suite (STS), pois eles oferecem suporte robusto para desenvolvimento Spring.
 - **MongoDB**: Será necessário o MongoDB para armazenar os dados dos usuários e projetos. Baixe e instale a versão Community do MongoDB no [site oficial](https://www.mongodb.com/try/download/community).
-- **Docker** Além de poder configurar manualmente o projeto, também é póssilvel utilizar do DockerCompose que esta implementado no projeto, então basta possuir o docker no seu ambiente para executa-lo.
+- **Docker**: Além de poder configurar manualmente o projeto, também é póssilvel utilizar do DockerCompose que esta implementado no projeto, então basta possuir o docker no seu ambiente para executa-lo.
 
 ---
 
