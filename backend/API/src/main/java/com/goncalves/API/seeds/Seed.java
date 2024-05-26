@@ -1,6 +1,5 @@
 package com.goncalves.API.seeds;
 
-import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.UserRole;
 import com.goncalves.API.entities.user.Users;
 import com.goncalves.API.service.AdminTemplateService;
