@@ -1,6 +1,7 @@
 package com.goncalves.API.infra.configurations.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +33,9 @@ public class SecurityConfiguration {
 
     @Autowired
     private SecurityAdminFilter securityAdminFilter;
+
+    @Value("${app.base.url}")
+    private String baseUrl;
 
     /**
      * This method configures the main security settings.
@@ -82,10 +86,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5173",
-                "http://localhost:8000",
-                "https://clover-rho.vercel.app",
-                "https://clover-phi.vercel.app/"
+                baseUrl
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
