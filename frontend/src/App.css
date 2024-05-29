@@ -1399,3 +1399,7 @@ pre {
 .notification-h {
   min-height: 66vh;
 }
+
+.register-h{
+  height: 90vh;
+}

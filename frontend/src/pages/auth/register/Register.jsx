@@ -8,7 +8,7 @@ const Register = () => {
 		<main className={`authMain`}>
 			<WelcomeHeader />
 			<div className="flex justify-center items-center h-screen">
-				<div className="p-4">
+				<div className="md:p-4 overflow-auto h-screen md:h-auto">
 					<RegisterScreen />
 					<p className="mt-4 text-center text-gray-400">
 						Already registered?
