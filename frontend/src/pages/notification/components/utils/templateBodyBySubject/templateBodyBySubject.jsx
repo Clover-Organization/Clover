@@ -15,7 +15,7 @@ export const templateBodyBySubject = (notification, handleRemoveNotification) =>
             );
         case "password_reset":
             return (
-                <CardContent className="flex justify-center flex-wrap w-full gap-4">
+                <CardContent className="flex justify-center items-end flex-wrap w-full gap-4">
                     <Button className="min-w-40" variant="destructive" onClick={() => handleRemoveNotification(notification.idNotification)}>OK</Button>
                 </CardContent>
             );
