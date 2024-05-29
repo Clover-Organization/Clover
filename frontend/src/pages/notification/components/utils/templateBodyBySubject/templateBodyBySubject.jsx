@@ -3,7 +3,6 @@ import { CardContent, } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 export const templateBodyBySubject = (notification, handleRemoveNotification) => {
-
     switch (notification.subject.toLowerCase()) {
         case "project_share":
             return (
@@ -14,5 +13,12 @@ export const templateBodyBySubject = (notification, handleRemoveNotification) =>
                     <Button className="min-w-40" variant="destructive" onClick={() => handleRemoveNotification(notification.idNotification)}>Recuse invite</Button>
                 </CardContent>
             );
+        case "password_reset":
+            return (
+                <CardContent className="flex justify-center items-end flex-wrap w-full gap-4">
+                    <Button className="min-w-40" variant="destructive" onClick={() => handleRemoveNotification(notification.idNotification)}>OK</Button>
+                </CardContent>
+            );
+
     }
 }

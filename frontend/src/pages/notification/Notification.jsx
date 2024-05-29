@@ -68,9 +68,9 @@ const Notification = () => {
                                 </CardHeader>
                             </Card>
                         ) : (
-                            <div className={`grid grid-cols-1 md:grid-cols-2 gap-4`}>
+                            <div className={`grid grid-cols-1 md:grid-cols-[repeat(auto-fit,_minmax(200px,_2fr))] gap-4`}>
                                 {filteredNotifications.map((notification, index) => (
-                                    <Card key={index} x-chunk="dashboard-04-chunk-1" className="shadow-md w-full">
+                                    <Card key={index} x-chunk="dashboard-04-chunk-1" className="grid shadow-md w-full h-full ">
                                         <CardHeader>
                                             {notification.sender && notification.sender.profileImage != null && !isEmpty(notification.sender.profileImage) ? (
                                                 <img

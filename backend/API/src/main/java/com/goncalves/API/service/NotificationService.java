@@ -25,6 +25,16 @@ public class NotificationService {
         }
     }
 
+    public Notification createNotificationForgotPassword(String title, String message, Subject subject, Users users) {
+        try {
+            verifyFields(title, message, users);
+            Notification notification = new Notification(title, message, subject, users, null, null);
+            return notificationRepository.save(notification);
+        } catch (Exception e) {
+            throw new RuntimeException("Error in create notification");
+        }
+    }
+
     private void verifyFields(String title, String message, Users users) {
         if (title == null || title.isEmpty()) {
             throw new RuntimeException("Title is required");
