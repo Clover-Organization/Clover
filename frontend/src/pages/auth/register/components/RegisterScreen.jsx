@@ -205,231 +205,230 @@ export default function RegisterScreen() {
 	};
 
 	return (
-		<Card className="flex flex-wrap justify-center items-center">
-			<CardHeader>
-				<CardTitle className="text-5xl text-green-500">Register</CardTitle>
-				<CardDescription className="py-2">
-					Enter your information below to create an account.
-				</CardDescription>
-				<div className="grid items-center justify-center pt-5">
-					<div className="w-44 h-44 flex items-center justify-center">
-						<div className="w-40 h-40 object-center text-primary">
-							{profileImage ? (
-								<Avatar className="w-48 h-48 object-center">
-									<AvatarImage src={handleImagePreview()} className="object-cover" alt="userImage" />
-								</Avatar>
-							) : (
-								<CircleUserRound className="w-48 h-48 text-secondary-foreground object-center" />
-							)}
+			<Card className="flex flex-wrap justify-center items-center">
+				<CardHeader>
+					<CardTitle className="text-5xl text-green-500">Register</CardTitle>
+					<CardDescription className="py-2">
+						Enter your information below to create an account.
+					</CardDescription>
+					<div className="grid items-center justify-center pt-5">
+						<div className="w-44 h-44 flex items-center justify-center">
+							<div className="w-40 h-40 object-center text-primary">
+								{profileImage ? (
+									<Avatar className="w-48 h-48 object-center">
+										<AvatarImage src={handleImagePreview()} className="object-cover" alt="userImage" />
+									</Avatar>
+								) : (
+									<CircleUserRound className="w-48 h-48 text-secondary-foreground object-center" />
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
-				<div className="pt-5">
-					<Input
-						ref={inputRef}
-						id="picture"
-						type="file"
-						accept="image/*"
-						onChange={(e) => setProfileImage(e.target.files[0])}
-						className="h-full border-none file:text-primary-foreground file:cursor-pointer file:bg-primary file:hover:bg-primary/90  file:rounded-md file:p-2 file:mr-6 file:font-xs"
-					/>
-				</div>
-			</CardHeader>
-			<CardContent className="w-full md:w-auto m-5">
-				<Form {...form}>
-					<form
-						onSubmit={handleSubmit}
-						className="grid grid-cols-1 md:grid-cols-2 justify-center w-full"
-					>
-						<div className="grid w-full">
-							<FormField
-								control={form.control}
-								name="username"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Username</FormLabel>
-										<FormControl className="w-full">
-											<Input placeholder="Enter your username" {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="email"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Email</FormLabel>
-										<FormControl>
-											<Input
-												type="text"
-												placeholder="Enter your Email"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="password"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Password</FormLabel>
-										<FormControl>
-											<Input
-												className="w-full"
-												type="password"
-												placeholder="Enter your password"
-												{...field}
-											/>
-										</FormControl>
-										<FormDescription>
-											<p className="text-left break-words text-wrap w-60">
-												Your password must be at least 8 characters long and
-												contain at least one special character.
-											</p>
-										</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="grid gap-4 md:ml-6 w-full">
-							<FormField
-								control={form.control}
-								name="firstName"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>First Name</FormLabel>
-										<FormControl>
-											<Input
-												className="w-full"
-												type="text"
-												placeholder="Enter your First Name"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="lastName"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Last Name</FormLabel>
-										<FormControl className="w-full">
-											<Input
-												type="text"
-												placeholder="Enter your Last Name"
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="birth"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Date of birth</FormLabel>
-										<Popover>
-											<PopoverTrigger asChild>
-												<FormControl className="w-full">
-													<Button
-														variant={"outline"}
-														className={cn(
-															"pl-3 text-left font-normal",
-															!field.value && "text-muted-foreground"
-														)}
-													>
-														{field.value ? (
-															format(field.value, "PPP")
-														) : (
-															<span>Pick a date</span>
-														)}
-														<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-													</Button>
-												</FormControl>
-											</PopoverTrigger>
-											<PopoverContent className="w-auto p-0" align="start">
-												<Calendar
-													mode="single"
-													selected={field.value}
-													onSelect={field.onChange}
-													disabled={(date) =>
-														date > new Date() ||
-														date < new Date("1900-01-01")
-													}
-													initialFocus
+					<div className="pt-5">
+						<Input
+							ref={inputRef}
+							id="picture"
+							type="file"
+							accept="image/*"
+							onChange={(e) => setProfileImage(e.target.files[0])}
+							className="h-full border-none file:text-primary-foreground file:cursor-pointer file:bg-primary file:hover:bg-primary/90  file:rounded-md file:p-2 file:mr-6 file:font-xs"
+						/>
+					</div>
+				</CardHeader>
+				<CardContent className="w-full md:w-auto m-5">
+					<Form {...form}>
+						<form
+							onSubmit={handleSubmit}
+							className="grid grid-cols-1 md:grid-cols-2 justify-center w-full"
+						>
+							<div className="grid w-full">
+								<FormField
+									control={form.control}
+									name="username"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Username</FormLabel>
+											<FormControl className="w-full">
+												<Input placeholder="Enter your username" {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="email"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Email</FormLabel>
+											<FormControl>
+												<Input
+													type="text"
+													placeholder="Enter your Email"
+													{...field}
 												/>
-											</PopoverContent>
-										</Popover>
-										<FormDescription>
-											Your date of birth is used to calculate your age.
-										</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<div className="flex justify-center items-center gap-2">
-								<GoogleOAuthProvider
-									clientId={
-										"194451748874-lhbd66qk23vhbd2dv12gidnef7264do6.apps.googleusercontent.com"
-									}
-									onScriptLoadSuccess={handleScriptLoadSuccess}
-									onScriptLoadError={handleScriptLoadError}
-								>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="password"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Password</FormLabel>
+											<FormControl>
+												<Input
+													className="w-full"
+													type="password"
+													placeholder="Enter your password"
+													{...field}
+												/>
+											</FormControl>
+											<FormDescription>
+												<p className="text-left break-words text-wrap md:w-60">
+													Your password must be at least 8 characters long and
+													contain at least one special character.
+												</p>
+											</FormDescription>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</div>
+							<div className="grid gap-4 md:ml-6 w-full">
+								<FormField
+									control={form.control}
+									name="firstName"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>First Name</FormLabel>
+											<FormControl>
+												<Input
+													className="w-full"
+													type="text"
+													placeholder="Enter your First Name"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="lastName"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Last Name</FormLabel>
+											<FormControl className="w-full">
+												<Input
+													type="text"
+													placeholder="Enter your Last Name"
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="birth"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Date of birth</FormLabel>
+											<Popover>
+												<PopoverTrigger asChild>
+													<FormControl className="w-full">
+														<Button
+															variant={"outline"}
+															className={cn(
+																"pl-3 text-left font-normal",
+																!field.value && "text-muted-foreground"
+															)}
+														>
+															{field.value ? (
+																format(field.value, "PPP")
+															) : (
+																<span>Pick a date</span>
+															)}
+															<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+														</Button>
+													</FormControl>
+												</PopoverTrigger>
+												<PopoverContent className="w-auto p-0" align="start">
+													<Calendar
+														mode="single"
+														selected={field.value}
+														onSelect={field.onChange}
+														disabled={(date) =>
+															date > new Date() ||
+															date < new Date("1900-01-01")
+														}
+														initialFocus
+													/>
+												</PopoverContent>
+											</Popover>
+											<FormDescription>
+												Your date of birth is used to calculate your age.
+											</FormDescription>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<div className="flex justify-center items-center gap-2 md:flex">
+									<GoogleOAuthProvider
+										clientId={
+											"194451748874-lhbd66qk23vhbd2dv12gidnef7264do6.apps.googleusercontent.com"
+										}
+										onScriptLoadSuccess={handleScriptLoadSuccess}
+										onScriptLoadError={handleScriptLoadError}
+									>
+										{!loading ? (
+											<GoogleLogin
+												type="standard"
+												theme="outline"
+												shape="round"
+												size="large"
+												text="signin"
+												width={"10px"}
+												onSuccess={(credentialResponse) => {
+													handleRegisterGoogle(
+														credentialResponse.credential,
+														credentialResponse.clientId
+													);
+												}}
+												onError={() => {
+													toast.error("Error", {
+														description:
+															"Error while signing in with Google! Try again!",
+													});
+												}}
+												useOneTap
+											/>
+										) : (
+											<Button className="bg-white" disabled>
+												<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+												Please wait
+											</Button>
+										)}
+									</GoogleOAuthProvider>
+									or
 									{!loading ? (
-
-										<GoogleLogin
-											type="standard"
-											theme="outline"
-											shape="round"
-											size="large"
-											text="signin"
-											width={"10px"}
-											onSuccess={(credentialResponse) => {
-												handleRegisterGoogle(
-													credentialResponse.credential,
-													credentialResponse.clientId
-												);
-											}}
-											onError={() => {
-												toast.error("Error", {
-													description:
-														"Error while signing in with Google! Try again!",
-												});
-											}}
-											useOneTap
-										/>
+										<Button type="submit">Register</Button>
 									) : (
-										<Button className="bg-white" disabled>
+										<Button disabled>
 											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 											Please wait
 										</Button>
 									)}
-								</GoogleOAuthProvider>
-								or
-								{!loading ? (
-									<Button type="submit">Register</Button>
-								) : (
-									<Button disabled>
-										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-										Please wait
-									</Button>
-								)}
+								</div>
 							</div>
-						</div>
-					</form>
-				</Form>
-			</CardContent>
-		</Card>
+						</form>
+					</Form>
+				</CardContent>
+			</Card>
 	);
 }
