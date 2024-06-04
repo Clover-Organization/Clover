@@ -25,6 +25,7 @@ import { DiffEditor } from "@monaco-editor/react";
 import { downloadFile } from "../utils/downloadFile/downloadFile";
 import RendererFile from "./components/rendererFile/RendererFile";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
@@ -174,6 +175,18 @@ const FileView = () => {
         await downloadFile(token, idFile, idProject, singleRequest);
     }
 
+    const CopyToClipboard = () => {
+        navigator.clipboard.writeText(fileContent.data).then(() => {
+            toast.success("Sucess!", {
+                description: "File copied to clipboard!"
+            });
+        }).catch((error) => {
+            toast.error("Error!", {
+                description: `Error Details: ${error.message}`
+            });
+        });
+    }
+
     return (
         <main className="main-file-view">
             <Navbar idProject={idProject} />
@@ -191,6 +204,7 @@ const FileView = () => {
                         isEditing={showFileEditor}
                         showFileEditor={showFileEditor}
                         handleDownloadFile={handleDownloadFile}
+                        CopyToClipboard={CopyToClipboard}
                     />
                 </nav>
 

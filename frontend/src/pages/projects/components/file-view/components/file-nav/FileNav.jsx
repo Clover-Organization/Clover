@@ -2,7 +2,7 @@ import React from "react";
 
 import GetLanguageInfos from "../../../utils/getLanguageInfo/GetLanguageInfos";
 import fileIcon from "../../../../assets/fileIcon.png";
-import { ListPlus, Pencil, Trash2, ListCollapse, List, Download } from "lucide-react";
+import { ListPlus, Pencil, Trash2, ListCollapse, List, Download, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	Tooltip,
@@ -24,6 +24,7 @@ const FileNav = ({
 	isEditing,
 	showFileEditor,
 	handleDownloadFile,
+	CopyToClipboard
 }) => {
 	return (
 		<>
@@ -47,7 +48,6 @@ const FileNav = ({
 			</div>
 			<div className="flex flex-wrap gap-4">
 				<div className="flex justify-center items-center gap-2">
-
 					<Button onClick={() => setModalIsOpen(true)}>
 						<ListPlus className="mr-2 h-4 w-4" /> New Commit
 					</Button>
@@ -116,6 +116,24 @@ const FileNav = ({
 							</TooltipTrigger>
 							<TooltipContent>
 								<p>Edit File</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</div>
+				<div className="commitsProject-dsp-flex-align">
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="outline"
+									size="icon"
+									onClick={CopyToClipboard}
+								>
+									<Copy className="h-4 w-4" />
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>Copy</p>
 							</TooltipContent>
 						</Tooltip>
 					</TooltipProvider>
