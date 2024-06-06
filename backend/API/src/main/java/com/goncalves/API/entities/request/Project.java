@@ -5,6 +5,7 @@ import com.goncalves.API.entities.annotations.Annotations;
 import com.goncalves.API.entities.commits.Commits;
 import com.goncalves.API.entities.files.Files;
 import com.goncalves.API.entities.folder.Folder;
+import com.goncalves.API.entities.issues.Issue;
 import com.goncalves.API.entities.user.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,6 +44,8 @@ public class Project {
     private List<Folder> folders = new ArrayList<>();
     @DBRef
     private List<Annotations> annotations = new ArrayList<>();
+    @DBRef
+    private List<Issue> issues = new ArrayList<>();
 
 
     public Project(String projectName, LocalDateTime creationDate, LocalDateTime projectProgress, String projectDescription, Users user, List files, List folders) {

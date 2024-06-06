@@ -65,7 +65,7 @@ public class ProjectController {
     private EmailTokenService emailTokenService;
     @Autowired
     private NotificationService notificationService;
-    @Value("${app.base.url")
+    @Value("${app.base.url}")
     private String baseUrl;
 
 
