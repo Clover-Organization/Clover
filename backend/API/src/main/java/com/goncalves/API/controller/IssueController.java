@@ -7,9 +7,16 @@ import com.goncalves.API.entities.issues.IssueRepository;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
+import com.goncalves.API.infra.exception.BadRequestException;
+import com.goncalves.API.infra.exception.NotFoundException;
 import com.goncalves.API.service.IssueService;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +24,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Controller class for managing issues related to projects.
+ */
+@Slf4j
+@Tag(name = "/issue")
 @RestController
 @RequestMapping("/issue")
 public class IssueController {
@@ -33,41 +45,44 @@ public class IssueController {
     @Autowired
     private IssueService issueService;
 
+
+    /**
+     * Creates a new issue for a project.
+     *
+     * @param dados The data for creating a new issue.
+     * @param id    The ID of the project.
+     * @return ResponseEntity containing the created issue or an error message.
+     */
     @PostMapping("/create/project/{id}")
     @Transactional
-    public ResponseEntity createIssue(@RequestBody DadosCreateNewIssue dados,
-                                      @PathVariable String id) {
+    @Operation(summary = "Create a new Issue and update project", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Issue created successfully."),
+            @ApiResponse(responseCode = "404", description = "Project not found."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+            @ApiResponse(responseCode = "400", description = "Invalid data.")
+    })
+    public ResponseEntity<?> createIssue(@RequestBody DadosCreateNewIssue dados,
+                                         @PathVariable String id) {
         try {
-            System.out.println("Entrou! " + id);
+            // Obtendo o usuário autenticado
             var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            var projectOptional = projectRepository.findById(id);
 
-            if (projectOptional.isEmpty()) {
-                return ResponseEntity.badRequest()
-                        .body(new BadRequestExceptionRecord(
-                                "Project not found",
-                                "Error creating issue. Check if the ID is correct."
-                        ));
-            }
-            var project = projectOptional.get();
+            // Buscando o projeto pelo ID
+            var project = projectRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("Not found id.", id));
+
+            // Validando os dados da nova issue
             var isValid = issueService.validarIssue(dados);
             if (!isValid) {
-                return ResponseEntity.badRequest()
-                        .body(new BadRequestExceptionRecord(
-                                "Invalid data",
-                                "Error creating issue. Check if the title and description are filled in correctly."
-                        ));
+                return ResponseEntity.badRequest().body(new BadRequestExceptionRecord(
+                        "Invalid data",
+                        "Error creating issue. Check if the title and description are filled in correctly."
+                ));
             }
-            project.getIssues().add(new Issue(
-                    dados.title(),
-                    dados.description(),
-                    true,
-                    LocalDateTime.now(),
-                    null,
-                    user
-            ));
-            projectRepository.save(project);
-            Issue issue = new Issue(
+
+            // Criando uma nova issue
+            var issue = new Issue(
                     dados.title(),
                     dados.description(),
                     true,
@@ -75,29 +90,42 @@ public class IssueController {
                     null,
                     user
             );
+            ;
 
-            return ResponseEntity.ok(issue);
+            var savedIssue = issueRepository.save(issue);
+
+            System.out.println(savedIssue);
+            project.getIssues().add(savedIssue);
+            projectRepository.save(project);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(issue);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (BadRequestException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            // Capturando qualquer outra exceção não prevista
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
     }
 
+
+    /**
+     * Closes an issue.
+     *
+     * @param id The ID of the issue to be closed.
+     * @return ResponseEntity containing the closed issue or an error message.
+     */
     @PostMapping("/close/{id}")
     public ResponseEntity closeIssue(@PathVariable String id) {
         try {
-            var issue = issueRepository.findById(id);
-            if (issue.isEmpty()) {
-                return ResponseEntity.badRequest()
-                        .body(new BadRequestExceptionRecord(
-                                "Issue not found",
-                                "Error closing issue. Check if the ID is correct."
-                        ));
-            }
-            var issueToClose = issue.get();
-            issueToClose.setOpen(false);
-            issueToClose.setCloseDate(LocalDateTime.now());
-            issueRepository.save(issueToClose);
-            return ResponseEntity.ok(issueToClose);
+            var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            var issue = issueRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Issue not found", id)
+            );
+            issue.setOpen(false);
+            issueRepository.save(issue);
+            return ResponseEntity.ok(issue);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

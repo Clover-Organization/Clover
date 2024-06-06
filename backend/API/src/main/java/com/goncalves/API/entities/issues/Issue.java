@@ -1,6 +1,5 @@
 package com.goncalves.API.entities.issues;
 
-import com.goncalves.API.entities.closedIssues.ClosedIssue;
 import com.goncalves.API.entities.user.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,4 +38,5 @@ public class Issue {
         this.closeDate = closeDate;
         this.users = users;
     }
+
 }
