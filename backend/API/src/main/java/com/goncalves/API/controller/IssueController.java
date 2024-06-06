@@ -46,6 +46,19 @@ public class IssueController {
     private IssueService issueService;
 
 
+    @GetMapping("/all/{id}")
+    public ResponseEntity getAllIssuesByProject(@PathVariable String id) {
+        try {
+            var project = projectRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Project not found", id)
+            );
+            return ResponseEntity.ok(project.getIssues());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
     /**
      * Creates a new issue for a project.
      *

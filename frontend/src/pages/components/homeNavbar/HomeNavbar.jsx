@@ -57,6 +57,19 @@ const HomeNavbar = ({ idProject }) => {
                 {idProject !== null && idProject !== undefined && (
 
                     <Link
+                        to={`/issues/${idProject}`}
+                        className={cn(
+                            "transition-colors hover:text-foreground/80",
+                            pathname === `/issues/${idProject}` ? "text-foreground" : "text-foreground/60"
+                        )}
+                    >
+                        Issues
+                    </Link>
+
+                )}
+                {idProject !== null && idProject !== undefined && (
+
+                    <Link
                         to={`/annotation/${idProject}`}
                         className={cn(
                             "transition-colors hover:text-foreground/80",
@@ -67,6 +80,7 @@ const HomeNavbar = ({ idProject }) => {
                     </Link>
 
                 )}
+
                 <Link
                     to={`/roadmap`}
                     className={cn(

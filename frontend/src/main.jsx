@@ -27,6 +27,7 @@ import Versioning from "./pages/docs/components/versioning/Versioning.jsx";
 import AnnotationDocs from "./pages/docs/components/annotationsDocs/AnnotationsDocs.jsx";
 import RoadmapDocs from "./pages/docs/components/roadmap/RoadmapDocs.jsx";
 import Notification from "./pages/notification/Notification.jsx";
+import Issues from "./pages/issues/Issues.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
 	{
 		path: "/roadmap",
 		element: <ProtectedRoute element={RoadMap} />,
+	},
+	{
+		path: "/issues/:idProject",
+		element: <ProtectedRoute element={Issues} />,
 	},
 	{
 		path: "/Welcome",
