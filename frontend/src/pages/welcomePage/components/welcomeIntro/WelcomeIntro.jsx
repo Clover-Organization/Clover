@@ -4,96 +4,52 @@ import { Link } from "react-router-dom";
 import { SparklesCore } from "@/components/ui/sparkles";
 import Spline from "@splinetool/react-spline";
 import { GitCompareArrows, Users, Blocks } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Github } from "lucide-react";
+import "./WelcomeIntro.css";
 
 const WelcomeIntro = () => {
 	return (
-		<section className="text-secondary-foreground py-8 px-6 md:px-12 h-screen">
-			<div className="max-w-6xl mx-auto flex flex-col items-center justify-center text-center">
-				<div className="w-full absolute inset-0 h-screen">
-					<SparklesCore
-						id="tsparticlesfullpage"
-						background="transparent"
-						minSize={0.6}
-						maxSize={1.4}
-						particleDensity={40}
-						className="w-full h-full"
-						particleColor="#4d7c0f"
-					/>
-				</div>
-				<div className="w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
-					<h1 className="md:text-7xl text-3xl lg:text-7xl font-bold text-center text-secondary-foreground relative z-20">
-						Be clever.
-						<span className="text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-emerald-500">
-							{" "}
+		<section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10 h-screen">
+			<div className="text-center lg:text-start space-y-6">
+				<main className="text-5xl md:text-6xl font-bold">
+					<h1 className="inline">
+						<span className="inline ">Be clever.</span>
+					</h1>{" "}
+					<h2 className="inline">
+						<span className="inline bg-gradient-to-r from-lime-400 to-emerald-500 text-transparent bg-clip-text">
 							Use Clover.
 						</span>
-						<div className="h-10 relative flex justify-center">
-							<div className="absolute top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-transparent via-lime-500 to-transparent h-[2px] w-3/4 blur-sm left-1/2 -translate-x-1/2" />
-							<div className="absolute top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-transparent via-lime-500 to-transparent h-px w-3/4 left-1/2 -translate-x-1/2" />
-							<div className="absolute top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-[5px] w-1/4 blur-sm left-1/2 -translate-x-1/2" />
-							<div className="absolute top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px w-1/4 left-1/2 -translate-x-1/2" />
-						</div>
-					</h1>
+					</h2>
+				</main>
 
-					<p className="text-xl mb-8">
-						Unlock your coding potential effortlessly with Clover.
-						where versioning becomes intuitive and coding becomes a
-						breeze for programming learners
-					</p>
-				</div>
-				<div className="btnTxt">
+				<p className="text-xl font-light opacity-70 md:w-10/12 mx-auto lg:mx-0">
+					Unlock your coding potential effortlessly with Clover. 
+					<br/>
+					Where versioning becomes intuitive and coding becomes a breeze for
+					programming learners
+				</p>
+
+				<div className="space-y-4 md:space-y-0 md:space-x-4">
 					<Link to={"/auth/register"}>
-						<button className="animated-button">
-							<svg
-								viewBox="0 0 24 24"
-								className="arr-2"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-							</svg>
-							<span className="text">Get Started</span>
-							<span className="circle"></span>
-							<svg
-								viewBox="0 0 24 24"
-								className="arr-1"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-							</svg>
-						</button>
+						<Button className="w-full md:w-1/3">Get Started</Button>
 					</Link>
+					<a
+						rel="noreferrer noopener"
+						href="https://github.com/thepokenik/clover"
+						target="_blank"
+						className={`w-full md:w-1/3 ${buttonVariants({
+							variant: "outline",
+						})}`}
+					>
+						Github Repository
+						<Github className="ml-2 w-5 h-5" />
+					</a>
 				</div>
 			</div>
-			<div className="flex flex-wrap justify-center items-center mt-10 sm:mt-20 md:mt-32 lg:mt-44 gap-8">
-				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary">
-					<GitCompareArrows className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Version Control Made Easy
-					</h3>
-					<p className="leading-7 mt-6">
-						Seamlessly manage your code versions with Clover's intuitive
-						interface
-					</p>
-				</div>
-				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary mt-4 sm:mt-0">
-					<Users className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Effortless Collaboration
-					</h3>
-					<p className="leading-7 mt-6">
-						Work together on projects seamlessly, ensuring smooth teamwork
-					</p>
-				</div>
-				<div className="bg-secondary p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border border-primary mt-4 md:mt-0">
-					<Blocks className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Learning Made Fun
-					</h3>
-					<p className="leading-7 mt-6">
-						Embark on your coding journey and enjoy the learning process
-					</p>
-				</div>
-			</div>
+
+			{/* Shadow effect */}
+			<div className="shadow"></div>
 		</section>
 	);
 };
