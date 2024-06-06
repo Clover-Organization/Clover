@@ -12,24 +12,30 @@ import {
 	DollarSignIcon,
 } from "lucide-react";
 import RoadMap from "@/pages/roadmap/RoadMap";
+import RoadmapPreview from "@/pages/docs/components/roadmap/components/roadmapPreview/RoadmapPreview";
+import { Card } from "@/components/ui/card";
+import ProjectPreview from "@/pages/docs/components/versioning/projectPreview/ProjectPreview";
+import FileEditorPreview from "./components/fileEditorPreview/FileEditorPreview";
 
 const WelcomeService = () => {
-    
-    const [selectedTab, setSelectedTab] = useState(null);
+	const [selectedTab, setSelectedTab] = useState('Projects');
 
 	return (
-		<section className="my-12 p-8 sm:pt-6 md:pt-8 lg:pt-10 xl:pt-12 bg-secondary">
-            <div>
-                <span>
-                    <h1 className="text-3xl font-semibold text-center text-primary">
-                        Explore some of the features of Clover
-                    </h1>
-                </span>
-            </div>
-			<div className="flex flex-col sm:flex-row justify-center items-center mt-10 sm:mt-20 md:mt-32 lg:mt-44 gap-8">
-            <Accordion type="single" className="w-full sm:w-[400px]">
+		<section className="my-12 h-screen">
+			<div className="flex flex-wrap justify-center items-center mt-10 sm:mt-20 md:mt-32 lg:mt-44 gap-8">
+				<div className="">
+					<h3 className="text-3xl md:text-4xl font-bold">
+						<span>Explore some of the features of Clover</span>
+					</h3>
+				</div>
+			</div>
+			<div className="flex flex-col sm:flex-row justify-center items-center mt-6 sm:mt-12 md:mt-22 lg:mt-36 gap-8">
+				<Accordion type="single" className="w-full sm:w-[400px]" defaultValue="introduction">
 					<AccordionItem value="introduction">
-						<AccordionTrigger className="flex items-start gap-2 p-3" onClick={() => setSelectedTab('Projects')}>
+						<AccordionTrigger
+							className="flex items-start gap-2 p-3"
+							onClick={() => setSelectedTab("Projects")}
+						>
 							<HomeIcon className="w-5 h-5" />
 							<span className="font-medium">Build Projects</span>
 						</AccordionTrigger>
@@ -51,7 +57,10 @@ const WelcomeService = () => {
 						</AccordionContent>
 					</AccordionItem>
 					<AccordionItem value="chat">
-						<AccordionTrigger className="flex items-start gap-2 p-3" onClick={() => setSelectedTab('Editor')}>
+						<AccordionTrigger
+							className="flex items-start gap-2 p-3"
+							onClick={() => setSelectedTab("Editor")}
+						>
 							<MessageCircleIcon className="w-5 h-5" />
 							<span className="font-medium">Clover Editor</span>
 						</AccordionTrigger>
@@ -72,7 +81,10 @@ const WelcomeService = () => {
 						</AccordionContent>
 					</AccordionItem>
 					<AccordionItem value="calendar">
-						<AccordionTrigger className="flex items-start gap-2 p-3" onClick={() => setSelectedTab('Roadmaps')}>
+						<AccordionTrigger
+							className="flex items-start gap-2 p-3"
+							onClick={() => setSelectedTab("Roadmaps")}
+						>
 							<CalendarIcon className="w-5 h-5" />
 							<span className="font-medium">Clover Roadmaps</span>
 						</AccordionTrigger>
@@ -93,40 +105,24 @@ const WelcomeService = () => {
 							</div>
 						</AccordionContent>
 					</AccordionItem>
-					<AccordionItem value="pricing">
-						<AccordionTrigger className="flex items-start gap-2 p-3" onClick={() => setSelectedTab('Pricing')}>
-							<DollarSignIcon className="w-5 h-5" />
-							<span className="font-medium">Pricing</span>
-						</AccordionTrigger>
-						<AccordionContent className="grid gap-4 p-3">
-							<div className="text-sm grid gap-2 leading-loose">
-								<p>
-									With Clover, there are no restrictions
-									on creativity. Experiment with new
-									technologies, build ambitious projects, and
-									showcase your talents to the world without
-									worrying about subscription fees or hidden
-									charges.
-								</p>
-							</div>
-						</AccordionContent>
-					</AccordionItem>
 				</Accordion>
-				<div className="p-4 border bg-primary h-66 dark:border-gray-800 w-full sm:w-[800px] ">
+				<div className="border dark:border-gray-800 w-full sm:w-[800px] ">
 					<div className="text-center">
-						<h3 className="text-lg font-semibold">
-							Selected Tab Content
-						</h3>
-						{selectedTab === 'Projects' && (
-                            <p className="text-sm text-gray-500">
-                                Content for Tab 1
-                            </p>
-                        )}
-                        {selectedTab === 'Pricing' && (
-                            <p className="text-sm text-gray-500">
-                                Content for Tab 2
-                            </p>
-                        )}
+						{selectedTab === "Projects" && (
+							<Card>
+								<ProjectPreview />
+							</Card>
+						)}
+						{selectedTab === "Editor" && (
+							<Card>
+								<FileEditorPreview />
+							</Card>
+						)}
+						{selectedTab === "Roadmaps" && (
+							<Card>
+								<RoadmapPreview />
+							</Card>
+						)}
 					</div>
 				</div>
 			</div>
