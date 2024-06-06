@@ -10,7 +10,7 @@ const RoadFrontend = () => {
             ref={containerRef}
             style={{
                 width: "100%",
-                height: "94vh",
+                height: "50vh",
             }}
         />
     );
