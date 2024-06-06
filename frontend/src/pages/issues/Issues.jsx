@@ -27,7 +27,7 @@ const Issues = () => {
         console.log(issuesData);
     }, [token]);
 
-    const handleCreateIssue = async() => {
+    const handleCreateIssue = async () => {
         await createIssue(token, idProject, title, description, setIssuesData, setLoading);
     }
     return (
@@ -44,7 +44,7 @@ const Issues = () => {
                             {Issues.length}
                         </Badge>
                         <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                            <Link to="">
+                            <Link to={`/issue/new/${idProject}`}>
                                 <Button size="sm">
                                     Create new Issue
                                 </Button>
