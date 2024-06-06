@@ -1,3 +1,4 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
 
 export const deleteFileByIdFileAndIdProject = async (
@@ -13,7 +14,7 @@ export const deleteFileByIdFileAndIdProject = async (
 		}
 
 		const response = await fetch(
-			`http://localhost:8080/projects/files/${idProject}/delete/${idFile}`,
+			`${url}/projects/files/${idProject}/delete/${idFile}`,
 			{
 				method: "DELETE",
 				headers: {

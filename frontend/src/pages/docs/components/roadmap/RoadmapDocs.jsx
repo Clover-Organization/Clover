@@ -1,7 +1,7 @@
 import Navbar from "@/pages/components/Navbar";
 import AsideNavDocs from "../asideNav/AsideNavDocs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import RoadMap from "@/pages/roadmap/RoadMap";
+import RoadmapPreview from "./components/roadmapPreview/RoadmapPreview";
 
 const RoadmapDocs = () => {
     const selected = 5;
@@ -16,7 +16,7 @@ const RoadmapDocs = () => {
                     <AsideNavDocs selected={selected} />
                     <div className="grid">
                         <CardHeader>
-                            <CardTitle>Versioning</CardTitle>
+                            <CardTitle>Roadmap</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <CardDescription className="text-lg">
@@ -30,7 +30,7 @@ const RoadmapDocs = () => {
                             </CardDescription>
                         </CardContent>
                         <Card>
-                            <RoadMap />
+                            <RoadmapPreview />
                         </Card>
                     </div>
                 </div>

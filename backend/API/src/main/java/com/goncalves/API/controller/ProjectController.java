@@ -10,13 +10,15 @@ import com.goncalves.API.entities.files.FilesRepository;
 import com.goncalves.API.entities.filesVersions.VersionsRepository;
 import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
+import com.goncalves.API.entities.notification.Subject;
 import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
-import com.goncalves.API.infra.security.*;
+import com.goncalves.API.infra.exception.*;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;
+import com.goncalves.API.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,6 +26,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -60,6 +63,11 @@ public class ProjectController {
     private EmailService emailService;
     @Autowired
     private EmailTokenService emailTokenService;
+    @Autowired
+    private NotificationService notificationService;
+    @Value("${app.base.url")
+    private String baseUrl;
+
 
     /**
      * Retorna uma lista paginada de projetos baseados na data de criação da solicitação.
@@ -274,6 +282,9 @@ public class ProjectController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
 
+            if (dados.projectName().isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new BadRequestException(dados.projectName(), "Project name is empty."));
+
             // Cria um novo projeto com base nos dados fornecidos
             Project newRequest = new Project(
                     dados.projectName(),
@@ -295,7 +306,8 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(e.getMessage()));
         } catch (Exception e) {
             // Retorna uma resposta com status INTERNAL SERVER ERROR caso ocorra uma exceção não prevista
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Internal server error"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Internal server error"));
         }
     }
 
@@ -337,7 +349,8 @@ public class ProjectController {
 
                 return ResponseEntity.noContent().build();
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("not found id", idProject));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new NotFoundException("not found id", idProject));
             }
         } catch (Exception ex) {
             String mensagemErro = "Error deleting project: " + ex.getMessage();
@@ -517,6 +530,7 @@ public class ProjectController {
     })
     public ResponseEntity shareProject(@RequestBody DadosUsernameOrEmail dados) {
         try {
+            var userSender = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Users user;
 
             var isEmail = dados.usernameOrEmail().contains("@");
@@ -538,6 +552,15 @@ public class ProjectController {
 
             String destinatario = (user.getEmail());
             emailService.shareProjectEmail(destinatario, token, project.getIdProject());
+            notificationService.createNotification(
+                    "Project sharing", """
+                            You received a notification for user project sharing: %s click the button to accept the invitation.
+                            """.formatted(userSender.getUsername()),
+                    Subject.PROJECT_SHARE,
+                    user,
+                    userSender,
+                    new ArrayList<>(Collections.singletonList(baseUrl+"/project/share/" + token + "/" + project.getIdProject()))
+            );
 
             return ResponseEntity.ok().body(new SuccessfullyEmail("Email successfully sent", dados.usernameOrEmail()));
         } catch (InternalError e) {
@@ -546,43 +569,63 @@ public class ProjectController {
         }
     }
 
-    @PostMapping("/confirm-token/share/{token}/{idProject}")
-    @Operation(summary = "Confirms that the token is valid.", method = "POST")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Authorized Token."),
-            @ApiResponse(responseCode = "404", description = "Not found ID."),
-            @ApiResponse(responseCode = "500", description = "Internal server error."),
-    })
-    public ResponseEntity confirmTokenShare(@PathVariable String token,
-                                            @PathVariable String idProject) {
-        try {
-            // Obtém o usuário autenticado
-            Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+   /**
+ * This method is responsible for confirming the validity of a token and associating a project with a user.
+ * It is mapped to the POST HTTP method and the "/confirm-token/share/{token}/{idProject}" URL path.
+ *
+ * @param token     The token to be validated.
+ * @param idProject The ID of the project to be associated with the user.
+ * @return ResponseEntity representing the result of the operation. It can be:
+ *         - 200 OK if the token is valid and the project was successfully associated with the user.
+ *         - 400 Bad Request if the token is invalid or expired, or if the project could not be saved.
+ *         - 404 Not Found if the project ID does not exist.
+ *         - 500 Internal Server Error if an unexpected error occurs.
+ */
+@PostMapping("/confirm-token/share/{token}/{idProject}")
+@Operation(summary = "Confirms that the token is valid.", method = "POST")
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Authorized Token."),
+        @ApiResponse(responseCode = "404", description = "Not found ID."),
+        @ApiResponse(responseCode = "500", description = "Internal server error."),
+})
+public ResponseEntity confirmTokenShare(@PathVariable String token,
+                                        @PathVariable String idProject) {
+    try {
+        // Obtains the authenticated user
+        Users user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-            if (emailTokenService.validarToken(token)) {
-                var project = repository.findById(idProject)
-                        .orElseThrow(() -> new NotFoundException("Not found id.", idProject));
+        // Validates the token
+        if (emailTokenService.validarToken(token)) {
+            // Finds the project by its ID
+            var project = repository.findById(idProject)
+                    .orElseThrow(() -> new NotFoundException("Not found id.", idProject));
 
-                var isSavedProject = project.getShareUsers().add(user);
-                if (isSavedProject) {
-                    repository.save(project);
-                } else {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                            .body(new BadRequestExceptionRecord("Project", "Unable to save the project!"));
-                }
-
-                return ResponseEntity.ok()
-                        .body(new Successfully("successfully", "Token successfully verified!"));
+            // Tries to add the user to the shared users of the project
+            var isSavedProject = project.getShareUsers().add(user);
+            if (isSavedProject) {
+                // Saves the project and removes the token
+                repository.save(project);
+                emailTokenService.removerToken(token);
             } else {
-
-                return ResponseEntity.badRequest()
-                        .body(new BadRequestExceptionRecord(token, "Invalid or expired token."));
+                // Returns a Bad Request status if the project could not be saved
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new BadRequestExceptionRecord("Project", "Unable to save the project!"));
             }
-        } catch (InternalError e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError()
-                    .body(new InternalError("Internal server error.", e));
+
+            // Returns a 200 OK status if the token was successfully verified
+            return ResponseEntity.ok()
+                    .body(new Successfully("successfully", "Token successfully verified!"));
+        } else {
+            // Returns a Bad Request status if the token is invalid or expired
+            return ResponseEntity.badRequest()
+                    .body(new BadRequestExceptionRecord(token, "Invalid or expired token."));
         }
+    } catch (InternalError e) {
+        // Returns an Internal Server Error status if an unexpected error occurs
+        e.printStackTrace();
+        return ResponseEntity.internalServerError()
+                .body(new InternalError("Internal server error.", e));
     }
+}
 
 }

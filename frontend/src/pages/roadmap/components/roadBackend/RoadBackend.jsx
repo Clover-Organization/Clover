@@ -2,7 +2,7 @@ import React from "react";
 import useRoadMap from "../../hooks/useRoadMapEffects";
 import { BackendData } from "./components/BackendData";
 
-const RoadFrontend = () => {
+const RoadBackend = () => {
     const { containerRef } = useRoadMap(BackendData());
 
     return (    
@@ -16,4 +16,4 @@ const RoadFrontend = () => {
     );
 };
 
-export default RoadFrontend;
+export default RoadBackend;

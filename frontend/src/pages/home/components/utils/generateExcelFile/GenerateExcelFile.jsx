@@ -1,9 +1,10 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
 
 export const GenerateExcelFile = async ({ allUsers, token, setFileUrl }) => {
     try {
 
-        const url = allUsers ? 'http://localhost:8080/file/download/all' : 'http://localhost:8080/file/download';
+        const url = allUsers ? `${url}/file/download/all` : `${url}/file/download`;
         const response = await fetch(url, {
             method: 'GET',
             headers: {

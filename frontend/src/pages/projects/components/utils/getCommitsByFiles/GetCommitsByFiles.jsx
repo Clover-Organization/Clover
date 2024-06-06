@@ -1,7 +1,9 @@
+import { url } from "@/infra/url";
+
 export const getCommitsByFiles = async (token, idFile, setCommitsRequest) => {
 
     try {
-        const response = await fetch(`http://localhost:8080/projects/files/${idFile}/commits`, {
+        const response = await fetch(`${url}/projects/files/${idFile}/commits`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

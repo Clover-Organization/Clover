@@ -1,9 +1,10 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 // Function to update a request
-export const updateAnnotation = async (token, editedRequest, idAnnotation, idProject) => {
+export const updateAnnotation = async (token, editedRequest, idAnnotation, idProject, setSelectedAnnotation) => {
     try {
-        const response = await fetch(`http://localhost:8080/projects/annotations/${idProject}/annotation/${idAnnotation}/update`, {
+        const response = await fetch(`${url}/projects/annotations/${idProject}/annotation/${idAnnotation}/update`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -15,6 +16,9 @@ export const updateAnnotation = async (token, editedRequest, idAnnotation, idPro
             // Successful update
             toast.success("Sucess!", {
                 description: "Annotation updated successfully!",
+            });
+            response.json().then((data) => {
+                setSelectedAnnotation(data);
             });
         } else {
             // Handle response errors

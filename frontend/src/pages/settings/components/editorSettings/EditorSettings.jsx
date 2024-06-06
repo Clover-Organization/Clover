@@ -62,8 +62,8 @@ const EditorSettings = () => {
     return (
         <article className="article-settings-content">
             <div className="div-user-content">
-                <div className='my-6'>
-                    <CardTitle>Editor Configuration</CardTitle>
+                <div className='my-4'>
+                    <CardTitle>Editor configuration</CardTitle>
                     <CardDescription>File Editor Settings</CardDescription>
                 </div>
                 <div className="user-info-image-content">
@@ -81,7 +81,7 @@ const EditorSettings = () => {
                         <CardTitle>Font Editor</CardTitle>
                         <CardDescription>Choose your editor font-family or font-size</CardDescription>
                         <Separator className="my-4" />
-                        <CardContent>
+                        <CardContent className="grid gap-5 grid-cols-1 md:grid-cols-2">
                             <SelectFontFamilyEditor
                                 fontFamily={fontFamily}
                                 setFontFamily={setFontFamily}

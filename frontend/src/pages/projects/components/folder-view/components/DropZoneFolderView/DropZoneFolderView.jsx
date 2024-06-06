@@ -1,6 +1,4 @@
 import { useDropzone } from "react-dropzone";
-import InputField from "../../../../../home/components/inputField/InputField";
-import { handleInputBlur, handleInputFocus } from "../../../../../home/components/utils/handleInput/HandleInput";
 import { uploadFolder } from "../../../utils/uploadFolder/UploadFolder";
 import { useState } from "react";
 import { uploadFilesIntoFolder } from "../../../utils/uploadsFilesIntoFolder/UploadFilesIntoFolder";
@@ -8,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
-const DropZoneFolderView = ({ token, idProject, idFolder, onClose }) => {
+const DropZoneFolderView = ({ token, idProject, idFolder, onClose, getFolderAndFiles }) => {
     const [loading, setLoading] = useState(false);
     const [acceptedFoldersAndFiles, setAcceptedFoldersAndFiles] = useState([]);
 
@@ -30,6 +28,7 @@ const DropZoneFolderView = ({ token, idProject, idFolder, onClose }) => {
 
         setLoading(false);
         clearFiles();
+        getFolderAndFiles()
     };
 
     const clearFiles = () => {

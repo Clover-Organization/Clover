@@ -7,16 +7,16 @@ import Modal from "../../../components/Modal";
 import FileNav from "./components/file-nav/FileNav";
 import FileEditor from "../file-editor/FileEditor";
 import GetLanguageInfos from "../utils/getLanguageInfo/GetLanguageInfos";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getFilesById } from "../utils/getFilesById/getFilesById";
 import { getFileContent } from "../utils/getFileContent/getFileContent";
 import { getCommitsByFiles } from "../utils/getCommitsByFiles/GetCommitsByFiles";
 import { commitAndUpdateFile } from "../utils/commitAndUpdateFile/commitAndUpdateFile";
 import { closeModal, closeModalDelete } from "../../../home/components/utils/ModalFunctions/ModalFunctions";
 import { deleteFileByIdFileAndIdProject } from "../utils/deleteFileByIdFileAndIdProject/deleteFileByIdFileAndIdProject";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { checkerTheme } from "./components/utils/checkerTheme/checkerTheme";
@@ -24,6 +24,7 @@ import { useTheme } from "@/components/theme-provider";
 import { DiffEditor } from "@monaco-editor/react";
 import { downloadFile } from "../utils/downloadFile/downloadFile";
 import RendererFile from "./components/rendererFile/RendererFile";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 const FileView = () => {
     const token = localStorage.getItem('token');
@@ -52,7 +53,8 @@ const FileView = () => {
     const hideCursorInOverviewRuler = localStorage.getItem('hideCursorInOverviewRuler');
     const letterSpacing = localStorage.getItem('letterSpacing');
     const { idProject, idFile, idFolder } = useParams();
-
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [singleRequest, setSingleRequest] = useState({});
     const [fileContent, setFileContent] = useState({ contentType: "", data: "" });
     const [commitsRequest, setCommitsRequest] = useState([]);
@@ -84,9 +86,12 @@ const FileView = () => {
     }, []);
 
     const sendCommit = async () => {
+        setLoading(true);
         await commitAndUpdateFile(token, idProject, idFile, newCommitAndFile);
         cls();
         setStateModal(true)
+        setLoading(false);
+        navigate(`/project/${idProject}`)
     }
 
     const cls = () => {
@@ -98,6 +103,7 @@ const FileView = () => {
 
     const handleDeleteAction = async (id) => {
         await deleteFileByIdFileAndIdProject(token, id, idProject, idFolder);
+        navigate(`/project/${idProject}`)
     }
 
     const handleGetAllCommitsAction = async () => {
@@ -275,7 +281,7 @@ const FileView = () => {
                                         />
                                     ) : (
                                         <>
-                                            {singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "Undefined" || singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "md"  ? (
+                                            {singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "Undefined" || singleRequest.fileName && GetLanguageInfos(singleRequest.fileName).name === "md" ? (
                                                 <RendererFile fileContent={fileContent} singleRequest={singleRequest} />
                                             ) : (
                                                 <>
@@ -333,16 +339,22 @@ const FileView = () => {
             </div>
 
             <Modal isOpen={modalDeleteIsOpen} onClose={() => closeModalDelete(setModalDeleteIsOpen)}>
-                <div className="userPreview">
-                    <div className="password-update-modal">
-                        <h5>Deseja deletar o arquivo com o ID:</h5>
-                        <p>{singleRequest.idFile}</p>
+                <Card>
+                    <div className="w-full h-1 p-2 text-end">
+                        <Button variant="link" size="icon" className="hover:bg-stone-900 w-4 h-4" onClick={() => closeModal(setModalDeleteIsOpen)}> <X width={20} /></Button>
                     </div>
+                    <CardHeader>
+                        <CardTitle>Are you absolutely sure?</CardTitle>
+                        <CardDescription>
+                            This action cannot be undone. This will permanently delete your
+                            file and the data contained in it
+                        </CardDescription>
+                    </CardHeader>
 
-                    <div className="btnSave">
-                        <button className="deleteBtn" onClick={() => handleDeleteAction(singleRequest.idFile)}>Delete!</button>
-                    </div>
-                </div>
+                    <CardFooter className="flex justify-end">
+                        <Button variant="destructive" onClick={() => handleDeleteAction(singleRequest.idFile)}>Continue</Button>
+                    </CardFooter>
+                </Card>
             </Modal>
 
             <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
@@ -392,7 +404,15 @@ const FileView = () => {
                                                 onChange={(e) => setNewCommitAndFile((prev) => ({ ...prev, newFile: e.target.files[0] }))}
                                             />
                                         </div>
-                                        <Button onClick={() => sendCommit(newCommitAndFile)}>Send!</Button>
+                                        {!loading ? (
+
+                                            <Button onClick={() => sendCommit(newCommitAndFile)}>Send!</Button>
+                                        ) : (
+                                            <Button disabled>
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                Please wait
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
                             </CardContent>

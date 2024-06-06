@@ -21,8 +21,10 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Loader2 } from "lucide-react";
 
 const Annotation = () => {
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
   const [singleRequest, setSingleRequest] = useState({});
   const [selectedAnnotation, setSelectedAnnotation] = useState("");
@@ -42,11 +44,14 @@ const Annotation = () => {
   };
 
   const handleUpdateName = async (id) => {
-    await updateAnnotation(token, newAnnotationName, id, idProject);
+    setLoading(true);
+    await updateAnnotation(token, newAnnotationName, id, idProject, setSelectedAnnotation);
     setModalIsOpen(false);
+    setLoading(false);
   }
 
   const handlePostNewAnnotation = async () => {
+    setLoading(true);
     // Incrementa o valor de 'count'
     const newCount = count + 1;
     setCount(newCount);
@@ -57,6 +62,7 @@ const Annotation = () => {
 
     // Descomente a linha abaixo para chamar a função que faz a requisição
     await postNewAnnotation(token, title, idProject, setSelectedAnnotation);
+    setLoading(false);
   }
 
 
@@ -111,7 +117,14 @@ const Annotation = () => {
                 <CardTitle>Create a new note or open one!</CardTitle>
                 <CardDescription>Document your code, add reference links as if you were using Word</CardDescription>
                 <Separator className="my-4" />
-                <Button onClick={handlePostNewAnnotation}>Create new Annotation</Button>
+                {!loading ? (
+                  <Button onClick={handlePostNewAnnotation}>Create new Annotation</Button>
+                ) : (
+                  <Button disabled>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </Button>
+                )}
               </div>
             </>
           )}
@@ -120,7 +133,6 @@ const Annotation = () => {
 
       <Modal isOpen={modalIsOpen} onClose={(() => setModalIsOpen(false))}>
         <Card>
-
           <CardHeader>
             <CardTitle>Update annotation name</CardTitle>
             <CardDescription>Change the name of your note.</CardDescription>
@@ -135,9 +147,16 @@ const Annotation = () => {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button variant="outline" onClick={() => setModalIsOpen(false)}>Cancel</Button>
-            <Button onClick={() => handleUpdateName(newAnnotationName.id)}>Save</Button>
-          </CardFooter>
+            {!loading ? (
 
+              <Button onClick={() => handleUpdateName(newAnnotationName.id)}>Save</Button>
+            ) : (
+              <Button disabled>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Please wait
+              </Button>
+            )}
+          </CardFooter>
         </Card>
       </Modal>
 

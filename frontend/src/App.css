@@ -378,9 +378,9 @@ div.boxTools {
 div.tool {
   font-weight: bold;
   border: solid 1px var(--secondary-color);
+  border-radius: var(--border-radius-medium);
   width: 20rem;
   height: 12rem;
-  border-radius: var(--border-radius-medium);
   cursor: pointer;
   opacity: 5;
   transition: opacity 0.3s ease;
@@ -694,7 +694,8 @@ div.page>button:hover {
     justify-content: center;
   }
 
-  .box-status-priority-image-content img {
+  .box-status-priority-image-content img,
+  .box-status-priority-image-content svg {
     display: none;
   }
 
@@ -751,7 +752,6 @@ div.page>button:hover {
 
 .article-settings-content {
   width: 100%;
-  overflow: auto;
 }
 
 /* === CSS Aside */
@@ -767,23 +767,12 @@ div.page>button:hover {
   height: 20px;
 }
 
-.aside-settings-content {
-  max-width: 100%;
-  height: 50vh;
-  border-right: solid 1px var(--box-shadow-color);
-}
-
 .aside-ul-settings-content {
   display: grid;
-  gap: var(--gap-medium);
 }
 
 .aside-ul-settings-content a {
   padding: 0;
-}
-
-.aside-ul-settings-content li {
-  padding: 0.5rem;
 }
 
 /* === CSS ProfileSettings === */
@@ -997,6 +986,7 @@ hr {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .nav-project>h2,
@@ -1400,4 +1390,16 @@ pre {
   font-size: 16px;
   font-weight: bold;
   margin-left: 15px;
+}
+
+.markdown-body h2 {
+  color: #e6edf3;
+}
+
+.notification-h {
+  min-height: 66vh;
+}
+
+.register-h{
+  height: 90vh;
 }

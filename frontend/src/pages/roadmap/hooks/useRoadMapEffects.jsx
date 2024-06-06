@@ -76,6 +76,26 @@ export const useRoadMap = (graphData) => {
 				maxZoom: 2,
 				wheelSensitivity: 0.3,
 			});
+			const containerElement = containerRef.current;
+
+			const handleMouseDown = () => {
+				containerElement.style.cursor = 'grabbing';
+			};
+
+			const handleMouseUp = () => {
+				containerElement.style.cursor = 'default';
+			};
+
+			containerElement.addEventListener('mousedown', handleMouseDown);
+			containerElement.addEventListener('mouseup', handleMouseUp);
+
+			return () => {
+				containerElement.removeEventListener('mousedown', handleMouseDown);
+				containerElement.removeEventListener('mouseup', handleMouseUp);
+				if (cy.current) {
+					cy.current.destroy();
+				}
+			};
 		}
 	}, [graphData, isMounted]);
 

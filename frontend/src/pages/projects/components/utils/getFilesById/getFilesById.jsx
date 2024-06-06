@@ -1,7 +1,9 @@
+import { url } from "@/infra/url";
+
 export const getFilesById = async (token, idFile, setFilesRequest) => {
 
     try {
-        const response = await fetch(`http://localhost:8080/projects/files/${idFile}/file`, {
+        const response = await fetch(`${url}/projects/files/${idFile}/file`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

@@ -1,3 +1,4 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const uploadFilesIntoFolder = async (token, idProject, acceptedFiles, idFolder) => {
@@ -8,7 +9,7 @@ export const uploadFilesIntoFolder = async (token, idProject, acceptedFiles, idF
         });
 
 
-        const response = await fetch(`http://localhost:8080/projects/folders/${idProject}/${idFolder}/newFile`, {
+        const response = await fetch(`${url}/projects/folders/${idProject}/${idFolder}/newFile`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

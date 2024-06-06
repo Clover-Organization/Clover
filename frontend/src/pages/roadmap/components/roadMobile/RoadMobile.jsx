@@ -2,7 +2,7 @@ import React from "react";
 import useRoadMap from "../../hooks/useRoadMapEffects";
 import { MobileData } from "./components/MobileData";
 
-const RoadFrontend = () => {
+const RoadMobile = () => {
     const { containerRef } = useRoadMap(MobileData());
 
     return (    
@@ -16,4 +16,4 @@ const RoadFrontend = () => {
     );
 };
 
-export default RoadFrontend;
+export default RoadMobile;

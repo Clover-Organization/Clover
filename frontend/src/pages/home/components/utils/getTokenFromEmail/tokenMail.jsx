@@ -1,8 +1,9 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
 
 export const tokenMail = async (email, token) => {
     try {
-        const response = await fetch("http://localhost:8080/update-password/generate-token", {
+        const response = await fetch(`${url}/update-password/generate-token`, {
             method: 'PUT',
             headers: {
                 Accept: "application/json",

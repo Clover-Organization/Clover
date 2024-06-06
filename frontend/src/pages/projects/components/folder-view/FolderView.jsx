@@ -33,8 +33,7 @@ const FolderView = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             getFolderAndFiles();
-            // console.log(singleRequest);
-        }, 5000);
+        }, 30000);
 
         // Clear the interval when the component is unmounted
         return () => clearInterval(intervalId);
@@ -63,7 +62,10 @@ const FolderView = () => {
                                 filterText={searchTerm}
                                 setFilterText={setSearchTerm}
                                 setModalIsOpen={setModalIsOpen}
-                                idProject={idProject} />
+                                idProject={idProject}
+                                idFolder={idFolder} 
+                                fetchProject={getFolderAndFiles}
+                                />
                             {loading ? (
                                 <div className="align-loading">
                                     <div className="spinner"></div>
@@ -108,7 +110,7 @@ const FolderView = () => {
                 </section>
             </article>
             <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-                <DropZoneFolderView token={token} idProject={idProject} idFolder={idFolder} onClose={() => closeModal(setModalIsOpen)} />
+                <DropZoneFolderView token={token} idProject={idProject} idFolder={idFolder} onClose={() => closeModal(setModalIsOpen)} getFolderAndFiles={getFolderAndFiles} />
             </Modal>
         </main>
     );

@@ -8,12 +8,15 @@ import { fetchRequestById } from "@/pages/home/components/utils/fetchRequestById
 import { FetchUser } from "@/pages/home/components/utils/getInfoUser/FetchUser";
 import HomeNavbar from "@/pages/components/homeNavbar/HomeNavbar";
 import ProfileMenu from "@/pages/components/homeNavbar/components/ProfileMenu";
+import { NotificationMenu } from "@/pages/components/homeNavbar/components/NotificationMenu";
+import { getAllNotificationsByUser } from "@/pages/notification/components/utils/getAllNotificationsByUser/getAllNotificationsByUser";
 
 export default function WelcomeHeader({ idProject }) {
 	const [role, setRole] = useState(localStorage.getItem("role"));
 	const [userData, setUserData] = useState({});
 	const [singleRequest, setSingleRequest] = useState({});
 	const token = localStorage.getItem("token");
+	const [notifications, setNotifications] = useState([]);
 
 	if (role) {
 		useEffect(() => {
@@ -21,6 +24,15 @@ export default function WelcomeHeader({ idProject }) {
 			fetchRequestById(token, idProject, setSingleRequest);
 		}, [token]);
 	}
+
+	const handleAllNotifications = async () => {
+        await getAllNotificationsByUser(token, setNotifications, 0, "", () => {});
+    }
+
+	useEffect(() => {
+        handleAllNotifications();
+    }, []);
+
 
 	return (
 		<header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/100">
@@ -42,9 +54,10 @@ export default function WelcomeHeader({ idProject }) {
 										<Button asChild><Link to="/auth/login">Sign In</Link></Button>
 									</>
 								) : (
-									<>
-										<ProfileMenu userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers}/>
-									</>
+									<div className="flex">
+										<ProfileMenu userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers} />
+										<NotificationMenu  userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers} notifications={notifications}/>
+									</div>
 								)
 								}
 							</div>

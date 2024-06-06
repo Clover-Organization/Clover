@@ -1,3 +1,4 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const uploadSubFolder = async (token, idProject, acceptedFiles, nameFolder, idFolder) => {
@@ -9,7 +10,7 @@ export const uploadSubFolder = async (token, idProject, acceptedFiles, nameFolde
         formData.append('name', nameFolder);
 
 
-        const response = await fetch(`http://localhost:8080/projects/folders/${idProject}/folders/${idFolder}/subfolders`, {
+        const response = await fetch(`${url}/projects/folders/${idProject}/folders/${idFolder}/subfolders`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

@@ -1,3 +1,4 @@
+import { url } from '@/infra/url';
 import { toast } from 'sonner';
 
 export const uploadFiles = async (token, idProject, acceptedFiles) => {
@@ -7,7 +8,7 @@ export const uploadFiles = async (token, idProject, acceptedFiles) => {
             formData.append('files', file);
         });
 
-        const response = await fetch(`http://localhost:8080/projects/files/${idProject}/uploadFile`, {
+        const response = await fetch(`${url}/projects/files/${idProject}/uploadFile`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -23,9 +24,6 @@ export const uploadFiles = async (token, idProject, acceptedFiles) => {
 
         } else if (response.status === 404) {
             console.log("Request not found");
-            toast.success("Error!", {
-                description: "Files sent successfully!",
-            });
             toast.error("Error!", {
                 description: "Request not found.",
             });

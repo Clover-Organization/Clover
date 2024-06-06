@@ -1,10 +1,12 @@
+import { url } from "@/infra/url";
+
 // Fetch requests from the server
 export const fetchRequestsPage = async (currentPage, setLoading, token, setToolBoxes, setRequestsLoaded) => {
     const size = 15;
 
     try {
         setLoading(true);
-        const response = await fetch(`http://localhost:8080/projects?page=${currentPage}&size=${size}`, {
+        const response = await fetch(`${url}/projects?page=${currentPage}&size=${size}`, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

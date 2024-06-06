@@ -1,9 +1,10 @@
+import { url } from "@/infra/url";
 import { toast } from "sonner";
 
 export const tokenMailForgotPassword = async (emailEdit) => {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/update-password/generate-token/forgot-password",
+			`${url}/update-password/generate-token/forgot-password`,
 			{
 				method: "PUT",
 				headers: {
@@ -22,12 +23,12 @@ export const tokenMailForgotPassword = async (emailEdit) => {
 			});
 			return response;
 		} else {
-			console.log("Error generating token:", data);
+			console.error("Error generating token:", data);
 			toast.warning(`${data["email"]} not Found`, { description: data["msg"] });
 			return response;
 		}
 	} catch (error) {
-		console.log("Erro ao gerar o token:", error);
+		console.error("Erro ao gerar o token:", error);
 		toast.error("Error", {
 			description: "Error generating token. Try again later.",
 		});

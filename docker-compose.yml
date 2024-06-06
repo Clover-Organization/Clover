@@ -1,0 +1,14 @@
+services:
+  spring-app:
+    build:
+      context: backend\API
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+
+  react-app:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"

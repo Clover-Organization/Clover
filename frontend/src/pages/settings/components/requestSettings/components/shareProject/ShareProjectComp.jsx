@@ -86,7 +86,7 @@ const ShareProjectComp = ({
                             <TableRow className="cursor-pointer" onClick={() => setDataShareProject({ ...dataShareProject, usernameOrEmail: user.email })}>
                                 <TableCell className="w-50">
                                     <Avatar>
-                                        <AvatarImage src={`data:image/jpeg;base64,${user.profileImage}`} alt="" width={100} />
+                                        <AvatarImage className='object-cover' src={`data:image/jpeg;base64,${user.profileImage}`} alt={user.username} width={100} />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                 </TableCell>

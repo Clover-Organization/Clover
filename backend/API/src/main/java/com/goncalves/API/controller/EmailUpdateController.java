@@ -2,10 +2,15 @@ package com.goncalves.API.controller;
 
 import com.goncalves.API.DTO.DadosAtualizarSenha;
 import com.goncalves.API.DTO.DadosTokenEmailValidation;
-import com.goncalves.API.infra.security.*;
+import com.goncalves.API.entities.notification.Subject;
+import com.goncalves.API.infra.exception.ErrorInvalidToken;
+import com.goncalves.API.infra.exception.ErrorNotFoundUser;
+import com.goncalves.API.infra.exception.Successfully;
+import com.goncalves.API.infra.exception.SuccessfullyEmail;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.service.EmailService;
 import com.goncalves.API.service.EmailTokenService;
+import com.goncalves.API.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -28,12 +33,12 @@ public class EmailUpdateController {
 
     @Autowired
     private UserRepository repository;
-
     @Autowired
     private EmailService emailService;
-
     @Autowired
     private EmailTokenService tokenService;
+    @Autowired
+    private NotificationService notificationService;
 
     @PutMapping("/generate-token")
     @Operation(summary = "Generates a token and sends it to the user's email", method = "PUT")
@@ -53,7 +58,7 @@ public class EmailUpdateController {
                     .ok(new SuccessfullyEmail("Token generated successfully. Check your email.", destinatario));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new InternalError("Error generating the token.",e ));
+                    .body(new InternalError("Error generating the token.", e));
         }
     }
 
@@ -86,6 +91,13 @@ public class EmailUpdateController {
             String destinatario = user.getEmail();
             String token = tokenService.gerarToken(destinatario);
 
+            notificationService.createNotificationForgotPassword(
+                    "Reset your password",
+                    "You received a notification in your email to reset your password.",
+                    Subject.PASSWORD_RESET,
+                    user
+            );
+
             // Enviar o token por e-mail
             emailService.enviarEmailRedefinirSenha(destinatario, token);
 
@@ -93,7 +105,7 @@ public class EmailUpdateController {
             return ResponseEntity.ok(new SuccessfullyEmail("Token sent check your email", dados.emailEdit()));
         } catch (Exception e) {
             // Se ocorrer um erro inesperado, retornar uma resposta de erro interno do servidor
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Error generating the token.",e ));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Error generating the token.", e));
         }
     }
 

@@ -1,15 +1,13 @@
 package com.goncalves.API.controller;
 
 import com.goncalves.API.DTO.DadosRole;
-import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
-import com.goncalves.API.infra.security.ErrorResponse;
+import com.goncalves.API.infra.exception.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;

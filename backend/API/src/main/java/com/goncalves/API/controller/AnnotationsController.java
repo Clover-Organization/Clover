@@ -5,7 +5,7 @@ import com.goncalves.API.DTO.DadosNewAnnotation;
 import com.goncalves.API.entities.annotations.Annotations;
 import com.goncalves.API.entities.annotations.AnnotationsRepository;
 import com.goncalves.API.entities.request.ProjectRepository;
-import com.goncalves.API.infra.security.NotFoundException;
+import com.goncalves.API.infra.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -144,7 +144,7 @@ public class AnnotationsController {
             // Salvar as alterações no projeto
             projectRepository.save(optionalProject);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(optionalAnnotations);
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {

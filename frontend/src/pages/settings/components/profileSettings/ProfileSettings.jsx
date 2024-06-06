@@ -8,7 +8,6 @@ import { PasswordUpdateModal } from "./components/PasswordUpdateModal ";
 import { tokenMail } from "../../../home/components/utils/getTokenFromEmail/tokenMail";
 import { tokenCheckAndUpdatePassword } from "../../../home/components/utils/tokenCheckUpdate/TokenCheckAndUpdatePassword";
 import { FileChange } from "../../../home/components/utils/updateImageUser/FileChange";
-import InputField from "../../../home/components/inputField/InputField";
 import Modal from '../../../components/Modal';
 
 import user from '../../assets/user.png';
@@ -23,15 +22,15 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CircleUserRound } from "lucide-react";
-import { isEmpty } from "lodash";
+import UserDetails from "./components/userDetails/UserDetails";
+import { Input } from "@/components/ui/input";
 
 export const ProfileSettings = () => {
 
     const navigate = useNavigate('/')
 
     const token = localStorage.getItem('token');
-    const [showUpdateScreen, setShowUpdateScreen] = useState(false);
+    const [showUpdateScreen, setShowUpdateScreen] = useState(true);
     const [loading, setLoading] = useState(false);
     const [updateModal, setUpdateModal] = useState(false);
     const [modalLabelAndPassword, setModalLabelAndPassword] = useState(false);
@@ -51,6 +50,11 @@ export const ProfileSettings = () => {
     useEffect(() => {
         FetchUser(token, setUserData);
     }, [token]);
+
+    useEffect(() => {
+        setEditUser({ ...userData });
+    }, [userData]);
+
 
     const handleUpdateUserAction = async () => {
         await updateUser(editUser, token, setUserData)
@@ -118,62 +122,20 @@ export const ProfileSettings = () => {
 
     return (
         <article className='article-settings-content'>
-            <div className="div-user-content">
-                <h1>Profile</h1>
-                <div className="user-info-image-content">
-                    <div className="information-user-content">
-                        <div className="idProfileSettings">
-                            <span>Id</span>
-                            <p className="ul-annotation-content">{userData.idUsers || 'NaN'}</p>
-                        </div>
-                        <div>
-                            <span>Username</span>
-                            <p className="ul-annotation-content">{userData.username || 'NaN'}</p>
-                        </div>
-                        <div>
-                            <span>First name</span>
-                            <p className="ul-annotation-content">{userData.firstName || 'NaN'}</p>
-                        </div>
-                        <div>
-                            <span>Last name</span>
-                            <p className="ul-annotation-content">{userData.lastName || 'NaN'}</p>
-                        </div>
-                        <div>
-                            <span>Email</span>
-                            <p className="ul-annotation-content">{userData.email || 'NaN'}</p>
-                        </div>
-                        <div>
-                            <span>Birth</span>
-                            <p className="ul-annotation-content">{userData.birth || 'NaN'}</p>
-                        </div>
-                        <div>
-                            <span>Creation Account</span>
-                            <p className="ul-annotation-content">{userData.creationAccount || 'NaN'}</p>
-                        </div>
-                        <div className="btnAlign-profile">
-                            <div className="addBtn">
-                                <button onClick={() => openModalUserUpdate(setModalIsOpen, setEditUser, userData)}>Update!</button>
-                            </div>
-                            <div className="addBtn">
-                                <button onClick={() => handleLogouUser()}>Logout!</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="userImage">
-                        <h2>Profile picture</h2>
-                        <div className="image" onClick={() => openModalUpdateImage()}>
-                            {userData.profileImage != null && !isEmpty(userData.profileImage) ? (
-                                <img src={userData.profileImage ? `data:image/png;base64,${userData.profileImage}` : user} />
-                            ) : (
-                                <CircleUserRound width={300} height={300} />
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <UserDetails
+                userData={userData}
+                openModalUpdateImage={openModalUpdateImage}
+                openModalUserUpdate={openModalUserUpdate}
+                handleLogouUser={handleLogouUser}
+                setEditUser={setEditUser}
+                setModalIsOpen={setModalIsOpen}
+                setUserData={setUserData}
+                handleUpdateUserAction={handleUpdateUserAction}
+                editUser={editUser}
+            />
             <Modal isOpen={modalIsOpen} onClose={() => {
                 closeModalUserUpdate(setModalIsOpen),
-                    setShowUpdateScreen(false),
+                    setShowUpdateScreen(true),
                     setUpdateModal(false),
                     setModalLabelAndPassword(false)
             }}>
@@ -183,91 +145,48 @@ export const ProfileSettings = () => {
                     </div>
                 )}
 
-                {updateModal && (
-                    <PasswordUpdateModal
-                        label="Enter token to update password"
-                        value={tokenMailLabel.token}
-                        onChange={(e) => setTokenMailLabel((prev) => ({ ...prev, token: e.target.value }))}
-                        onClick={() => { setUpdateModal(false), setModalLabelAndPassword(true) }}
-                    />
-                )}
-
-                {modalLabelAndPassword && (
-                    <PasswordUpdateWithNewPasswordModal
-                        label="Enter your new password"
-                        value={tokenMailLabel.newPassword}
-                        onChange={(e) => setTokenMailLabel((prev) => ({ ...prev, newPassword: e.target.value }))}
-                        onClick={() => handleTokenCheckAndUpdatePassword(tokenMailLabel)}
-                    />
-                )}
-                {showUpdateScreen && (
-                    <div className="password-update-modal">
-                        <h5>Update Password</h5>
-                        <p>Enter the email where you want<br /> to receive the token</p>
-
-                        <InputField
-                            id="email"
-                            label="Email"
-                            value={editUser.email}
-                            onChange={(e) => setEditUser((prev) => ({ ...prev, email: e.target.value }))}
-                            onMouseEnter={() => handleInputFocus('emailLabel')}
-                            onMouseLeave={() => handleInputBlur('emailLabel')}
-                        />
-
-                        <div className="btnSave">
-                            <button onClick={() => sendToken({ email: editUser.email })}>Send!</button>
+                <Card className="w-[350px] text-center">
+                    <CardContent>
+                        <div className="grid w-full items-center gap-2">
+                            {updateModal && (
+                                <PasswordUpdateModal
+                                    label="Enter token to update password"
+                                    value={tokenMailLabel.token}
+                                    onChange={(e) => setTokenMailLabel((prev) => ({ ...prev, token: e.target.value }))}
+                                    onClick={() => { setUpdateModal(false), setModalLabelAndPassword(true) }}
+                                />
+                            )}
+                            {modalLabelAndPassword && (
+                                <PasswordUpdateWithNewPasswordModal
+                                    label="Enter your new password"
+                                    value={tokenMailLabel.newPassword}
+                                    onChange={(e) => setTokenMailLabel((prev) => ({ ...prev, newPassword: e.target.value }))}
+                                    onClick={() => handleTokenCheckAndUpdatePassword(tokenMailLabel)}
+                                />
+                            )}
+                            {showUpdateScreen && (
+                                <>
+                                    <CardHeader>
+                                        <CardTitle>Update Password</CardTitle>
+                                        <CardDescription>Enter the email where you want<br /> to receive the token</CardDescription>
+                                    </CardHeader>
+                                    <div className="grid gap-5">
+                                        <Input
+                                            id="email"
+                                            label="Email"
+                                            value={editUser.email}
+                                            onChange={(e) => setEditUser((prev) => ({ ...prev, email: e.target.value }))}
+                                            onMouseEnter={() => handleInputFocus('emailLabel')}
+                                            onMouseLeave={() => handleInputBlur('emailLabel')}
+                                        />
+                                        <Button onClick={() => sendToken({ email: editUser.email })}>Send</Button>
+                                    </div>
+                                </>
+                            )}
+                            <Button variant="outline" onClick={() => { closeModalUserUpdate(setModalIsOpen), setModalLabelAndPassword(false), setUpdateModal(false), setShowUpdateScreen(true) }}>Cancel</Button>
                         </div>
-                    </div>
-                )}
-                {!updateModal && !showUpdateScreen && !modalLabelAndPassword && (
-                    <>
-
-                        <InputField
-                            id="firstName"
-                            label="First name"
-                            value={editUser.firstName}
-                            onChange={(e) => setEditUser((prev) => ({ ...prev, firstName: e.target.value }))}
-                            onMouseEnter={() => handleInputFocus('firstNameLabel')}
-                            onMouseLeave={() => handleInputBlur('firstNameLabel')}
-                        />
-
-                        <InputField
-                            id="lastName"
-                            label="Last name"
-                            value={editUser.lastName}
-                            onChange={(e) => setEditUser((prev) => ({ ...prev, lastName: e.target.value }))}
-                            onMouseEnter={() => handleInputFocus('lastNameLabel')}
-                            onMouseLeave={() => handleInputBlur('lastNameLabel')}
-                        />
-
-                        <InputField
-                            id="email"
-                            label="Email"
-                            value={editUser.email}
-                            onChange={(e) => setEditUser((prev) => ({ ...prev, email: e.target.value }))}
-                            onMouseEnter={() => handleInputFocus('emailLabel')}
-                            onMouseLeave={() => handleInputBlur('emailLabel')}
-                        />
-
-                        <InputField
-                            id="birth"
-                            label="Birth"
-                            value={editUser.birth}
-                            onChange={(e) => setEditUser((prev) => ({ ...prev, birth: e.target.value }))}
-                            onMouseEnter={() => handleInputFocus('birthLabel')}
-                            onMouseLeave={() => handleInputBlur('birthLabel')}
-                        />
-
-                        <div className="btnAlign">
-                            <div className="btnSave">
-                                <button onClick={() => handleUpdateUserAction(editUser, token)}>Update!</button>
-                            </div>
-                            <div className="btnSave">
-                                <button onClick={() => setShowUpdateScreen(true)}>More!</button>
-                            </div>
-                        </div>
-                    </>
-                )}
+                    </CardContent>
+                </Card>
             </Modal>
 
             <Modal isOpen={modalImageIsOpen} onClose={closeModalUpdateImage}>

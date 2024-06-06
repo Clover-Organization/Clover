@@ -59,6 +59,6 @@ export const openModalUserUpdate = (setModalIsOpen, setEditData, userData) => {
     setModalIsOpen(true);
 }
 export const closeModalUserUpdate = (setModalIsOpen) => {
-    document.body.style.overflow = "hidden";
     setModalIsOpen(false);
+    document.body.style.overflow = "auto";
 }

@@ -1,8 +1,5 @@
 import React from "react";
 
-import commitIcon from "../../../../assets/commitIcon.png";
-import lixoIcon from "../../../../assets/lixoIcon.png";
-import editIcon from "../../../../assets/fileEdit.png";
 import GetLanguageInfos from "../../../utils/getLanguageInfo/GetLanguageInfos";
 import fileIcon from "../../../../assets/fileIcon.png";
 import { ListPlus, Pencil, Trash2, ListCollapse, List, Download } from "lucide-react";
@@ -13,6 +10,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { CardTitle } from "@/components/ui/card";
 
 const FileNav = ({
 	singleRequest,
@@ -45,9 +43,9 @@ const FileNav = ({
 					}
 					width={"40px"}
 				/>
-				<h2>{singleRequest.fileName}</h2>
+				<CardTitle>{singleRequest.fileName}</CardTitle>
 			</div>
-			<div className="flex gap-4">
+			<div className="flex flex-wrap gap-4">
 				<div className="flex justify-center items-center gap-2">
 
 					<Button onClick={() => setModalIsOpen(true)}>

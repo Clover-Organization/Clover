@@ -43,7 +43,7 @@ const Project = () => {
     const intervalId = setInterval(() => {
       fetchProject();
       getCommits();
-    }, 10000);
+    }, 30000);
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
@@ -62,6 +62,7 @@ const Project = () => {
                 setFilterText={setSearchTerm}
                 setModalIsOpen={setModalIsOpen}
                 idProject={idProject}
+                fetchProject={fetchProject}
               />
               {loading ? (
                 <div className="align-loading">
@@ -125,7 +126,7 @@ const Project = () => {
         </section>
       </article>
       <Modal isOpen={modalIsOpen} onClose={() => closeModal(setModalIsOpen)}>
-        <DropFileZone idProject={idProject} token={token}  onClose={() => closeModal(setModalIsOpen)}/>
+        <DropFileZone idProject={idProject} token={token} onClose={() => closeModal(setModalIsOpen)} fetchProject={fetchProject}/>
       </Modal>
     </main>
   );
