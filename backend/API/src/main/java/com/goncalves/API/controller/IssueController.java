@@ -94,7 +94,6 @@ public class IssueController {
 
             var savedIssue = issueRepository.save(issue);
 
-            System.out.println(savedIssue);
             project.getIssues().add(savedIssue);
             projectRepository.save(project);
 
@@ -119,11 +118,11 @@ public class IssueController {
     @PostMapping("/close/{id}")
     public ResponseEntity closeIssue(@PathVariable String id) {
         try {
-            var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             var issue = issueRepository.findById(id).orElseThrow(
                     () -> new NotFoundException("Issue not found", id)
             );
             issue.setOpen(false);
+            issue.setCloseDate(LocalDateTime.now());
             issueRepository.save(issue);
             return ResponseEntity.ok(issue);
         } catch (Exception e) {
