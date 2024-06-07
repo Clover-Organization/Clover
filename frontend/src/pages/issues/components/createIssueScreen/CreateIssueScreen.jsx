@@ -4,17 +4,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/pages/components/Navbar";
 import { useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Asterisk, Bird, Rabbit, Turtle } from "lucide-react";
+import { createIssue } from "../utils/createIssue/createIssue";
 
 
 const CreateIssueScreen = () => {
 
     const { idProject } = useParams();
     const token = localStorage.getItem("token");
-    const quillRef = useRef(null);
+    const [issues, setIssues] = useState({
+        title: "",
+        description: ""
+    });
+    const [loading, setLoading] = useState(false);
+
+    const handleCreateIssue = async () => {
+        await createIssue(token, idProject, issues, setLoading);
+    }
 
 
     return (
@@ -29,23 +38,30 @@ const CreateIssueScreen = () => {
                     <div className="grid gap-6">
                         <Card x-chunk="dashboard-04-chunk-1">
                             <CardHeader>
-                                <div className="flex items-center">
-                                    <CardTitle>Title</CardTitle>
-                                    <Asterisk color="#dd1f1f" width={18}/>
-                                </div>
+                                <CardTitle>Title</CardTitle>
                                 <CardDescription>
                                     Make it short and clear
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="grid gap-4">
                                 <div className="grid gap-2">
-                                    <Label>Title</Label>
-                                    <Input placeholder="Title.." />
+                                    <div className="flex items-center">
+                                        <Label>Title</Label>
+                                        <Asterisk color="#dd1f1f" width={18} />
+                                    </div>
+                                    <Input placeholder="Title.."
+                                        onChange={(e) => setIssues({ ...issues, title: e.target.value })}
+                                    />
                                 </div>
 
                                 <div className="grid gap-4">
-                                    <Label>Description</Label>
-                                    <Textarea className="h-72" />
+                                    <div className="flex items-center">
+                                        <Label>Description</Label>
+                                        <Asterisk color="#dd1f1f" width={18} />
+                                    </div>
+                                    <Textarea className="h-72"
+                                        onChange={(e) => setIssues({ ...issues, description: e.target.value })}
+                                    />
                                 </div>
                                 <div className="grid gap-3">
                                     <Label htmlFor="model">Select File</Label>
@@ -112,7 +128,9 @@ const CreateIssueScreen = () => {
                             </CardContent>
                             <CardFooter className="mt-12 px-6 py-4 flex flex-wrap justify-end gap-4">
                                 <Button className="w-36">Save</Button>
-                                <Button className="w-36" variant="outline">Cancel</Button>
+                                <Link to={`/issues/${idProject}`}>
+                                    <Button className="w-36 text-secondary-foreground" variant="outline">Cancel</Button>
+                                </Link>
                             </CardFooter>
                         </Card>
                     </div>

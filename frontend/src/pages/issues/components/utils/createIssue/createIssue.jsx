@@ -1,4 +1,4 @@
-export const createIssue = async (token, idProject, issue, setIssues, setLoading) => {
+export const createIssue = async (token, idProject, issue, setLoading) => {
     setLoading(true);
     const response = await fetch(`http://localhost:8080/issues/create/${idProject}`, {
         method: "POST",
@@ -8,7 +8,6 @@ export const createIssue = async (token, idProject, issue, setIssues, setLoading
         },
         body: JSON.stringify(issue)
     });
-    const data = await response.json();
-    setIssues(data);
+    await response.json();
     setLoading(false);
 }
