@@ -23,12 +23,11 @@ const WelcomeIntro = () => {
 					</h2>
 				</main>
 
-				<p className="text-xl font-light opacity-70 md:w-10/12 mx-auto lg:mx-0">
+				<h4 className="text-2xl text-balance font-light opacity-70">
 					Unlock your coding potential effortlessly with Clover. 
-					<br/>
-					Where versioning becomes intuitive and coding becomes a breeze for
-					programming learners
-				</p>
+					Where versioning becomes intuitive and coding 
+					becomes a breeze for programming learners
+				</h4>
 				
 				<div className="space-y-4 md:space-y-0 md:space-x-4">
 					<Link to={"/auth/register"}>
