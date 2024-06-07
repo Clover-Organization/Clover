@@ -2,7 +2,7 @@ import React from "react";
 import "../../style/style.css";
 import AboutImg from "./assets/AboutImg.png";
 import iconBalanca from "./assets/iconBalanca.png";
-import { GitCompareArrows, Users, Blocks } from "lucide-react";
+import { GitCompareArrows, Users, Blocks, ListTodo, Route, PackageOpen } from "lucide-react";
 
 const WelcomeDescri = () => {
 	return (
@@ -31,7 +31,7 @@ const WelcomeDescri = () => {
 					</h3>
 					<p className="leading-7 mt-6">
 						Seamlessly manage your code versions with Clover's
-						intuitive interface
+						intuitive interface.
 					</p>
 				</div>
 				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 sm:mt-0">
@@ -41,7 +41,7 @@ const WelcomeDescri = () => {
 					</h3>
 					<p className="leading-7 mt-6">
 						Work together on projects seamlessly, ensuring smooth
-						teamwork
+						teamwork.
 					</p>
 				</div>
 				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 md:mt-0">
@@ -51,7 +51,35 @@ const WelcomeDescri = () => {
 					</h3>
 					<p className="leading-7 mt-6">
 						Embark on your coding journey and enjoy the learning
-						process
+						process.
+					</p>
+				</div>
+				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 md:mt-0">
+					<ListTodo className="text-primary mb-4" />
+					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+						Save Your Ideas
+					</h3>
+					<p className="leading-7 mt-6">
+						Organize your ideas and visualize your goals clearly and
+						motivatingly.
+					</p>
+				</div>
+				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 md:mt-0">
+					<Route className="text-primary mb-4" />
+					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+						Make your Path
+					</h3>
+					<p className="leading-7 mt-6">
+						With roadmaps that outlines your journey step-by-step.
+					</p>
+				</div>
+				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 md:mt-0">
+					<PackageOpen className="text-primary mb-4" />
+					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+						Constant Updates
+					</h3>
+					<p className="leading-7 mt-6">
+						Enjoy constant updates and exciting new features!
 					</p>
 				</div>
 			</div>
