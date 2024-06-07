@@ -29,7 +29,7 @@ const WelcomeIntro = () => {
 					Where versioning becomes intuitive and coding becomes a breeze for
 					programming learners
 				</p>
-
+				
 				<div className="space-y-4 md:space-y-0 md:space-x-4">
 					<Link to={"/auth/register"}>
 						<Button className="w-full md:w-1/3">Get Started</Button>
@@ -47,6 +47,8 @@ const WelcomeIntro = () => {
 					</a>
 				</div>
 			</div>
+	
+			{/* <Spline scene="https://prod.spline.design/hwGO6CLjozmoM-zX/scene.splinecode" /> */}
 
 			{/* Shadow effect */}
 			<div className="shadow"></div>
