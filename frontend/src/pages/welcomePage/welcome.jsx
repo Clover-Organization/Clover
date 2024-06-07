@@ -6,6 +6,7 @@ import WelcomeDescri from "./components/welcomeDescri/WelcomeDescri";
 import WelcomeService from "./components/welcomeService/WelcomeService";
 import Footer from "../components/footer/footer";
 import WelcomeHeader from "./components/welcomeHeader/WelcomeHeader";
+import WelcomeTeam from "./components/welcomeTeam/WelcomeTeam";
 
 const welcome = () => {
 	return (
@@ -14,6 +15,7 @@ const welcome = () => {
 			<WelcomeIntro />
 			<WelcomeDescri />
 			<WelcomeService />
+			<WelcomeTeam />
 			{/* <WelcomeService /> */}
 			{/* <Footer /> */}
 		</main>
