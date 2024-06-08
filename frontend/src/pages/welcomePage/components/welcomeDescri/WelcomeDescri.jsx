@@ -2,85 +2,81 @@ import React from "react";
 import "../../style/style.css";
 import AboutImg from "./assets/AboutImg.png";
 import iconBalanca from "./assets/iconBalanca.png";
-import { GitCompareArrows, Users, Blocks, ListTodo, Route, PackageOpen } from "lucide-react";
+import {
+	GitCompareArrows,
+	Users,
+	Blocks,
+	ListTodo,
+	Route,
+	PackageOpen,
+	CheckIcon,
+} from "lucide-react";
 
 const WelcomeDescri = () => {
 	return (
-		<section className="container w-full h-screen">
-			<div className="flex flex-wrap justify-center items-center mt-10 sm:mt-20 md:mt-32 lg:mt-44 gap-8">
-				<div className="">
-					<h3 className="text-3xl md:text-4xl font-bold">
-						<span>
-							Transform the Way You Manage Your Code and
-							Collaborate
-						</span>
-					</h3>
-					<h4 className="text-2xl font-light opacity-70">
-						<span>
-							Discover innovative tools to enhance your workflow
-							and productivity
-						</span>
-					</h4>
-				</div>
-			</div>
-			<div className="flex flex-wrap justify-center items-center mt-16 gap-8">
-				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border">
-					<GitCompareArrows className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Version Control Made Easy
-					</h3>
-					<p className="leading-7 mt-6">
-						Seamlessly manage your code versions with Clover's
-						intuitive interface.
-					</p>
-				</div>
-				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 sm:mt-0">
-					<Users className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Effortless Collaboration
-					</h3>
-					<p className="leading-7 mt-6">
-						Work together on projects seamlessly, ensuring smooth
-						teamwork.
-					</p>
-				</div>
-				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 md:mt-0">
-					<Blocks className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Learning Made Fun
-					</h3>
-					<p className="leading-7 mt-6">
-						Embark on your coding journey and enjoy the learning
-						process.
-					</p>
-				</div>
-				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 md:mt-0">
-					<ListTodo className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Save Your Ideas
-					</h3>
-					<p className="leading-7 mt-6">
-						Organize your ideas and visualize your goals clearly and
-						motivatingly.
-					</p>
-				</div>
-				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 md:mt-0">
-					<Route className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Make your Path
-					</h3>
-					<p className="leading-7 mt-6">
-						With roadmaps that outlines your journey step-by-step.
-					</p>
-				</div>
-				<div className="p-6 rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 border mt-4 md:mt-0">
-					<PackageOpen className="text-primary mb-4" />
-					<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-						Constant Updates
-					</h3>
-					<p className="leading-7 mt-6">
-						Enjoy constant updates and exciting new features!
-					</p>
+		<section className="h-screen w-full py-12 md:py-24 lg:py-32">
+			<div className="container grid gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16">
+				{/* <img
+					src="/assets/AboutImg.png"
+					width={600}
+					height={400}
+					alt="Feature Image"
+					className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
+				/> */}
+				<div className="flex flex-col justify-center space-y-4">
+					<div className="space-y-2">
+						<h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+							Streamlined Collaboration
+						</h2>
+						<p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+							Bring your team together with built-in code review,
+							real-time commenting, and seamless version control.
+						</p>
+					</div>
+					<ul className="grid gap-4">
+						<li className="flex items-start gap-4">
+							<div className="bg-gray-100 rounded-md flex items-center justify-center aspect-square w-10 md:w-12 dark:bg-gray-800">
+								<CheckIcon className="w-5 h-5" />
+							</div>
+							<div className="grid gap-1">
+								<h3 className="font-medium">
+									Collaborative Coding
+								</h3>
+								<p className="text-sm text-gray-500 dark:text-gray-400">
+									Invite team members to review and comment on
+									code changes in real-time.
+								</p>
+							</div>
+						</li>
+						<li className="flex items-start gap-4">
+							<div className="bg-gray-100 rounded-md flex items-center justify-center aspect-square w-10 md:w-12 dark:bg-gray-800">
+								<CheckIcon className="w-5 h-5" />
+							</div>
+							<div className="grid gap-1">
+								<h3 className="font-medium">
+									Seamless Versioning
+								</h3>
+								<p className="text-sm text-gray-500 dark:text-gray-400">
+									Track and manage code changes with built-in
+									version control.
+								</p>
+							</div>
+						</li>
+						<li className="flex items-start gap-4">
+							<div className="bg-gray-100 rounded-md flex items-center justify-center aspect-square w-10 md:w-12 dark:bg-gray-800">
+								<CheckIcon className="w-5 h-5" />
+							</div>
+							<div className="grid gap-1">
+								<h3 className="font-medium">
+									Instant Feedback
+								</h3>
+								<p className="text-sm text-gray-500 dark:text-gray-400">
+									Get immediate feedback on your code with
+									automated testing and linting.
+								</p>
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</section>
