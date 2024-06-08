@@ -1,17 +1,17 @@
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Upload } from "lucide-react";
+import { Upload, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import { getAllIssuesByProject } from "./components/utils/getIssuesByProject/getIssuesByProject";
 import { Skeleton } from "@/components/ui/skeleton";
-import { createIssue } from "./components/utils/createIssue/createIssue";
+import { Separator } from "@/components/ui/separator";
+import { isEmpty } from "lodash";
 
 const Issues = () => {
     const { idProject } = useParams();
@@ -27,22 +27,16 @@ const Issues = () => {
         console.log(issuesData);
     }, [token]);
 
-    const handleCreateIssue = async () => {
-        await createIssue(token, idProject, title, description, setIssuesData, setLoading);
-    }
     return (
         <>
             <Navbar idProject={idProject} />
 
             <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-5">
-                <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+                <div className="mx-auto grid max-w-[75rem] flex-1 auto-rows-max gap-4">
                     <div className="flex items-center gap-4">
                         <h1 className="flex-1 shrink-0 whitespace-nowrap text-3xl font-semibold tracking-tight sm:grow-0">
                             Issues
                         </h1>
-                        <Badge variant="outline" className="ml-auto sm:ml-0">
-                            {Issues.length}
-                        </Badge>
                         <div className="hidden items-center gap-2 md:ml-auto md:flex">
                             <Link to={`/issue/new/${idProject}`}>
                                 <Button size="sm">
@@ -52,195 +46,76 @@ const Issues = () => {
                         </div>
                     </div>
                     <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
-                        <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
-                            <Card x-chunk="dashboard-07-chunk-0">
+                        <div className="grid items-start gap-4 lg:col-span-2 lg:gap-8">
+                            <Card x-chunk="dashboard-07-chunk-0" className="h-full max-h-[85vh] overflow-auto">
                                 <CardHeader>
-                                    <CardTitle>Pending</CardTitle>
+                                    <div className="flex items-center gap-2">
+                                        <CardTitle>Pending</CardTitle>
+                                        <Badge variant="outline" className="ml-auto sm:ml-0">
+                                            {issuesData.length}
+                                        </Badge>
+                                    </div>
                                     <CardDescription>
                                         All issues that are pending
                                     </CardDescription>
                                 </CardHeader>
-                                <CardContent>
+                                <CardContent className="grid gap-2">
                                     {
                                         loading ? (
-                                            <div className="grid gap-5">
-                                                <Skeleton className="h-4 w-[250px]" />
-                                                <Skeleton className="h-4 w-[200px]" />
+                                            <div className="grid gap-3">
+                                                <div className="flex justify-between">
+                                                    <Skeleton className="h-6 w-20" />
+                                                    <Skeleton className="h-6 w-20" />
+                                                    <Skeleton className="h-6 w-20" />
+                                                </div>
+                                                {Array.from({ length: 8 }).map((_, index) => (
+                                                    <>
+                                                        <div key={index} className="flex justify-between">
+                                                            <Skeleton className="h-6 w-36" />
+                                                            <Skeleton className="h-6 w-44" />
+                                                            <Skeleton className="h-6 w-36" />
+                                                        </div>
+                                                        <Separator />
+                                                    </>
+                                                ))}
                                             </div>
                                         ) :
 
-                                            issuesData.length > 0 ?
-                                                issuesData.map((issue) => {
-                                                    return (
-                                                        <div key={issue.id}>
-                                                            <h1>{issue.title}</h1>
-                                                        </div>
-                                                    )
-                                                }) :
+                                            issuesData.length > 0 ? (
+                                                <Table>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHead>Title</TableHead>
+                                                            <TableHead>Description</TableHead>
+                                                            <TableHead>Created by</TableHead>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        {issuesData.map((issue) => (
+                                                            <TableRow key={issue.id}>
+                                                                <TableCell>{issue.title}</TableCell>
+                                                                <TableCell className="max-w-xs truncate">{issue.description}</TableCell>
+                                                                <TableCell className="grid place-items-center">
+                                                                    {issue.users.profileImage != null && !isEmpty(issue.users.profileImage) ? (
+                                                                        <img
+                                                                            width={40}
+                                                                            className="rounded-full h-10 object-cover"
+                                                                            src={`data:image/png;base64,${issue.users.profileImage}`}
+                                                                            alt="userImage"
+                                                                        />
+                                                                    ) : (
+                                                                        <User width={40} height={40} />
+                                                                    )}
+
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ))}
+                                                    </TableBody>
+                                                </Table>
+                                            ) :
 
                                                 <h2 className="text-2xl">No issues</h2>
                                     }
-                                </CardContent>
-                            </Card>
-                            <Card x-chunk="dashboard-07-chunk-1">
-                                <CardHeader>
-                                    <CardTitle>Stock</CardTitle>
-                                    <CardDescription>
-                                        Lipsum dolor sit amet, consectetur adipiscing elit
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                <TableHead className="w-[100px]">SKU</TableHead>
-                                                <TableHead>Stock</TableHead>
-                                                <TableHead>Price</TableHead>
-                                                <TableHead className="w-[100px]">Size</TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell className="font-semibold">
-                                                    GGPC-001
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Label htmlFor="stock-1" className="sr-only">
-                                                        Stock
-                                                    </Label>
-                                                    <Input
-                                                        id="stock-1"
-                                                        type="number"
-                                                        defaultValue="100"
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Label htmlFor="price-1" className="sr-only">
-                                                        Price
-                                                    </Label>
-                                                    <Input
-                                                        id="price-1"
-                                                        type="number"
-                                                        defaultValue="99.99"
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="font-semibold">
-                                                    GGPC-002
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Label htmlFor="stock-2" className="sr-only">
-                                                        Stock
-                                                    </Label>
-                                                    <Input
-                                                        id="stock-2"
-                                                        type="number"
-                                                        defaultValue="143"
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Label htmlFor="price-2" className="sr-only">
-                                                        Price
-                                                    </Label>
-                                                    <Input
-                                                        id="price-2"
-                                                        type="number"
-                                                        defaultValue="99.99"
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="font-semibold">
-                                                    GGPC-003
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Label htmlFor="stock-3" className="sr-only">
-                                                        Stock
-                                                    </Label>
-                                                    <Input
-                                                        id="stock-3"
-                                                        type="number"
-                                                        defaultValue="32"
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Label htmlFor="price-3" className="sr-only">
-                                                        Stock
-                                                    </Label>
-                                                    <Input
-                                                        id="price-3"
-                                                        type="number"
-                                                        defaultValue="99.99"
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                </CardContent>
-                                <CardFooter className="justify-center border-t p-4">
-                                    <Button size="sm" variant="ghost" className="gap-1">
-                                        <PlusCircle className="h-3.5 w-3.5" />
-                                        Add Variant
-                                    </Button>
-                                </CardFooter>
-                            </Card>
-                            <Card x-chunk="dashboard-07-chunk-2">
-                                <CardHeader>
-                                    <CardTitle>Product Category</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="grid gap-6 sm:grid-cols-3">
-                                        <div className="grid gap-3">
-                                            <Label htmlFor="category">Category</Label>
-                                            <Select>
-                                                <SelectTrigger
-                                                    id="category"
-                                                    aria-label="Select category"
-                                                >
-                                                    <SelectValue placeholder="Select category" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="clothing">Clothing</SelectItem>
-                                                    <SelectItem value="electronics">
-                                                        Electronics
-                                                    </SelectItem>
-                                                    <SelectItem value="accessories">
-                                                        Accessories
-                                                    </SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        </div>
-                                        <div className="grid gap-3">
-                                            <Label htmlFor="subcategory">
-                                                Subcategory (optional)
-                                            </Label>
-                                            <Select>
-                                                <SelectTrigger
-                                                    id="subcategory"
-                                                    aria-label="Select subcategory"
-                                                >
-                                                    <SelectValue placeholder="Select subcategory" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="t-shirts">T-Shirts</SelectItem>
-                                                    <SelectItem value="hoodies">Hoodies</SelectItem>
-                                                    <SelectItem value="sweatshirts">
-                                                        Sweatshirts
-                                                    </SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        </div>
-                                    </div>
                                 </CardContent>
                             </Card>
                         </div>

@@ -16,6 +16,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,12 +50,19 @@ public class IssueController {
 
 
     @GetMapping("/all/{id}")
-    public ResponseEntity getAllIssuesByProject(@PathVariable String id) {
+    public ResponseEntity<Page<Issue>> getAllIssuesByProject(
+            @PathVariable String id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
         try {
             var project = projectRepository.findById(id).orElseThrow(
                     () -> new NotFoundException("Project not found", id)
             );
-            return ResponseEntity.ok(project.getIssues());
+
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Issue> issuesPage = projectRepository.findAllByProject(project, pageable);
+
+            return ResponseEntity.ok(issuesPage);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -75,7 +85,7 @@ public class IssueController {
             @ApiResponse(responseCode = "500", description = "Internal server error."),
             @ApiResponse(responseCode = "400", description = "Invalid data.")
     })
-    public ResponseEntity<?> createIssue(@RequestBody DadosCreateNewIssue dados,
+    public ResponseEntity createIssue(@RequestBody DadosCreateNewIssue dados,
                                          @PathVariable String id) {
         try {
             // Obtendo o usuário autenticado
