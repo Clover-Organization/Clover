@@ -10,6 +10,8 @@ import com.goncalves.API.entities.files.FilesRepository;
 import com.goncalves.API.entities.filesVersions.VersionsRepository;
 import com.goncalves.API.entities.folder.Folder;
 import com.goncalves.API.entities.folder.FolderRepository;
+import com.goncalves.API.entities.issues.Issue;
+import com.goncalves.API.entities.issues.IssueRepository;
 import com.goncalves.API.entities.notification.Subject;
 import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
@@ -65,6 +67,8 @@ public class ProjectController {
     private EmailTokenService emailTokenService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private IssueRepository issueRepository;
     @Value("${app.base.url}")
     private String baseUrl;
 
@@ -344,6 +348,8 @@ public class ProjectController {
 
                 deleteAnnotationsInProject(project.getAnnotations());
 
+                deleteIssuesInProject(project.getIssues());
+
                 // Finalmente, excluir o próprio projeto
                 repository.deleteById(idProject);
 
@@ -355,6 +361,12 @@ public class ProjectController {
         } catch (Exception ex) {
             String mensagemErro = "Error deleting project: " + ex.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mensagemErro);
+        }
+    }
+
+    private void deleteIssuesInProject(List<Issue> issues) {
+        for(Issue issue : issues){
+            issueRepository.deleteById(issue.getId());
         }
     }
 

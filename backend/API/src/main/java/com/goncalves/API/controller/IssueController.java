@@ -4,6 +4,7 @@ import com.goncalves.API.DTO.BadRequestExceptionRecord;
 import com.goncalves.API.DTO.DadosCreateNewIssue;
 import com.goncalves.API.entities.issues.Issue;
 import com.goncalves.API.entities.issues.IssueRepository;
+import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.UserRepository;
 import com.goncalves.API.entities.user.Users;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller class for managing issues related to projects.
@@ -48,19 +52,34 @@ public class IssueController {
     @Autowired
     private IssueService issueService;
 
-
     @GetMapping("/all/{id}")
     public ResponseEntity<Page<Issue>> getAllIssuesByProject(
             @PathVariable String id,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "creationDate") String sort) {
         try {
-            var project = projectRepository.findById(id).orElseThrow(
+            Project project = projectRepository.findById(id).orElseThrow(
                     () -> new NotFoundException("Project not found", id)
             );
 
-            Pageable pageable = PageRequest.of(page, size);
-            Page<Issue> issuesPage = projectRepository.findAllByProject(project, pageable);
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+
+            // Obtenha os IDs dos issues no projeto
+            List<String> issueIds = project.getIssues().stream()
+                    .map(Issue::getId)
+                    .collect(Collectors.toList());
+
+            // Recupere os issues usando os IDs com paginação e ordenação
+            Page<Issue> issuesPage = issueRepository.findByIdIn(issueIds, pageable);
+
+            // Adicione os usuários aos issues recuperados
+            issuesPage.forEach(issue -> {
+                project.getIssues().stream()
+                        .filter(i -> i.getId().equals(issue.getId()))
+                        .findFirst()
+                        .ifPresent(i -> issue.setUsers(i.getUsers()));
+            });
 
             return ResponseEntity.ok(issuesPage);
         } catch (Exception e) {
@@ -86,7 +105,7 @@ public class IssueController {
             @ApiResponse(responseCode = "400", description = "Invalid data.")
     })
     public ResponseEntity createIssue(@RequestBody DadosCreateNewIssue dados,
-                                         @PathVariable String id) {
+                                      @PathVariable String id) {
         try {
             // Obtendo o usuário autenticado
             var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -113,7 +132,6 @@ public class IssueController {
                     null,
                     user
             );
-            ;
 
             var savedIssue = issueRepository.save(issue);
 

@@ -14,7 +14,7 @@ import { isEmpty } from "lodash";
 import { Pagination } from "../notification/components/paginationsNotifications/PaginationNotification";
 import SearchIssue from "./components/searchIssue/SearchIssue";
 
-const Issues = () => {
+const ViewIssue = () => {
     const { idProject } = useParams();
     const token = localStorage.getItem("token");
     const [issuesData, setIssuesData] = useState([]);
@@ -52,28 +52,34 @@ const Issues = () => {
         }
     };
 
+    const handleFilterChange = (value) => {
+        setFilterBy(value);
+    };
+
     return (
         <>
             <Navbar idProject={idProject} />
 
-            <main className="grid m-6">
-                <div className="mx-auto grid max-w-[75rem] flex-1 auto-rows-max gap-4 w-full">
+            <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-5">
+                <div className="mx-auto grid max-w-[75rem] flex-1 auto-rows-max gap-4">
                     <div className="flex items-center gap-4">
                         <h1 className="flex-1 shrink-0 whitespace-nowrap text-3xl font-semibold tracking-tight sm:grow-0">
                             Issues
                         </h1>
+                        <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                            <Link to={`/issue/new/${idProject}`}>
+                                <Button size="sm">
+                                    Create new Issue
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
-                    <div className="grid gap-4">
+                    <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                         <div className="grid items-start gap-4 lg:col-span-2 lg:gap-8">
                             <div className="grid h-full gap-4">
                                 <div>
-                                    <div className="mb-2 flex justify-between gap-5">
+                                    <div className="mb-2">
                                         <SearchIssue filter={filter} setFilter={setFilter} />
-                                        <Link to={`/issue/new/${idProject}`}>
-                                            <Button size="sm">
-                                                Create new Issue
-                                            </Button>
-                                        </Link>
                                     </div>
                                     <Card x-chunk="dashboard-07-chunk-0" className="h-[59vh] max-h-[59vh] overflow-auto">
                                         <CardHeader>
@@ -149,6 +155,80 @@ const Issues = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+                            <Card x-chunk="dashboard-07-chunk-3">
+                                <CardHeader>
+                                    <CardTitle>Filter</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="grid gap-6">
+                                        <Select onValueChange={handleFilterChange}>
+                                            <SelectTrigger className="w-[180px]">
+                                                <Filter width={20} />
+                                                <SelectValue placeholder="Filter" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel>Filter by:</SelectLabel>
+                                                    <SelectItem value="title">Title</SelectItem>
+                                                    <SelectItem value="creationDate">Creation date</SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                            <Card
+                                className="overflow-hidden" x-chunk="dashboard-07-chunk-4"
+                            >
+                                <CardHeader>
+                                    <CardTitle>Product Images</CardTitle>
+                                    <CardDescription>
+                                        Lipsum dolor sit amet, consectetur adipiscing elit
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="grid gap-2">
+                                        <div className="grid grid-cols-3 gap-2">
+                                            <button>
+                                                {/* <Image
+                                                    alt="Product image"
+                                                    className="aspect-square w-full rounded-md object-cover"
+                                                    height="84"
+                                                    src="/placeholder.svg"
+                                                    width="84"
+                                                /> */}
+                                            </button>
+
+                                            <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
+                                                <Upload className="h-4 w-4 text-muted-foreground" />
+                                                <span className="sr-only">Upload</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                            <Card x-chunk="dashboard-07-chunk-5">
+                                <CardHeader>
+                                    <CardTitle>Archive Product</CardTitle>
+                                    <CardDescription>
+                                        Lipsum dolor sit amet, consectetur adipiscing elit.
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <div></div>
+                                    <Button size="sm" variant="secondary">
+                                        Archive Product
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 md:hidden">
+                        <Button variant="outline" size="sm">
+                            Discard
+                        </Button>
+                        <Button size="sm">Save Product</Button>
                     </div>
                 </div>
             </main>
@@ -156,4 +236,4 @@ const Issues = () => {
     )
 }
 
-export default Issues;
+export default ViewIssue;

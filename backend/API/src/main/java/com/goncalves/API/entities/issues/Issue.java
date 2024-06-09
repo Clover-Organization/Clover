@@ -1,5 +1,6 @@
 package com.goncalves.API.entities.issues;
 
+import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.user.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
