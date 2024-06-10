@@ -20,7 +20,7 @@ const Issues = () => {
     const [issuesData, setIssuesData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filter, setFilter] = useState("");
-    const [filterBy, setFilterBy] = useState("creationDate"); // Default value for filterBy
+    const [filterBy, setFilterBy] = useState(""); // Default value for filterBy
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
 
@@ -68,7 +68,7 @@ const Issues = () => {
                             <div className="grid h-full gap-4">
                                 <div>
                                     <div className="mb-2 flex justify-between gap-5">
-                                        <SearchIssue filter={filter} setFilter={setFilter} />
+                                        <SearchIssue filter={filter} setFilter={setFilter} setFilterBy={setFilterBy}/>
                                         <Link to={`/issue/new/${idProject}`}>
                                             <Button size="sm">
                                                 Create new Issue
@@ -90,21 +90,22 @@ const Issues = () => {
                                         <CardContent className="grid gap-2">
                                             {
                                                 loading ? (
-                                                    <div className="grid gap-3">
+                                                    <div className="grid gap-5">
                                                         <div className="flex justify-between">
                                                             <Skeleton className="h-6 w-20" />
                                                             <Skeleton className="h-6 w-20" />
                                                             <Skeleton className="h-6 w-20" />
                                                         </div>
                                                         {Array.from({ length: 8 }).map((_, index) => (
-                                                            <>
-                                                                <div key={index} className="flex justify-between">
-                                                                    <Skeleton className="h-6 w-36" />
-                                                                    <Skeleton className="h-6 w-44" />
-                                                                    <Skeleton className="h-6 w-36" />
+                                                            // Adiciona key ao elemento raiz dentro do map
+                                                            <div key={index}>
+                                                                <div className="flex justify-between m-2">
+                                                                    <Skeleton className="h-8 w-36" />
+                                                                    <Skeleton className="h-8 w-44" />
+                                                                    <Skeleton className="rounded-full w-10 h-10" />
                                                                 </div>
                                                                 <Separator />
-                                                            </>
+                                                            </div>
                                                         ))}
                                                     </div>
                                                 ) :
@@ -119,22 +120,24 @@ const Issues = () => {
                                                             </TableHeader>
                                                             <TableBody>
                                                                 {filteredNotifications.map((issue) => (
-                                                                    <TableRow key={issue.id}>
-                                                                        <TableCell>{issue.title}</TableCell>
-                                                                        <TableCell className="max-w-xs truncate">{issue.description}</TableCell>
-                                                                        <TableCell className="grid place-items-center">
-                                                                            {issue.users.profileImage != null && !isEmpty(issue.users.profileImage) ? (
-                                                                                <img
-                                                                                    width={40}
-                                                                                    className="rounded-full h-10 object-cover"
-                                                                                    src={`data:image/png;base64,${issue.users.profileImage}`}
-                                                                                    alt="userImage"
-                                                                                />
-                                                                            ) : (
-                                                                                <User width={40} height={40} />
-                                                                            )}
-                                                                        </TableCell>
-                                                                    </TableRow>
+                                                                    <Link to={`/issue/view/${idProject}/${issue.id}`} key={issue.id} className="contents">
+                                                                        <TableRow key={issue.id}>
+                                                                            <TableCell>{issue.title}</TableCell>
+                                                                            <TableCell className="max-w-xs truncate">{issue.description}</TableCell>
+                                                                            <TableCell className="grid place-items-center">
+                                                                                {issue.users.profileImage != null && !isEmpty(issue.users.profileImage) ? (
+                                                                                    <img
+                                                                                        width={40}
+                                                                                        className="rounded-full h-10 object-cover"
+                                                                                        src={`data:image/png;base64,${issue.users.profileImage}`}
+                                                                                        alt="userImage"
+                                                                                    />
+                                                                                ) : (
+                                                                                    <User width={40} height={40} />
+                                                                                )}
+                                                                            </TableCell>
+                                                                        </TableRow>
+                                                                    </Link>
                                                                 ))}
                                                             </TableBody>
                                                         </Table>

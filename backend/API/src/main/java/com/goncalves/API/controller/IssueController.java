@@ -1,6 +1,7 @@
 package com.goncalves.API.controller;
 
 import com.goncalves.API.DTO.BadRequestExceptionRecord;
+import com.goncalves.API.DTO.DadosAtualizarIssue;
 import com.goncalves.API.DTO.DadosCreateNewIssue;
 import com.goncalves.API.entities.issues.Issue;
 import com.goncalves.API.entities.issues.IssueRepository;
@@ -15,6 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,8 +54,38 @@ public class IssueController {
     @Autowired
     private IssueService issueService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity getByProject(@PathVariable String id) {
+        try {
+            Issue issue = issueRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Issue not found", id)
+            );
+            return ResponseEntity.ok(issue);
+        } catch (InternalError e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new InternalError("Internal server error"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    /**
+     * Retrieves all issues for a given project.
+     *
+     * @param id   The ID of the project.
+     * @param page The page number for pagination (default is 0).
+     * @param size The number of issues per page (default is 10).
+     * @param sort The field to sort the issues by (default is "creationDate").
+     * @return A ResponseEntity containing a Page of Issue objects.
+     */
     @GetMapping("/all/{id}")
-    public ResponseEntity<Page<Issue>> getAllIssuesByProject(
+    @Operation(summary = "Get all issues by project.", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Issue created successfully."),
+            @ApiResponse(responseCode = "404", description = "Project not found."),
+            @ApiResponse(responseCode = "500", description = "Internal server error."),
+            @ApiResponse(responseCode = "400", description = "Invalid data.")
+    })
+    public ResponseEntity getAllIssuesByProject(
             @PathVariable String id,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -83,7 +115,10 @@ public class IssueController {
 
             return ResponseEntity.ok(issuesPage);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(new BadRequestExceptionRecord(
+                    "Error getting issues",
+                    "Error getting issues. Check if the project ID is correct."
+            ));
         }
     }
 
@@ -156,7 +191,7 @@ public class IssueController {
      * @param id The ID of the issue to be closed.
      * @return ResponseEntity containing the closed issue or an error message.
      */
-    @PostMapping("/close/{id}")
+    @PutMapping("/close/{id}")
     public ResponseEntity closeIssue(@PathVariable String id) {
         try {
             var issue = issueRepository.findById(id).orElseThrow(
@@ -168,6 +203,44 @@ public class IssueController {
             return ResponseEntity.ok(issue);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity updateIssue(@PathVariable String id, @Valid @RequestBody DadosAtualizarIssue issue) {
+        try {
+            var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            Issue issueToUpdate = issueRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Issue not found", id)
+            );
+            if(!issueToUpdate.getUsers().equals(user)){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new BadRequestExceptionRecord("User not allowed to update this issue", "user"));
+            }
+
+            validateIssue(issue);
+            issueToUpdate.setTitle(issue.title());
+            issueToUpdate.setDescription(issue.description());
+            issueRepository.save(issueToUpdate);
+
+            return ResponseEntity.ok(issueToUpdate);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (BadRequestException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    private void validateIssue(DadosAtualizarIssue issue) {
+        if (issue.title() == null || issue.title().isEmpty()) {
+            throw new BadRequestException("Title is required", "title");
+        }
+        if (issue.description() == null || issue.description().isEmpty()) {
+            throw new BadRequestException("Description is required", "description");
         }
     }
 
