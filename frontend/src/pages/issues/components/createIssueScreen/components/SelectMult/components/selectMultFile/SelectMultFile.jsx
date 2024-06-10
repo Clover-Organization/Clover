@@ -5,7 +5,6 @@ import {
     XCircle,
     ChevronDown,
     XIcon,
-    Turtle,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -26,9 +25,11 @@ import {
     CommandList,
     CommandSeparator,
 } from '@/components/ui/command';
+import GetLanguageInfos from '@/pages/projects/components/utils/getLanguageInfo/GetLanguageInfos';
+import { Link, useParams } from 'react-router-dom';
 
 const multiSelectVariants = cva(
-    'm-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300',
+    'm-1 flex gap-2',
     {
         variants: {
             variant: {
@@ -59,6 +60,7 @@ const MultiSelect = forwardRef(
         },
         ref
     ) => {
+        const { idProject } = useParams();
         const [selectedValues, setSelectedValues] = useState(defaultValue);
         const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
@@ -66,7 +68,7 @@ const MultiSelect = forwardRef(
             if (JSON.stringify(selectedValues) !== JSON.stringify(defaultValue)) {
                 setSelectedValues(defaultValue);
             }
-        }, [defaultValue, selectedValues]);
+        }, [defaultValue]);
 
         const handleInputKeyDown = (event) => {
             if (event.key === 'Enter') {
@@ -112,10 +114,12 @@ const MultiSelect = forwardRef(
                             <div className="flex justify-between items-center w-full">
                                 <div className="flex flex-wrap items-center">
                                     {selectedValues.map((value) => {
-                                        const option = options.find((o) => o.value === value);
-                                        const IconComponent = option?.icon;
+                                        const option = options.find((o) => o.idFile === value);
+                                        if (!option) return null;
                                         return (
-                                            <Badge
+                                            <Link
+                                                to={`/project/file/${idProject}/${option.idFile}`}
+                                                target='_blank'
                                                 key={value}
                                                 className={cn(
                                                     multiSelectVariants({ variant, className })
@@ -124,18 +128,29 @@ const MultiSelect = forwardRef(
                                                     animationDuration: `${animation}s`,
                                                 }}
                                             >
-                                                {IconComponent && (
-                                                    <IconComponent className="h-4 w-4 mr-2" />
-                                                )}
-                                                {option?.label}
-                                                <XCircle
-                                                    className="ml-2 h-4 w-4 cursor-pointer"
-                                                    onClick={(event) => {
-                                                        event.stopPropagation();
-                                                        toggleOption(value);
-                                                    }}
-                                                />
-                                            </Badge>
+                                                <Badge>
+                                                    {option.fileName && (
+                                                        <img
+                                                            src={
+                                                                option.fileName &&
+                                                                    GetLanguageInfos(option.fileName)
+                                                                    ? GetLanguageInfos(option.fileName).imgUrl
+                                                                    : ""
+                                                            }
+                                                            width={"20px"}
+                                                            alt={option.fileName}
+                                                        />
+                                                    )}
+                                                    {option.fileName}
+                                                    <XCircle
+                                                        className="ml-2 h-4 w-4 cursor-pointer"
+                                                        onClick={(event) => {
+                                                            event.stopPropagation();
+                                                            toggleOption(value);
+                                                        }}
+                                                    />
+                                                </Badge>
+                                            </Link>
                                         );
                                     })}
                                 </div>
@@ -178,11 +193,11 @@ const MultiSelect = forwardRef(
                             <CommandEmpty>No results found.</CommandEmpty>
                             <CommandGroup>
                                 {options.map((option) => {
-                                    const isSelected = selectedValues.includes(option.value);
+                                    const isSelected = selectedValues.includes(option.idFile);
                                     return (
                                         <CommandItem
-                                            key={option.value}
-                                            onSelect={() => toggleOption(option.value)}
+                                            key={option.idFile}
+                                            onSelect={() => toggleOption(option.idFile)}
                                             style={{
                                                 pointerEvents: 'auto',
                                                 opacity: 1,
@@ -199,10 +214,7 @@ const MultiSelect = forwardRef(
                                             >
                                                 <CheckIcon className="h-4 w-4" />
                                             </div>
-                                            {option.icon && (
-                                                <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                                            )}
-                                            <span>{option.label}</span>
+                                            <span>{option.fileName}</span>
                                         </CommandItem>
                                     );
                                 })}

@@ -3,12 +3,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/pages/components/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
 import { Asterisk, Loader2 } from "lucide-react";
 import { createIssue } from "../utils/createIssue/createIssue";
 import SelectMultFile from "./components/SelectMult/SelectMult";
+import { getAllFilesByProject } from "./components/utils/getAllFilesByProject/getAllFilesByProject";
 
 
 const CreateIssueScreen = () => {
@@ -20,10 +21,15 @@ const CreateIssueScreen = () => {
         description: ""
     });
     const [loading, setLoading] = useState(false);
+    const [files, setFiles] = useState([]);
 
     const handleCreateIssue = async () => {
         await createIssue(token, idProject, issues, setLoading, setIssues);
     }
+
+    useEffect(() => {
+        getAllFilesByProject(token, idProject, setFiles);
+    }, [token, idProject]);
 
 
     return (
@@ -67,7 +73,7 @@ const CreateIssueScreen = () => {
                                 </div>
 
                                 <div>
-                                    <SelectMultFile />
+                                    <SelectMultFile files={files}/>
                                 </div>
                             </CardContent>
                             <CardFooter className="mt-12 px-6 py-4 flex flex-wrap justify-end gap-4">
