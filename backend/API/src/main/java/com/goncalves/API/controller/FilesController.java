@@ -50,6 +50,19 @@ public class FilesController {
     @Autowired
     private VersionsRepository versionsRepository;
 
+    @GetMapping("all/project/{id}")
+    public ResponseEntity getAllFileByProject(@PathVariable String id) {
+        try {
+            var project = projectsRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Project not found", id)
+            );
+            return ResponseEntity.ok(project.getFiles());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new InternalError("Internal server error.", e));
+        }
+    }
+
     /**
      * Endpoint para obter o conteúdo de um arquivo com base nos IDs do projeto e do arquivo.
      *
