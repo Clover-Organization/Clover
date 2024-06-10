@@ -19,7 +19,7 @@ const SearchIssue = ({ filter, setFilter, setFilterBy }) => {
             <Select onValueChange={handleFilterChange}>
                 <SelectTrigger className="w-[180px]">
                     <Filter width={20} />
-                    <SelectValue placeholder="Open" />
+                    <SelectValue placeholder="All" />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>

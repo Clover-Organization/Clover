@@ -1,11 +1,11 @@
+
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { Button } from "@/components/ui/button";
-import { Filter, Upload, User } from "lucide-react";
+import { User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import { getAllIssuesByProject } from "./components/utils/getIssuesByProject/getIssuesByProject";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -94,7 +94,8 @@ const Issues = () => {
                                             {
                                                 loading ? (
                                                     <div className="grid gap-5">
-                                                        <div className="flex justify-between">
+                                                        <div className="flex justify-around">
+                                                            <Skeleton className="h-6 w-20" />
                                                             <Skeleton className="h-6 w-20" />
                                                             <Skeleton className="h-6 w-20" />
                                                             <Skeleton className="h-6 w-20" />
@@ -102,10 +103,11 @@ const Issues = () => {
                                                         {Array.from({ length: 8 }).map((_, index) => (
                                                             // Adiciona key ao elemento raiz dentro do map
                                                             <div key={index}>
-                                                                <div className="flex justify-between m-2">
+                                                                <div className="flex justify-around m-2">
                                                                     <Skeleton className="h-8 w-36" />
                                                                     <Skeleton className="h-8 w-44" />
                                                                     <Skeleton className="rounded-full w-10 h-10" />
+                                                                    <Skeleton className="h-8 w-34" />
                                                                 </div>
                                                                 <Separator />
                                                             </div>
@@ -119,15 +121,16 @@ const Issues = () => {
                                                                     <TableHead>Title</TableHead>
                                                                     <TableHead>Description</TableHead>
                                                                     <TableHead>Created by</TableHead>
+                                                                    <TableHead>Status</TableHead>
                                                                 </TableRow>
                                                             </TableHeader>
                                                             <TableBody>
                                                                 {filteredNotifications.map((issue) => (
                                                                     <Link to={`/issue/view/${idProject}/${issue.id}`} key={issue.id} className="contents">
-                                                                        <TableRow key={issue.id}>
+                                                                        <TableRow>
                                                                             <TableCell>{issue.title}</TableCell>
                                                                             <TableCell className="max-w-xs truncate">{issue.description}</TableCell>
-                                                                            <TableCell className="grid place-items-center">
+                                                                            <TableCell className="grid place-items-center max-w-24">
                                                                                 {issue.users.profileImage != null && !isEmpty(issue.users.profileImage) ? (
                                                                                     <img
                                                                                         width={40}
@@ -139,6 +142,7 @@ const Issues = () => {
                                                                                     <User width={40} height={40} />
                                                                                 )}
                                                                             </TableCell>
+                                                                            <TableCell>{issue.open ? "Open" : "Closed"}</TableCell>
                                                                         </TableRow>
                                                                     </Link>
                                                                 ))}
@@ -173,3 +177,4 @@ const Issues = () => {
 }
 
 export default Issues;
+

@@ -4,7 +4,8 @@ import { closeIssue } from "./components/utils/closeIssue/closeIssue";
 
 const CloseIssue = ({
     idIssue,
-    token
+    token,
+    idProject
 }) => {
     return (
         <AlertDialog>
@@ -20,7 +21,7 @@ const CloseIssue = ({
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => closeIssue(token, idIssue)}>Continue</AlertDialogAction>
+                    <AlertDialogAction onClick={() => closeIssue(token, idIssue, idProject)}>Continue</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

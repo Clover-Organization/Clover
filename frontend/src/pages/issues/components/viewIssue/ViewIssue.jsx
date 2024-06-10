@@ -12,6 +12,7 @@ import { isEmpty } from "lodash";
 import { Textarea } from "@/components/ui/textarea";
 import { updateIssue } from "./components/utils/updateIssue/updateIssue";
 import CloseIssue from "./components/closeIssue/CloseIssue";
+import { Badge } from "@/components/ui/badge";
 
 
 const ViewIssue = () => {
@@ -40,10 +41,15 @@ const ViewIssue = () => {
 
             <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-5">
                 <div className="mx-auto grid max-w-[75rem] flex-1 auto-rows-max gap-4">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 h-full">
                         <h1 className="flex-1 shrink-0 whitespace-nowrap text-3xl font-semibold tracking-tight sm:grow-0">
                             Issue view
                         </h1>
+                        {issueData.open ?
+                            <Badge>Open</Badge>
+                            :
+                            <Badge variant="destructive">Closed</Badge>
+                        }
                     </div>
                     <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                         <div className="grid items-start gap-4 lg:col-span-2 lg:gap-8">
@@ -193,6 +199,7 @@ const ViewIssue = () => {
                                     <CloseIssue
                                         idIssue={idIssue}
                                         token={token}
+                                        idProject={idProject}
                                     />
                                 </CardContent>
                             </Card>

@@ -1,7 +1,7 @@
 import { url } from "@/infra/url";
 import { toast } from "sonner";
 
-export const closeIssue = async (token, id) => {
+export const closeIssue = async (token, id, idProject) => {
     try {
         const response = await fetch(`${url}/issue/close/${id}`, {
             method: "PUT",
@@ -15,6 +15,7 @@ export const closeIssue = async (token, id) => {
             toast.success("success", {
                 "description": "Issue closed successfully"
             });
+            window.location.href = `/issues/${idProject}`;
         } else {
             toast.error("error", {
                 "description": "Error closing issue"

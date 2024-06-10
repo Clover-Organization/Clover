@@ -23,6 +23,7 @@ export const createIssue = async (token, idProject, issue, setLoading, setIssues
                 title: "",
                 description: ""
             });
+            location.href = `/issues/${idProject}`;
         } else {
             toast.error("error", {
                 "description": "Error creating issue"
