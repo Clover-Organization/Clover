@@ -20,19 +20,20 @@ const Issues = () => {
     const [issuesData, setIssuesData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filter, setFilter] = useState("");
-    const [filterBy, setFilterBy] = useState(""); // Default value for filterBy
+    const [filterBy, setFilterBy] = useState("creationDate");
+    const [filterOpen, setFilterOpen] = useState(""); // Default value for filterOpen
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
 
     const handleGetAllIssues = async () => {
-        await getAllIssuesByProject(token, setIssuesData, idProject, setLoading, page, filterBy, setTotalPages);
+        await getAllIssuesByProject(token, setIssuesData, idProject, setLoading, page, filterBy, setTotalPages, filterOpen);
     }
 
     useEffect(() => {
         if (token) {
             handleGetAllIssues();
         }
-    }, [token, filterBy, page]); // Added filterBy and page as dependencies
+    }, [token, filterBy, page, filterOpen]); // Added filterBy, page, and filterOpen as dependencies
 
     const filteredNotifications = issuesData.filter(issue => {
         return issue.title.toLowerCase().includes(filter.toLowerCase());
@@ -67,8 +68,8 @@ const Issues = () => {
                         <div className="grid items-start gap-4 lg:col-span-2 lg:gap-8">
                             <div className="grid h-full gap-4">
                                 <div>
-                                    <div className="mb-2 flex justify-between gap-5">
-                                        <SearchIssue filter={filter} setFilter={setFilter} setFilterBy={setFilterBy}/>
+                                    <div className="mb-2 flex flex-wrap justify-between gap-5">
+                                        <SearchIssue filter={filter} setFilter={setFilter} setFilterBy={setFilterOpen} handleGetAllIssues={handleGetAllIssues} />
                                         <Link to={`/issue/new/${idProject}`}>
                                             <Button size="sm">
                                                 Create new Issue
@@ -116,14 +117,15 @@ const Issues = () => {
                                                                     <TableHead>Title</TableHead>
                                                                     <TableHead>Description</TableHead>
                                                                     <TableHead>Created by</TableHead>
+                                                                    <TableHead>Status</TableHead>
                                                                 </TableRow>
                                                             </TableHeader>
                                                             <TableBody>
                                                                 {filteredNotifications.map((issue) => (
                                                                     <Link to={`/issue/view/${idProject}/${issue.id}`} key={issue.id} className="contents">
                                                                         <TableRow key={issue.id}>
-                                                                            <TableCell>{issue.title}</TableCell>
-                                                                            <TableCell className="max-w-xs truncate">{issue.description}</TableCell>
+                                                                            <TableCell className="max-w-72 truncate">{issue.title}</TableCell>
+                                                                            <TableCell className="max-w-72 truncate">{issue.description}</TableCell>
                                                                             <TableCell className="grid place-items-center">
                                                                                 {issue.users.profileImage != null && !isEmpty(issue.users.profileImage) ? (
                                                                                     <img
@@ -136,6 +138,7 @@ const Issues = () => {
                                                                                     <User width={40} height={40} />
                                                                                 )}
                                                                             </TableCell>
+                                                                            <TableCell className="max-w-xs truncate">{issue.open ? "Open" : "Closed"}</TableCell>
                                                                         </TableRow>
                                                                     </Link>
                                                                 ))}

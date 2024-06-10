@@ -68,19 +68,10 @@ public class IssueController {
         }
     }
 
-    /**
-     * Retrieves all issues for a given project.
-     *
-     * @param id   The ID of the project.
-     * @param page The page number for pagination (default is 0).
-     * @param size The number of issues per page (default is 10).
-     * @param sort The field to sort the issues by (default is "creationDate").
-     * @return A ResponseEntity containing a Page of Issue objects.
-     */
     @GetMapping("/all/{id}")
-    @Operation(summary = "Get all issues by project.", method = "POST")
+    @Operation(summary = "Get all issues by project.", method = "GET")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Issue created successfully."),
+            @ApiResponse(responseCode = "200", description = "Issues retrieved successfully."),
             @ApiResponse(responseCode = "404", description = "Project not found."),
             @ApiResponse(responseCode = "500", description = "Internal server error."),
             @ApiResponse(responseCode = "400", description = "Invalid data.")
@@ -89,7 +80,8 @@ public class IssueController {
             @PathVariable String id,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "creationDate") String sort) {
+            @RequestParam(defaultValue = "creationDate") String sort,
+            @RequestParam(required = false) Boolean open) {
         try {
             Project project = projectRepository.findById(id).orElseThrow(
                     () -> new NotFoundException("Project not found", id)
@@ -102,8 +94,15 @@ public class IssueController {
                     .map(Issue::getId)
                     .collect(Collectors.toList());
 
-            // Recupere os issues usando os IDs com paginação e ordenação
-            Page<Issue> issuesPage = issueRepository.findByIdIn(issueIds, pageable);
+            Page<Issue> issuesPage;
+
+            if (open != null) {
+                // Recupere os issues usando os IDs com paginação, ordenação e filtro de open
+                issuesPage = issueRepository.findByIdInAndOpen(issueIds, open, pageable);
+            } else {
+                // Recupere os issues usando os IDs com paginação e ordenação sem filtro
+                issuesPage = issueRepository.findByIdIn(issueIds, pageable);
+            }
 
             // Adicione os usuários aos issues recuperados
             issuesPage.forEach(issue -> {
@@ -121,7 +120,6 @@ public class IssueController {
             ));
         }
     }
-
 
     /**
      * Creates a new issue for a project.
@@ -214,7 +212,7 @@ public class IssueController {
             Issue issueToUpdate = issueRepository.findById(id).orElseThrow(
                     () -> new NotFoundException("Issue not found", id)
             );
-            if(!issueToUpdate.getUsers().equals(user)){
+            if (!issueToUpdate.getUsers().equals(user)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new BadRequestExceptionRecord("User not allowed to update this issue", "user"));
             }

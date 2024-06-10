@@ -14,4 +14,7 @@ import java.util.List;
 public interface IssueRepository extends MongoRepository<Issue, String> {
     @Query("{ '_id': { '$in': ?0 } }")
     Page<Issue> findByIdIn(List<String> ids, Pageable pageable);
+
+    @Query("{ '_id': { '$in': ?0 }, 'open': ?1 }")
+    Page<Issue> findByIdInAndOpen(List<String> issueIds, Boolean open, Pageable pageable);
 }

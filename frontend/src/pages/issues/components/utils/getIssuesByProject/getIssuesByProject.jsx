@@ -1,9 +1,9 @@
 import { url } from "@/infra/url";
 
-export const getAllIssuesByProject = async (token, setIssues, idProject, setLoading, page, filterBy, setTotalPages) => {
+export const getAllIssuesByProject = async (token, setIssues, idProject, setLoading, page, filterBy, setTotalPages, filterOpen) => {
     try {
         setLoading(true);
-        const response = await fetch(`${url}/issue/all/${idProject}?page=${page}&sort=${filterBy}`, {
+        const response = await fetch(`${url}/issue/all/${idProject}?page=${page}&sort=${filterBy}&open=${filterOpen}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
