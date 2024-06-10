@@ -50,8 +50,9 @@ export default function WelcomeHeader({ idProject }) {
 								<ModeToggle />
 								{!role ? (
 									<>
-										<Button variant="ghost" asChild><Link to="/auth/register">Sign Up</Link></Button>
-										<Button asChild><Link to="/auth/login">Sign In</Link></Button>
+										
+										<Button variant="ghost" asChild><Link to="/auth/login">Sign In</Link></Button>
+										<Button asChild><Link to="/auth/register">Sign Up</Link></Button>
 									</>
 								) : (
 									<div className="flex">

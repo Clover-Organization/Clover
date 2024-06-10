@@ -1,48 +1,58 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../style/style.css";
-import computer from "./assets/imgFront.png";
-import seta from "./assets/imgSeta.png";
 import { Link } from "react-router-dom";
+import { SparklesCore } from "@/components/ui/sparkles";
+import Spline from "@splinetool/react-spline";
+import { GitCompareArrows, Users, Blocks } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Github } from "lucide-react";
+import "./WelcomeIntro.css";
 
 const WelcomeIntro = () => {
-  return (
-    <section className="welcomeIntroSection">
-      <article className="welcomeIntroArticle">
-        <div className="welcomeTxt">
-          <span>Rest easy knowing your calls are in good hands.</span>
-          <div className="btnTxt">
-            <Link to={"/auth/register"}>
-              <button className="animated-button">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="arr-2"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                </svg>
-                <span className="text">Start</span>
-                <span className="circle"></span>
-                <svg
-                  viewBox="0 0 24 24"
-                  className="arr-1"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                </svg>
-              </button>
-            </Link>
-          </div>
-        </div>
-        <img src={computer} alt="" />
-      </article>
-      <div className="animation">
-        <a href="#hyper">
-          <div className="setaWelcomeIntro">
-            <img src={seta} alt="descer" />
-          </div>
-        </a>
-      </div>
-    </section>
-  );
+	return (
+		<section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10 h-screen">
+			<div className="text-center lg:text-start space-y-6">
+				<main className="text-5xl md:text-6xl font-bold">
+					<h1 className="inline">
+						<span className="inline ">Be clever.</span>
+					</h1>{" "}
+					<h2 className="inline">
+						<span className="inline bg-gradient-to-r from-lime-400 to-emerald-500 text-transparent bg-clip-text">
+							Use Clover.
+						</span>
+					</h2>
+				</main>
+
+				<h4 className="text-2xl text-balance font-light opacity-70">
+					Unlock your coding potential effortlessly with Clover. 
+					Where versioning becomes intuitive and coding 
+					becomes a breeze for programming learners
+				</h4>
+				
+				<div className="space-y-4 md:space-y-0 md:space-x-4">
+					<Link to={"/auth/register"}>
+						<Button className="w-full md:w-1/3">Get Started</Button>
+					</Link>
+					<a
+						rel="noreferrer noopener"
+						href="https://github.com/thepokenik/clover"
+						target="_blank"
+						className={`w-full md:w-1/3 ${buttonVariants({
+							variant: "outline",
+						})}`}
+					>
+						Github Repository
+						<Github className="ml-2 w-5 h-5" />
+					</a>
+				</div>
+			</div>
+	
+			{/* <Spline scene="https://prod.spline.design/hwGO6CLjozmoM-zX/scene.splinecode" /> */}
+
+			{/* Shadow effect */}
+			<div className="shadow"></div>
+		</section>
+	);
 };
+
 export default WelcomeIntro;
