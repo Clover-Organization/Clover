@@ -72,6 +72,7 @@ const MultiSelect = forwardRef(
 
         const handleInputKeyDown = (event) => {
             if (event.key === 'Enter') {
+                console.log(event.currentTarget.value);
                 setIsPopoverOpen(true);
             } else if (event.key === 'Backspace' && !event.currentTarget.value) {
                 const newSelectedValues = [...selectedValues];
@@ -117,9 +118,7 @@ const MultiSelect = forwardRef(
                                         const option = options.find((o) => o.idFile === value);
                                         if (!option) return null;
                                         return (
-                                            <Link
-                                                to={`/project/file/${idProject}/${option.idFile}`}
-                                                target='_blank'
+                                            <Badge
                                                 key={value}
                                                 className={cn(
                                                     multiSelectVariants({ variant, className })
@@ -128,29 +127,33 @@ const MultiSelect = forwardRef(
                                                     animationDuration: `${animation}s`,
                                                 }}
                                             >
-                                                <Badge>
-                                                    {option.fileName && (
-                                                        <img
-                                                            src={
-                                                                option.fileName &&
-                                                                    GetLanguageInfos(option.fileName)
-                                                                    ? GetLanguageInfos(option.fileName).imgUrl
-                                                                    : ""
-                                                            }
-                                                            width={"20px"}
-                                                            alt={option.fileName}
-                                                        />
-                                                    )}
-                                                    {option.fileName}
-                                                    <XCircle
-                                                        className="ml-2 h-4 w-4 cursor-pointer"
-                                                        onClick={(event) => {
-                                                            event.stopPropagation();
-                                                            toggleOption(value);
-                                                        }}
+                                                {option.fileName && (
+                                                    <img
+                                                        src={
+                                                            option.fileName &&
+                                                                GetLanguageInfos(option.fileName)
+                                                                ? GetLanguageInfos(option.fileName).imgUrl
+                                                                : ""
+                                                        }
+                                                        width={"20px"}
+                                                        alt={option.fileName}
                                                     />
-                                                </Badge>
-                                            </Link>
+                                                )}
+                                                <Link
+                                                    to={`/project/file/${idProject}/${option.idFile}`}
+                                                    target='_blank'
+                                                    className='text-secondary'
+                                                >
+                                                    {option.fileName}
+                                                </Link>
+                                                <XCircle
+                                                    className="ml-2 h-4 w-4 cursor-pointer"
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        toggleOption(value);
+                                                    }}
+                                                />
+                                            </Badge>
                                         );
                                     })}
                                 </div>
@@ -180,7 +183,7 @@ const MultiSelect = forwardRef(
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent
-                    className="w-[200px] p-0"
+                    className="w-full md:w-[400px] p-0"
                     align="start"
                     onEscapeKeyDown={() => setIsPopoverOpen(false)}
                 >
@@ -202,7 +205,7 @@ const MultiSelect = forwardRef(
                                                 pointerEvents: 'auto',
                                                 opacity: 1,
                                             }}
-                                            className="cursor-pointer"
+                                            className="cursor-pointer hover:bg-accent"
                                         >
                                             <div
                                                 className={cn(
