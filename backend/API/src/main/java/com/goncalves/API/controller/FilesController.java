@@ -13,6 +13,7 @@ import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.request.ProjectRepository;
 import com.goncalves.API.entities.user.Users;
 import com.goncalves.API.infra.exception.ErrorNotFoundId;
+import com.goncalves.API.infra.exception.ErrorResponse;
 import com.goncalves.API.infra.exception.NotFoundException;
 import com.goncalves.API.infra.exception.Successfully;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,6 +50,43 @@ public class FilesController {
     private FolderRepository folderRepository;
     @Autowired
     private VersionsRepository versionsRepository;
+
+    @GetMapping("all/project/{id}")
+    public ResponseEntity getAllFilesByProject(@PathVariable String id) {
+        try {
+            List<Files> allFiles = new ArrayList<>();
+            var project = projectsRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Project not found", id)
+            );
+            // Adicionar arquivos do projeto
+            allFiles.addAll(project.getFiles());
+
+            // Adicionar arquivos das pastas do projeto
+            allFiles.addAll(getAllFilesInFolders(project.getFolders()));
+
+            return ResponseEntity.ok(allFiles);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("Project not found"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new InternalError("Internal server error.", e));
+        }
+    }
+
+    private List<Files> getAllFilesInFolders(List<Folder> folders) {
+        List<Files> files = new ArrayList<>();
+        for (Folder folder : folders) {
+            // Adicionar arquivos da pasta atual
+            files.addAll(folder.getFiles());
+
+            // Adicionar arquivos das subpastas recursivamente
+            files.addAll(getAllFilesInFolders(folder.getSubFolders()));
+        }
+        return files;
+    }
+
+
 
     /**
      * Endpoint para obter o conteúdo de um arquivo com base nos IDs do projeto e do arquivo.
