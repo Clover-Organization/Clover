@@ -68,13 +68,15 @@ const Issues = () => {
                         <div className="grid items-start gap-4 lg:col-span-2 lg:gap-8">
                             <div className="grid h-full gap-4">
                                 <div>
-                                    <div className="mb-2 flex flex-wrap justify-between gap-5">
+                                    <div className="mb-2 flex justify-between gap-5">
                                         <SearchIssue filter={filter} setFilter={setFilter} setFilterBy={setFilterOpen} handleGetAllIssues={handleGetAllIssues} />
-                                        <Link to={`/issue/new/${idProject}`}>
-                                            <Button size="sm">
-                                                Create new Issue
-                                            </Button>
-                                        </Link>
+                                        {issuesData.length > 0 && (
+                                            <Link to={`/issue/new/${idProject}`}>
+                                                <Button size="sm">
+                                                    Create new Issue
+                                                </Button>
+                                            </Link>
+                                        )}
                                     </div>
                                     <Card x-chunk="dashboard-07-chunk-0" className="h-[59vh] max-h-[59vh] overflow-auto">
                                         <CardHeader>
@@ -117,15 +119,14 @@ const Issues = () => {
                                                                     <TableHead>Title</TableHead>
                                                                     <TableHead>Description</TableHead>
                                                                     <TableHead>Created by</TableHead>
-                                                                    <TableHead>Status</TableHead>
                                                                 </TableRow>
                                                             </TableHeader>
                                                             <TableBody>
                                                                 {filteredNotifications.map((issue) => (
                                                                     <Link to={`/issue/view/${idProject}/${issue.id}`} key={issue.id} className="contents">
                                                                         <TableRow key={issue.id}>
-                                                                            <TableCell className="max-w-72 truncate">{issue.title}</TableCell>
-                                                                            <TableCell className="max-w-72 truncate">{issue.description}</TableCell>
+                                                                            <TableCell>{issue.title}</TableCell>
+                                                                            <TableCell className="max-w-xs truncate">{issue.description}</TableCell>
                                                                             <TableCell className="grid place-items-center">
                                                                                 {issue.users.profileImage != null && !isEmpty(issue.users.profileImage) ? (
                                                                                     <img
@@ -138,14 +139,23 @@ const Issues = () => {
                                                                                     <User width={40} height={40} />
                                                                                 )}
                                                                             </TableCell>
-                                                                            <TableCell className="max-w-xs truncate">{issue.open ? "Open" : "Closed"}</TableCell>
                                                                         </TableRow>
                                                                     </Link>
                                                                 ))}
                                                             </TableBody>
                                                         </Table>
                                                     ) :
-                                                        <h2 className="text-2xl">No issues</h2>
+                                                        <div className="flex flex-col items-center justify-center text-center p-4">
+                                                            <CardTitle className="text-2xl font-bold mb-2">No Issues Found</CardTitle>
+                                                            <CardDescription className="text-gray-500 mb-4">
+                                                                It looks like there are no issues here yet. Start by creating your first issue!
+                                                            </CardDescription>
+                                                            <Link to={`/issue/new/${idProject}`}>
+                                                                <Button size="lg" className="w-full">
+                                                                    Create New Issue
+                                                                </Button>
+                                                            </Link>
+                                                        </div>
                                             }
                                         </CardContent>
                                     </Card>
