@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,16 +32,23 @@ public class Issue {
 
     @DBRef
     private Users users;
-//    @DBRef
-//    private List<Files>
+    @DBRef
+    private List<String> files;
 
-    public Issue(String title, String description, boolean open, LocalDateTime creationDate, LocalDateTime closeDate, Users users) {
+    public Issue(String title,
+                 String description,
+                 boolean open,
+                 LocalDateTime creationDate,
+                 LocalDateTime closeDate,
+                 Users users,
+                 List<String> files) {
         this.title = title;
         this.description = description;
         this.open = open;
         this.creationDate = creationDate;
         this.closeDate = closeDate;
         this.users = users;
+        this.files = files;
     }
 
 }

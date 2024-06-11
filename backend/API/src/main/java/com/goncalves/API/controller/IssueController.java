@@ -137,8 +137,9 @@ public class IssueController {
             @ApiResponse(responseCode = "500", description = "Internal server error."),
             @ApiResponse(responseCode = "400", description = "Invalid data.")
     })
-    public ResponseEntity createIssue(@RequestBody DadosCreateNewIssue dados,
-                                      @PathVariable String id) {
+    public ResponseEntity createIssue(@RequestPart("dados") DadosCreateNewIssue dados,
+                                      @PathVariable String id,
+                                      @RequestPart(value = "files", required = false) List<String> files) {
         try {
             // Obtendo o usuário autenticado
             var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -163,7 +164,8 @@ public class IssueController {
                     true,
                     LocalDateTime.now(),
                     null,
-                    user
+                    user,
+                    files
             );
 
             var savedIssue = issueRepository.save(issue);
