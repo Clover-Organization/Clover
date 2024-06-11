@@ -10,6 +10,9 @@ import {
 	MessageCircleIcon,
 	CalendarIcon,
 	DollarSignIcon,
+	Code,
+	Map,
+	FolderOpen 
 } from "lucide-react";
 import RoadMap from "@/pages/roadmap/RoadMap";
 import RoadmapPreview from "@/pages/docs/components/roadmap/components/roadmapPreview/RoadmapPreview";
@@ -44,7 +47,7 @@ const WelcomeService = () => {
 								className="flex items-start gap-2 p-3"
 								onClick={() => setSelectedTab("Projects")}
 							>
-								<HomeIcon className="w-5 h-5" />
+								<FolderOpen className="w-5 h-5" />
 								<span className="font-medium">
 									Build Projects
 								</span>
@@ -71,7 +74,7 @@ const WelcomeService = () => {
 								className="flex items-start gap-2 p-3"
 								onClick={() => setSelectedTab("Editor")}
 							>
-								<MessageCircleIcon className="w-5 h-5" />
+								<Code className="w-5 h-5"/>
 								<span className="font-medium">
 									Clover Editor
 								</span>
@@ -97,7 +100,7 @@ const WelcomeService = () => {
 								className="flex items-start gap-2 p-3"
 								onClick={() => setSelectedTab("Roadmaps")}
 							>
-								<CalendarIcon className="w-5 h-5" />
+								<Map className="w-5 h-5" />
 								<span className="font-medium">
 									Clover Roadmaps
 								</span>
