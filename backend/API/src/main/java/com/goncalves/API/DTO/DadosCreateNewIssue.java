@@ -1,4 +1,6 @@
 package com.goncalves.API.DTO;
 
-public record DadosCreateNewIssue(String title, String description){
+import java.util.List;
+
+public record DadosCreateNewIssue(String title, String description, List<String> files){
 }

@@ -24,10 +24,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -128,7 +130,7 @@ public class IssueController {
      * @param id    The ID of the project.
      * @return ResponseEntity containing the created issue or an error message.
      */
-    @PostMapping("/create/project/{id}")
+    @PostMapping(value = "/create/project/{id}")
     @Transactional
     @Operation(summary = "Create a new Issue and update project", method = "POST")
     @ApiResponses(value = {
@@ -137,9 +139,8 @@ public class IssueController {
             @ApiResponse(responseCode = "500", description = "Internal server error."),
             @ApiResponse(responseCode = "400", description = "Invalid data.")
     })
-    public ResponseEntity createIssue(@RequestPart("dados") DadosCreateNewIssue dados,
-                                      @PathVariable String id,
-                                      @RequestPart(value = "files", required = false) List<String> files) {
+    public ResponseEntity createIssue(@PathVariable String id,
+                                      @RequestBody DadosCreateNewIssue dados) {
         try {
             // Obtendo o usuário autenticado
             var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -165,7 +166,7 @@ public class IssueController {
                     LocalDateTime.now(),
                     null,
                     user,
-                    files
+                    dados.files()
             );
 
             var savedIssue = issueRepository.save(issue);
@@ -179,11 +180,10 @@ public class IssueController {
         } catch (BadRequestException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            // Capturando qualquer outra exceção não prevista
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Internal server error");
         }
     }
-
 
     /**
      * Closes an issue.

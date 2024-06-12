@@ -1,7 +1,5 @@
 package com.goncalves.API.entities.issues;
 
-import com.goncalves.API.entities.files.Files;
-import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.user.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,11 +27,11 @@ public class Issue {
     private boolean open;
     private LocalDateTime creationDate;
     private LocalDateTime closeDate;
+    private List<String> files;
 
     @DBRef
     private Users users;
-    @DBRef
-    private List<String> files;
+
 
     public Issue(String title,
                  String description,

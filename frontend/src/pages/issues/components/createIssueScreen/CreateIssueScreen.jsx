@@ -8,8 +8,8 @@ import { Link, useParams } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
 import { Asterisk, Loader2 } from "lucide-react";
 import { createIssue } from "../utils/createIssue/createIssue";
-import SelectMultFile from "./components/SelectMult/SelectMult";
 import { getAllFilesByProject } from "./components/utils/getAllFilesByProject/getAllFilesByProject";
+import MultiSelect from "./components/SelectMult/components/selectMultFile/SelectMultFile";
 
 
 const CreateIssueScreen = () => {
@@ -18,12 +18,15 @@ const CreateIssueScreen = () => {
     const token = localStorage.getItem("token");
     const [issues, setIssues] = useState({
         title: "",
-        description: ""
+        description: "",
+        files: []
     });
     const [loading, setLoading] = useState(false);
     const [files, setFiles] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState([]);
 
     const handleCreateIssue = async () => {
+        issues.files = selectedFiles;
         await createIssue(token, idProject, issues, setLoading, setIssues);
     }
 
@@ -73,7 +76,17 @@ const CreateIssueScreen = () => {
                                 </div>
 
                                 <div>
-                                    <SelectMultFile files={files}/>
+                                    <div className="grid gap-4 w-full">
+                                        <Label>Select Files</Label>
+                                        <MultiSelect
+                                            options={files}
+                                            onValueChange={setSelectedFiles}
+                                            defaultValue={selectedFiles}
+                                            placeholder="Select Files"
+                                            animation={2}
+                                            variant="inverted"
+                                        />
+                                    </div>
                                 </div>
                             </CardContent>
                             <CardFooter className="mt-12 px-6 py-4 flex flex-wrap justify-end gap-4">
