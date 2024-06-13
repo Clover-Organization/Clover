@@ -193,7 +193,7 @@ const MultiSelect = forwardRef(
                             onKeyDown={handleInputKeyDown}
                         />
                         <CommandList>
-                            <CommandEmpty>No results found.</CommandEmpty>
+                            {options.length > 0 ? (
                             <CommandGroup>
                                 {options.map((option) => {
                                     const isSelected = selectedValues.includes(option.idFile);
@@ -222,6 +222,9 @@ const MultiSelect = forwardRef(
                                     );
                                 })}
                             </CommandGroup>
+                            ): (
+                                <CommandEmpty>No options available</CommandEmpty>
+                            )}
                             <CommandSeparator />
                             <CommandGroup>
                                 <div className="flex items-center justify-between">

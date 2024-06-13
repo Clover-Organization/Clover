@@ -3,6 +3,8 @@ package com.goncalves.API.controller;
 import com.goncalves.API.DTO.BadRequestExceptionRecord;
 import com.goncalves.API.DTO.DadosAtualizarIssue;
 import com.goncalves.API.DTO.DadosCreateNewIssue;
+import com.goncalves.API.entities.files.Files;
+import com.goncalves.API.entities.files.FilesRepository;
 import com.goncalves.API.entities.issues.Issue;
 import com.goncalves.API.entities.issues.IssueRepository;
 import com.goncalves.API.entities.request.Project;
@@ -24,14 +26,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +56,9 @@ public class IssueController {
 
     @Autowired
     private IssueService issueService;
+
+    @Autowired
+    private FilesRepository filesRepository;
 
     @GetMapping("/{id}")
     public ResponseEntity getByProject(@PathVariable String id) {
@@ -120,6 +124,23 @@ public class IssueController {
                     "Error getting issues",
                     "Error getting issues. Check if the project ID is correct."
             ));
+        }
+    }
+
+    @PostMapping("/files")
+    public ResponseEntity getFiles(@RequestBody List<String> id) {
+        try {
+            List<Files> filesList = new ArrayList<>();
+            for(var idFile : id){
+                var file = filesRepository.findById(idFile).orElseThrow(
+                    () -> new NotFoundException("File not found", idFile)
+                );
+                filesList.add(file);
+            }
+
+            return ResponseEntity.ok(filesList);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 

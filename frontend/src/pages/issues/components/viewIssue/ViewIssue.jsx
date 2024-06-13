@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Loader2, Upload, User } from "lucide-react";
+import { Loader2, User } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,20 +13,39 @@ import { Textarea } from "@/components/ui/textarea";
 import { updateIssue } from "./components/utils/updateIssue/updateIssue";
 import CloseIssue from "./components/closeIssue/CloseIssue";
 import { Badge } from "@/components/ui/badge";
+import { getFilesIssue } from "./components/utils/getFilesIssue/getFilesIssue";
+import GetLanguageInfos from "@/pages/projects/components/utils/getLanguageInfo/GetLanguageInfos";
 
 
 const ViewIssue = () => {
     const { idProject, idIssue } = useParams();
     const token = localStorage.getItem("token");
     const [issueData, setIssueData] = useState({});
+    const [filesRequest, setFilesRequest] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingButtonUpdate, setLoadingButtonUpdate] = useState(false);
 
     useEffect(() => {
-        if (token) {
-            getIssueById(token, idIssue, setIssueData, setLoading);
-        }
+        const fetchIssueData = async () => {
+            if (token && idIssue) {
+                setLoading(true);
+                await getIssueById(token, idIssue, setIssueData, setLoading);
+                setLoading(false);
+            }
+        };
+
+        fetchIssueData();
     }, [token, idIssue]);
+
+    useEffect(() => {
+        const fetchFiles = async () => {
+            if (token && issueData) {
+                await getFilesIssue(token, issueData, setFilesRequest);
+            }
+        };
+
+        fetchFiles();
+    }, [token, issueData]);
 
     const handleInputChange = (e) => {
         setIssueData({
@@ -34,7 +53,6 @@ const ViewIssue = () => {
             [e.target.name]: e.target.value,
         });
     };
-
     return (
         <>
             <Navbar idProject={idProject} />
@@ -162,29 +180,54 @@ const ViewIssue = () => {
                                 className="overflow-hidden" x-chunk="dashboard-07-chunk-4"
                             >
                                 <CardHeader>
-                                    <CardTitle>Product Images</CardTitle>
+                                    <CardTitle>Files</CardTitle>
                                     <CardDescription>
-                                        Lipsum dolor sit amet, consectetur adipiscing elit
+                                        All files related to the issue
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="grid gap-2">
-                                        <div className="grid grid-cols-3 gap-2">
-                                            <button>
-                                                {/* <Image
-                                                    alt="Product image"
-                                                    className="aspect-square w-full rounded-md object-cover"
-                                                    height="84"
-                                                    src="/placeholder.svg"
-                                                    width="84"
-                                                /> */}
-                                            </button>
+                                    <div className="grid gap-2 max-h-56 overflow-auto">
+                                        {
+                                            loading ? (
+                                                <div className="flex items-center space-x-4">
+                                                    <Skeleton className="h-[80px] w-[80px] rounded-full" />
+                                                    <div className="space-y-2">
+                                                        <Skeleton className="h-4 w-[250px]" />
+                                                        <Skeleton className="h-4 w-[200px]" />
+                                                    </div>
+                                                </div>
+                                            ) :
+                                                <>
+                                                    {
+                                                        filesRequest && filesRequest.length > 0 ? (
+                                                            filesRequest.map((file, index) => (
+                                                                <div key={index} className="grid gap-2">
+                                                                    <Link to={`/project/file/${idProject}/${file.idFile}`} target="_blank" className="flex gap-2">
+                                                                        {file.fileName && (
+                                                                            <img
+                                                                                src={
+                                                                                    file.fileName &&
+                                                                                        GetLanguageInfos(file.fileName)
+                                                                                        ? GetLanguageInfos(file.fileName).imgUrl
+                                                                                        : ""
+                                                                                }
+                                                                                width={"20px"}
+                                                                                alt={file.fileName}
+                                                                            />
+                                                                        )}
+                                                                        <span>{file.fileName}</span>
+                                                                    </Link>
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <div className="grid gap-2">
+                                                                <span className="text-2xl">No files</span>
+                                                            </div>
+                                                        )
 
-                                            <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
-                                                <Upload className="h-4 w-4 text-muted-foreground" />
-                                                <span className="sr-only">Upload</span>
-                                            </button>
-                                        </div>
+                                                    }
+                                                </>
+                                        }
                                     </div>
                                 </CardContent>
                             </Card>
