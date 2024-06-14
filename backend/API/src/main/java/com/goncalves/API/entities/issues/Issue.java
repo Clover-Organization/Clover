@@ -1,7 +1,5 @@
 package com.goncalves.API.entities.issues;
 
-import com.goncalves.API.entities.files.Files;
-import com.goncalves.API.entities.request.Project;
 import com.goncalves.API.entities.user.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,19 +27,26 @@ public class Issue {
     private boolean open;
     private LocalDateTime creationDate;
     private LocalDateTime closeDate;
+    private List<String> files;
 
     @DBRef
     private Users users;
-//    @DBRef
-//    private List<Files>
 
-    public Issue(String title, String description, boolean open, LocalDateTime creationDate, LocalDateTime closeDate, Users users) {
+
+    public Issue(String title,
+                 String description,
+                 boolean open,
+                 LocalDateTime creationDate,
+                 LocalDateTime closeDate,
+                 Users users,
+                 List<String> files) {
         this.title = title;
         this.description = description;
         this.open = open;
         this.creationDate = creationDate;
         this.closeDate = closeDate;
         this.users = users;
+        this.files = files;
     }
 
 }

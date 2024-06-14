@@ -72,7 +72,6 @@ const MultiSelect = forwardRef(
 
         const handleInputKeyDown = (event) => {
             if (event.key === 'Enter') {
-                console.log(event.currentTarget.value);
                 setIsPopoverOpen(true);
             } else if (event.key === 'Backspace' && !event.currentTarget.value) {
                 const newSelectedValues = [...selectedValues];
@@ -193,35 +192,38 @@ const MultiSelect = forwardRef(
                             onKeyDown={handleInputKeyDown}
                         />
                         <CommandList>
-                            <CommandEmpty>No results found.</CommandEmpty>
-                            <CommandGroup>
-                                {options.map((option) => {
-                                    const isSelected = selectedValues.includes(option.idFile);
-                                    return (
-                                        <CommandItem
-                                            key={option.idFile}
-                                            onSelect={() => toggleOption(option.idFile)}
-                                            style={{
-                                                pointerEvents: 'auto',
-                                                opacity: 1,
-                                            }}
-                                            className="cursor-pointer hover:bg-accent"
-                                        >
-                                            <div
-                                                className={cn(
-                                                    'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                                                    isSelected
-                                                        ? 'bg-primary text-primary-foreground'
-                                                        : 'opacity-50 [&_svg]:invisible'
-                                                )}
+                            {options.length > 0 ? (
+                                <CommandGroup>
+                                    {options.map((option) => {
+                                        const isSelected = selectedValues.includes(option.idFile);
+                                        return (
+                                            <CommandItem
+                                                key={option.idFile}
+                                                onSelect={() => toggleOption(option.idFile)}
+                                                style={{
+                                                    pointerEvents: 'auto',
+                                                    opacity: 1,
+                                                }}
+                                                className="cursor-pointer hover:bg-accent"
                                             >
-                                                <CheckIcon className="h-4 w-4" />
-                                            </div>
-                                            <span>{option.fileName}</span>
-                                        </CommandItem>
-                                    );
-                                })}
-                            </CommandGroup>
+                                                <div
+                                                    className={cn(
+                                                        'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+                                                        isSelected
+                                                            ? 'bg-primary text-primary-foreground'
+                                                            : 'opacity-50 [&_svg]:invisible'
+                                                    )}
+                                                >
+                                                    <CheckIcon className="h-4 w-4" />
+                                                </div>
+                                                <span>{option.fileName}</span>
+                                            </CommandItem>
+                                        );
+                                    })}
+                                </CommandGroup>
+                            ) : (
+                                <CommandEmpty>No options available</CommandEmpty>
+                            )}
                             <CommandSeparator />
                             <CommandGroup>
                                 <div className="flex items-center justify-between">

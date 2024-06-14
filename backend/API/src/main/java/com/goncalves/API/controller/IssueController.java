@@ -3,6 +3,8 @@ package com.goncalves.API.controller;
 import com.goncalves.API.DTO.BadRequestExceptionRecord;
 import com.goncalves.API.DTO.DadosAtualizarIssue;
 import com.goncalves.API.DTO.DadosCreateNewIssue;
+import com.goncalves.API.entities.files.Files;
+import com.goncalves.API.entities.files.FilesRepository;
 import com.goncalves.API.entities.issues.Issue;
 import com.goncalves.API.entities.issues.IssueRepository;
 import com.goncalves.API.entities.request.Project;
@@ -30,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +56,9 @@ public class IssueController {
 
     @Autowired
     private IssueService issueService;
+
+    @Autowired
+    private FilesRepository filesRepository;
 
     @GetMapping("/{id}")
     public ResponseEntity getByProject(@PathVariable String id) {
@@ -121,6 +127,23 @@ public class IssueController {
         }
     }
 
+    @PostMapping("/files")
+    public ResponseEntity getFiles(@RequestBody List<String> id) {
+        try {
+            List<Files> filesList = new ArrayList<>();
+            for(var idFile : id){
+                var file = filesRepository.findById(idFile).orElseThrow(
+                    () -> new NotFoundException("File not found", idFile)
+                );
+                filesList.add(file);
+            }
+
+            return ResponseEntity.ok(filesList);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     /**
      * Creates a new issue for a project.
      *
@@ -128,7 +151,7 @@ public class IssueController {
      * @param id    The ID of the project.
      * @return ResponseEntity containing the created issue or an error message.
      */
-    @PostMapping("/create/project/{id}")
+    @PostMapping(value = "/create/project/{id}")
     @Transactional
     @Operation(summary = "Create a new Issue and update project", method = "POST")
     @ApiResponses(value = {
@@ -137,8 +160,8 @@ public class IssueController {
             @ApiResponse(responseCode = "500", description = "Internal server error."),
             @ApiResponse(responseCode = "400", description = "Invalid data.")
     })
-    public ResponseEntity createIssue(@RequestBody DadosCreateNewIssue dados,
-                                      @PathVariable String id) {
+    public ResponseEntity createIssue(@PathVariable String id,
+                                      @RequestBody DadosCreateNewIssue dados) {
         try {
             // Obtendo o usuário autenticado
             var user = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -163,7 +186,8 @@ public class IssueController {
                     true,
                     LocalDateTime.now(),
                     null,
-                    user
+                    user,
+                    dados.files()
             );
 
             var savedIssue = issueRepository.save(issue);
@@ -177,11 +201,10 @@ public class IssueController {
         } catch (BadRequestException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            // Capturando qualquer outra exceção não prevista
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Internal server error");
         }
     }
-
 
     /**
      * Closes an issue.
