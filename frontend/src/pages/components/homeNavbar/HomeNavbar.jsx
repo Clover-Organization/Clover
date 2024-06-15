@@ -32,7 +32,7 @@ const HomeNavbar = ({ idProject }) => {
             </Link>
             <nav className="flex items-center gap-6 text-sm">
 
-                {idProject !== null && idProject !== undefined ? (
+                {idProject !== null && idProject !== undefined && idProject !== "editor" ? (
                     <Link
                         to={`/project/${idProject}`}
                         className={cn(
@@ -54,7 +54,7 @@ const HomeNavbar = ({ idProject }) => {
                     </Link>
                 )}
 
-                {idProject !== null && idProject !== undefined && (
+                {idProject !== null && idProject !== undefined && idProject !== "editor" && (
 
                     <Link
                         to={`/issues/${idProject}`}
@@ -67,7 +67,7 @@ const HomeNavbar = ({ idProject }) => {
                     </Link>
 
                 )}
-                {idProject !== null && idProject !== undefined && (
+                {idProject !== null && idProject !== undefined && idProject !== "editor" && (
 
                     <Link
                         to={`/annotation/${idProject}`}

@@ -75,9 +75,11 @@ export default function UserDetails({ userData, openModalUpdateImage, openModalU
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                    <Button onClick={() => handleUpdateUserAction(editUser, token)}>Save</Button>
-                    <Button variant="outline" onClick={() => openModalUserUpdate(setModalIsOpen, setEditUser, userData)}>Change password</Button>
+                <div className="flex flex-wrap justify-between gap-2">
+                    <div className="flex gap-2 flex-wrap">
+                        <Button onClick={() => handleUpdateUserAction(editUser, token)}>Save</Button>
+                        <Button variant="outline" onClick={() => openModalUserUpdate(setModalIsOpen, setEditUser, userData)}>Change password</Button>
+                    </div>
                     <Button variant="destructive" onClick={() => handleLogouUser()}>Logout</Button>
                 </div>
             </div>

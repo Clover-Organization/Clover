@@ -24,7 +24,6 @@ import { useTheme } from "@/components/theme-provider";
 import { DiffEditor } from "@monaco-editor/react";
 import { downloadFile } from "../utils/downloadFile/downloadFile";
 import RendererFile from "./components/rendererFile/RendererFile";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 
 const FileView = () => {
@@ -232,56 +231,53 @@ const FileView = () => {
                         <>
                             {showCommitsSelected.selectedCommit ? (
                                 <>
-                                    {
-                                        showCommitsSelected.changes.contentType === "image" ? (
-                                            <div className="image-content">
-                                                <img src={showCommits.changes} alt="image" />
-                                            </div>
-                                        ) : (
-                                            <div className="file-content-editor flex">
-                                                <DiffEditor
-                                                    className="editor-container"
-                                                    height="70vh"
-                                                    width="100%"
-                                                    language={GetLanguageInfos(singleRequest.fileName).name}
-                                                    original={fileContent.data} // Conteúdo original
-                                                    modified={showCommitsSelected.changes} // Conteúdo modificado (mudança)
-                                                    theme={editorTheme}
-                                                    options={{
-                                                        renderSideBySide: true, // Renderização lado a lado
-                                                        selectOnLineNumbers: true,
-                                                        scrollBeyondLastLine: false,
-                                                        fontSize: `${fontSize}px`,
-                                                        fontLigatures: fontLigatures,
-                                                        readOnly: true,
-                                                        fontFamily: fontFamily,
-                                                        acceptSuggestionOnEnter: acceptSuggestionOnEnter,
-                                                        autoClosingBrackets: autoClosingBrackets,
-                                                        autoClosingDelete: autoClosingDelete,
-                                                        autoClosingOvertype: autoClosingOvertype,
-                                                        autoClosingQuotes: autoClosingQuotes,
-                                                        autoIndent: autoIndent,
-                                                        codeLens: codeLens,
-                                                        contextmenu: contextmenu,
-                                                        cursorBlinking: cursorBlinking,
-                                                        cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
-                                                        cursorStyle: cursorStyle,
-                                                        disableLayerHinting: disableLayerHinting,
-                                                        disableMonospaceOptimizations: disableMonospaceOptimizations,
-                                                        dragAndDrop: dragAndDrop,
-                                                        emptySelectionClipboard: emptySelectionClipboard,
-                                                        fixedOverflowWidgets: fixedOverflowWidgets,
-                                                        formatOnPaste: formatOnPaste,
-                                                        formatOnType: formatOnType,
-                                                        glyphMargin: glyphMargin,
-                                                        hideCursorInOverviewRuler: hideCursorInOverviewRuler,
-                                                        letterSpacing: letterSpacing,
-                                                    }}
-                                                />
-                                            </div>
-
-                                        )
-                                    }
+                                    {showCommitsSelected.changes && showCommitsSelected.changes.contentType === "image" ? (
+                                        <div className="image-content">
+                                            <img src={showCommitsSelected.changes} alt="image" />
+                                        </div>
+                                    ) : (
+                                        <div className="file-content-editor flex">
+                                            <DiffEditor
+                                                className="editor-container"
+                                                height="70vh"
+                                                width="100%"
+                                                language={GetLanguageInfos(singleRequest.fileName).name}
+                                                original={fileContent.data}
+                                                modified={showCommitsSelected.changes}
+                                                theme={editorTheme}
+                                                options={{
+                                                    renderSideBySide: true,
+                                                    selectOnLineNumbers: true,
+                                                    scrollBeyondLastLine: false,
+                                                    fontSize: `${fontSize}px`,
+                                                    fontLigatures: fontLigatures,
+                                                    readOnly: true,
+                                                    fontFamily: fontFamily,
+                                                    acceptSuggestionOnEnter: acceptSuggestionOnEnter,
+                                                    autoClosingBrackets: autoClosingBrackets,
+                                                    autoClosingDelete: autoClosingDelete,
+                                                    autoClosingOvertype: autoClosingOvertype,
+                                                    autoClosingQuotes: autoClosingQuotes,
+                                                    autoIndent: autoIndent,
+                                                    codeLens: codeLens,
+                                                    contextmenu: contextmenu,
+                                                    cursorBlinking: cursorBlinking,
+                                                    cursorSmoothCaretAnimation: cursorSmoothCaretAnimation,
+                                                    cursorStyle: cursorStyle,
+                                                    disableLayerHinting: disableLayerHinting,
+                                                    disableMonospaceOptimizations: disableMonospaceOptimizations,
+                                                    dragAndDrop: dragAndDrop,
+                                                    emptySelectionClipboard: emptySelectionClipboard,
+                                                    fixedOverflowWidgets: fixedOverflowWidgets,
+                                                    formatOnPaste: formatOnPaste,
+                                                    formatOnType: formatOnType,
+                                                    glyphMargin: glyphMargin,
+                                                    hideCursorInOverviewRuler: hideCursorInOverviewRuler,
+                                                    letterSpacing: letterSpacing,
+                                                }}
+                                            />
+                                        </div>
+                                    )}
                                 </>
                             ) : (
                                 <>
