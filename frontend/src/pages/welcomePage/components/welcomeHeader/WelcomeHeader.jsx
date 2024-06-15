@@ -26,12 +26,12 @@ export default function WelcomeHeader({ idProject }) {
 	}
 
 	const handleAllNotifications = async () => {
-        await getAllNotificationsByUser(token, setNotifications, 0, "", () => {});
-    }
+		await getAllNotificationsByUser(token, setNotifications, 0, "", () => { });
+	}
 
 	useEffect(() => {
-        handleAllNotifications();
-    }, []);
+		handleAllNotifications();
+	}, []);
 
 
 	return (
@@ -50,14 +50,14 @@ export default function WelcomeHeader({ idProject }) {
 								<ModeToggle />
 								{!role ? (
 									<>
-										
+
 										<Button variant="ghost" asChild><Link to="/auth/login">Sign In</Link></Button>
 										<Button asChild><Link to="/auth/register">Sign Up</Link></Button>
 									</>
 								) : (
 									<div className="flex">
 										<ProfileMenu userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers} />
-										<NotificationMenu  userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers} notifications={notifications}/>
+										<NotificationMenu userData={userData} idProject={idProject} shareUsers={singleRequest.shareUsers} notifications={notifications} />
 									</div>
 								)
 								}

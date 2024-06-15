@@ -91,6 +91,19 @@ export function MobileNav({ role, idProject, singleRequest }) {
                                         Annotations
                                     </MobileLink>
                                 )}
+                                {idProject !== null && idProject !== undefined && (
+                                    <MobileLink
+                                    to={`/issues/${idProject}`}
+                                        className={cn(
+                                            "transition-colors hover:text-foreground/80",
+                                            pathname?.startsWith("/issues")
+                                                ? "text-foreground"
+                                                : "text-foreground/60"
+                                        )}
+                                    >
+                                        Issues
+                                    </MobileLink>
+                                )}
                                 <MobileLink
                                     to={`/roadmap`}
                                     className={cn(
