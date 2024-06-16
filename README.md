@@ -11,6 +11,16 @@ Este é o código-fonte e a documentação do meu Trabalho de Conclusão de Curs
 
 <br>
 
+## 🧰 Technologies
+
+Here are some of the technologies we used to develop Clover:
+
+<div align="left">
+    <img src="https://skillicons.dev/icons?i=spring,react,tailwind,mongodb,docker" />
+</div>
+
+<br>
+
 ## 🛠️ Funções
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
