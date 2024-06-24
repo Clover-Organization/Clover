@@ -29,7 +29,7 @@ const WelcomeService = () => {
 				<div className="flex flex-wrap justify-center items-center">
 					<div className="">
 						<h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-							<span className="text-white">
+							<span className="text-foreground">
 								Explore some of the features of{" "}
 							</span>
 							Clover
