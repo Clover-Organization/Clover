@@ -87,7 +87,7 @@ const WelcomeTeam = () => {
 			<div className="container w-full">
 				<div className="flex flex-wrap justify-center items-center gap-8">
 					<h2 className="text-3xl my-12 font-bold tracking-tighter md:text-4xl/tight">
-						<span className="text-white">
+						<span className="text-foreground">
 							Meet the team behind{" "}
 						</span>
 						Clover
