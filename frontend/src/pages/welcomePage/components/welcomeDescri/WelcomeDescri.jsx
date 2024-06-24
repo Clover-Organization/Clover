@@ -11,16 +11,13 @@ import {
 	PackageOpen,
 	CheckIcon,
 } from "lucide-react";
+import CodeBlock from "./components/codeBlock/CodeBlock";
 
 const WelcomeDescri = () => {
 	return (
 		<section className="h-screen w-full py-12 md:py-24 lg:py-32">
 			<div className="container grid gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16">
-				{/* <img
-					src="/assets/AboutImg.png"
-					width={600}
-					height={400}
-					alt="Feature Image"
+				{/* <CodeBlock
 					className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
 				/> */}
 				<div className="flex flex-col justify-center space-y-4">
