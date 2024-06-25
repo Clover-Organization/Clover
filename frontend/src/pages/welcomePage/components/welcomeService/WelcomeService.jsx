@@ -24,7 +24,7 @@ const WelcomeService = () => {
 	const [selectedTab, setSelectedTab] = useState("Projects");
 
 	return (
-		<section className="h-screen w-full py-12 md:py-24 lg:py-32">
+		<section className="md:h-screen w-full py-12 md:py-24 lg:py-32">
 			<div className="container">
 				<div className="flex flex-wrap justify-center items-center">
 					<div className="">
@@ -124,7 +124,7 @@ const WelcomeService = () => {
 							</AccordionContent>
 						</AccordionItem>
 					</Accordion>
-					<div className="border dark:border-gray-800 w-full sm:w-[800px] ">
+					<div className="border dark:border-gray-800 w-full max-md:hidden">
 						<div className="text-center">
 							{selectedTab === "Projects" && (
 								<Card>

@@ -5,9 +5,9 @@ import LottieAnimation from "./components/lottieAnimation/LottieAnimation";
 
 const WelcomeDescri = () => {
 	return (
-		<section className="h-screen w-full py-64">
+		<section className="md:h-screen w-full py-32 md:py-64">
 			<div className="container grid gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16">
-				<LottieAnimation  />
+				<LottieAnimation  className="max-md:hidden"/>
 				<div className="flex flex-col justify-center space-y-4">
 					<div className="space-y-2">
 						<h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">

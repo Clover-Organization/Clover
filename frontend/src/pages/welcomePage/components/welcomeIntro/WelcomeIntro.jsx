@@ -47,7 +47,7 @@ const WelcomeIntro = () => {
 				</div>
 			</div>
 	
-			<Spline scene="https://prod.spline.design/VII16kLioCuRlIlY/scene.splinecode" />
+			<Spline className="max-md:hidden" scene="https://prod.spline.design/VII16kLioCuRlIlY/scene.splinecode" />
 
 			{/* Shadow effect */}
 			<div className="shadow"></div>

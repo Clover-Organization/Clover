@@ -12,7 +12,7 @@ const LottieAnimation = () => {
       };
     
     return (
-      <div className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full">
+      <div className="max-md:hidden">
         <Lottie 
           options={defaultOptions}
           height={400}
