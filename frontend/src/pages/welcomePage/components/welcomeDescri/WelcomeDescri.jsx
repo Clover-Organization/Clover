@@ -12,6 +12,7 @@ import {
 	CheckIcon,
 } from "lucide-react";
 import CodeBlock from "./components/codeBlock/CodeBlock";
+import LottieAnimation from "./components/lottieAnimation/LottieAnimation";
 
 const WelcomeDescri = () => {
 	return (
@@ -20,6 +21,7 @@ const WelcomeDescri = () => {
 				{/* <CodeBlock
 					className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
 				/> */}
+				<LottieAnimation  />
 				<div className="flex flex-col justify-center space-y-4">
 					<div className="space-y-2">
 						<h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
