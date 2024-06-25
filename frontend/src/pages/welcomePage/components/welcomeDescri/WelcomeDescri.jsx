@@ -1,26 +1,12 @@
 import React from "react";
 import "../../style/style.css";
-import AboutImg from "./assets/AboutImg.png";
-import iconBalanca from "./assets/iconBalanca.png";
-import {
-	GitCompareArrows,
-	Users,
-	Blocks,
-	ListTodo,
-	Route,
-	PackageOpen,
-	CheckIcon,
-} from "lucide-react";
-import CodeBlock from "./components/codeBlock/CodeBlock";
+import { CheckIcon } from "lucide-react";
 import LottieAnimation from "./components/lottieAnimation/LottieAnimation";
 
 const WelcomeDescri = () => {
 	return (
-		<section className="h-screen w-full py-12 md:py-24 lg:py-32">
+		<section className="h-screen w-full py-64">
 			<div className="container grid gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16">
-				{/* <CodeBlock
-					className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-				/> */}
 				<LottieAnimation  />
 				<div className="flex flex-col justify-center space-y-4">
 					<div className="space-y-2">
