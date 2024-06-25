@@ -1,0 +1,20 @@
+.typewriter-collaboration {
+    font-family: monospace;
+    color: #fff;
+    background-color: #282c34;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .collaborator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0,0,0,0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+  }
+  
