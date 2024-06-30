@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
 import { WelcomeNavbar } from "../welcomeNavbar/WelcomeNavbar";
 import { MobileNav } from "../mobileNavbar/MobileNavbar";
 import { Link } from "react-router-dom";
@@ -10,6 +9,9 @@ import HomeNavbar from "@/pages/components/homeNavbar/HomeNavbar";
 import ProfileMenu from "@/pages/components/homeNavbar/components/ProfileMenu";
 import { NotificationMenu } from "@/pages/components/homeNavbar/components/NotificationMenu";
 import { getAllNotificationsByUser } from "@/pages/notification/components/utils/getAllNotificationsByUser/getAllNotificationsByUser";
+import Navbar from "@/pages/components/Navbar";
+import NavbarSettings from "@/components/navbarSettings/NavbarSettings";
+
 
 export default function WelcomeHeader({ idProject }) {
 	const [role, setRole] = useState(localStorage.getItem("role"));
@@ -17,6 +19,7 @@ export default function WelcomeHeader({ idProject }) {
 	const [singleRequest, setSingleRequest] = useState({});
 	const token = localStorage.getItem("token");
 	const [notifications, setNotifications] = useState([]);
+	
 
 	if (role) {
 		useEffect(() => {
@@ -47,7 +50,7 @@ export default function WelcomeHeader({ idProject }) {
 					<nav className="flex items-center">
 						<div className="flex items-center justify-end md:justify-end">
 							<div className="flex items-center justify-center gap-2 md:justify-end">
-								<ModeToggle />
+								<NavbarSettings />
 								{!role ? (
 									<>
 
