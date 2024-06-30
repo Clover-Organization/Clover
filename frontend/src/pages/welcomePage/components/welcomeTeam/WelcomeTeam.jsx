@@ -8,67 +8,76 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Github, Instagram, Linkedin } from "lucide-react";
-
-const teamList = [
-	{
-		imageUrl:
-			"https://media.licdn.com/dms/image/D4E03AQHQcx8kkG6VCQ/profile-displayphoto-shrink_800_800/0/1690566695368?e=1723075200&v=beta&t=IFIVdIZ22tt2TlvCZc_Z353cQb3etpPn2-AzPw7f484",
-		name: "Nikolas Melo",
-		position: "Frontend Developer",
-		socialNetworks: [
-			{ name: "Linkedin", url: "http://linkedin.com" },
-			{
-				name: "GitHub",
-				url: "https://github.com/thepokenik",
-			},
-			{
-				name: "Instagram",
-				url: "https://www.instagram.com/rgg09z/",
-			},
-		],
-		description:
-			"Software developer passionate about Computer Vision and Artificial Intelligence.",
-	},
-	{
-		imageUrl:
-			"https://media.licdn.com/dms/image/D4D03AQEXLnU_WIcOVQ/profile-displayphoto-shrink_800_800/0/1716695001036?e=1723075200&v=beta&t=rYX5rNSpl6A30yWX7w44MebjIeNuj49BrR1gR-bi2A8",
-		name: "Ryan Gonçalves",
-		position: "FullStack Developer",
-		socialNetworks: [
-			{ name: "Linkedin", url: "http://linkedin.com" },
-			{
-				name: "GitHub",
-				url: "https://github.com/RyanGustavoGoncalves",
-			},
-			{
-				name: "Instagram",
-				url: "https://www.instagram.com/incognitoniko/",
-			},
-		],
-		description:
-			"Software developer passionate about Java language and backend systems.",
-	},
-	{
-		imageUrl: "https://avatars.githubusercontent.com/u/128411446?v=4",
-		name: "Heitor Manoel",
-		position: "Frontend Developer",
-		socialNetworks: [
-			{ name: "Linkedin", url: "http://linkedin.com" },
-			{
-				name: "GitHub",
-				url: "https://github.com/lonelykkj",
-			},
-			{
-				name: "Instagram",
-				url: "https://www.instagram.com/h_eitoor/",
-			},
-		],
-		description:
-			"Enthusiastic Systems Development student with a passion for programming.",
-	},
-];
+import { useTranslation } from "react-i18next";
 
 const WelcomeTeam = () => {
+	const { t } = useTranslation();
+
+	const teamList = [
+		{
+			imageUrl:
+				"https://media.licdn.com/dms/image/D4E03AQHQcx8kkG6VCQ/profile-displayphoto-shrink_800_800/0/1690566695368?e=1723075200&v=beta&t=IFIVdIZ22tt2TlvCZc_Z353cQb3etpPn2-AzPw7f484",
+			name: "Nikolas Melo",
+			position: t("welcome.team.members.nikolas.role"),
+			socialNetworks: [
+				{
+					name: "Linkedin",
+					url: "https://www.linkedin.com/in/nikolas-melo-5743b1258/",
+				},
+				{
+					name: "GitHub",
+					url: "https://github.com/thepokenik",
+				},
+				{
+					name: "Instagram",
+					url: "https://www.instagram.com/incognitoniko/",
+				},
+			],
+			description: t("welcome.team.members.nikolas.description"),
+		},
+		{
+			imageUrl:
+				"https://media.licdn.com/dms/image/D4D03AQEXLnU_WIcOVQ/profile-displayphoto-shrink_800_800/0/1716695001036?e=1723075200&v=beta&t=rYX5rNSpl6A30yWX7w44MebjIeNuj49BrR1gR-bi2A8",
+			name: "Ryan Gonçalves",
+			position: t("welcome.team.members.ryan.role"),
+			socialNetworks: [
+				{
+					name: "Linkedin",
+					url: "https://www.linkedin.com/in/ryangonçalves/",
+				},
+				{
+					name: "GitHub",
+					url: "https://github.com/RyanGustavoGoncalves",
+				},
+				{
+					name: "Instagram",
+					url: "https://www.instagram.com/rgg09z/",
+				},
+			],
+			description: t("welcome.team.members.ryan.description"),
+		},
+		{
+			imageUrl: "https://avatars.githubusercontent.com/u/128411446?v=4",
+			name: "Heitor Manoel",
+			position: t("welcome.team.members.heitor.role"),
+			socialNetworks: [
+				{
+					name: "Linkedin",
+					url: "https://www.linkedin.com/in/heitor-manoel-465413250/",
+				},
+				{
+					name: "GitHub",
+					url: "https://github.com/lonelykkj",
+				},
+				{
+					name: "Instagram",
+					url: "https://www.instagram.com/h_eitoor/",
+				},
+			],
+			description: t("welcome.team.members.heitor.description"),
+		},
+	];
+
 	const socialIcon = (iconName) => {
 		switch (iconName) {
 			case "Linkedin":
@@ -88,9 +97,9 @@ const WelcomeTeam = () => {
 				<div className="flex flex-wrap justify-center items-center gap-8">
 					<h2 className="text-3xl my-12 font-bold tracking-tighter md:text-4xl/tight">
 						<span className="text-foreground">
-							Meet the team behind{" "}
+							{t("welcome.team.title.line1")}{" "}
 						</span>
-						Clover
+						{t("welcome.team.title.line2")}
 					</h2>
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 						{teamList.map(
