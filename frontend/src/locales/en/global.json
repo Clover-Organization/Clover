@@ -1,0 +1,104 @@
+{
+    "example": "Example",
+    "navbar": {
+        "placeholder": "Language",
+        "english": "English",
+        "portuguese": "Portuguese",
+        "theme": {
+            "placeholder": "Theme",
+            "light": "Light",
+            "dark": "Dark"
+        }
+    },
+    "welcome": {
+        "intro": {
+            "slogan": {
+                "line1": "Be clever.",
+                "line2": "Use Clover."
+            },
+            "description": "Unlock your coding potential effortlessly with Clover. Where versioning becomes intuitive and coding becomes a breeze for programming learners",
+            "buttons": {
+                "getStarted": "Get Started",
+                "github": "GitHub Repository"
+            }
+        },
+        "description": {
+            "title": "Streamlined Collaboration",
+            "subtitle": "Bring your team together with built-in code review, real-time commenting, and seamless version control.",
+            "features": {
+                "collaborativeCoding": {
+                    "title": "Collaborative Coding",
+                    "description": "Invite team members to review and comment on code changes in real-time."
+                },
+                "seamlessVersioning": {
+                    "title": "Seamless Versioning",
+                    "description": "Track and manage code changes with built-in version control."
+                },
+                "instantFeedback": {
+                    "title": "Instant Feedback",
+                    "description": "Get immediate feedback on your code with automated testing and linting."
+                }
+            }
+        },
+        "service": {
+            "title": {
+                "line1": "Explore some of the features of",
+                "line2": "Clover"
+            },
+            "features": {
+                "project": {
+                    "title": "Project",
+                    "description": "Create and manage projects with ease. Collaborate with your team and keep track of your progress."
+                },
+                "editor": {
+                    "title": "Editor",
+                    "description": "Code with confidence in our editor. With syntax highlighting and linting, you'll never miss a beat."
+                },
+                "roadmap": {
+                    "title": "Roadmap",
+                    "description": "From learning the basics of HTML and CSS to diving deep into machine learning algorithms, each roadmap is meticulously crafted to help you achieve your goals."
+                }
+            }
+        },
+        "team": {
+            "title": {
+                "line1": "Meet the team behind",
+                "line2": "Clover"
+            },
+            "members": {
+                "nikolas": {
+                    "role": "Fullstack Developer",
+                    "description": "Software developer passionate about Computer Vision and Artificial Intelligence."
+                },
+                "ryan": {
+                    "role": "Fullstack Developer",
+                    "description": "Software developer passionate about Java language and backend systems."
+                },
+                "heitor": {
+                    "role": "Frontend Developer",
+                    "description": "Enthusiastic Systems Development student with a passion for programming."
+                }
+            }
+        },
+        "cta": {
+            "title": "Experience Intuitive Collaboration with Clover",
+            "description": "Empower your team to focus on innovation with real-time collaborative editing and streamlined version control.",
+            "buttons": {
+                "getStarted": "Get Started",
+                "learn": "Learn More"
+            }
+        }
+    },
+    "footer": {
+        "description": "Clover is a website built with React, Java, and MongoDB, designed for collaborative code versioning.",
+        "links": {
+            "privacyPolicy": "Privacy Policy",
+            "termsOfService": "Terms of Service",
+            "cookiePolicy": "Cookie Policy"
+        },
+        "rights": {
+            "line1": "© Clover",
+            "line2": ". All rights reserved. 2023-present."
+        }
+    }
+}
