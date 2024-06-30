@@ -1,0 +1,104 @@
+{
+    "example": "Exemplo",
+    "navbar": {
+        "placeholder": "Idioma",
+        "english": "Inglês",
+        "portuguese": "Português",
+        "theme": {
+            "placeholder": "Tema",
+            "light": "Claro",
+            "dark": "Escuro"
+        }
+    },
+    "welcome": {
+        "intro": {
+            "slogan": {
+                "line1": "Seja sagaz.",
+                "line2": "Use Clover."
+            },
+            "description": "Desperte todo o seu potencial em programação com Clover. Onde o versionamento é intuitivo e aprender a programar se torna simples e agradável.",
+            "buttons": {
+                "getStarted": "Comece já!",
+                "github": "Repositório do GitHub"
+            }
+        },
+        "description": {
+            "title": "Colaboração Simplificada",
+            "subtitle": "Reúna sua equipe com revisão de código integrada, comentários em tempo real e um controle de versão sem falhas.",
+            "features": {
+                "collaborativeCoding": {
+                    "title": "Codificação Colaborativa",
+                    "description": "Convide membros da equipe para comentar sobre mudanças de código em tempo real."
+                },
+                "seamlessVersioning": {
+                    "title": "Versionamento Sem Falhas",
+                    "description": "Acompanhe e gerencie mudanças de código com controle de versão integrado."
+                },
+                "instantFeedback": {
+                    "title": "Feedback Instantâneo",
+                    "description": "Receba feedback imediato sobre seu código com testes automatizados."
+                }
+            }
+        },
+        "service": {
+            "title": {
+                "line1": "Explore algumas das funcionalidades do",
+                "line2": "Clover"
+            },
+            "features": {
+                "project": {
+                    "title": "Projeto",
+                    "description": "Crie e gerencie projetos com facilidade. Colabore com sua equipe e acompanhe seu progresso."
+                },
+                "editor": {
+                    "title": "Editor",
+                    "description": "Codifique com confiança em nosso editor. Com destaque de sintaxe e linting, você nunca perderá um detalhe."
+                },
+                "roadmap": {
+                    "title": "Mapa de Aprendizado",
+                    "description": "Desde aprender o básico de HTML e CSS até mergulhar fundo em algoritmos de aprendizado de máquina, cada roteiro é meticulosamente elaborado para ajudá-lo a alcançar seus objetivos."
+                }
+            }
+        },
+        "team": {
+            "title": {
+                "line1": "Conheça os membros da equipe do",
+                "line2": "Clover"
+            },
+            "members": {
+               "nikolas": {
+                    "role": "Desenvolvedor Fullstack",
+                    "description": "Desenvolvedor de software apaixonado por Visão Computacional e Inteligência Artificial."
+                },
+                "ryan": {
+                    "role": "Desenvolvedor Fullstack",
+                    "description":  "Desenvolvedor de software apaixonado pela linguagem Java e sistemas de backend."
+                },
+                "heitor": {
+                    "role": "Desenvolvedor Frontend",
+                    "description": "Estudante entusiasta de Desenvolvimento de Sistemas com paixão por programação."
+                }
+            }
+        },
+        "cta": {
+            "title": "Pronto para começar?",
+            "description": "Comece a focar na inovação com edição colaborativa em tempo real e controle de versão simplificado.",
+            "buttons": {
+                "getStarted": "Comece já!",
+                "learn": "Saiba mais"
+            }
+        }
+    },
+    "footer": {
+        "description": "Clover é um site construído com React, Java e MongoDB, projetado para versionamento colaborativo de código.",
+        "links": {
+            "privacyPolicy": "Política de Privacidade",
+            "termsOfService": "Termos de Serviço",
+            "cookiePolicy": "Política de Cookies"
+        },
+        "rights": {
+            "line1": "© Clover",
+            "line2": ". Todos os direitos reservados. 2023-presente."
+        }
+    }
+}
