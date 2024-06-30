@@ -47,7 +47,7 @@ export function MobileNav({ role, idProject, singleRequest }) {
                                     Docs
                                 </MobileLink>
                                 <MobileLink
-                                    to="https://github.com/thepokenik/clover"
+                                    to="https://github.com/Clover-Organization/Clover"
                                     className={cn(
                                         "text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
                                     )}
