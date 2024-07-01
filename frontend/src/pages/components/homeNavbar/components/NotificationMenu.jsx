@@ -31,7 +31,7 @@ const components = [
     },
     {
         title: "GitHub",
-        to: "https://github.com/thepokenik/clover",
+        to: "https://github.com/Clover-Organization/Clover",
         target: "_blank",
         description:
             "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",

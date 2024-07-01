@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Github, Twitter, Facebook } from "lucide-react";
-import Icon from "@/pages/components/Icon";
-import logo from "@/pages/components/assets/PTCC.png";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+	const { t } = useTranslation();
+
 	return (
 		<footer className=" py-6 ">
 			<section className="container mx-auto px-4 ">
 				<div className="grid gap-6 py-6">
 					<div className="flex flex-col gap-6">
 						<p className="font-light opacity-70">
-							Clover is a website built with React, Java, and
-							MongoDB, designed for collaborative code versioning.
+							{t("footer.description")}
 						</p>
 					</div>
 					<div className="flex flex-col md:flex-row gap-4 mb-4 md:mb-0">
@@ -20,19 +20,19 @@ const Footer = () => {
 							to="/privacy-policy"
 							className="font-light opacity-70"
 						>
-							Privacy Policy
+							{t("footer.links.privacyPolicy")}
 						</Link>
 						<Link
 							to="/terms-of-service"
 							className="font-light opacity-70"
 						>
-							Terms of Service
+							{t("footer.links.termsOfService")}
 						</Link>
 						<Link
 							to="/cookie-policy"
 							className="font-light opacity-70"
 						>
-							Cookie Policy
+							{t("footer.links.cookiePolicy")}
 						</Link>
 					</div>
 				</div>
@@ -42,20 +42,16 @@ const Footer = () => {
 							variant="outline"
 							size="icon"
 							as="a"
-							href="https://github.com/thepokenik/clover"
+							href="https://github.com/Clover-Organization/Clover"
 						>
 							<Github />
 						</Button>
 					</div>
 					<p className="text-gray-500 text-center md:text-left">
-						©{" "}
-						<a
-							href="https://github.com/thepokenik/clover"
-							className="hover:underline"
-						>
-							Clover
+						<a href="https://github.com/Clover-Organization/Clover">
+							{t("footer.rights.line1")}
 						</a>
-						. All rights reserved. 2023-present.
+							{t("footer.rights.line2")}
 					</p>
 				</div>
 			</section>

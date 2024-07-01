@@ -12,16 +12,18 @@ import {
 	DollarSignIcon,
 	Code,
 	Map,
-	FolderOpen 
+	FolderOpen,
 } from "lucide-react";
 import RoadMap from "@/pages/roadmap/RoadMap";
 import RoadmapPreview from "@/pages/docs/components/roadmap/components/roadmapPreview/RoadmapPreview";
 import { Card } from "@/components/ui/card";
 import ProjectPreview from "@/pages/docs/components/versioning/projectPreview/ProjectPreview";
 import FileEditorPreview from "./components/fileEditorPreview/FileEditorPreview";
+import { useTranslation } from "react-i18next";
 
 const WelcomeService = () => {
 	const [selectedTab, setSelectedTab] = useState("Projects");
+	const { t } = useTranslation();
 
 	return (
 		<section className="md:h-screen w-full py-12 md:py-24 lg:py-32">
@@ -30,9 +32,9 @@ const WelcomeService = () => {
 					<div className="">
 						<h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
 							<span className="text-foreground">
-								Explore some of the features of{" "}
+								{t("welcome.service.title.line1")}{" "}
 							</span>
-							Clover
+								{t("welcome.service.title.line2")}
 						</h2>
 					</div>
 				</div>
@@ -49,22 +51,13 @@ const WelcomeService = () => {
 							>
 								<FolderOpen className="w-5 h-5" />
 								<span className="font-medium">
-									Build Projects
+									{t("welcome.service.features.project.title")}
 								</span>
 							</AccordionTrigger>
 							<AccordionContent className="grid gap-4 p-3">
 								<div className="text-sm grid gap-2 leading-loose">
 									<p>
-										Clover provides a sanctuary for
-										developers of all skill levels to
-										nurture their coding ambitions. With its
-										sleek and minimalist design, our editor
-										offers a distraction-free environment
-										where you can focus solely on your code.
-										Whether you're crafting a simple script
-										or architecting a complex application,
-										Clover empowers you to bring your ideas
-										to fruition with precision and clarity.
+										{t("welcome.service.features.project.description")}
 									</p>
 								</div>
 							</AccordionContent>
@@ -74,23 +67,15 @@ const WelcomeService = () => {
 								className="flex items-start gap-2 p-3"
 								onClick={() => setSelectedTab("Editor")}
 							>
-								<Code className="w-5 h-5"/>
+								<Code className="w-5 h-5" />
 								<span className="font-medium">
-									Clover Editor
+									{t("welcome.service.features.editor.title")}
 								</span>
 							</AccordionTrigger>
 							<AccordionContent className="grid gap-4 p-3">
 								<div className="text-sm grid gap-2 leading-loose">
 									<p>
-										Clover Editor is highly customizable!
-										From themes and syntax highlighting to
-										keyboard shortcuts and layout, mold your
-										coding environment to reflect your style
-										and optimize your productivity. Whether
-										you prefer a dark-themed interface for
-										late-night coding sessions or a
-										light-themed one for clarity during the
-										day, the choice is yours.
+										{t("welcome.service.features.editor.description")}
 									</p>
 								</div>
 							</AccordionContent>
@@ -102,23 +87,13 @@ const WelcomeService = () => {
 							>
 								<Map className="w-5 h-5" />
 								<span className="font-medium">
-									Clover Roadmaps
+									{t("welcome.service.features.roadmap.title")}
 								</span>
 							</AccordionTrigger>
 							<AccordionContent className="grid gap-4 p-3">
 								<div className="text-sm grid gap-2 leading-loose">
 									<p>
-										With Clover Roadmaps, clarity and
-										direction are at your fingertips.
-										Whether you're a novice eager to explore
-										the fundamentals or a seasoned developer
-										aiming to master advanced concepts, our
-										comprehensive roadmaps provide a clear
-										route to success. From learning the
-										basics of HTML and CSS to diving deep
-										into machine learning algorithms, each
-										roadmap is meticulously crafted to help
-										you achieve your goals.
+										{t("welcome.service.features.roadmap.description")}
 									</p>
 								</div>
 							</AccordionContent>
