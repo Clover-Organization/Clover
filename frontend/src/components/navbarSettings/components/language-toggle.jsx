@@ -45,18 +45,3 @@ const LanguageToggle = () => {
 };
 
 export default LanguageToggle;
-
-{
-	/* <div className="flex items-center justify-between">
-						<h4 className="text-lg font-medium">Language:</h4>
-						<Select>
-							<SelectTrigger>
-								<SelectValue placeholder="Language" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="en">English</SelectItem>
-								<SelectItem value="pt">Portuguese</SelectItem>
-							</SelectContent>
-						</Select>
-					</div> */
-}
