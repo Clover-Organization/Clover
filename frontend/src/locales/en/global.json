@@ -100,5 +100,51 @@
             "line1": "© Clover",
             "line2": ". All rights reserved. 2023-present."
         }
+    },
+    "docs": {
+        "introduction": {
+            "title": "Introduction",
+            "description": {
+                "line1": "The Clover software was created based on the difficulties faced by programmers in the code versioning process. Through research, it is clear that many users face difficulties in learning and dealing with the complexities of GitHub, especially due to lack of time. For this reason, Clover was developed, with the aim of simplifying this experience.",
+                "line2": "The goal of the project is to offer a more accessible and intuitive platform, allowing users to feel directed when navigating and versioning projects, rather than worrying about the complexities of versioning. Through it, tasks that were previously complicated and took a lot of time become simpler and more accessible.",
+                "line3": "With a clean and friendly interface, it facilitates code sharing and promotes a more efficient project experience. Its purpose is to save users time and effort, allowing them to achieve their development goals more easily."
+            }
+        },
+        "problem": {
+            "title": "Problem Identification",
+            "description": {
+                "line1": "Code versioning is an essential step in software development, allowing developers to track changes made to a project over time. However, despite the importance of this practice, many developers face significant challenges when dealing with the complexities of code versioning, especially on platforms like GitHub.",
+                "line2": "The difficulties faced by users include the complexity of the interface, the lack of intuitive tools, and the time-consuming nature of the process. As a result, many developers find themselves spending more time managing code versions than actually coding, which can be frustrating and counterproductive.",
+                "line3": "To address these challenges, a new platform called Clover was developed, with the goal of simplifying the code versioning process and making it more accessible and intuitive for developers of all skill levels."
+            }
+        },
+        "structure": {
+            "title": "Project Structure",
+            "description": "The Clover project has been meticulously crafted with carefully selected technologies to ensure that the software is robust and comprehensive, while still maintaining the ease of use we aim to achieve. Each technology chosen has been strategically considered to meet the project's needs and those of its users. The judicious selection of technologies reflects our commitment to providing a solution that is reliable, powerful, and, at the same time, accessible and intuitive for our users.",
+            "techs": {
+                "frontend": {
+                    "title": "Frontend",
+                    "description": {
+                        "line1": "One of the pivotal decisions we made was to adopt React + Vite. This choice was driven by our pursuit of a development stack that seamlessly blends speed, simplicity, and efficiency, all essential ingredients for realizing our vision. React's component-based architecture empowers us to build modular and reusable UI elements, promoting code clarity and maintainability. Meanwhile, Vite's lightning-fast development server and build tooling optimize the development workflow, allowing for rapid iteration and deployment cycles. Together, React + Vite form a dynamic duo that not only meets but exceeds our expectations, enabling us to transform our ideas into reality with unparalleled agility and effectiveness.",
+                        "line2": "Complementing this stack is our choice of Tailwind CSS for styling. Tailwind's utility-first approach allows us to design responsive and modern user interfaces with ease and precision. It eliminates the need for writing custom CSS by providing a vast set of predefined classes, ensuring a consistent look and feel across the application. Moreover, Tailwind integrates seamlessly with React, enabling us to build highly customizable and visually appealing components quickly. This synergy between React, Vite, and Tailwind CSS not only accelerates our development process but also enhances the overall user experience, making our frontend development both efficient and enjoyable."
+                    }
+                },
+                "backend": {
+                    "title": "Backend",
+                    "description": {
+                        "line1": "Java + Spring stands as a cornerstone in our technology stack, meticulously chosen to embody the virtues of reliability, scalability, and developer productivity. Java, with its robustness and cross-platform compatibility, forms the bedrock of our backend infrastructure. Its mature ecosystem and extensive libraries empower us to tackle complex business logic with confidence, ensuring the stability and longevity of our applications.",
+                        "line2": "Complementing Java, Spring Framework emerges as a catalyst for rapid and efficient development. Its dependency injection, aspect-oriented programming, and comprehensive support for enterprise features streamline the development process, fostering code modularity, testability, and maintainability. With Spring Boot, our development journey is further expedited, providing out-of-the-box solutions for common tasks such as auto-configuration, embedded servers, and production-ready deployments.",
+                        "line3": "Together, Java + Spring epitomize a symbiotic relationship that harmonizes the power of Java with the productivity of the Spring ecosystem. This synergy not only empowers us to build robust and scalable applications but also enables us to navigate the ever-evolving landscape of enterprise software development with agility and confidence."
+                    }
+                },
+                "database": {
+                    "title": "Database",
+                    "description": {
+                        "line1": "MongoDB was chosen as the database technology for the Clover project due to its flexibility, scalability, and ease of use. As a NoSQL database, MongoDB offers a schema-less data model that allows for rapid development and iteration, making it an ideal choice for agile development environments. Its document-oriented architecture enables us to store complex data structures in a hierarchical format, facilitating data retrieval and manipulation.",
+                        "line2": "Moreover, MongoDB's horizontal scalability and sharding capabilities ensure that the database can grow seamlessly with the application, accommodating increasing data volumes and user loads. Its distributed architecture and high availability features enhance fault tolerance and data durability, safeguarding against data loss and downtime. With MongoDB, we can build a robust and reliable data layer that underpins the Clover platform, enabling us to deliver a seamless and responsive user experience."
+                    }
+                }
+            }
+        }
     }
 }
